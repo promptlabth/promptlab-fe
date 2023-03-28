@@ -20,7 +20,7 @@ const SocialMediaPostTable = () => {
     const API_URL = "https://api.openai.com/v1/completions";
 
     //! API_KEY. Must generate your secret key first if you run by using local computer
-    const API_KEY = "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";
+    const API_KEY = process.env.OPEN_API_KEY;
     const MODEL_NAME = "text-davinci-003";
     const TEMPERATURE = 0.5;
     const MAX_TOKENS = 2000;
