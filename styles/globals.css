@@ -1,4 +1,11 @@
-:root {
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200&family=Noto+Sans:wght@100;200&display=swap');
+:root{
+    --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
+    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
+    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+} */
+
+/* :root {
   --max-width: 1100px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
@@ -104,4 +111,4 @@ a {
   html {
     color-scheme: dark;
   }
-}
+} */
