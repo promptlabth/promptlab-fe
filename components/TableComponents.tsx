@@ -7,6 +7,16 @@ type ComponentProps = {
     message: string;
 };
 
+const postTypes = [
+    { value: "funny", label: "Funny" },
+    { value: "confident", label: "Confident" },
+    { value: "professional", label: "Professional" },
+    { value: "luxury", label: "Luxury" },
+    { value: "educational", label: "Educational" },
+    { value: "happy", label: "Happy" },
+];
+
+
 const SocialMediaPostTable = () => {
     const API_URL = "https://api.openai.com/v1/completions";
     const API_KEY = process.env.openAPI_KEY;
@@ -164,12 +174,11 @@ const SocialMediaPostTable = () => {
                                         onChange={(event) => handleTypeChange(index, event)}
                                         required
                                     >
-                                        <option value="funny">Funny</option>
-                                        <option value="confident">Confident</option>
-                                        <option value="professional">Professional</option>
-                                        <option value="luxury">Luxury</option>
-                                        <option value="educational">Educational</option>
-                                        <option value="happy">Happy</option>
+                                        {postTypes.map(({ value, label }) => (
+                                            <option key={value} value={value}>
+                                                {label}
+                                            </option>
+                                        ))}
                                     </select>
                                 </td>
                                 <td className="col-6">
