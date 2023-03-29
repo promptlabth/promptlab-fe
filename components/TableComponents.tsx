@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { translate } from '@vitalets/google-translate-api';
+import { useState, useEffect, ChangeEvent } from "react";
+import ToggleSwitch from "./starndart/ToggleSwitch";
 
 
 /**
@@ -26,6 +26,11 @@ const SocialMediaPostTable = () => {
     const MAX_TOKENS = 2000;
 
     const [components, setComponents] = useState<ComponentProps[]>([]);
+    const [isTh, setIsTh] = useState(false);
+
+    const handleToggle = (event: ChangeEvent<HTMLInputElement>) => {
+        setIsTh(event.target.checked);
+    };
 
     // Generate Button components
     const GenerateButton = (props: any) => {
@@ -52,14 +57,15 @@ const SocialMediaPostTable = () => {
                         type="button"
                         onClick={() => {
                             handleClick()
-                            handleSendSocialMediaPost(index)}
+                            handleSendSocialMediaPost(index)
+                        }
                         }
                     >
                         Generate
                     </button>
                 }
             </div>
-          
+
         );
     }
 
@@ -68,6 +74,7 @@ const SocialMediaPostTable = () => {
 
         // A message received by OpenAI to generate selling post with specific type.
         const prompt = `create post on social media to sell ${input} and the message is ${type}`;
+        const promt_th = prompt + 'in thai';
 
 
         try {
@@ -79,7 +86,7 @@ const SocialMediaPostTable = () => {
                 },
                 body: JSON.stringify({
                     model: MODEL_NAME,
-                    prompt: prompt,
+                    prompt: isTh ? promt_th : prompt,
                     temperature: TEMPERATURE,
                     max_tokens: MAX_TOKENS,
                 }),
@@ -160,6 +167,11 @@ const SocialMediaPostTable = () => {
                         Using powerful AI to make your selling more convenient!!!
                     </figcaption>
                 </figure>
+                <div className="text-light text-center">
+                    <h3>Language </h3>
+                    <ToggleSwitch isOn={isTh} handleToggle={handleToggle} />
+                    <p>{isTh ? 'TH' : 'EN'}</p>
+                </div>
             </div>
 
             {/* Table component */}
