@@ -1,26 +1,26 @@
-const API_URL = "https://api.openai.com/v1/completions";
-const API_KEY = process.env.openAPI_KEY;
+import { Configuration, OpenAIApi } from 'openai'
+// const API_URL = "https://api.openai.com/v1/completions";
+// const API_KEY = process.env.openAPI_KEY;
 
 const gennerateMassage = async (config: openApiConfig) => {
+    const configuration = new Configuration({
+        apiKey: process.env.openAPI_KEY,
+    });
+    const openai = new OpenAIApi(configuration);
     try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${API_KEY}`,
-            },
-            body: JSON.stringify({
-                model: config.model,
-                prompt: config.isTh ? config.promptTh : config.promptEn,
-                temperature: config.temperature,
-                max_tokens: config.maxToken,
-            }),
+        const response = await openai.createChatCompletion({
+            model: config.model,
+            messages : [
+                {"role": "user", "content": config.isTh ? config.promptTh : config.promptEn}
+            ],
+            temperature: config.temperature,
+            max_tokens: config.maxToken,
         });
-        const data = await response.json();
-        const message = data.choices[0].text;
-        return message
 
-    } catch (error) {
+        const message = response.data.choices[0].message?.content;
+        return message
+    }
+    catch (error) {
         console.error(error);
     }
 }

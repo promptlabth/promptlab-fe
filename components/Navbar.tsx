@@ -11,16 +11,16 @@ export const Navbar = () => {
                         <b> Prompt Lab </b>
                     </text>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Create Selling Post</a>
+                        <a className="nav-link" href="/createSellingPost">Create Selling Post</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Create Email message</a>
+                        <a className="nav-link" href="/createEmail">Create Email message</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Create Article</a>
+                        <a className="nav-link" href="/createArticle">Create Article</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Create Video Script</a>
+                        <a className="nav-link" href="/createShortVideoScripts">Create Video Script</a>
                     </li>
                 </ul>
             </div>
