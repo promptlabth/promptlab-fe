@@ -78,9 +78,7 @@ const TableComponents = (config: pageConfig) => {
         }
         
         try {
-            const message = await gennerateMassage(apiConfig)
-            console.log(message);
-            
+            const message = await gennerateMassage(apiConfig) ?? 'Error Please try again'
 
             setComponents((prevComponents) => {
                 const updatedComponents = [...prevComponents];
@@ -197,7 +195,7 @@ const TableComponents = (config: pageConfig) => {
                                     }
 
                                     {/* If there is message */}
-                                    {<span className="text-light">{message}</span>}
+                                    {<span className="text-light" style={{ whiteSpace: "pre-wrap" }}>{message}</span>}
                                 </td>
                                 <td>
                                     <GenerateButton index={index} />

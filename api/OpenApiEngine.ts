@@ -22,6 +22,7 @@ const gennerateMassage = async (config: openApiConfig) => {
     }
     catch (error) {
         console.error(error);
+        return 'Error Please try again'
     }
 }
 
