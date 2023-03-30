@@ -1,3 +1,4 @@
+import gennerateMassage, { openApiConfig } from "@/api/OpenApiEngine";
 import { useState, useEffect, ChangeEvent } from "react";
 import ToggleSwitch from "./starndart/ToggleSwitch";
 
@@ -6,6 +7,19 @@ type ComponentProps = {
     type: string;
     message: string;
 };
+
+export type modelCofig = {
+    model: string;
+    temperature: number;
+    maxToken: number;
+}
+
+export type pageConfig = {
+    modelConfig: modelCofig
+    promptEn: (input: string, type: string) => string;
+    promptTh: (input: string, type: string) => string;
+}
+
 
 const postTypes = [
     { value: "funny", label: "Funny" },
@@ -17,7 +31,7 @@ const postTypes = [
 ];
 
 
-const SocialMediaPostTable = () => {
+const TableComponents = (config: pageConfig) => {
     const API_URL = "https://api.openai.com/v1/completions";
     const API_KEY = process.env.openAPI_KEY;
     const MODEL_NAME = "text-davinci-003";
@@ -53,25 +67,20 @@ const SocialMediaPostTable = () => {
 
     const handleSendSocialMediaPost = async (index: number) => {
         const { input, type } = components[index];
-        const prompt = `create post on social media to sell ${input} and the message is ${type}`;
-        const prompt_th = prompt + "in thai";
+        config.promptEn(input,type)
+        config.promptEn(input,type)
 
+        const apiConfig : openApiConfig = {
+            isTh: isTh,
+            promptEn: config.promptEn(input, type),
+            promptTh: config.promptTh(input, type),
+            ...config.modelConfig
+        }
+        
         try {
-            const response = await fetch(API_URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${API_KEY}`,
-                },
-                body: JSON.stringify({
-                    model: MODEL_NAME,
-                    prompt: isTh ? prompt_th : prompt,
-                    temperature: TEMPERATURE,
-                    max_tokens: MAX_TOKENS,
-                }),
-            });
-            const data = await response.json();
-            const message = data.choices[0].text;
+            const message = await gennerateMassage(apiConfig)
+            console.log(message);
+            
 
             setComponents((prevComponents) => {
                 const updatedComponents = [...prevComponents];
@@ -212,4 +221,4 @@ const SocialMediaPostTable = () => {
     );
 };
 
-export default SocialMediaPostTable
+export default TableComponents
