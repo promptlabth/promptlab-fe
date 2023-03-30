@@ -2,6 +2,8 @@
  * Navigation Bar using Bootstrap 5
  */
 
+import Link from "next/link"
+
 export const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-sm bg-success fixed-top">
@@ -11,16 +13,16 @@ export const Navbar = () => {
                         <b> Prompt Lab </b>
                     </text>
                     <li className="nav-item">
-                        <a className="nav-link" href="/createSellingPost">Create Selling Post</a>
+                        <Link className="nav-link" href="/createSellingPost">Create Selling Post</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/createEmail">Create Email message</a>
+                        <Link className="nav-link" href="/createEmail">Create Email message</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/createArticle">Create Article</a>
+                        <Link className="nav-link" href="/createArticle">Create Article</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/createShortVideoScripts">Create Video Script</a>
+                        <Link className="nav-link" href="/createShortVideoScripts">Create Video Script</Link>
                     </li>
                 </ul>
             </div>
