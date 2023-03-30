@@ -2,7 +2,9 @@ import TableComponents from "@/components/TableComponents";
 
 const CreateArticle = () => {
     return (
-        <TableComponents modelConfig={{
+        <TableComponents 
+        titlePage = {"Create Your Article"}
+        modelConfig={{
             model: "gpt-3.5-turbo",
             temperature: 0.7,
             maxToken: 4000

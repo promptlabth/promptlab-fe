@@ -15,7 +15,8 @@ export type modelCofig = {
 }
 
 export type pageConfig = {
-    modelConfig: modelCofig
+    titlePage: string;
+    modelConfig: modelCofig;
     promptEn: (input: string, type: string) => string;
     promptTh: (input: string, type: string) => string;
 }
@@ -32,12 +33,6 @@ const postTypes = [
 
 
 const TableComponents = (config: pageConfig) => {
-    const API_URL = "https://api.openai.com/v1/completions";
-    const API_KEY = process.env.openAPI_KEY;
-    const MODEL_NAME = "text-davinci-003";
-    const TEMPERATURE = 0.5;
-    const MAX_TOKENS = 2000;
-
     const [components, setComponents] = useState<ComponentProps[]>([]);
     const [isTh, setIsTh] = useState(false);
 
@@ -134,10 +129,10 @@ const TableComponents = (config: pageConfig) => {
             <div className="container pt-5">
                 <figure className="text-center pt-4 pb-4 text-light">
                     <blockquote className="blockquote">
-                        <p className="display-4">Create your selling post</p>
+                        <p className="display-4">{config.titlePage}</p>
                     </blockquote>
                     <figcaption className="blockquote-footer">
-                        Using powerful AI to make your selling more convenient!!!
+                        Using powerful AI to make your all things
                     </figcaption>
                 </figure>
                 <div className="text-light text-center">

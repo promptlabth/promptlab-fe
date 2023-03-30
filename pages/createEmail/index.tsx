@@ -2,9 +2,11 @@ import TableComponents from "@/components/TableComponents";
 
 const CreateEmail = () => {
     return (
-        <TableComponents modelConfig={{
+        <TableComponents 
+        titlePage = {"Create Your Email Template"}
+        modelConfig={{
             model: "gpt-3.5-turbo",
-            temperature: 0.5,
+            temperature: 0.7,
             maxToken: 4000
         }}
             promptEn={(input: string, type: string) => getPromtforEmailtEn(input, type)}

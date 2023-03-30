@@ -2,9 +2,11 @@ import TableComponents from "@/components/TableComponents";
 
 const CreateSellingPost = () => {
     return (
-        <TableComponents modelConfig={{
+        <TableComponents 
+        titlePage = {"Create Your Selling Post"}
+        modelConfig={{
             model: "gpt-3.5-turbo",
-            temperature: 0.5,
+            temperature: 0.7,
             maxToken: 4000
         }}
             promptEn={(input: string, type: string) => getPromtforSellingPostEn(input, type)}
