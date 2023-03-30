@@ -6,6 +6,7 @@ import { NextPage } from 'next';
 import type { AppProps } from 'next/app'
 import { Roboto } from 'next/font/google'
 import Script from 'next/script';
+
 import { ReactElement, ReactNode } from 'react';
 
 const roboto = Roboto({ weight: '400', subsets: ['latin'], })
@@ -23,9 +24,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     return getLayout(
         <main className={roboto.className}>
 
-            <Script strategy="lazyOnload" src={`https://www.googletagmanager.com/gtag/js?id=G-958P0ZZK61`} />
+            <Script id='gtag-id' strategy="lazyOnload" src={`https://www.googletagmanager.com/gtag/js?id=G-958P0ZZK61`} />
 
-            <Script strategy="lazyOnload">
+            <Script id='gtag-id-engine' strategy="lazyOnload">
                 {`
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
