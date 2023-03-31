@@ -2,13 +2,13 @@ import TableComponents from "@/components/TableComponents";
 
 const CreateShortVideoScripts = () => {
     return (
-        <TableComponents 
-        titlePage = {"Create Your Scripts"}
-        modelConfig={{
-            model: "gpt-3.5-turbo",
-            temperature: 0.7,
-            maxToken: 4000
-        }}
+        <TableComponents
+            titlePage={"Create Your Scripts"}
+            modelConfig={{
+                model: "gpt-3.5-turbo",
+                temperature: 0.7,
+                maxToken: 4000
+            }}
             promptEn={(input: string, type: string) => getPromtforSellingPostEn(input, type)}
             promptTh={(input: string, type: string) => getPromtforSellingPostTh(input, type)} />);
 
