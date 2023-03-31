@@ -1,4 +1,4 @@
-import gennerateMassage, { openApiConfig } from "@/api/OpenApiEngine";
+import gennerateMassage, { openApiMassageConfig } from "@/api/OpenApiEngine";
 import { useState, useEffect, ChangeEvent } from "react";
 import ToggleSwitch from "./starndart/ToggleSwitch";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -111,7 +111,7 @@ const TableComponents = (config: pageConfig) => {
         config.promptEn(input, type)
         config.promptEn(input, type)
 
-        const apiConfig: openApiConfig = {
+        const apiConfig : openApiMassageConfig = {
             isTh: isTh,
             promptEn: config.promptEn(input, type),
             promptTh: config.promptTh(input, type),

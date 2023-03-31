@@ -24,6 +24,9 @@ export const Navbar = () => {
                     <li className="nav-item">
                         <Link className="nav-link" href="/createShortVideoScripts">Create Video Script</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" href="/createImage">Create Image</Link>
+                    </li>
                 </ul>
             </div>
 
