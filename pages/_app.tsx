@@ -36,9 +36,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         });
         `}
             </Script>
-            <Navbar/>
+            <Navbar />
             <Component {...pageProps} />
-            <Footer/>
+            <Footer />
         </main>
     )
 

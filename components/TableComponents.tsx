@@ -1,6 +1,10 @@
 import gennerateMassage, { openApiMassageConfig } from "@/api/OpenApiEngine";
 import { useState, useEffect, ChangeEvent } from "react";
 import ToggleSwitch from "./starndart/ToggleSwitch";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { BsFillClipboardCheckFill } from 'react-icons/bs';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 type ComponentProps = {
     input: string;
@@ -36,9 +40,51 @@ const TableComponents = (config: pageConfig) => {
     const [components, setComponents] = useState<ComponentProps[]>([]);
     const [isTh, setIsTh] = useState(false);
 
+    const CopyToClipboardButton = ({ message }: { message: string }) => {
+        const [isCopied, setIsCopied] = useState(false);
+        
+        const renderTooltip = (props: any) => (
+            <Tooltip id="button-tooltip" {...props}>
+                {isCopied ? <span> Copied </span> :  <span> Copy to Clipboard </span>}
+            </Tooltip>
+        );
+
+        const handleCopy = () => { 
+            setIsCopied(true);
+        }
+
+        return (
+            <OverlayTrigger
+                placement="top"
+                delay={{ show: 50, hide: 50 }}
+                overlay={renderTooltip}
+            >
+                <CopyToClipboard text={message} onCopy={handleCopy}>
+                    <button 
+                        type="button" 
+                        className="btn btn-secondary btn-sm" 
+                        onMouseLeave={()=>{
+                            setTimeout(() => {
+                                setIsCopied(false);
+                            }, 300);
+                        }}>
+                        <BsFillClipboardCheckFill />
+                    </button>
+                </CopyToClipboard>
+            </OverlayTrigger>
+
+
+        );
+
+    }
+
     const handleToggle = (event: ChangeEvent<HTMLInputElement>) => {
         setIsTh(event.target.checked);
     };
+
+
+
+
 
     const GenerateButton = ({ index }: { index: number }) => {
         const [loading, setLoading] = useState(false);
@@ -62,8 +108,8 @@ const TableComponents = (config: pageConfig) => {
 
     const handleSendSocialMediaPost = async (index: number) => {
         const { input, type } = components[index];
-        config.promptEn(input,type)
-        config.promptEn(input,type)
+        config.promptEn(input, type)
+        config.promptEn(input, type)
 
         const apiConfig : openApiMassageConfig = {
             isTh: isTh,
@@ -71,7 +117,7 @@ const TableComponents = (config: pageConfig) => {
             promptTh: config.promptTh(input, type),
             ...config.modelConfig
         }
-        
+
         try {
             const message = await gennerateMassage(apiConfig) ?? 'Error Please try again'
 
@@ -105,6 +151,7 @@ const TableComponents = (config: pageConfig) => {
         });
     };
 
+
     const handleTypeChange = (
         index: number,
         event: React.ChangeEvent<HTMLSelectElement>
@@ -121,7 +168,9 @@ const TableComponents = (config: pageConfig) => {
     };
 
     useEffect(() => {
-        handleAddNewRow();
+        if (components.length == 0) {
+            handleAddNewRow();
+        }
     }, []);
 
     return (
@@ -143,7 +192,7 @@ const TableComponents = (config: pageConfig) => {
             </div>
 
             {/* Table component */}
-            <div className="container-fluid" style={{ minHeight: "90vh" }}>
+            <div className="container-fluid table-responsive" style={{ minHeight: "90vh" }}>
 
                 <table className="table table-dark table-striped table-bordered" >
                     <thead>
@@ -190,7 +239,23 @@ const TableComponents = (config: pageConfig) => {
                                     }
 
                                     {/* If there is message */}
-                                    {<span className="text-light" style={{ whiteSpace: "pre-wrap" }}>{message}</span>}
+                                    {message.length > 0 &&
+                                        <div className="container-fluid">
+                                            <div className="row">
+                                                <div className="d-flex p-0 justify-content-end">
+                                                    {/* Copy to Clipboard component */}
+                                                    <CopyToClipboardButton message={message} />
+                                                </div>
+                                                <span className="text-light" style={{ whiteSpace: "pre-wrap" }}>{message}</span>
+
+                                            </div>
+
+                                            {/* <div className=" d-flex flex-row-reverse">
+                                                </div>
+                                            */}
+
+                                        </div>
+                                    }
                                 </td>
                                 <td>
                                     <GenerateButton index={index} />
