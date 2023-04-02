@@ -2,7 +2,7 @@ import gennerateMassage, { openApiMassageConfig } from "@/api/OpenApiEngine";
 import { useState, useEffect, ChangeEvent } from "react";
 import ToggleSwitch from "./starndart/ToggleSwitch";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { BsFillClipboardCheckFill } from 'react-icons/bs';
+import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
@@ -42,14 +42,14 @@ const TableComponents = (config: pageConfig) => {
 
     const CopyToClipboardButton = ({ message }: { message: string }) => {
         const [isCopied, setIsCopied] = useState(false);
-        
+
         const renderTooltip = (props: any) => (
             <Tooltip id="button-tooltip" {...props}>
-                {isCopied ? <span> Copied </span> :  <span> Copy to Clipboard </span>}
+                {isCopied ? <span className="fs-6"> Copied </span> : <span className="fs-6"> Copy to Clipboard </span>}
             </Tooltip>
         );
 
-        const handleCopy = () => { 
+        const handleCopy = () => {
             setIsCopied(true);
         }
 
@@ -60,16 +60,24 @@ const TableComponents = (config: pageConfig) => {
                 overlay={renderTooltip}
             >
                 <CopyToClipboard text={message} onCopy={handleCopy}>
-                    <button 
-                        type="button" 
-                        className="btn btn-secondary btn-sm" 
-                        onMouseLeave={()=>{
-                            setTimeout(() => {
-                                setIsCopied(false);
-                            }, 300);
-                        }}>
-                        <BsFillClipboardCheckFill />
-                    </button>
+                    {!isCopied ?
+                        <button type="button" className="btn btn-secondary btn-sm">
+                            <BsFillClipboardFill />
+                        </button> :
+                        <button
+                            type="button"
+                            className="btn btn-secondary btn-sm"
+                            style={{ background: "#16942C" }}
+                            onMouseLeave={() => {
+                                setTimeout(() => {
+                                    setIsCopied(false);
+                                }, 1000);
+                            }}>
+                            <BsFillClipboardCheckFill />
+                        </button>
+
+                    }
+
                 </CopyToClipboard>
             </OverlayTrigger>
 
@@ -95,14 +103,24 @@ const TableComponents = (config: pageConfig) => {
         };
 
         return (
-            <button
-                className={`btn btn-outline-secondary text-light ${loading ? "disabled" : ""
-                    }`}
-                type="button"
-                onClick={handleClick}
-            >
-                {loading ? "Generating..." : "Generate"}
-            </button>
+            <div>
+                <button
+                    className={`btn btn-outline-secondary text-light ${loading ? "disabled" : ""}`}
+                    type="button"
+                    onClick={handleClick}
+                >
+                    {loading ?
+                        <div className="d-flex">
+                            <div className="pe-2">
+                                <div className="spinner-border spinner-border-sm"></div>
+                            </div>
+                            <div> Generating... </div>
+                        </div>
+                        :
+                        "Generate"
+                    }
+                </button>
+            </div>
         );
     };
 
@@ -111,7 +129,7 @@ const TableComponents = (config: pageConfig) => {
         config.promptEn(input, type)
         config.promptEn(input, type)
 
-        const apiConfig : openApiMassageConfig = {
+        const apiConfig: openApiMassageConfig = {
             isTh: isTh,
             promptEn: config.promptEn(input, type),
             promptTh: config.promptTh(input, type),
@@ -175,7 +193,7 @@ const TableComponents = (config: pageConfig) => {
 
     return (
         <div className="container-fluid bg-dark bg-lighten-xs pt-5">
-            <div className="container pt-5">
+            <div className="scontainer pt-5">
                 <figure className="text-center pt-4 pb-4 text-light">
                     <blockquote className="blockquote">
                         <p className="display-4">{config.titlePage}</p>
@@ -192,15 +210,15 @@ const TableComponents = (config: pageConfig) => {
             </div>
 
             {/* Table component */}
-            <div className="container-fluid table-responsive" style={{ minHeight: "90vh" }}>
+            <div className="container-fluid table-responsive">
 
-                <table className="table table-dark table-striped table-bordered" >
+                <table className="table table-dark table-striped table-bordered table-hover" >
                     <thead>
                         <tr className="text-light text-center">
                             <th >Input</th>
                             <th >Type</th>
-                            <th >Message</th>
-                            <th >Send</th>
+                            <th>Message</th>
+                            <th className="fixed-col"></th>
                         </tr>
                     </thead>
 
@@ -210,7 +228,7 @@ const TableComponents = (config: pageConfig) => {
                             <tr key={index} >
 
                                 {/* Input Textfield */}
-                                <td className="w-25">
+                                <td className="">
                                     <textarea
                                         className="form-control bg-dark text-light"
                                         value={input}
@@ -240,24 +258,20 @@ const TableComponents = (config: pageConfig) => {
 
                                     {/* If there is message */}
                                     {message.length > 0 &&
-                                        <div className="container-fluid">
+                                        <div className="container">
                                             <div className="row">
                                                 <div className="d-flex p-0 justify-content-end">
                                                     {/* Copy to Clipboard component */}
                                                     <CopyToClipboardButton message={message} />
                                                 </div>
-                                                <span className="text-light" style={{ whiteSpace: "pre-wrap" }}>{message}</span>
+                                                <span className="text-light p-0 mb-3" style={{ whiteSpace: "pre-wrap" }}>{message}</span>
 
                                             </div>
-
-                                            {/* <div className=" d-flex flex-row-reverse">
-                                                </div>
-                                            */}
 
                                         </div>
                                     }
                                 </td>
-                                <td>
+                                <td className="fixed-col p-3 text-center">
                                     <GenerateButton index={index} />
                                 </td>
                             </tr>
