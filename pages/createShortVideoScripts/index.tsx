@@ -20,7 +20,6 @@ const CreateShortVideoScripts = () => {
 
 const getPromtforSellingPostEn = (input: string, type: string): string => {
     return `
-    ### Instruction ###
     write scripts for short video that talk about [short video content] and the feeling of scripts is [emotional of content]:
     short video content: ${input}
     emotional of content ${type}
@@ -29,7 +28,6 @@ const getPromtforSellingPostEn = (input: string, type: string): string => {
 
 const getPromtforSellingPostTh = (input: string, type: string): string => {
     return `
-    ### Instruction ###
     write scripts for short video that talk about [short video content] and the feeling of scripts is [emotional of content] in Thai:
     short video content: ${input}
     emotional of content ${type}

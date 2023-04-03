@@ -20,7 +20,6 @@ const CreateArticle = () => {
 
 const getPromtforEmailtEn = (input: string, type: string): string => {
     return `
-    ### Instruction ###
     Write a blog post with hight demand SED keyword that talk about [main topic of article] that article should feeling like [emotion of massage]:
     main topic of article: ${input}
     emotion of massage: ${type}
@@ -29,7 +28,6 @@ const getPromtforEmailtEn = (input: string, type: string): string => {
 
 const getPromtforEmailTh = (input: string, type: string): string => {
     return `    
-    ### Instruction ###
     Write a blog post with hight demand SED keyword that talk about [main topic of article] that article should feeling like [emotion of massage] in Thai:
     main topic of article: ${input}
     emotion of massage: ${type}

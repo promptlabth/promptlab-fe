@@ -20,7 +20,6 @@ const CreateEmail = () => {
 
 const getPromtforEmailtEn = (input: string, type: string): string => {
     return `
-    ### Instruction ###
     Write bussiness email about [reason for email] that email should feeling like [emotion of massage]:
     reason for email: ${input}
     emotion of massage: ${type}
@@ -29,7 +28,6 @@ const getPromtforEmailtEn = (input: string, type: string): string => {
 
 const getPromtforEmailTh = (input: string, type: string): string => {
     return `    
-    ### Instruction ###
     Write bussiness email about [input] that email should feeling like [type] in Thai language:
     reason for email: ${input}
     emotion of massage: ${type}`;
