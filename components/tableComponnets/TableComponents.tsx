@@ -7,8 +7,6 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
 import ToggleSwitch from "../starndart/ToggleSwitch";
-
-import { navbarConstans } from "../navbar/constant";
 import { useLanguage } from "@/language/ LanguageContext";
 import { t } from "../language";
 
@@ -213,7 +211,7 @@ const TableComponents = (config: pageConfig) => {
                 <figure className="text-center pt-4 pb-4 text-light">
                     <blockquote className="blockquote">
                         <p className="display-4">{config.titlePage}</p>
-                        {t(navbarConstans.sellingPostTitle)}
+                        {}
                     </blockquote>
                     <figcaption className="blockquote-footer">
                         {/* Using powerful AI to make your all things {t('navbar.title.createSellPost')} */}

@@ -44,9 +44,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
             <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@200&display=swap" rel="stylesheet" /> */}
-            <Navbar />
-            <Component {...pageProps} />
-            <Footer />
             <LanguageProvider>
                 <Navbar />
                 <Component {...pageProps} />
