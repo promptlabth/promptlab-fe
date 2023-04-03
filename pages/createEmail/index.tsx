@@ -30,7 +30,7 @@ const getPromtforEmailtEn = (input: string, type: string): string => {
 const getPromtforEmailTh = (input: string, type: string): string => {
     return `    
     ### Instruction ###
-    Write bussiness email about [input] that email should feeling like [type] in Thai:
+    Write bussiness email about [input] that email should feeling like [type] in Thai language:
     reason for email: ${input}
     emotion of massage: ${type}`;
 }
