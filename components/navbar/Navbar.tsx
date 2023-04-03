@@ -1,54 +1,44 @@
-/**
- * Navigation Bar using Bootstrap 5
- */
+// Navbar.tsx
+import React, { useState, useEffect } from 'react';
 
-import Link from "next/link"
-import { t } from "../language"
-import { navbarConstans } from "./constant"
-import { useLanguage } from "@/language/ LanguageContext";
-import { useEffect, useState } from "react";
+import Link from 'next/link';
+import { useLanguage } from '@/language/ LanguageContext';
+import { t } from '../language';
 
+const navbarLinks = [
+    { titleKey: 'navbar.title.sellingPost', href: '/createSellingPost' },
+    { titleKey: 'navbar.title.createEmail', href: '/createEmail' },
+    { titleKey: 'navbar.title.createArticle', href: '/createArticle' },
+    { titleKey: 'navbar.title.createScripts', href: '/createShortVideoScripts' },
+    { titleKey: 'navbar.title.createImage', href: '/createImage' },
+];
 
-export const Navbar = () => {
+export const Navbar: React.FC = () => {
     const { language } = useLanguage();
-    const [sellingTitle, setSellingTitle] = useState(t(navbarConstans.sellingPostTitle));
-    const [createEmailTitle, setcreateEmailTitle] = useState(t(navbarConstans.createEmailTitle));
-    const [createArticalTitle, setcreateArticalTitle] = useState(t(navbarConstans.createArticalTitle));
-    const [createScriptsTitle, setcreateScriptsTitle] = useState(t(navbarConstans.createScriptsTitle));
+    const [titles, setTitles] = useState(
+        navbarLinks.map(({ titleKey }) => t(titleKey, language))
+    );
 
     useEffect(() => {
-        setSellingTitle(t(navbarConstans.sellingPostTitle, language));
-        setcreateEmailTitle(t(navbarConstans.createEmailTitle, language));
-        setcreateArticalTitle(t(navbarConstans.createArticalTitle, language));
-        setcreateScriptsTitle(t(navbarConstans.createScriptsTitle, language));
-
+        setTitles(navbarLinks.map(({ titleKey }) => t(titleKey, language)));
     }, [language]);
 
-
     return (
-        <nav className="navbar navbar-expand-lg bg-success p-0">
+        <nav className="navbar navbar-expand-sm bg-success fixed-top">
             <div className="container-fluid">
                 <ul className="navbar-nav">
-                    <text className="fs-3 text-dark pe-2">
+                    <span className="fs-3 text-dark pe-2">
                         <b> Prompt Lab </b>
-                    </text>
-                    <li className="nav-item">
-                        <Link className="nav-link" href="/createSellingPost">{sellingTitle}</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" href="/createEmail">{createEmailTitle}</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" href="/createArticle">{createArticalTitle}</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" href="/createShortVideoScripts">{createScriptsTitle}</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" href="/createImage">Create Image</Link>
-                    </li>
+                    </span>
+                    {navbarLinks.map(({ href }, index) => (
+                        <li className="nav-item" key={index}>
+                            <Link className="nav-link" href={href}>
+                                {titles[index]}
+                            </Link>
+                        </li>
+                    ))}
                 </ul>
             </div>
         </nav>
-    )
+    );
 };

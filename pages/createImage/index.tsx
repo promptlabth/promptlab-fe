@@ -1,5 +1,4 @@
 import { generateImage, openApiImageConfig } from "@/api/OpenApiEngine";
-import { CreateImageRequestSizeEnum } from "openai";
 import { useState } from "react";
 
 const ImageGenerator = () => {

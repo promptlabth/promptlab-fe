@@ -1,9 +1,12 @@
+import { t } from "@/components/language";
 import TableComponents from "@/components/tableComponnets/TableComponents";
+import { useLanguage } from "@/language/ LanguageContext";
 
 const CreateShortVideoScripts = () => {
+    const { language } = useLanguage();
     return (
         <TableComponents
-            titlePage={"Create Your Scripts"}
+            titlePage={t("navbar.title.createScripts",language)}
             modelConfig={{
                 model: "gpt-3.5-turbo",
                 temperature: 0.7,

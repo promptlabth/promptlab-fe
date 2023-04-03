@@ -210,11 +210,10 @@ const TableComponents = (config: pageConfig) => {
             <div className="scontainer pt-5">
                 <figure className="text-center pt-4 pb-4 text-light">
                     <blockquote className="blockquote">
-                        <p className="display-4">{config.titlePage}</p>
-                        {}
+                        <p className="display-4">{t(config.titlePage, language)}</p>
                     </blockquote>
                     <figcaption className="blockquote-footer">
-                        {/* Using powerful AI to make your all things {t('navbar.title.createSellPost')} */}
+                        {t('table.description', language)}
                     </figcaption>
                 </figure>
                 <div className="text-light text-center">
