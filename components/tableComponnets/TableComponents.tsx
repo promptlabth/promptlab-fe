@@ -6,11 +6,12 @@ import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
+import ToggleSwitch from "../starndart/ToggleSwitch";
 
 import { navbarConstans } from "../navbar/constant";
 import { useLanguage } from "@/language/ LanguageContext";
 import { t } from "../language";
-import ToggleSwitch from "../starndart/ToggleSwitch";
+
 
 
 
