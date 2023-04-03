@@ -203,3 +203,15 @@ input:checked+.slider:before {
 .fixed-col {
     width: 180px;
 }
+
+.styled-row{
+    padding: 0.5em;
+    border-radius: 1em;
+}
+.styled-row:nth-of-type(odd){
+    background-color:#171717;
+}
+
+.styled-row:nth-of-type(even){
+    background-color: #1f1f1f;
+}

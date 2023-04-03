@@ -1,42 +1,53 @@
 import Link from "next/link";
+import Container from 'react-bootstrap/Container';
+import { useLanguage } from '@/language/ LanguageContext';
+import { t } from "./language";
+import { useEffect, useState } from "react";
+import { urlLinks } from "./navbar/constant";
 
 /**
  * Footer using Bootstrap 5
  */
 const Footer = () => {
+    const { language } = useLanguage();
+    const [titles, setTitles] = useState(
+        urlLinks.map(({ titleKey }) => t(titleKey, language))
+    );
+
+    useEffect(() => {
+        setTitles(urlLinks.map(({ titleKey }) => t(titleKey, language)));
+        console.log(titles)
+    }, [language]);
     return (
-        <footer className="p-0 bg-dark bg-gradient text-center text-lg-start bg-opacity-75">
-            <div className="pe-6 ps-5">
+        <footer>
+            <Container fluid className="p-3 bg-gradient" style={{ backgroundColor: "#5A5A5A" }}>
                 <div className="row">
-                    <div className="p-5 col-lg-6 col-md-12 mb-4 mb-md-0">
-
-                        <p className="fs-3 fw-bold">
-                            Using powerful AI to make your all things
-                        </p>
-
-                        <p className="fs-3 fw-bold">
-                            Prompt Lab can do better than possibly you imagine!!
-                        </p>
+                    <div className="col p-4">
+                        <div>
+                            <h1 className="fw-bold">PROMPT LAB</h1>
+                            <p className="fs-5 fw-semibold container"> {t("footer.description_1",language)} </p>
+                            <p className="fs-5 fw-semibold container"> {t("footer.description_2",language)}</p>
+                        </div>
                     </div>
-
-                    <div className="pt-4 col-lg-6 col-md-12 mb-4 mb-md-0">
-                        <h5 className="fs-3 fw-semibold">Categories</h5>
+                    <div className="col-lg-6 pt-2">
+                        <h5 className="fs-3 fw-semibold">{t("footer.feateres",language)}</h5>
                         <ul className="list-group">
-                            <Link className="fs-6 category-list text-decoration-none" href="/createSellingPost"> Create Selling Post </Link>
-                            <Link className="fs-6 category-list text-decoration-none" href="/createEmail">Create Email message</Link>
-                            <Link className="fs-6 category-list text-decoration-none" href="/createArticle">Create Article</Link>
-                            <Link className="fs-6 category-list text-decoration-none" href="/createShortVideoScripts">Create Video Script</Link>
-                            <Link className="fs-6 category-list text-decoration-none" href="/createImage">Create Image</Link>
-
+                            {urlLinks.map(({ href }, index) => (
+                                <Link key={index} href={href} className="fs-6 category-list text-decoration-none">
+                                    {titles[index]}
+                                </Link>
+                            ))}
                         </ul>
                     </div>
                 </div>
-            </div>
 
-            <div className="bg-dark text-center p-3 bg-opacity-50">
-                <text className="text-light"> Thanks to Bootstrap 5 to make </text>
-                <text className="text-light fs-1"> Prompt Lab</text>
-                <text className="text-light"> a wonderful website</text>
+            </Container >
+            <div className="container-fluid p-3 text-light d-flex justify-content-center" style={{ backgroundColor: "#373737" }}>
+                <text className="text-light">
+                    Thanks to Bootstrap 5 to make
+                    <b>{" "}Prompt Lab{" "}</b>
+                    a wondeful website!!
+                </text>
             </div>
         </footer>
     )

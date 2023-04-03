@@ -11,9 +11,6 @@ import { useLanguage } from "@/language/ LanguageContext";
 import { t } from "../language";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
 
-
-
-
 type ComponentProps = {
     input: string;
     type: string;
@@ -32,10 +29,6 @@ export type pageConfig = {
     promptEn: (input: string, type: string) => string;
     promptTh: (input: string, type: string) => string;
 }
-
-
-
-
 
 const TableComponents = (config: pageConfig) => {
     const [components, setComponents] = useState<ComponentProps[]>([]);
@@ -126,9 +119,9 @@ const TableComponents = (config: pageConfig) => {
                 >
                     {loading ?
                         <div className="d-flex">
-                            <div className="pe-2">
+                            {/* <div className="pe-2">
                                 <div className="spinner-border spinner-border-sm"></div>
-                            </div>
+                            </div> */}
                             <div> Generating... </div>
                         </div>
                         :
@@ -207,8 +200,8 @@ const TableComponents = (config: pageConfig) => {
     }, []);
 
     return (
-        <Container fluid className="bg-dark bg-lighten-xs pt-5">
-            <Container className="pt-5">
+        <Container fluid className="p-0 bg-dark bg-lighten-xs pt-5">
+            <Container fluid className="pt-5 pb-2" style={{backgroundColor:"#1F1F21"}}>
                 <figure className="text-center pt-4 pb-4 text-light">
                     <blockquote className="blockquote">
                         <p className="display-4">{t(config.titlePage, language)}</p>
@@ -226,13 +219,13 @@ const TableComponents = (config: pageConfig) => {
 
             {/* Table component */}
 
-            <Container fluid>
+            <Container fluid className="pt-2 ps-4 pe-4">
 
                 {components.map(({ input, type, message }, index) => (
-                    <Row key={index} className="bg-dark text-light my-2">
+                    <Row key={index} className="styled-row text-light my-2">
                         {/* Input Textfield */}
-                        <Col xs={12} md={3} className="pb-2">
-                            <Col xs={12} md={3}>{t('table.input.title', language)}</Col>
+                        <Col xs={12} md={2} className="pb-2">
+                            <Col className="fs-5" xs={12} md={12}>{t('table.input.title', language)}</Col>
                             <textarea
                                 className="form-control bg-dark text-light"
                                 value={input}
@@ -241,32 +234,36 @@ const TableComponents = (config: pageConfig) => {
                             />
                         </Col>
                         {/* Type Dropdown */}
-                        <Col xs={12} md={2} className="pb-2">
-                            <Col xs={12} md={2}>{t('table.type.title', language)}</Col>
-                            <select
-                                className="form-select bg-dark text-light"
-                                value={type}
-                                onChange={(event) => handleTypeChange(index, event)}
-                                required
-                            >
-                                {postTypes.map(({ value, label }) => (
-                                    <option key={value} value={value}>
-                                        {label}
-                                    </option>
-                                ))}
-                            </select>
+                        <Col xs={12} md={"auto"} lg={"auto"} xl={"auto"} className="pb-2">
+                            <Col className="fs-5" xs={12} md={9}>{t('table.type.title', language)}</Col>
+                            <Col sm className="">
+                                <select
+                                    className="form-select bg-dark text-light"
+                                    value={type}
+                                    onChange={(event) => handleTypeChange(index, event)}
+                                    required
+                                >
+                                    {postTypes.map(({ value, label }) => (
+                                        <option key={value} value={value}>
+                                            {label}
+                                        </option>
+                                    ))}
+                                </select>
+
+
+                            </Col>
                         </Col>
                         {/* Message */}
-                        <Col xs={12} md={6} className="pb-2">
-                            <Col xs={12} md={6}>{t('table.massage.title', language)}</Col>
+                        <Col xs={12} md={5} lg={6} xl={7} className="pb-2">
+                            <Col className="fs-5" xs={12} md={6}>{t('table.massage.title', language)}</Col>
                             {/* If message length is 0, show "No generated message..." */}
                             {message.length === 0 && (
-                                <span className="text-white-50">No generated message...</span>
+                                <span className="text-white-50">{t("table.no_message", language)}</span>
                             )}
 
                             {/* If there is a message */}
                             {message.length > 0 && (
-                                <Container>
+                                <Container className="">
                                     <Row>
                                         <Col className="d-flex p-0 justify-content-end">
                                             {/* Copy to Clipboard component */}
@@ -280,7 +277,7 @@ const TableComponents = (config: pageConfig) => {
                             )}
                         </Col>
                         {/* Generate Button */}
-                        <Col xs={12} md={1} className="pb-2 text-center">
+                        <Col xs={12} md={"auto"} className="p-3 pb-0">
                             <GenerateButton index={index} />
                         </Col>
                     </Row>
@@ -290,7 +287,7 @@ const TableComponents = (config: pageConfig) => {
             {/* Button Container */}
             <Container fluid className="p-1 ps-3 pb-4">
                 <Button variant="outline-light" onClick={handleAddNewRow}>
-                    Add New Row
+                    {t("button.newRow", language)}
                 </Button>
             </Container>
         </Container>
