@@ -9,6 +9,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import ToggleSwitch from "../starndart/ToggleSwitch";
 import { useLanguage } from "@/language/ LanguageContext";
 import { t } from "../language";
+import { Button, Col, Container, Row, Table } from "react-bootstrap";
 
 
 
@@ -206,8 +207,8 @@ const TableComponents = (config: pageConfig) => {
     }, []);
 
     return (
-        <div className="container-fluid bg-dark bg-lighten-xs pt-5">
-            <div className="scontainer pt-5">
+        <Container fluid className="bg-dark bg-lighten-xs pt-5">
+            <Container className="pt-5">
                 <figure className="text-center pt-4 pb-4 text-light">
                     <blockquote className="blockquote">
                         <p className="display-4">{t(config.titlePage, language)}</p>
@@ -217,93 +218,82 @@ const TableComponents = (config: pageConfig) => {
                     </figcaption>
                 </figure>
                 <div className="text-light text-center">
-                    <h3>Language </h3>
+                    <h3>Language</h3>
                     <ToggleSwitch isOn={isTh} handleToggle={handleToggle} />
                     <p>{isTh ? 'TH' : 'EN'}</p>
                 </div>
-            </div>
+            </Container>
 
             {/* Table component */}
-            <div className="container-fluid table-responsive">
 
-                <table className="table table-dark table-striped table-bordered table-hover" >
-                    <thead>
-                        <tr className="text-light text-center">
-                            <th >Input</th>
-                            <th >Type</th>
-                            <th>Message</th>
-                            <th className="fixed-col"></th>
-                        </tr>
-                    </thead>
+            <Container fluid>
 
+                {components.map(({ input, type, message }, index) => (
+                    <Row key={index} className="bg-dark text-light my-2">
+                        {/* Input Textfield */}
+                        <Col xs={12} md={3} className="pb-2">
+                            <Col xs={12} md={3}>Input</Col>
+                            <textarea
+                                className="form-control bg-dark text-light"
+                                value={input}
+                                onChange={(event) => handleInputTextChange(index, event)}
+                                required
+                            />
+                        </Col>
+                        {/* Type Dropdown */}
+                        <Col xs={12} md={2} className="pb-2">
+                            <Col xs={12} md={2}>Type</Col>
+                            <select
+                                className="form-select bg-dark text-light"
+                                value={type}
+                                onChange={(event) => handleTypeChange(index, event)}
+                                required
+                            >
+                                {postTypes.map(({ value, label }) => (
+                                    <option key={value} value={value}>
+                                        {label}
+                                    </option>
+                                ))}
+                            </select>
+                        </Col>
+                        {/* Message */}
+                        <Col xs={12} md={6} className="pb-2">
+                            <Col xs={12} md={6}>Message</Col>
+                            {/* If message length is 0, show "No generated message..." */}
+                            {message.length === 0 && (
+                                <span className="text-white-50">No generated message...</span>
+                            )}
 
-                    <tbody >
-                        {components.map(({ input, type, message }, index) => (
-                            <tr key={index} >
-
-                                {/* Input Textfield */}
-                                <td className="">
-                                    <textarea
-                                        className="form-control bg-dark text-light"
-                                        value={input}
-                                        onChange={(event) => handleInputTextChange(index, event)}
-                                        required
-                                    />
-                                </td>
-                                <td className="col-2">
-                                    <select
-                                        className="form-select bg-dark text-light"
-                                        value={type}
-                                        onChange={(event) => handleTypeChange(index, event)}
-                                        required
-                                    >
-                                        {postTypes.map(({ value, label }) => (
-                                            <option key={value} value={value}>
-                                                {label}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </td>
-                                <td className="col-6">
-                                    {/* If message lenght is 0, show "No generated message..." */}
-                                    {message.length == 0 &&
-                                        <span className="text-white-50"> No generated message... </span>
-                                    }
-
-                                    {/* If there is message */}
-                                    {message.length > 0 &&
-                                        <div className="container">
-                                            <div className="row">
-                                                <div className="d-flex p-0 justify-content-end">
-                                                    {/* Copy to Clipboard component */}
-                                                    <CopyToClipboardButton message={message} />
-                                                </div>
-                                                <span className="text-light p-0 mb-3" style={{ whiteSpace: "pre-wrap" }}>{message}</span>
-
-                                            </div>
-
-                                        </div>
-                                    }
-                                </td>
-                                <td className="fixed-col p-3 text-center">
-                                    <GenerateButton index={index} />
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                            {/* If there is a message */}
+                            {message.length > 0 && (
+                                <Container>
+                                    <Row>
+                                        <Col className="d-flex p-0 justify-content-end">
+                                            {/* Copy to Clipboard component */}
+                                            <CopyToClipboardButton message={message} />
+                                        </Col>
+                                        <Col xs={12} className="text-light p-0 mb-3" style={{ whiteSpace: 'pre-wrap' }}>
+                                            {message}
+                                        </Col>
+                                    </Row>
+                                </Container>
+                            )}
+                        </Col>
+                        {/* Generate Button */}
+                        <Col xs={12} md={1} className="pb-2 text-center">
+                            <GenerateButton index={index} />
+                        </Col>
+                    </Row>
+                ))}
+            </Container>
 
             {/* Button Container */}
-            <div className="p-1 ps-3 pb-4">
-                <button
-                    className="btn btn-outline-light"
-                    onClick={handleAddNewRow}
-                >
+            <Container fluid className="p-1 ps-3 pb-4">
+                <Button variant="outline-light" onClick={handleAddNewRow}>
                     Add New Row
-                </button>
-            </div>
-        </div>
+                </Button>
+            </Container>
+        </Container>
     );
 };
 

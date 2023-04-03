@@ -1,5 +1,5 @@
 import Footer from '@/components/Footer';
-import { Navbar } from '@/components/navbar/Navbar';
+import { AppNavbar } from '@/components/navbar/Navbar';
 import { LanguageProvider } from '@/language/ LanguageContext';
 
 import '@/styles/globals.css'
@@ -45,7 +45,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
             <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@200&display=swap" rel="stylesheet" /> */}
             <LanguageProvider>
-                <Navbar />
+                <AppNavbar />
                 <Component {...pageProps} />
                 <Footer />
             </LanguageProvider>
