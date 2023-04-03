@@ -1,0 +1,32 @@
+{
+        "th": {
+            "navbar.title.createSellPost": "เขียนแคปชั่นขายของ",
+            "navber.title.createEmail": "เขียนแบบร่างอีเมล",
+            "navber.title.createAtical": "เขียนบทความ",
+            "navbar.title.createVideoScripts": "เขียนสคริปวิดีโอสั้น",
+            "table.input.title": "เขียนข้อตวาม",
+            "table.type.title": "ลักษณะข้อความ",
+            "table.massage.title": "ข้อความ",
+            "table.type.funny": "สนุกสนาน",
+            "table.type.confident": "มั่นใจ",
+            "table.type.professional": "มืออาชีพ",
+            "table.type.luxury": "หรูหรา",
+            "table.type.educational": "มีการศึกษา",
+            "table.type.happy": "มีความสุข"
+        },
+        "en": {
+            "navbar.title.createSellPost": "Create Selling Post",
+            "navber.title.createEmail": "Create Email",
+            "navber.title.createAtical": "Create Atical",
+            "navbar.title.createVideoScripts": "Create Video Scripts",
+            "table.input.title": "Input",
+            "table.type.title": "Type",
+            "table.massage.title": "Massage",
+            "table.type.funny": "Funney",
+            "table.type.confident": "Confident",
+            "table.type.professional": "Professional",
+            "table.type.luxury": "Luxury",
+            "table.type.educational": "Educational",
+            "table.type.happy": "Happy"
+        }
+}

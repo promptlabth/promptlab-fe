@@ -1,10 +1,18 @@
 import gennerateMassage, { openApiMassageConfig } from "@/api/OpenApiEngine";
 import { useState, useEffect, ChangeEvent } from "react";
-import ToggleSwitch from "./starndart/ToggleSwitch";
+
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+
+
+import { navbarConstans } from "../navbar/constant";
+import { useLanguage } from "@/language/ LanguageContext";
+import { t } from "../language";
+import ToggleSwitch from "../starndart/ToggleSwitch";
+
+
 
 type ComponentProps = {
     input: string;
@@ -36,9 +44,12 @@ const postTypes = [
 ];
 
 
+
+
 const TableComponents = (config: pageConfig) => {
     const [components, setComponents] = useState<ComponentProps[]>([]);
-    const [isTh, setIsTh] = useState(false);
+    const [isTh, setIsTh] = useState(true);
+    const { language, setLanguage } = useLanguage();
 
     const CopyToClipboardButton = ({ message }: { message: string }) => {
         const [isCopied, setIsCopied] = useState(false);
@@ -88,6 +99,10 @@ const TableComponents = (config: pageConfig) => {
 
     const handleToggle = (event: ChangeEvent<HTMLInputElement>) => {
         setIsTh(event.target.checked);
+
+        const newLanguage = event.target.checked ? 'th' : 'en';
+        setLanguage(newLanguage);
+
     };
 
 
@@ -197,9 +212,10 @@ const TableComponents = (config: pageConfig) => {
                 <figure className="text-center pt-4 pb-4 text-light">
                     <blockquote className="blockquote">
                         <p className="display-4">{config.titlePage}</p>
+                        {t(navbarConstans.sellingPostTitle)}
                     </blockquote>
                     <figcaption className="blockquote-footer">
-                        Using powerful AI to make your all things
+                        {/* Using powerful AI to make your all things {t('navbar.title.createSellPost')} */}
                     </figcaption>
                 </figure>
                 <div className="text-light text-center">

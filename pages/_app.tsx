@@ -1,5 +1,7 @@
 import Footer from '@/components/Footer';
-import { Navbar } from '@/components/Navbar';
+import { Navbar } from '@/components/navbar/Navbar';
+import { LanguageProvider } from '@/language/ LanguageContext';
+
 import '@/styles/globals.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NextPage } from 'next';
@@ -45,6 +47,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             <Navbar />
             <Component {...pageProps} />
             <Footer />
+            <LanguageProvider>
+                <Navbar />
+                <Component {...pageProps} />
+                <Footer />
+            </LanguageProvider>
         </main>
     )
 

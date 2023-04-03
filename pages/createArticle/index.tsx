@@ -1,4 +1,4 @@
-import TableComponents from "@/components/TableComponents";
+import TableComponents from "@/components/tableComponnets/TableComponents";
 
 const CreateArticle = () => {
     return (
