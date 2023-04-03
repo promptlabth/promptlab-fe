@@ -34,15 +34,6 @@ export type pageConfig = {
 }
 
 
-const postTypes = [
-    { value: "funny", label: "Funny" },
-    { value: "confident", label: "Confident" },
-    { value: "professional", label: "Professional" },
-    { value: "luxury", label: "Luxury" },
-    { value: "educational", label: "Educational" },
-    { value: "happy", label: "Happy" },
-];
-
 
 
 
@@ -50,6 +41,15 @@ const TableComponents = (config: pageConfig) => {
     const [components, setComponents] = useState<ComponentProps[]>([]);
     const [isTh, setIsTh] = useState(true);
     const { language, setLanguage } = useLanguage();
+
+    const postTypes = [
+        { value: "funny", label: t('table.type.funny', language) },
+        { value: "confident", label: t('table.type.confident', language) },
+        { value: "professional", label: t('table.type.professional', language) },
+        { value: "luxury", label: t('table.type.luxury', language) },
+        { value: "educational", label: t('table.type.educational', language) },
+        { value: "happy", label: t('table.type.happy', language) },
+    ];
 
     const CopyToClipboardButton = ({ message }: { message: string }) => {
         const [isCopied, setIsCopied] = useState(false);
@@ -232,7 +232,7 @@ const TableComponents = (config: pageConfig) => {
                     <Row key={index} className="bg-dark text-light my-2">
                         {/* Input Textfield */}
                         <Col xs={12} md={3} className="pb-2">
-                            <Col xs={12} md={3}>Input</Col>
+                            <Col xs={12} md={3}>{t('table.input.title', language)}</Col>
                             <textarea
                                 className="form-control bg-dark text-light"
                                 value={input}
@@ -242,7 +242,7 @@ const TableComponents = (config: pageConfig) => {
                         </Col>
                         {/* Type Dropdown */}
                         <Col xs={12} md={2} className="pb-2">
-                            <Col xs={12} md={2}>Type</Col>
+                            <Col xs={12} md={2}>{t('table.type.title', language)}</Col>
                             <select
                                 className="form-select bg-dark text-light"
                                 value={type}
@@ -258,7 +258,7 @@ const TableComponents = (config: pageConfig) => {
                         </Col>
                         {/* Message */}
                         <Col xs={12} md={6} className="pb-2">
-                            <Col xs={12} md={6}>Message</Col>
+                            <Col xs={12} md={6}>{t('table.massage.title', language)}</Col>
                             {/* If message length is 0, show "No generated message..." */}
                             {message.length === 0 && (
                                 <span className="text-white-50">No generated message...</span>
