@@ -24,12 +24,15 @@ const Footer = () => {
                     <div className="col p-4">
                         <div>
                             <h1 className="fw-bold">PROMPT LAB</h1>
-                            <p className="fs-5 fw-semibold container"> {t("footer.description_1",language)} </p>
-                            <p className="fs-5 fw-semibold container"> {t("footer.description_2",language)}</p>
+                            <p className="fs-5 fw-semibold container"> {t("footer.description_1", language)} </p>
+                            <p className="fs-5 fw-semibold container"> {t("footer.description_2", language)}</p>
                         </div>
                     </div>
                     <div className="col-lg-6 pt-2">
-                        <h5 className="fs-3 fw-semibold">{t("footer.feateres",language)}</h5>
+                        <h5 className="fs-3 fw-semibold">{t("footer.feateres", language)}</h5>
+                        <hr className="m-0 mb-2 bg-white" style={{height:"2px"}}/>
+
+                        {/* <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom"/> */}
                         <ul className="list-group">
                             {urlLinks.map(({ href }, index) => (
                                 <Link key={index} href={href} className="fs-6 category-list text-decoration-none">
