@@ -119,9 +119,9 @@ const TableComponents = (config: pageConfig) => {
                 >
                     {loading ?
                         <div className="d-flex">
-                            {/* <div className="pe-2">
+                            <div className="pe-2">
                                 <div className="spinner-border spinner-border-sm"></div>
-                            </div> */}
+                            </div>
                             <div> Generating... </div>
                         </div>
                         :
@@ -201,7 +201,7 @@ const TableComponents = (config: pageConfig) => {
 
     return (
         <Container fluid className="p-0 bg-dark bg-lighten-xs pt-5">
-            <Container fluid className="pt-5 pb-2" style={{backgroundColor:"#1F1F21"}}>
+            <Container fluid className="pt-5 pb-2" style={{ backgroundColor: "#1F1F21" }}>
                 <figure className="text-center pt-4 pb-4 text-light">
                     <blockquote className="blockquote">
                         <p className="display-4">{t(config.titlePage, language)}</p>
@@ -219,12 +219,13 @@ const TableComponents = (config: pageConfig) => {
 
             {/* Table component */}
 
-            <Container fluid className="pt-2 ps-4 pe-4">
+            <Container fluid className="border pt-2 ps-4 pe-4">
 
                 {components.map(({ input, type, message }, index) => (
-                    <Row key={index} className="styled-row text-light my-2">
+                    <Row key={index} className="styled-row border justify-content-center text-light my-2">
                         {/* Input Textfield */}
-                        <Col xs={12} md={2} className="pb-2">
+                        <Col xs={12} md={3} className="pb-2 border">
+                        {/* <Col xs={12} md={2} className="pb-2 border"> */}
                             <Col className="fs-5" xs={12} md={12}>{t('table.input.title', language)}</Col>
                             <textarea
                                 className="form-control bg-dark text-light"
@@ -234,7 +235,8 @@ const TableComponents = (config: pageConfig) => {
                             />
                         </Col>
                         {/* Type Dropdown */}
-                        <Col xs={12} md={"auto"} lg={"auto"} xl={"auto"} className="pb-2">
+                        {/* <Col xs={12} md={"auto"} lg={"auto"} xl={"auto"} className="border pb-2"> */}
+                        <Col className="border pb-2">
                             <Col className="fs-5" xs={12} md={9}>{t('table.type.title', language)}</Col>
                             <Col sm className="">
                                 <select
@@ -254,7 +256,7 @@ const TableComponents = (config: pageConfig) => {
                             </Col>
                         </Col>
                         {/* Message */}
-                        <Col xs={12} md={5} lg={6} xl={7} className="pb-2">
+                        <Col xs={12} md={4} lg={5} xl={6} className="border pb-2">
                             <Col className="fs-5" xs={12} md={6}>{t('table.massage.title', language)}</Col>
                             {/* If message length is 0, show "No generated message..." */}
                             {message.length === 0 && (
@@ -277,7 +279,7 @@ const TableComponents = (config: pageConfig) => {
                             )}
                         </Col>
                         {/* Generate Button */}
-                        <Col xs={12} md={"auto"} className="p-3 pb-0">
+                        <Col xs={12} md={"auto"} className="border p-3 pb-0">
                             <GenerateButton index={index} />
                         </Col>
                     </Row>
