@@ -3,6 +3,7 @@ import { useState, useEffect, ChangeEvent } from "react";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
+import {GoDiffAdded} from 'react-icons/go';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
@@ -53,9 +54,7 @@ const TableComponents = (config: pageConfig) => {
             </Tooltip>
         );
 
-        const handleCopy = () => {
-            setIsCopied(true);
-        }
+        const handleCopy = () => { setIsCopied(true); }
 
         return (
             <OverlayTrigger
@@ -64,23 +63,25 @@ const TableComponents = (config: pageConfig) => {
                 overlay={renderTooltip}
             >
                 <CopyToClipboard text={message} onCopy={handleCopy}>
-                    {!isCopied ?
-                        <button type="button" className="btn btn-secondary btn-sm">
-                            <BsFillClipboardFill />
-                        </button> :
-                        <button
-                            type="button"
-                            className="btn btn-secondary btn-sm"
-                            style={{ background: "#16942C" }}
-                            onMouseLeave={() => {
-                                setTimeout(() => {
-                                    setIsCopied(false);
-                                }, 1000);
-                            }}>
-                            <BsFillClipboardCheckFill />
-                        </button>
+                    <div className="">
+                        {!isCopied ?
+                            <button type="button" className="btn btn-secondary btn-sm">
+                                <BsFillClipboardFill />
+                            </button> :
+                            <button
+                                type="button"
+                                className="btn btn-secondary btn-sm"
+                                style={{ background: "#16942C" }}
+                                onMouseLeave={() => {
+                                    setTimeout(() => {
+                                        setIsCopied(false);
+                                    }, 1000);
+                                }}>
+                                <BsFillClipboardCheckFill />
+                            </button>
 
-                    }
+                        }
+                    </div>
 
                 </CopyToClipboard>
             </OverlayTrigger>
@@ -111,24 +112,28 @@ const TableComponents = (config: pageConfig) => {
         };
 
         return (
-            <div>
-                <button
-                    className={`btn btn-outline-secondary text-light ${loading ? "disabled" : ""}`}
-                    type="button"
-                    onClick={handleClick}
-                >
-                    {loading ?
-                        <div className="d-flex">
-                            {/* <div className="pe-2">
-                                <div className="spinner-border spinner-border-sm"></div>
-                            </div> */}
-                            <div> Generating... </div>
+            <button
+                className={`btn btn-outline-secondary text-light ${loading ? "disabled" : ""}`}
+                type="button"
+                onClick={handleClick}
+                style={{ padding:3, paddingBottom:8, paddingTop:8}}
+            >
+                {loading ?
+                    <div className="d-flex">
+                        <div className="pe-2 ps-2">
+                            <div className="spinner-border spinner-border-sm"></div>
                         </div>
-                        :
-                        "Generate"
-                    }
-                </button>
-            </div>
+                        <div className="pe-2"> Generating... </div>
+                    </div>
+                    :
+                    <div className="d-flex pe-2 ps-2">
+                        <div className="pe-2">
+                            <GoDiffAdded size={20}/>
+                        </div>
+                        <div className=""> Generate </div>
+                    </div>
+                }
+            </button>
         );
     };
 
@@ -201,7 +206,7 @@ const TableComponents = (config: pageConfig) => {
 
     return (
         <Container fluid className="p-0 bg-dark bg-lighten-xs pt-5">
-            <Container fluid className="pt-5 pb-2" style={{backgroundColor:"#1F1F21"}}>
+            <Container fluid className="pt-5 pb-2" style={{ backgroundColor: "#1F1F21" }}>
                 <figure className="text-center pt-4 pb-4 text-light">
                     <blockquote className="blockquote">
                         <p className="display-4">{t(config.titlePage, language)}</p>
@@ -222,21 +227,27 @@ const TableComponents = (config: pageConfig) => {
             <Container fluid className="pt-2 ps-4 pe-4">
 
                 {components.map(({ input, type, message }, index) => (
-                    <Row key={index} className="styled-row text-light my-2">
+                    <Row key={index} className="styled-row justify-content-center text-light my-2">
                         {/* Input Textfield */}
-                        <Col xs={12} md={2} className="pb-2">
+                        <Col xs={12} md={3} className="pb-2">
+                            {/* <Col xs={12} md={2} className="pb-2 border"> */}
                             <Col className="fs-5" xs={12} md={12}>{t('table.input.title', language)}</Col>
-                            <textarea
-                                className="form-control bg-dark text-light"
-                                value={input}
-                                onChange={(event) => handleInputTextChange(index, event)}
-                                required
-                            />
+                            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom"/>
+                            <div className="pt-2">
+                                <textarea
+                                    className="form-control bg-dark text-light"
+                                    value={input}
+                                    onChange={(event) => handleInputTextChange(index, event)}
+                                    required
+                                />
+                            </div>
                         </Col>
                         {/* Type Dropdown */}
-                        <Col xs={12} md={"auto"} lg={"auto"} xl={"auto"} className="pb-2">
+                        {/* <Col xs={12} md={"auto"} lg={"auto"} xl={"auto"} className="border pb-2"> */}
+                        <Col className="pb-2">
                             <Col className="fs-5" xs={12} md={9}>{t('table.type.title', language)}</Col>
-                            <Col sm className="">
+                            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom"/>
+                            <Col sm className="pt-2">
                                 <select
                                     className="form-select bg-dark text-light"
                                     value={type}
@@ -254,32 +265,38 @@ const TableComponents = (config: pageConfig) => {
                             </Col>
                         </Col>
                         {/* Message */}
-                        <Col xs={12} md={5} lg={6} xl={7} className="pb-2">
+                        <Col xs={12} md={4} lg={5} xl={6} className="pb-2">
                             <Col className="fs-5" xs={12} md={6}>{t('table.massage.title', language)}</Col>
-                            {/* If message length is 0, show "No generated message..." */}
-                            {message.length === 0 && (
-                                <span className="text-white-50">{t("table.no_message", language)}</span>
-                            )}
+                            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom"/>
+                            <div className="pt-1">
+                                {/* If message length is 0, show "No generated message..." */}
+                                {message.length === 0 && (
+                                    <span className="text-white-50">{t("table.no_message", language)}</span>
+                                )}
 
-                            {/* If there is a message */}
-                            {message.length > 0 && (
-                                <Container className="">
-                                    <Row>
-                                        <Col className="d-flex p-0 justify-content-end">
-                                            {/* Copy to Clipboard component */}
-                                            <CopyToClipboardButton message={message} />
-                                        </Col>
-                                        <Col xs={12} className="text-light p-0 mb-3" style={{ whiteSpace: 'pre-wrap' }}>
-                                            {message}
-                                        </Col>
-                                    </Row>
-                                </Container>
-                            )}
+                                {/* If there is a message */}
+                                {message.length > 0 && (
+                                    <Container fluid className="">
+                                        <Row>
+                                            <Col className="d-flex p-0 justify-content-end">
+                                                {/* Copy to Clipboard component */}
+                                                <CopyToClipboardButton message={message} />
+                                            </Col>
+                                            <Col xs={12} className="text-light p-0 mb-3" style={{ whiteSpace: 'pre-wrap' }}>
+                                                {message}
+                                            </Col>
+                                        </Row>
+                                    </Container>
+                                )}
+                            </div>
                         </Col>
+
                         {/* Generate Button */}
-                        <Col xs={12} md={"auto"} className="p-3 pb-0">
-                            <GenerateButton index={index} />
-                        </Col>
+                        <div className="col p-0" >
+                            <div className="pt-3 d-flex justify-content-center">
+                                <GenerateButton index={index} />
+                            </div>
+                        </div>
                     </Row>
                 ))}
             </Container>

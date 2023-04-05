@@ -6,14 +6,12 @@ import '@/styles/globals.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app'
-import { Roboto, Prompt, Noto_Sans_Thai } from 'next/font/google'
-import Head from 'next/head';
+import { Noto_Sans_Thai } from 'next/font/google'
 import Script from 'next/script';
 
 import { ReactElement, ReactNode } from 'react';
 
-const roboto = Roboto({ weight: '400', subsets: ['latin'], })
-const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
+const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['latin'] })
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement) => ReactNode
