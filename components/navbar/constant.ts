@@ -10,6 +10,6 @@ export const urlLinks = [
      { titleKey: 'navbar.title.createEmail', href: '/createEmail' },
      { titleKey: 'navbar.title.createArticle', href: '/createArticle' },
      { titleKey: 'navbar.title.createScripts', href: '/createShortVideoScripts' },
-     { titleKey: 'navbar.title.createImage', href: '/createImage' },
+     // { titleKey: 'navbar.title.createImage', href: '/createImage' },
  ];
 
