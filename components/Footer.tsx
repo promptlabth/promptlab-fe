@@ -16,7 +16,6 @@ const Footer = () => {
 
     useEffect(() => {
         setTitles(urlLinks.map(({ titleKey }) => t(titleKey, language)));
-        console.log(titles)
     }, [language]);
     return (
         <footer>

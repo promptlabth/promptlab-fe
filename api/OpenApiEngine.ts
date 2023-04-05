@@ -41,7 +41,6 @@ export const generateImage = async (config: openApiImageConfig): Promise<Generat
         });
 
         const image_url = response.data.data[0].url ?? "error";
-        console.log(image_url);
         return { success: true, data: image_url };
     } catch (error) {
         console.error(error);
