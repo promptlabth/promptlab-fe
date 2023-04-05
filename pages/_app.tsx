@@ -7,7 +7,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app'
 import { Roboto, Prompt, Noto_Sans_Thai } from 'next/font/google'
-import Head from 'next/head';
 import Script from 'next/script';
 
 import { ReactElement, ReactNode } from 'react';
@@ -45,10 +44,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
             <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@200&display=swap" rel="stylesheet" /> */}
-            <Head>
-                <title>Prompt Lab: AI-Powered Content Generator for Social Media & More</title>
-                <html lang="en" />
-            </Head>
             <LanguageProvider>
                 <AppNavbar />
                 <Component {...pageProps} />
