@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app'
 import { Roboto, Prompt, Noto_Sans_Thai } from 'next/font/google'
+import Head from 'next/head';
 import Script from 'next/script';
 
 import { ReactElement, ReactNode } from 'react';
