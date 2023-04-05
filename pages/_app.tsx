@@ -47,11 +47,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@200&display=swap" rel="stylesheet" /> */}
             <Head>
                 <title>Prompt Lab: AI-Powered Content Generator for Social Media & More</title>
-                <meta
-                    name="description"
-                    content="Prompt Lab is an AI-powered content generation tool that helps you create engaging social media posts, emails, and more in English and Thai. Boost your content creation with Prompt Lab today!"
-                />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <html lang="en" />
             </Head>
             <LanguageProvider>
