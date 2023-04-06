@@ -6,10 +6,10 @@ const CreateArticle = () => {
     const { language } = useLanguage();
     return (
         <TableComponents 
-        titlePage = {t('navbar.title.createArticle',language)}
+        titlePage = {t('navbar.title.createClickBait',language)}
         modelConfig={{
             model: "gpt-4",
-            temperature: 0.7,
+            temperature: 0.5,
             maxToken: 4000
         }}
             promptEn={(input: string, type: string) => getPromtforEmailtEn(input, type)}
@@ -20,17 +20,17 @@ const CreateArticle = () => {
 
 const getPromtforEmailtEn = (input: string, type: string): string => {
     return `
-    Write a blog post with hight demand SED keyword that talk about [main topic of article] that article should feeling like [emotion of massage]:
-    main topic of article: ${input}
-    emotion of massage: ${type}
+    Title : ${input}
+    emotional message : ${type}
+    "Compose a Captivating CClickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [Title] AndLook [emotional message] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience:
     `;
 }
 
 const getPromtforEmailTh = (input: string, type: string): string => {
     return `    
-    Write a blog post with hight demand SED keyword that talk about [main topic of article] that article should feeling like [emotion of massage] in Thai:
-    main topic of article: ${input}
-    emotion of massage: ${type}
+    Title : ${input}
+    emotional message : ${type}
+    "Compose a Captivating Clickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [Title] AndLook [emotional message] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience in Thai:
     `;
 }
 
