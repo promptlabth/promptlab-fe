@@ -8,7 +8,6 @@ import { NextPage } from 'next';
 import type { AppProps } from 'next/app'
 import { Noto_Sans_Thai } from 'next/font/google'
 import Script from 'next/script';
-
 import { ReactElement, ReactNode } from 'react';
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['latin'] })

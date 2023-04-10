@@ -1,19 +1,27 @@
 import { t } from "@/components/language";
 import TableComponents from "@/components/tableComponnets/TableComponents";
 import { useLanguage } from "@/language/ LanguageContext";
-
+import Head from "next/head";
 const CreateShortVideoScripts = () => {
     const { language } = useLanguage();
     return (
-        <TableComponents
-            titlePage={t("navbar.title.createScripts",language)}
-            modelConfig={{
-                model: "gpt-3.5-turbo",
-                temperature: 0.7,
-                maxToken: 4000
-            }}
-            promptEn={(input: string, type: string) => getPromtforSellingPostEn(input, type)}
-            promptTh={(input: string, type: string) => getPromtforSellingPostTh(input, type)} />);
+        <div>
+            <Head>
+                <title>{t("navbar.title.createScripts", language)}</title>
+                <meta name="description" content="Meta description for the Home page" />
+            </Head>
+            <TableComponents
+                titlePage={t("navbar.title.createScripts", language)}
+                modelConfig={{
+                    model: "gpt-3.5-turbo",
+                    temperature: 0.7,
+                    maxToken: 4000
+                }}
+                promptEn={(input: string, type: string) => getPromtforSellingPostEn(input, type)}
+                promptTh={(input: string, type: string) => getPromtforSellingPostTh(input, type)}
+            />
+        </div>
+    );
 
 }
 
