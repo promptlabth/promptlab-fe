@@ -12,6 +12,7 @@ const CreateSellingPost = () => {
             </Head>
             <TableComponents
                 titlePage={t('navbar.title.sellingPost', language)}
+                titleDescription={t('navbar.titleDescription.sellingPost', language)}
                 modelConfig={{
                     model: "gpt-3.5-turbo",
                     temperature: 0.7,

@@ -12,6 +12,7 @@ const CreateShortVideoScripts = () => {
             </Head>
             <TableComponents
                 titlePage={t("navbar.title.createScripts", language)}
+                titleDescription={t("navbar.titleDescription.createScripts", language)}
                 modelConfig={{
                     model: "gpt-3.5-turbo",
                     temperature: 0.7,

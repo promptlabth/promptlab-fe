@@ -3,14 +3,15 @@ import { useState, useEffect, ChangeEvent } from "react";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
-import {GoDiffAdded} from 'react-icons/go';
+import { GoDiffAdded } from 'react-icons/go';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
 import ToggleSwitch from "../starndart/ToggleSwitch";
 import { useLanguage } from "@/language/ LanguageContext";
 import { t } from "../language";
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { CreateSellingPageModal } from "../modals/createSellingPageModal";
 
 type ComponentProps = {
     input: string;
@@ -26,6 +27,7 @@ export type modelCofig = {
 
 export type pageConfig = {
     titlePage: string;
+    titleDescription: string;
     modelConfig: modelCofig;
     promptEn: (input: string, type: string) => string;
     promptTh: (input: string, type: string) => string;
@@ -35,6 +37,7 @@ const TableComponents = (config: pageConfig) => {
     const [components, setComponents] = useState<ComponentProps[]>([]);
     const [isTh, setIsTh] = useState(true);
     const { language, setLanguage } = useLanguage();
+    const [modalShow, setModalShow] = useState(false);
 
     const postTypes = [
         { value: "funny", label: t('table.type.funny', language) },
@@ -116,7 +119,7 @@ const TableComponents = (config: pageConfig) => {
                 className={`btn btn-outline-secondary text-light ${loading ? "disabled" : ""}`}
                 type="button"
                 onClick={handleClick}
-                style={{ padding:3, paddingBottom:8, paddingTop:8}}
+                style={{ padding: 3, paddingBottom: 8, paddingTop: 8 }}
             >
                 {loading ?
                     <div className="d-flex">
@@ -128,7 +131,7 @@ const TableComponents = (config: pageConfig) => {
                     :
                     <div className="d-flex pe-2 ps-2">
                         <div className="pe-2">
-                            <GoDiffAdded size={20}/>
+                            <GoDiffAdded size={20} />
                         </div>
                         <div className=""> Generate </div>
                     </div>
@@ -212,7 +215,8 @@ const TableComponents = (config: pageConfig) => {
                         <p className="display-4">{t(config.titlePage, language)}</p>
                     </blockquote>
                     <figcaption className="blockquote-footer">
-                        {t('table.description', language)}
+                        {/* {t('table.description', language)} */}
+                        {t(config.titleDescription, language)}
                     </figcaption>
                 </figure>
                 <div className="text-light text-center">
@@ -220,6 +224,10 @@ const TableComponents = (config: pageConfig) => {
                     <ToggleSwitch isOn={isTh} handleToggle={handleToggle} />
                     <p>{isTh ? 'TH' : 'EN'}</p>
                 </div>
+                <Button className="bg-secondary" onClick={() => setModalShow(true)}>
+                    Learn More
+                </Button>
+
             </Container>
 
             {/* Table component */}
@@ -232,7 +240,7 @@ const TableComponents = (config: pageConfig) => {
                         <Col xs={12} md={3} className="pb-2">
                             {/* <Col xs={12} md={2} className="pb-2 border"> */}
                             <Col className="fs-5" xs={12} md={12}>{t('table.input.title', language)}</Col>
-                            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom"/>
+                            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" />
                             <div className="pt-2">
                                 <textarea
                                     className="form-control bg-dark text-light"
@@ -246,7 +254,7 @@ const TableComponents = (config: pageConfig) => {
                         {/* <Col xs={12} md={"auto"} lg={"auto"} xl={"auto"} className="border pb-2"> */}
                         <Col className="pb-2">
                             <Col className="fs-5" xs={12} md={9}>{t('table.type.title', language)}</Col>
-                            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom"/>
+                            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" />
                             <Col sm className="pt-2">
                                 <select
                                     className="form-select bg-dark text-light"
@@ -267,7 +275,7 @@ const TableComponents = (config: pageConfig) => {
                         {/* Message */}
                         <Col xs={12} md={4} lg={5} xl={6} className="pb-2">
                             <Col className="fs-5" xs={12} md={6}>{t('table.massage.title', language)}</Col>
-                            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom"/>
+                            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" />
                             <div className="pt-1">
                                 {/* If message length is 0, show "No generated message..." */}
                                 {message.length === 0 && (
@@ -307,6 +315,11 @@ const TableComponents = (config: pageConfig) => {
                     {t("button.newRow", language)}
                 </Button>
             </Container>
+
+            <CreateSellingPageModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+            />
         </Container>
     );
 };

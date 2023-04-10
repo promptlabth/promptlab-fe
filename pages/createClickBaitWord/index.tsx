@@ -13,6 +13,7 @@ const CreateArticle = () => {
             </Head>
             <TableComponents
                 titlePage={t('navbar.title.createClickBait', language)}
+                titleDescription={t('navbar.titleDescription.createClickBait', language)}
                 modelConfig={{
                     model: "gpt-4",
                     temperature: 0.5,

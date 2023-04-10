@@ -12,6 +12,7 @@ const CreateEmail = () => {
             </Head>
             <TableComponents
                 titlePage={t('navbar.title.createEmail', language)}
+                titleDescription={t('navbar.titleDescription.createEmail', language)}
                 modelConfig={{
                     model: "gpt-3.5-turbo",
                     temperature: 0.7,
