@@ -1,19 +1,28 @@
 import { t } from "@/components/language";
 import TableComponents from "@/components/tableComponnets/TableComponents";
 import { useLanguage } from "@/language/ LanguageContext";
+import Head from "next/head";
 
 const CreateArticle = () => {
     const { language } = useLanguage();
     return (
-        <TableComponents 
-        titlePage = {t('navbar.title.createClickBait',language)}
-        modelConfig={{
-            model: "gpt-4",
-            temperature: 0.5,
-            maxToken: 4000
-        }}
-            promptEn={(input: string, type: string) => getPromtforEmailtEn(input, type)}
-            promptTh={(input: string, type: string) => getPromtforEmailTh(input, type)} />);
+        <div>
+            <Head>
+                <title>{t('navbar.title.createClickBait', language)}</title>
+                <meta name="description" content="Meta description for the Home page" />
+            </Head>
+            <TableComponents
+                titlePage={t('navbar.title.createClickBait', language)}
+                modelConfig={{
+                    model: "gpt-4",
+                    temperature: 0.5,
+                    maxToken: 4000
+                }}
+                promptEn={(input: string, type: string) => getPromtforEmailtEn(input, type)}
+                promptTh={(input: string, type: string) => getPromtforEmailTh(input, type)}
+            />
+        </div>
+    );
 
 }
 

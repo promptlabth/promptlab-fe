@@ -4,6 +4,7 @@ import { useLanguage } from '@/language/ LanguageContext';
 import { t } from "./language";
 import { useEffect, useState } from "react";
 import { urlLinks } from "./navbar/constant";
+import { useRouter } from 'next/router';
 
 /**
  * Footer using Bootstrap 5
@@ -13,6 +14,8 @@ const Footer = () => {
     const [titles, setTitles] = useState(
         urlLinks.map(({ titleKey }) => t(titleKey, language))
     );
+    const router = useRouter()
+
 
     useEffect(() => {
         setTitles(urlLinks.map(({ titleKey }) => t(titleKey, language)));
@@ -35,7 +38,15 @@ const Footer = () => {
                         {/* <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom"/> */}
                         <ul className="list-group">
                             {urlLinks.map(({ href }, index) => (
-                                <Link key={index} href={href} className="fs-6 category-list text-decoration-none">
+                                <Link 
+                                    key={index} 
+                                    href={href} 
+                                    className="fs-6 category-list text-decoration-none"
+                                    style={{ 
+                                        backgroundColor: href === router.pathname ? "rgb(255, 255, 255,0.8)" : "",
+                                        color: "#171717"
+                                    }}    
+                                >
                                     {titles[index]}
                                 </Link>
                             ))}
