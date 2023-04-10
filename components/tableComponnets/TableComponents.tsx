@@ -4,6 +4,7 @@ import { useState, useEffect, ChangeEvent } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
 import { GoDiffAdded } from 'react-icons/go';
+import { IoIosArrowForward } from 'react-icons/io';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
@@ -11,7 +12,7 @@ import ToggleSwitch from "../starndart/ToggleSwitch";
 import { useLanguage } from "@/language/ LanguageContext";
 import { t } from "../language";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { CreateSellingPageModal } from "../modals/createSellingPageModal";
+import { PageDescriptionModal } from "../modals/PageDescriptionModal";
 
 type ComponentProps = {
     input: string;
@@ -215,7 +216,6 @@ const TableComponents = (config: pageConfig) => {
                         <p className="display-4">{t(config.titlePage, language)}</p>
                     </blockquote>
                     <figcaption className="blockquote-footer">
-                        {/* {t('table.description', language)} */}
                         {t(config.titleDescription, language)}
                     </figcaption>
                 </figure>
@@ -223,10 +223,15 @@ const TableComponents = (config: pageConfig) => {
                     <h3>Language</h3>
                     <ToggleSwitch isOn={isTh} handleToggle={handleToggle} />
                     <p>{isTh ? 'TH' : 'EN'}</p>
+                    <div className="d-flex justify-content-center">
+                        <Button variant="outline-light" className="d-flex" onClick={() => setModalShow(true)}>
+                            <div className="fs-5"> Learn More </div>
+                            <div className="fs-5 ps-2">
+                                <IoIosArrowForward/>
+                            </div>
+                        </Button>
+                    </div>
                 </div>
-                <Button className="bg-secondary" onClick={() => setModalShow(true)}>
-                    Learn More
-                </Button>
 
             </Container>
 
@@ -315,10 +320,11 @@ const TableComponents = (config: pageConfig) => {
                     {t("button.newRow", language)}
                 </Button>
             </Container>
-
-            <CreateSellingPageModal
+            {/*  */}
+            <PageDescriptionModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
+                config={config}
             />
         </Container>
     );

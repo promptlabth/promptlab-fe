@@ -1,5 +1,9 @@
 {
         "th": {
+            "modal.title.howToUse": "วิธีใช้งานง่ายๆ",
+            "modal.title.inputMessage": "ใส่ข้อความ",
+            "modal.title.selectType": "เลือกประเภท",
+            "modal.title.clickGenerate": "กด Generate และสนุกได้เลย!",
             "navbar.title.sellingPost": "เขียนแคปชั่นขายของ",
             "navbar.titleDescription.sellingPost": "สร้างแคปชั่นขายของสุดน่าสนใจ ด้วยความรวดเร็ว และง่ายดายมากขึ้น ไม่ต้องใช้เวลานานด้วย Prompt Lab",
             "navbar.title.createEmail": "เขียนแบบร่างอีเมล",
@@ -28,6 +32,10 @@
             "footer.description_2": "Prompt Lab ทำอะไรได้มากกว่าที่คุณคิด!!"
         },
         "en": {
+            "modal.title.howToUse": "How to use it",
+            "modal.title.inputMessage": "Input your message",
+            "modal.title.selectType": "Select Type",
+            "modal.title.clickGenerate": "Click Generate and have fun",
             "navbar.title.sellingPost": "Create Selling Post",
             "navbar.titleDescription.sellingPost": "Create the interesting selling post quickly and easily with Prompt Lab.",
             "navbar.title.createEmail": "Create Email",
