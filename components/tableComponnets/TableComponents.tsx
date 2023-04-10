@@ -37,7 +37,7 @@ export type pageConfig = {
 const TableComponents = (config: pageConfig) => {
     const [components, setComponents] = useState<ComponentProps[]>([]);
     const [isTh, setIsTh] = useState(true);
-    const { language, setLanguage } = useLanguage();
+    const {language, setLanguage } = useLanguage();
     const [modalShow, setModalShow] = useState(false);
 
     const postTypes = [
@@ -48,6 +48,8 @@ const TableComponents = (config: pageConfig) => {
         { value: "educational", label: t('table.type.educational', language) },
         { value: "happy", label: t('table.type.happy', language) },
     ];
+
+   
 
     const CopyToClipboardButton = ({ message }: { message: string }) => {
         const [isCopied, setIsCopied] = useState(false);
@@ -83,7 +85,6 @@ const TableComponents = (config: pageConfig) => {
                                 }}>
                                 <BsFillClipboardCheckFill />
                             </button>
-
                         }
                     </div>
 
@@ -220,12 +221,12 @@ const TableComponents = (config: pageConfig) => {
                     </figcaption>
                 </figure>
                 <div className="text-light text-center">
-                    <h3>Language</h3>
+                    <h3>{t("language", language)}</h3>
                     <ToggleSwitch isOn={isTh} handleToggle={handleToggle} />
                     <p>{isTh ? 'TH' : 'EN'}</p>
                     <div className="d-flex justify-content-center">
                         <Button variant="outline-light" className="d-flex" onClick={() => setModalShow(true)}>
-                            <div className="fs-5"> Learn More </div>
+                            <div className="fs-5"> {t("button.learnMore", language)} </div>
                             <div className="fs-5 ps-2">
                                 <IoIosArrowForward/>
                             </div>

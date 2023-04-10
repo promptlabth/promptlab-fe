@@ -29,7 +29,7 @@ export const AppNavbar: React.FC = () => {
                                 href={href}
                                 style={{ 
                                     background: href === router.pathname ? "rgb(255, 255, 255,0.8)" : "",
-                                    color:"#171717"
+                                    color:"black"
                                 }}
                             >
                                 {titles[index]}

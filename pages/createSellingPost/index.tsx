@@ -7,12 +7,12 @@ const CreateSellingPost = () => {
     return (
         <div>
             <Head>
-                <title>{t('navbar.title.sellingPost', language)}</title>
+                <title>{t('createSellingPost.title', language)}</title>
                 <meta name="description" content="Meta description for the Home page" />
             </Head>
             <TableComponents
-                titlePage={t('navbar.title.sellingPost', language)}
-                titleDescription={t('navbar.titleDescription.sellingPost', language)}
+                titlePage="createSellingPost.title"
+                titleDescription="createSellingPost.description"
                 modelConfig={{
                     model: "gpt-3.5-turbo",
                     temperature: 0.7,

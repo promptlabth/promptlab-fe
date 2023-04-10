@@ -7,12 +7,12 @@ const CreateShortVideoScripts = () => {
     return (
         <div>
             <Head>
-                <title>{t("navbar.title.createScripts", language)}</title>
+                <title>{t("createScripts.title", language)}</title>
                 <meta name="description" content="Meta description for the Home page" />
             </Head>
             <TableComponents
-                titlePage={t("navbar.title.createScripts", language)}
-                titleDescription={t("navbar.titleDescription.createScripts", language)}
+                titlePage="createScripts.title"
+                titleDescription="createScripts.description"
                 modelConfig={{
                     model: "gpt-3.5-turbo",
                     temperature: 0.7,

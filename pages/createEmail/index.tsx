@@ -7,12 +7,12 @@ const CreateEmail = () => {
     return (
         <div>
             <Head>
-                <title>{t('navbar.title.createEmail', language)}</title>
+                <title>{t('createEmail.title', language)}</title>
                 <meta name="description" content="Meta description for the Home page" />
             </Head>
             <TableComponents
-                titlePage={t('navbar.title.createEmail', language)}
-                titleDescription={t('navbar.titleDescription.createEmail', language)}
+                titlePage="createEmail.title"
+                titleDescription="createEmail.description"
                 modelConfig={{
                     model: "gpt-3.5-turbo",
                     temperature: 0.7,

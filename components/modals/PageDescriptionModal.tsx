@@ -7,6 +7,13 @@ const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['latin'] })
 
 export const PageDescriptionModal = (props: any) => {
     const { language } = useLanguage();
+    const learnMoreDescriptionTypeKey = 
+        props.config.titlePage === "createSellingPost.title" ? "modal.description.inputMessage.createSellingPost" : 
+        props.config.titlePage === "createEmail.title" ? "modal.description.inputMessage.createEmail" :
+        props.config.titlePage === "createArticle.title" ? "modal.description.inputMessage.createArticle" :
+        props.config.titlePage === "createScripts.title" ? "modal.description.inputMessage.createScripts" :
+        props.config.titlePage === "createClickBait.title" ? "modal.description.inputMessage.createClickBait" :
+        "modal.description.inputMessage.createSellingPost"
 
     return (
         <Modal
@@ -39,11 +46,7 @@ export const PageDescriptionModal = (props: any) => {
                         <h4 className="pt-2">{t("modal.title.inputMessage", language)}</h4>
                         <div className="ps-4 pe-4">
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent egestas justo sed tincidunt malesuada.
-                                Nullam efficitur, tortor sed suscipit laoreet, magna mi accumsan nunc, eget feugiat turpis velit quis massa.
-                                Pellentesque pulvinar malesuada tortor ut pellentesque. Aenean porta nibh id condimentum congue.
-                                Fusce laoreet lobortis sapien semper scelerisque. Sed eleifend magna in porttitor consequat.
-                                Suspendisse faucibus purus et mi porttitor dictum.
+                            {t(learnMoreDescriptionTypeKey,language)}
                             </p>
                         </div>
                     </Container>
@@ -51,28 +54,12 @@ export const PageDescriptionModal = (props: any) => {
                     <Container className="border">
                         <h4 className="pt-2">{t("modal.title.selectType", language)}</h4>
                         <div className="ps-4 pe-4">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent egestas justo sed tincidunt malesuada.
-                                Nullam efficitur, tortor sed suscipit laoreet, magna mi accumsan nunc, eget feugiat turpis velit quis massa.
-                                Pellentesque pulvinar malesuada tortor ut pellentesque. Aenean porta nibh id condimentum congue.
-                                Fusce laoreet lobortis sapien semper scelerisque. Sed eleifend magna in porttitor consequat.
-                                Suspendisse faucibus purus et mi porttitor dictum.
-                            </p>
+                            <p> {t("modal.description.selectType",language)}</p>
                         </div>
                     </Container>
 
                     <Container>
                         <h4 className="pt-2">{t("modal.title.clickGenerate", language)}</h4>
-                        <div className="ps-4 pe-4">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent egestas justo sed tincidunt malesuada.
-                                Nullam efficitur, tortor sed suscipit laoreet, magna mi accumsan nunc, eget feugiat turpis velit quis massa.
-                                Pellentesque pulvinar malesuada tortor ut pellentesque. Aenean porta nibh id condimentum congue.
-                                Fusce laoreet lobortis sapien semper scelerisque. Sed eleifend magna in porttitor consequat.
-                                Suspendisse faucibus purus et mi porttitor dictum.
-                            </p>
-
-                        </div>
                     </Container>
 
                 </Container>

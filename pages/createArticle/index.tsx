@@ -8,12 +8,12 @@ const CreateArticle = () => {
     return (
         <div>
             <Head>
-                <title>{t('navbar.title.createArticle', language)}</title>
+                <title>{t('createArticle.title', language)}</title>
                 <meta name="description" content="Meta description for the Home page" />
             </Head>
             <TableComponents
-                titlePage={t('navbar.title.createArticle', language)}
-                titleDescription={t('navbar.titleDescription.createArticle', language)}
+                titlePage="createArticle.title"
+                titleDescription="createArticle.description"
                 modelConfig={{
                     model: "gpt-4",
                     temperature: 0.7,
