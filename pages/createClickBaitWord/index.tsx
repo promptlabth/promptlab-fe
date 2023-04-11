@@ -8,11 +8,12 @@ const CreateArticle = () => {
     return (
         <div>
             <Head>
-                <title>{t('navbar.title.createClickBait', language)}</title>
+                <title>{t('createClickBait.title', language)}</title>
                 <meta name="description" content="Meta description for the Home page" />
             </Head>
             <TableComponents
-                titlePage={t('navbar.title.createClickBait', language)}
+                titlePage="createClickBait.title"
+                titleDescription="createClickBait.description"
                 modelConfig={{
                     model: "gpt-4",
                     temperature: 0.5,

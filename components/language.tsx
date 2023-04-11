@@ -30,7 +30,6 @@ export function t(key: string, language?: Language): string {
 
 // ...
 
-
 export const isTh = (): boolean => {
   return currentLanguage === 'th';
 };
