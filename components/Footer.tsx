@@ -32,7 +32,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className="col-lg-6 pt-2">
-                        <h5 className="fs-3 fw-semibold">{t("footer.feateres", language)}</h5>
+                        <h5 className="fs-3 fw-semibold">{t("footer.feature", language)}</h5>
                         <hr className="m-0 mb-2 bg-white" style={{height:"2px"}}/>
 
                         {/* <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom"/> */}
@@ -43,8 +43,8 @@ const Footer = () => {
                                     href={href} 
                                     className="fs-6 category-list text-decoration-none"
                                     style={{ 
-                                        backgroundColor: href === router.pathname ? "rgb(255, 255, 255,0.8)" : "",
-                                        color: "#171717"
+                                        background: href === router.pathname ? "rgb(255, 255, 255,0.8)" : "",
+                                        color: "black"
                                     }}    
                                 >
                                     {titles[index]}

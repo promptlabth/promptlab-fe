@@ -1,16 +1,16 @@
-export const navbarConstans = {
-     sellingPostTitle: "navbar.title.createSellPost",
-     createEmailTitle: "navber.title.createEmail",
-     createArticalTitle: "navber.title.createAtical",
-     createScriptsTitle: "navbar.title.createVideoScripts",
-}
+// export const navbarConstans = {
+//      sellingPostTitle: "createSellingPost.title",
+//      createEmailTitle: "createEmail.title",
+//      createArticalTitle: "createArticle.title",
+//      createScriptsTitle: "createVideoScripts.title",
+// }
 
 export const urlLinks = [
-     { titleKey: 'navbar.title.sellingPost', href: '/createSellingPost' },
-     { titleKey: 'navbar.title.createEmail', href: '/createEmail' },
-     { titleKey: 'navbar.title.createArticle', href: '/createArticle' },
-     { titleKey: 'navbar.title.createScripts', href: '/createShortVideoScripts' },
-     { titleKey: 'navbar.title.createClickBait', href: '/createClickBaitWord' },
+     { titleKey: 'createSellingPost.title', href: '/createSellingPost' },
+     { titleKey: 'createEmail.title', href: '/createEmail' },
+     { titleKey: 'createArticle.title', href: '/createArticle' },
+     { titleKey: 'createScripts.title', href: '/createShortVideoScripts' },
+     { titleKey: 'createClickBait.title', href: '/createClickBaitWord' },
      // { titleKey: 'navbar.title.createImage', href: '/createImage' },
  ];
 
