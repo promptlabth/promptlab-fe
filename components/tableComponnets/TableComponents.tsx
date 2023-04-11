@@ -13,12 +13,18 @@ import { useLanguage } from "@/language/ LanguageContext";
 import { t } from "../language";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { PageDescriptionModal } from "../modals/PageDescriptionModal";
+import generateMessageWithBackend from "@/api/OpenAiBackend";
 
 type ComponentProps = {
     input: string;
     type: string;
     message: string;
 };
+
+type ApiResponse = {
+    response?: string;
+    error?: string;
+  };
 
 export type modelCofig = {
     model: string;
@@ -154,8 +160,10 @@ const TableComponents = (config: pageConfig) => {
             ...config.modelConfig
         }
 
+
+
         try {
-            const message = await gennerateMassage(apiConfig) ?? 'Error Please try again'
+            const message = await generateMessageWithBackend(apiConfig) ?? 'Error Please try again'
 
             setComponents((prevComponents) => {
                 const updatedComponents = [...prevComponents];
