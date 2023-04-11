@@ -9,12 +9,12 @@ const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['latin'] })
 export const PageDescriptionModal = (props: any) => {
     const { language } = useLanguage();
 
-    const featureKey :  {[key: string]: string[]}= {
-        "createSellingPost.title": ["modal.description.inputMessage.createSellingPost", "/DemoSellingPost.mp4"],
-        "createEmail.title": ["modal.description.inputMessage.createEmail", "/DemoEmail.mp4"],
-        "createArticle.title": ["modal.description.inputMessage.createArticle", "/DemoArticle.mp4"],
-        "createScripts.title": ["modal.description.inputMessage.createScripts", "/DemoVideoScript.mp4"],
-        "createClickBait.title": ["modal.description.inputMessage.createClickBait", "/DemoClickBait.mp4"]
+    const featureKey: { [key: string]: string[] } = {
+        "createSellingPost.title": ["modal.description.inputMessage.createSellingPost", "https://drive.google.com/uc?export=download&id=1zL_fJbOY8gk1bzFCgzKqB5-yh7ybubHQ"],
+        "createEmail.title": ["modal.description.inputMessage.createEmail", "https://drive.google.com/uc?export=download&id=1jFd3OShYSLzB4s7qk0_InGKKFb_aCPW2"],        
+        "createArticle.title": ["modal.description.inputMessage.createArticle", "https://drive.google.com/uc?export=download&id=1FHGhs8VYOcQePub2qK6AkPy_mKveaOAh"],        
+        "createScripts.title": ["modal.description.inputMessage.createScripts", "https://drive.google.com/uc?export=download&id=1hcT6B4Anf_mNhPFhVuExgRRIxliGhP-w"],        
+        "createClickBait.title": ["modal.description.inputMessage.createClickBait", "https://drive.google.com/uc?export=download&id=1RuSeU_Q9JVE6O_Vb_g3gbSVCNvFkn6MP"]
     }
 
     return (
@@ -37,7 +37,10 @@ export const PageDescriptionModal = (props: any) => {
             <Modal.Body>
 
                 <div className="ratio ratio-16x9">
-                    <iframe className="rounded-3" src={featureKey[props.config.titlePage][1]} title="Demo video"></iframe>
+                    <video width="1280" height="720" controls>
+                        <source src={featureKey[props.config.titlePage][1]} type="video/mp4" />
+                    </video>
+                    {/* <iframe className="rounded-3" src={featureKey[props.config.titlePage][1]} title="Demo video"></iframe> */}
                 </div>
 
                 <div className="text-center p-4">
