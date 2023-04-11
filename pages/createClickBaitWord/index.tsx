@@ -15,8 +15,7 @@ const CreateArticle = () => {
                 titlePage="createClickBait.title"
                 titleDescription="createClickBait.description"
                 modelConfig={{
-                    model: "gpt-3.5-turbo",
-                    // model: "gpt-4",
+                    model: "gpt-4",
                     temperature: 0.5,
                     maxToken: 4000
                 }}
