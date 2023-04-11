@@ -9,20 +9,12 @@ const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['latin'] })
 export const PageDescriptionModal = (props: any) => {
     const { language } = useLanguage();
 
-    const key: { [key: string]: string } = {
-        "createSellingPost.title": "modal.description.inputMessage.createSellingPost",
-        "createEmail.title": "modal.description.inputMessage.createEmail",
-        "createArticle.title": "modal.description.inputMessage.createArticle",
-        "createScripts.title": "modal.description.inputMessage.createScripts",
-        "createClickBait.title": "modal.description.inputMessage.createClickBait"
-    }
-
-    const videoSrc: { [key: string]: string } = {
-        "createSellingPost.title": "/DemoSellingPost.mp4",
-        "createEmail.title": "/DemoEmail.mp4",
-        "createArticle.title": "/DemoArticle.mp4",
-        "createScripts.title": "/DemoVideoScript.mp4",
-        "createClickBait.title": "/DemoClickBait.mp4"
+    const featureKey :  {[key: string]: string[]}= {
+        "createSellingPost.title": ["modal.description.inputMessage.createSellingPost", "/DemoSellingPost.mp4"],
+        "createEmail.title": ["modal.description.inputMessage.createEmail", "/DemoEmail.mp4"],
+        "createArticle.title": ["modal.description.inputMessage.createArticle", "/DemoArticle.mp4"],
+        "createScripts.title": ["modal.description.inputMessage.createScripts", "/DemoVideoScript.mp4"],
+        "createClickBait.title": ["modal.description.inputMessage.createClickBait", "/DemoClickBait.mp4"]
     }
 
     return (
@@ -45,7 +37,7 @@ export const PageDescriptionModal = (props: any) => {
             <Modal.Body>
 
                 <div className="ratio ratio-16x9">
-                    <iframe className="rounded-3" src={videoSrc[props.config.titlePage]} title="Demo video"></iframe>
+                    <iframe className="rounded-3" src={featureKey[props.config.titlePage][1]} title="Demo video"></iframe>
                 </div>
 
                 <div className="text-center p-4">
@@ -60,8 +52,8 @@ export const PageDescriptionModal = (props: any) => {
                             <TbCircleNumber1 className="fs-1" />
                             <h4 className="ps-2 pt-2 fw-bold">{t("modal.title.inputMessage", language)}</h4>
                         </div>
-                        <div className="ps-4 ms-4 me-4">
-                            <p>{t(key[props.config.titlePage], language)}</p>
+                        <div className="ps-4 ms-4 me-4 fs-5">
+                            <p>{t(featureKey[props.config.titlePage][0], language)}</p>
                         </div>
                     </Container>
 
@@ -70,7 +62,7 @@ export const PageDescriptionModal = (props: any) => {
                             <TbCircleNumber2 className="fs-1" />
                             <h4 className="ps-2 pt-2 fw-bold">{t("modal.title.selectType", language)}</h4>
                         </div>
-                        <div className="ps-4 ms-4 me-4">
+                        <div className="ps-4 ms-4 me-4 fs-5">
                             <p> {t("modal.description.selectType", language)}</p>
                         </div>
                     </Container>
@@ -85,8 +77,8 @@ export const PageDescriptionModal = (props: any) => {
                 </Container>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="danger"  size="lg" onClick={props.onHide}>
-                    { language === "th" ? "ปิด" : "Close"}    
+                <Button variant="danger" size="lg" onClick={props.onHide}>
+                    {language === "th" ? "ปิด" : "Close"}
                 </Button>
             </Modal.Footer>
         </Modal >
