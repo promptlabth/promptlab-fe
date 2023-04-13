@@ -167,7 +167,7 @@ input:checked+.slider:before {
 
 .category-list {
     color: black;
-    padding: 1.5%;
+    padding: 2.5%;
     padding-left: 1.25em;
     transition: all 0.3s;
 }

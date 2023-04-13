@@ -5,6 +5,8 @@ import { t } from "./language";
 import { useEffect, useState } from "react";
 import { urlLinks } from "./navbar/constant";
 import { useRouter } from 'next/router';
+import { Button, Carousel, Col, Row } from "react-bootstrap";
+import { AiOutlineMessage } from 'react-icons/ai';
 
 /**
  * Footer using Bootstrap 5
@@ -16,52 +18,114 @@ const Footer = () => {
     );
     const router = useRouter()
 
+    const SponsorCarousel = () => {
+        return (
+            <>
+                <Carousel>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="/black_solid.jpg"
+                            alt="First slide"
+                        />
+                        <Carousel.Caption>
+                            <h3>Sponsor Area 1</h3>
+                            {/* <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p> */}
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="/black_solid.jpg"
+                            alt="Second slide"
+                        />
+
+                        <Carousel.Caption>
+                            <h3>Sponsor Area 2</h3>
+                            {/* <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> */}
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="/black_solid.jpg"
+                            alt="Third slide"
+                        />
+
+                        <Carousel.Caption>
+                            <h3>Sponsor Area 3</h3>
+                            {/* <p>
+                                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                            </p> */}
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                </Carousel>
+            </>
+        )
+    }
 
     useEffect(() => {
         setTitles(urlLinks.map(({ titleKey }) => t(titleKey, language)));
     }, [language]);
     return (
         <footer>
-            <Container fluid className="p-3 bg-gradient" style={{ backgroundColor: "#5A5A5A" }}>
+            <Container fluid className="p-4 pb-1" style={{ backgroundColor: "#6E6E6E" }}>
                 <div className="row">
-                    <div className="col p-4">
+                    <div className="col-lg-4 p-3">
+                        <h5 className="fs-4 fw-semibold"> PROMPT LAB</h5>
+                        <hr className="m-0 mb-2 bg-white " style={{ height: "2px" }} />
+
                         <div>
-                            <h1 className="fw-bold">PROMPT LAB</h1>
-                            <p className="fs-5 fw-semibold container"> {t("footer.description_1", language)} </p>
-                            <p className="fs-5 fw-semibold container"> {t("footer.description_2", language)}</p>
+                            <p className="fs-5 container"> {t("footer.description_1", language)} </p>
+                            <p className="fs-5 container"> {t("footer.description_2", language)}</p>
                         </div>
                     </div>
-                    <div className="col-lg-6 pt-2">
-                        <h5 className="fs-3 fw-semibold">{t("footer.feature", language)}</h5>
-                        <hr className="m-0 mb-2 bg-white" style={{height:"2px"}}/>
+                    <div className="col-lg-4 pt-3 pb-3">
+                        <h5 className="fs-4 fw-semibold">{t("footer.links", language)}</h5>
+                        <hr className="m-0 mb-2 bg-white" style={{ height: "2px" }} />
 
                         {/* <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom"/> */}
                         <ul className="list-group">
                             {urlLinks.map(({ href }, index) => (
-                                <Link 
-                                    key={index} 
-                                    href={href} 
+                                <Link
+                                    key={index}
+                                    href={href}
                                     className="fs-6 category-list text-decoration-none"
-                                    style={{ 
+                                    style={{
                                         background: href === router.pathname ? "rgb(255, 255, 255,0.8)" : "",
                                         color: "black"
-                                    }}    
+                                    }}
                                 >
                                     {titles[index]}
                                 </Link>
                             ))}
                         </ul>
                     </div>
+
+                    <div className="col-lg-4 pt-3">
+                        <h5 className="fs-4 fw-semibold">{t("footer.sponsors", language)}</h5>
+                        <hr className="m-0 mb-2 bg-white" style={{ height: "2px" }} />
+                        <SponsorCarousel />
+                        <div className="p-2 justify-content-center d-flex">
+                            <div className="">
+                                <Button disabled size="lg" variant="outline-light" className="m-2" >
+                                    <AiOutlineMessage className="fs-5" />
+                                    <text className="ps-2">
+                                        {language === "th" && "สนใจติดต่อเรา"}
+                                        {language === "en" && "Contact us"}
+                                    </text>
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </Container >
-            <div className="container-fluid p-3 text-light d-flex justify-content-center" style={{ backgroundColor: "#373737" }}>
-                <text className="text-light">
-                    Thanks to Bootstrap 5 to make
-                    <b>{" "}Prompt Lab{" "}</b>
-                    a wondeful website!!
-                </text>
-            </div>
+            <Row fluid className="p-4 text-light d-flex justify-content-center" style={{ backgroundColor: "#373737" }}>
+                <Col md={8} className="text-center">
+                    Prompt Lab @2023 | Thanks to Bootstrap 5 to make <b>{" "}Prompt Lab{" "}</b> a wondeful website!!
+                </Col>
+            </Row>
         </footer>
     )
 }
