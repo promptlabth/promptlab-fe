@@ -18,46 +18,39 @@ const Footer = () => {
     );
     const router = useRouter()
 
+    const handleClickConnect = () => {
+        router.push('https://line.me/ti/p/6U8C67P6q1');
+      };
+
+    const handleClickPJean = () => {
+        router.push('https://www.facebook.com/lasxna');
+      };
+
     const SponsorCarousel = () => {
         return (
             <>
-                <Carousel>
-                    <Carousel.Item>
-                        <img
+                <Carousel style={{cursor: "pointer"}} >
+                    <Carousel.Item onClick={handleClickPJean}>
+                        <img 
                             className="d-block w-100"
-                            src="/black_solid.jpg"
+                            src="/images/promote_jean.png"
                             alt="First slide"
                         />
-                        <Carousel.Caption>
-                            <h3>Sponsor Area 1</h3>
-                            {/* <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p> */}
-                        </Carousel.Caption>
                     </Carousel.Item>
-                    <Carousel.Item>
+                    <Carousel.Item onClick={handleClickConnect}>
                         <img
                             className="d-block w-100"
-                            src="/black_solid.jpg"
+                            src="/images/promote_bg.png"
                             alt="Second slide"
                         />
 
-                        <Carousel.Caption>
-                            <h3>Sponsor Area 2</h3>
-                            {/* <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> */}
-                        </Carousel.Caption>
                     </Carousel.Item>
-                    <Carousel.Item>
+                    <Carousel.Item onClick={handleClickConnect}>
                         <img
                             className="d-block w-100"
-                            src="/black_solid.jpg"
+                            src="/images/promote_bg.png"
                             alt="Third slide"
                         />
-
-                        <Carousel.Caption>
-                            <h3>Sponsor Area 3</h3>
-                            {/* <p>
-                                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                            </p> */}
-                        </Carousel.Caption>
                     </Carousel.Item>
                 </Carousel>
             </>
@@ -101,14 +94,14 @@ const Footer = () => {
                             ))}
                         </ul>
                     </div>
-
+                    {/* https://line.me/ti/p/6U8C67P6q1 */}
                     <div className="col-lg-4 pt-3">
                         <h5 className="fs-4 fw-semibold">{t("footer.sponsors", language)}</h5>
                         <hr className="m-0 mb-2 bg-white" style={{ height: "2px" }} />
                         <SponsorCarousel />
                         <div className="p-2 justify-content-center d-flex">
                             <div className="">
-                                <Button disabled size="lg" variant="outline-light" className="m-2" >
+                                <Button size="lg" variant="outline-light" className="m-2" onClick={handleClickConnect} >
                                     <AiOutlineMessage className="fs-5" />
                                     <text className="ps-2">
                                         {language === "th" && "สนใจติดต่อเรา"}
