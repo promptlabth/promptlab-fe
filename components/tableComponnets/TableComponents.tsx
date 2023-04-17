@@ -1,10 +1,13 @@
 import gennerateMassage, { openApiMassageConfig } from "@/api/OpenApiEngine";
 import { useState, useEffect, ChangeEvent } from "react";
+import { useRouter } from 'next/router';
+
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
 import { GoDiffAdded } from 'react-icons/go';
 import { IoIosArrowForward } from 'react-icons/io';
+import { AiOutlineSend } from 'react-icons/ai';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
@@ -15,6 +18,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { PageDescriptionModal } from "../modals/PageDescriptionModal";
 import generateMessageWithBackend from "@/api/OpenAiBackend";
 
+
 type ComponentProps = {
     input: string;
     type: string;
@@ -24,7 +28,7 @@ type ComponentProps = {
 type ApiResponse = {
     response?: string;
     error?: string;
-  };
+};
 
 export type modelCofig = {
     model: string;
@@ -43,8 +47,11 @@ export type pageConfig = {
 const TableComponents = (config: pageConfig) => {
     const [components, setComponents] = useState<ComponentProps[]>([]);
     const [isTh, setIsTh] = useState(true);
-    const {language, setLanguage } = useLanguage();
+    const { language, setLanguage } = useLanguage();
     const [modalShow, setModalShow] = useState(false);
+    const [pathname, setPathname] = useState<string>("createSellingPost")
+    const router = useRouter()
+
 
     const postTypes = [
         { value: "funny", label: t('table.type.funny', language) },
@@ -53,9 +60,10 @@ const TableComponents = (config: pageConfig) => {
         { value: "luxury", label: t('table.type.luxury', language) },
         { value: "educational", label: t('table.type.educational', language) },
         { value: "happy", label: t('table.type.happy', language) },
+        { value: "modern", label: t('table.type.modern', language) },
+        { value: "retro", label: t('table.type.retro', language) },
     ];
 
-   
 
     const CopyToClipboardButton = ({ message }: { message: string }) => {
         const [isCopied, setIsCopied] = useState(false);
@@ -113,7 +121,6 @@ const TableComponents = (config: pageConfig) => {
 
 
 
-
     const GenerateButton = ({ index }: { index: number }) => {
         const [loading, setLoading] = useState(false);
 
@@ -139,7 +146,7 @@ const TableComponents = (config: pageConfig) => {
                     :
                     <div className="d-flex pe-2 ps-2">
                         <div className="pe-2">
-                            <GoDiffAdded size={20} />
+                            <AiOutlineSend size={20} />
                         </div>
                         <div className=""> Generate </div>
                     </div>
@@ -215,6 +222,9 @@ const TableComponents = (config: pageConfig) => {
         if (components.length == 0) {
             handleAddNewRow();
         }
+        if (router.pathname.slice(1,).length !== 0){
+            setPathname(router.pathname.slice(1,))
+        }
     }, []);
 
     return (
@@ -236,7 +246,7 @@ const TableComponents = (config: pageConfig) => {
                         <Button variant="outline-light" className="d-flex" onClick={() => setModalShow(true)}>
                             <div className="fs-5"> {t("button.learnMore", language)} </div>
                             <div className="fs-5 ps-2">
-                                <IoIosArrowForward/>
+                                <IoIosArrowForward />
                             </div>
                         </Button>
                     </div>
@@ -257,6 +267,8 @@ const TableComponents = (config: pageConfig) => {
                             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" />
                             <div className="pt-2">
                                 <textarea
+                                    // placeholder={`placeholder.${router.pathname}`}
+                                    placeholder={t(`placeholder.${pathname}`, language)}
                                     className="form-control bg-dark text-light"
                                     value={input}
                                     onChange={(event) => handleInputTextChange(index, event)}
@@ -326,8 +338,14 @@ const TableComponents = (config: pageConfig) => {
             {/* Button Container */}
             <Container fluid className="p-1 ps-3 pb-4">
                 <Button variant="outline-light" onClick={handleAddNewRow}>
-                    {t("button.newRow", language)}
+                    <div className="d-flex pe-2">
+                        <div className="pe-2">
+                            <GoDiffAdded size={20} />
+                        </div>
+                        <div className=""> {t("button.newRow", language)} </div>
+                    </div>
                 </Button>
+
             </Container>
             {/*  */}
             <PageDescriptionModal
