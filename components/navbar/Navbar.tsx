@@ -8,10 +8,17 @@ import { useRouter } from 'next/router';
 
 export const AppNavbar: React.FC = () => {
     const { language } = useLanguage();
-    const [titles, setTitles] = useState(urlLinks.map(({ titleKey }) => t(titleKey, language)));
+    const [titles, setTitles] = useState(urlLinks.map(({ titleKey }) => t(titleKey, language)));    
     const router = useRouter()
+    const [pathname, setPathname] = useState<string>("createSellingPost")
+
 
     useEffect(() => {
+        if(router.pathname === "/"){
+            setPathname("/createSellingPost")
+        } else{
+            setPathname(router.pathname)
+        }
         setTitles(urlLinks.map(({ titleKey }) => t(titleKey, language)));
     }, [language]);
     return (
@@ -28,7 +35,7 @@ export const AppNavbar: React.FC = () => {
                                 key={index} 
                                 href={href}
                                 style={{ 
-                                    background: href === router.pathname ? "rgb(255, 255, 255,0.8)" : "",
+                                    background: href === pathname ? "rgb(255, 255, 255,0.8)" : "",
                                     color:"black"
                                 }}
                             >
