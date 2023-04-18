@@ -26,6 +26,10 @@ const Footer = () => {
         router.push('https://www.facebook.com/lasxna');
     };
 
+    const handleClickPMost = () => {
+        router.push('https://line.me/R/ti/p/@611llhuq');
+    }
+
     const SponsorCarousel = () => {
         return (
             <>
@@ -37,10 +41,10 @@ const Footer = () => {
                             alt="First slide"
                         />
                     </Carousel.Item>
-                    <Carousel.Item onClick={handleClickConnect}>
+                    <Carousel.Item onClick={handleClickPMost}>
                         <img
                             className="d-block w-100"
-                            src="/images/promote_bg.png"
+                            src="/images/promote_most.png"
                             alt="Second slide"
                         />
 
