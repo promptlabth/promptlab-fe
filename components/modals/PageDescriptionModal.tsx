@@ -11,7 +11,7 @@ export const PageDescriptionModal = (props: any) => {
 
     const featureKey: { [key: string]: string[] } = {
         "createSellingPost.title": ["modal.description.inputMessage.createSellingPost", "https://drive.google.com/uc?export=download&id=1zL_fJbOY8gk1bzFCgzKqB5-yh7ybubHQ"],
-        "createEmail.title": ["modal.description.inputMessage.createEmail", "https://drive.google.com/uc?export=download&id=1jFd3OShYSLzB4s7qk0_InGKKFb_aCPW2"],        
+        "createContents.title": ["modal.description.inputMessage.createEmail", "https://drive.google.com/uc?export=download&id=1jFd3OShYSLzB4s7qk0_InGKKFb_aCPW2"],        
         "createArticle.title": ["modal.description.inputMessage.createArticle", "https://drive.google.com/uc?export=download&id=1FHGhs8VYOcQePub2qK6AkPy_mKveaOAh"],        
         "createScripts.title": ["modal.description.inputMessage.createScripts", "https://drive.google.com/uc?export=download&id=1hcT6B4Anf_mNhPFhVuExgRRIxliGhP-w"],        
         "createClickBait.title": ["modal.description.inputMessage.createClickBait", "https://drive.google.com/uc?export=download&id=1RuSeU_Q9JVE6O_Vb_g3gbSVCNvFkn6MP"]
