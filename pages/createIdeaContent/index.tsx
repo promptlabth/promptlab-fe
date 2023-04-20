@@ -2,7 +2,7 @@ import { t } from "@/components/language";
 import TableComponents from "@/components/tableComponnets/TableComponents";
 import { useLanguage } from "@/language/ LanguageContext";
 import Head from "next/head";
-const createContent = () => {
+const CreateContent = () => {
     const { language } = useLanguage();
     return (
         <div>
@@ -40,4 +40,4 @@ const getPromtforIdeaContentTh = (input: string, type: string): string => {
     `;
 }
 
-export default createContent
+export default CreateContent
