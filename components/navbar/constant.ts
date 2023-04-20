@@ -6,5 +6,6 @@ export const urlLinks = [
      { titleKey: 'createScripts.title', href: '/createShortVideoScripts' },
      { titleKey: 'createClickBait.title', href: '/createClickBaitWord' },
      // { titleKey: 'navbar.title.createImage', href: '/createImage' },
+     { titleKey: 'createContents.title', href: '/createIdeaContent'}
  ];
 
