@@ -30,18 +30,22 @@ const Footer = () => {
         router.push('https://line.me/R/ti/p/@611llhuq');
     }
 
+    const handleClickLotto = () => {
+        router.push('https://xn--12c9dcjit1d.com/register?invite=s15ec')
+    }
+
     const SponsorCarousel = () => {
         return (
             <>
                 <Carousel style={{ cursor: "pointer" }} >
-                    <Carousel.Item onClick={handleClickPJean}>
+                    <Carousel.Item onClick={handleClickPJean} interval={5000}>
                         <img
                             className="d-block w-100"
                             src="/images/promote_jean.png"
                             alt="First slide"
                         />
                     </Carousel.Item>
-                    <Carousel.Item onClick={handleClickPMost}>
+                    <Carousel.Item onClick={handleClickPMost} interval={4000}>
                         <img
                             className="d-block w-100"
                             src="/images/promote_most.png"
@@ -49,10 +53,10 @@ const Footer = () => {
                         />
 
                     </Carousel.Item>
-                    <Carousel.Item onClick={handleClickConnect}>
+                    <Carousel.Item onClick={handleClickLotto} interval={3000}>
                         <img
                             className="d-block w-100"
-                            src="/images/promote_bg.png"
+                            src="/images/promote_lotto.png"
                             alt="Third slide"
                         />
                     </Carousel.Item>
