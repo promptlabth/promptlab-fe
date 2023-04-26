@@ -17,7 +17,7 @@ import { t } from "../language";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { PageDescriptionModal } from "../modals/PageDescriptionModal";
 import generateMessageWithBackend from "@/api/OpenAiBackend";
-
+import { MenuDrawer } from "../navbar/MenuDrawer";
 
 type ComponentProps = {
     input: string;
@@ -353,6 +353,7 @@ const TableComponents = (config: pageConfig) => {
                 onHide={() => setModalShow(false)}
                 config={config}
             />
+        {/* <MenuDrawer/> */}
         </Container>
     );
 };
