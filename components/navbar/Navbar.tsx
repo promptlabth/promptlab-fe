@@ -60,7 +60,7 @@ export const AppNavbar: React.FC = () => {
                         { !loginStatus && <LoginComponent onLogin={handleLogin}/> }
                     </div>
                 </Navbar.Collapse>
-                { loginStatus && <img src={profileImage}/> }
+                { loginStatus && <img className="rounded-circle" alt="avatarImage" src={profileImage}/> }
             
             </Container>
         </Navbar>
