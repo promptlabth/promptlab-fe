@@ -5,12 +5,14 @@ import { t } from '../language';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { urlLinks } from './constant';
 import { useRouter } from 'next/router';
+import LoginComponent from './LoginButton';
 
 export const AppNavbar: React.FC = () => {
     const { language } = useLanguage();
     const [titles, setTitles] = useState(urlLinks.map(({ titleKey }) => t(titleKey, language)));    
     const router = useRouter()
     const [pathname, setPathname] = useState<string>("createSellingPost")
+    const [profileImage, setProfileImage] = useState<string>("")
 
 
     useEffect(() => {
@@ -21,6 +23,15 @@ export const AppNavbar: React.FC = () => {
         }
         setTitles(urlLinks.map(({ titleKey }) => t(titleKey, language)));
     }, [language]);
+
+
+    const handleLogin = (result: any) => {
+        console.log("Login successful, do something with the result:", result);
+        setProfileImage(result['user']['photoURL'])
+        // You can use the result here or update the state of your parent component
+      };
+
+
     return (
         <Navbar className="p-0" bg="success" expand="sm" fixed="top">
             <Container fluid>
@@ -44,6 +55,8 @@ export const AppNavbar: React.FC = () => {
                         ))}
                     </Nav>
                 </Navbar.Collapse>
+                <LoginComponent onLogin={handleLogin}/>
+                <img src={profileImage} />
             </Container>
         </Navbar>
     );
