@@ -73,9 +73,11 @@ export const AppNavbar: React.FC = () => {
                             ))}
                         </Nav>
                         <hr className="m-0 mb-2 bg-white" style={{ height: "2px" }} />
-                        <div className='d-flex justify-content-center align-self-center'>
-                            <LoginComponent onLogin={handleLogin} />
-                        </div>
+                        { !loginStatus &&
+                            <div className='d-flex justify-content-center align-self-center'>
+                                <LoginComponent onLogin={handleLogin} />
+                            </div>
+                        }
                     </Offcanvas.Body>
                 </Navbar.Offcanvas>
                 {loginStatus && <img className="rounded-circle" alt="avatarImage" src={profileImage} />}
