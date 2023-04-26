@@ -13,7 +13,7 @@ export const AppNavbar: React.FC = () => {
     const router = useRouter()
     const [pathname, setPathname] = useState<string>("createSellingPost")
     const [profileImage, setProfileImage] = useState<string>("")
-
+    const [loginStatus , setLoginStatus] = useState(false);
 
     useEffect(() => {
         if(router.pathname === "/"){
@@ -27,7 +27,8 @@ export const AppNavbar: React.FC = () => {
 
     const handleLogin = (result: any) => {
         console.log("Login successful, do something with the result:", result);
-        setProfileImage(result['user']['photoURL'])
+        setProfileImage(result['user']['photoURL']);
+        setLoginStatus(true);
         // You can use the result here or update the state of your parent component
       };
 
@@ -40,7 +41,7 @@ export const AppNavbar: React.FC = () => {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="navbar-nav">
+                    <Nav className="navbar-nav container">
                         {urlLinks.map(({ href }, index) => (
                             <Nav.Link 
                                 key={index} 
@@ -53,10 +54,14 @@ export const AppNavbar: React.FC = () => {
                                 {titles[index]}
                             </Nav.Link>
                         ))}
+                            
                     </Nav>
+                    <div>
+                        { !loginStatus && <LoginComponent onLogin={handleLogin}/> }
+                    </div>
                 </Navbar.Collapse>
-                <LoginComponent onLogin={handleLogin}/>
-                <img src={profileImage} />
+                { loginStatus && <img src={profileImage}/> }
+            
             </Container>
         </Navbar>
     );
