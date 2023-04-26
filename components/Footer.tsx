@@ -125,7 +125,7 @@ const Footer = () => {
                 </div>
 
             </Container >
-            <Row fluid className="p-4 text-light d-flex justify-content-center" style={{ backgroundColor: "#373737" }}>
+            <Row fluid="true" className="p-4 text-light d-flex justify-content-center" style={{ backgroundColor: "#373737" }}>
                 <Col md={8} className="text-center">
                     Prompt Lab @2023 | Thanks to Bootstrap 5 to make <b>{" "}Prompt Lab{" "}</b> a wondeful website!!
                 </Col>

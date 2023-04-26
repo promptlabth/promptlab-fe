@@ -203,6 +203,13 @@ input:checked+.slider:before {
     }
 }
 
+
+@media (max-width: 480px) {
+  .LoginButton {
+      display: none;
+  }
+}
+
 .fixed-col {
     width: 180px;
 }

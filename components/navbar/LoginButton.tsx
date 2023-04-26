@@ -1,5 +1,7 @@
 import signInWithFacebook from '@/api/autth/auth_facebook';
 import React from 'react';
+import { Button } from 'react-bootstrap';
+import { BiLogIn } from 'react-icons/bi';
 
 // Import signInWithFacebook function here
 
@@ -22,11 +24,15 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLogin }) => {
   }
 
 
-
   return (
-    <div>
-      <button onClick={handleFacebookLogin}>Login with Facebook</button>
-    </div>
+      <div className="d-flex">
+          <Button variant="outline-light" className="d-flex" onClick={handleFacebookLogin}>
+              Login
+              <div className="">
+                  <BiLogIn size={25}/>
+              </div>
+          </Button>
+      </div>
   );
 };
 

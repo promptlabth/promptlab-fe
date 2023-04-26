@@ -7,10 +7,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app'
 import { Noto_Sans_Thai } from 'next/font/google'
+import Head from 'next/head';
 import Script from 'next/script';
 import { ReactElement, ReactNode } from 'react';
 
-const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['latin'] })
+const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement) => ReactNode
@@ -42,6 +43,14 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
             <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@200&display=swap" rel="stylesheet" /> */}
+            <Head>
+                <meta
+                    name="description"
+                    content="Prompt Lab is an AI-powered content generation tool that helps you create engaging social media posts, emails, and more in English and Thai. Boost your content creation with Prompt Lab today! - เป็นเครื่องมือสร้างเนื้อหาที่ขับเคลื่อนด้วย AI ซึ่งช่วยคุณสร้างโพสต์สื่อสังคม, อีเมล, และอื่น ๆ ที่น่าสนใจในภาษาอังกฤษและภาษาไทย ปรับปรุงการสร้างเนื้อหาของคุณด้วย Prompt Lab ในวันนี้!"
+                />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </Head>
+
             <LanguageProvider>
                 <AppNavbar />
                 <Component {...pageProps} />
