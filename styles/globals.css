@@ -166,16 +166,15 @@ input:checked+.slider:before {
 }
 
 .category-list {
-    color: black;
+    color: white;
     padding: 2.5%;
     padding-left: 1.25em;
     transition: all 0.3s;
 }
 
-.category-list:hover {
-    color: black;
+.category-list:hover{
+    color:black;
     background: rgb(255, 255, 255,0.8);
-
 }
 
 .navbar-nav .nav-link:hover {
