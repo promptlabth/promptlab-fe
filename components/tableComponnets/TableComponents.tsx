@@ -25,10 +25,6 @@ type ComponentProps = {
     message: string;
 };
 
-type ApiResponse = {
-    response?: string;
-    error?: string;
-};
 
 export type modelCofig = {
     model: string;
