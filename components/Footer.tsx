@@ -125,7 +125,7 @@ const Footer = () => {
                 <hr className="m-0 mb-2 bg-white " style={{ height: "2px" }} />
                 <Row className="p-4 text-light d-flex justify-content-center">
                     <Col md={8} className="text-center">
-                        Prompt Lab @2023 | Thanks to Bootstrap 5 to make <b>{" "}Prompt Lab{" "}</b> a wondeful website!!
+                        Prompt Lab @2023 | Thanks to Bootstrap 5 to make <b>{" "}Prompt Lab{" "}</b> a wonderful website!!
                     </Col>
                 </Row>
 
