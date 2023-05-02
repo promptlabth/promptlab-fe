@@ -4,6 +4,7 @@ import { useLanguage } from "@/language/ LanguageContext";
 import { ChangeEvent, useState } from "react";
 import { Container } from "react-bootstrap";
 import Head from "next/head";
+import Link from "next/link";
 
 
 const PrivacyPolicy = () => {
@@ -43,7 +44,7 @@ const PrivacyPolicy = () => {
                 <Container className="pt-4 ps-4 pe-4">
                     <Container className="p-2 text-start">
                         <p className="">
-                            ในฐานะผู้พัฒนาและทีมงานของเว็บไซต์ Prompt Lab (<a href="/" className="text-light">www.prompt.sutmeme.com</a>) ทางทีมงานได้ตระหนักถึงความสำคัญของความเป็นส่วนตัวของผู้ใช้ทุกท่าน เราจึงให้ควาามเชื่อมั่นแก่ทุกท่านว่าข้อมูลส่วนบุคคลทั้งหมดของท่านจะได้รับความคุ้มครองและ
+                            ในฐานะผู้พัฒนาและทีมงานของเว็บไซต์ Prompt Lab (<Link href="/" className="text-light">www.prompt.sutmeme.com</Link>) ทางทีมงานได้ตระหนักถึงความสำคัญของความเป็นส่วนตัวของผู้ใช้ทุกท่าน เราจึงให้ควาามเชื่อมั่นแก่ทุกท่านว่าข้อมูลส่วนบุคคลทั้งหมดของท่านจะได้รับความคุ้มครองและ
                             รับประกันว่าจะปกป้องและประมวลผลข้อมูลส่วนบุคคลด้วยมาตรการรักษาความมั่นคงปลอดภัยที่เหมาะสม
                             อย่างดีที่สุดและด้วยชอบด้วยกฏหมาย
                         </p>
