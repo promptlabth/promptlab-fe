@@ -10,7 +10,7 @@ import { Noto_Sans_Thai } from 'next/font/google'
 import Script from 'next/script';
 import { ReactElement, ReactNode } from 'react';
 
-const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['latin'] })
+const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement) => ReactNode
