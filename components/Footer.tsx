@@ -9,6 +9,12 @@ import { Button, Carousel, Col, Row } from "react-bootstrap";
 import { AiOutlineMessage } from 'react-icons/ai';
 import Image from "next/image";
 
+// import Image from Assets
+
+import LottoImage from './../assets/images/sponsors/promote_lotto.png'
+import BgImage from './../assets/images/sponsors/promote_bg.png'
+import mostImage from './../assets/images/sponsors/promote_most.png'
+
 /**
  * Footer using Bootstrap 5
  */
@@ -42,7 +48,7 @@ const Footer = () => {
                     <Carousel.Item onClick={handleClickConnect} interval={5000}>
                         <Image
                             className="d-block w-100 h-100"
-                            src="/images/promote_bg.png"
+                            src={BgImage}
                             alt="Third slide"
                             width={1280}
                             height={700}
@@ -51,7 +57,7 @@ const Footer = () => {
                     <Carousel.Item onClick={handleClickPMost} interval={4000}>
                         <Image
                             className="d-block w-100 h-100"
-                            src="/images/promote_most.png"
+                            src={mostImage}
                             alt="Second slide"
                             width={1280}
                             height={700}
@@ -61,7 +67,7 @@ const Footer = () => {
                     <Carousel.Item onClick={handleClickLotto} interval={3000}>
                         <Image
                             className="d-block w-100 h-100"
-                            src="/images/promote_lotto.png"
+                            src={LottoImage}
                             alt="Third slide"
                             width={1280}
                             height={700}
