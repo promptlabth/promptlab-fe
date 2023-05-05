@@ -42,7 +42,7 @@ const Footer = () => {
                     <Carousel.Item onClick={handleClickConnect} interval={5000}>
                         <img
                             className="d-block w-100 h-100"
-                            src="/"
+                            src="/images/promote_bg.png"
                             alt="Third slide"
                         />
                     </Carousel.Item>
