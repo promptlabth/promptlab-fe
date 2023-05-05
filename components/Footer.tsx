@@ -7,7 +7,6 @@ import { urlLinks } from "./navbar/constant";
 import { useRouter } from 'next/router';
 import { Button, Carousel, Col, Row } from "react-bootstrap";
 import { AiOutlineMessage } from 'react-icons/ai';
-import Image from "next/image";
 
 // import Image from Assets
 
@@ -46,31 +45,43 @@ const Footer = () => {
             <>
                 <Carousel style={{ cursor: "pointer" }} >
                     <Carousel.Item onClick={handleClickConnect} interval={5000}>
+<<<<<<< HEAD
                         <Image
                             className="d-block w-100 h-100"
                             src={BgImage}
+=======
+                        <img
+                            className="d-block w-100"
+                            src="/images/promote_bg.png"
+>>>>>>> parent of dc7f7f9... :zap: change <img/> to <Image/> tag
                             alt="Third slide"
-                            width={1280}
-                            height={700}
                         />
                     </Carousel.Item>
                     <Carousel.Item onClick={handleClickPMost} interval={4000}>
+<<<<<<< HEAD
                         <Image
                             className="d-block w-100 h-100"
                             src={mostImage}
+=======
+                        <img
+                            className="d-block w-100"
+                            src="/images/promote_most.png"
+>>>>>>> parent of dc7f7f9... :zap: change <img/> to <Image/> tag
                             alt="Second slide"
-                            width={1280}
-                            height={700}
                         />
 
                     </Carousel.Item>
                     <Carousel.Item onClick={handleClickLotto} interval={3000}>
+<<<<<<< HEAD
                         <Image
                             className="d-block w-100 h-100"
                             src={LottoImage}
+=======
+                        <img
+                            className="d-block w-100"
+                            src="/images/promote_lotto.png"
+>>>>>>> parent of dc7f7f9... :zap: change <img/> to <Image/> tag
                             alt="Third slide"
-                            width={1280}
-                            height={700}
                         />
                     </Carousel.Item>
                 </Carousel>
