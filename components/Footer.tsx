@@ -48,7 +48,7 @@ const Footer = () => {
                     <Carousel.Item onClick={handleClickPMost} interval={4000}>
                         <img
                             className="d-block w-100"
-                            src="/images/promote_most.png"
+                            src="/images/promote_mostV2.png"
                             alt="Second slide"
                         />
 
