@@ -27,7 +27,7 @@ const Footer = () => {
     };
 
     const handleClickPMost = () => {
-        router.push('https://line.me/R/ti/p/@611llhuq');
+        router.push('https://line.me/R/ti/p/@703vxfsh');
     }
 
     const handleClickLotto = () => {
