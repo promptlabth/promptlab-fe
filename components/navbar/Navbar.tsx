@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-// import Link from 'next/link';
 import { useLanguage } from '@/language/ LanguageContext';
 import { t } from '../language';
 import { Noto_Sans_Thai } from 'next/font/google'
-const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 import { Navbar, Nav, Container, Col, Row, Button } from 'react-bootstrap';
 import { urlLinks } from './constant';
 import { useRouter } from 'next/router';
@@ -83,24 +81,24 @@ export const AppNavbar: React.FC = () => {
         //         {loginStatus && <img className="rounded-circle" alt="avatarImage" src={profileImage} />}
 
         <Navbar className="p-0 border" expand="sm" fixed="top">
-            <Container>
-                <Navbar.Brand href="#" className="border fs-3 p-1">
-                    <div className={styles.navbar_header_color}>
-                        <b>Prompt Lab</b>
+            <Container className={styles.navbar_container}>
+                <Navbar.Brand href="#" className="">
+                    <div className={styles.navbar_header}>
+                        <h3>Prompt Lab</h3>
                     </div>
                 </Navbar.Brand>
                 <Navbar.Brand className="border">
                     <Container>
                         <Row>
                             <Col>
-                                <Button className={styles.navbar_help_button}>
+                                <button className={styles.navbar_help_button}>
                                     ศูนย์ช่วยเหลือ
-                                </Button>
+                                </button>
                             </Col>
                             <Col>
-                                <Button className={styles.navbar_login_button}>
+                                <button className={styles.navbar_login_button}>
                                     เข้าสู่ระบบ
-                                </Button>
+                                </button>
                             </Col>
                         </Row>
                     </Container>

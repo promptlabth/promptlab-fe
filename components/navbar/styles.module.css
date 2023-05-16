@@ -1,4 +1,12 @@
-.navbar_header_color {
+.navbar_container{
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.navbar_header {
+    /* position: relative;
+    left: 150px; 
+    border: solid; */
     color: #00FFAB;
 }
 
