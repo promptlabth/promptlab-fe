@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/language/ LanguageContext';
 import { t } from '../language';
 import { Noto_Sans_Thai } from 'next/font/google'
-import { Navbar, Nav, Container, Col, Row, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container, Offcanvas } from 'react-bootstrap';
 import { urlLinks } from './constant';
 import { useRouter } from 'next/router';
 import styles from './styles.module.css';
+import { RiMenu4Fill } from "react-icons/ri"
+
 
 export const AppNavbar: React.FC = () => {
     const { language } = useLanguage();
@@ -34,75 +36,44 @@ export const AppNavbar: React.FC = () => {
 
 
     return (
-        // <Navbar className={`${noto_sans_thai.className} p-0`} bg="success" expand="lg" fixed="top">
-        //     <Container fluid>
-        //         <Navbar.Brand className="text-dark fs-3 p-1">
-        //             <b>Prompt Lab</b>
-        //         </Navbar.Brand>
-        //         <Navbar.Toggle aria-controls="offcanvasNavbar-expand-md" />
-        //         <Navbar.Offcanvas
-        //             id={`offcanvasNavbar-expand-mf`}
-        //             aria-labelledby={`offcanvasNavbarLabel-expand-md`}
-        //             placement="end"
-        //             className={`${noto_sans_thai.className} bg-dark`}
-        //         >
-        //             <Offcanvas.Header className={noto_sans_thai.className}>
-        //                 <Offcanvas.Title className='w-100 p-0 d-flex justify-content-center'>
-        //                     <h2 className='text-white'>
-        //                         <b>Prompt Lab</b>
-        //                     </h2>
-        //                 </Offcanvas.Title>
-        //             </Offcanvas.Header>
-        //             <Offcanvas.Body className='ps-2 p-0'>
-        //                 <hr className="m-0 mb-2 bg-white" style={{ height: "2px" }} />
-        //                 <Nav className='flex-grow-1'>
-        //                     {urlLinks.map(({ href }, index) => (
-        //                         <Nav.Link
-        //                             className='ps-2 category-list text-decoration-none'
-        //                             key={index}
-        //                             href={href}
-        //                             style={{
-        //                                 background: href === pathname ? "rgb(255, 255, 255,0.8)" : "",
-        //                                 color: "black"
-        //                             }}
-        //                         >
-        //                             {titles[index]}
-        //                         </Nav.Link>
-        //                     ))}
-        //                 </Nav>
-        //                 <hr className="m-0 mb-2 bg-white" style={{ height: "2px" }} />
-        //                 { !loginStatus &&
-        //                     <div className='d-flex justify-content-center align-self-center'>
-        //                         <LoginComponent onLogin={handleLogin} />
-        //                     </div>
-        //                 }
-        //             </Offcanvas.Body>
-        //         </Navbar.Offcanvas>
-        //         {loginStatus && <img className="rounded-circle" alt="avatarImage" src={profileImage} />}
-
-        <Navbar className="p-0 border" expand="sm" fixed="top">
-            <Container className={styles.navbar_container}>
-                <Navbar.Brand href="#" className="">
-                    <div className={styles.navbar_header}>
-                        <h3>Prompt Lab</h3>
-                    </div>
-                </Navbar.Brand>
-                <Navbar.Brand className="border">
-                    <Container>
-                        <Row>
-                            <Col>
-                                <button className={styles.navbar_help_button}>
-                                    ศูนย์ช่วยเหลือ
-                                </button>
-                            </Col>
-                            <Col>
-                                <button className={styles.navbar_login_button}>
-                                    เข้าสู่ระบบ
-                                </button>
-                            </Col>
-                        </Row>
-                    </Container>
-                </Navbar.Brand>
+        <Navbar className="pt-3" expand="lg" fixed="top">
+            <Container className="">
+                <div className={styles.navbar_header}>
+                    <h3>Prompt Lab</h3>
+                </div>
+                <Navbar.Toggle className={styles.offcanvas_toggler} aria-controls="offcanvasNavbar-expand-md">
+                    <RiMenu4Fill className={styles.offcanvas_menu}/>
+                </Navbar.Toggle>
+                <Navbar.Offcanvas
+                    id={`offcanvasNavbar-expand-mf`}
+                    aria-labelledby={`offcanvasNavbarLabel-expand-md`}
+                    placement="end"
+                    className="bg-dark"
+                >
+                    <Offcanvas.Header className="">
+                        <Offcanvas.Title className='p-0 d-flex justify-content-center'>
+                            <h2 className='text-white'>
+                                <b>Prompt Lab</b>
+                            </h2>
+                        </Offcanvas.Title>
+                    </Offcanvas.Header>
+                    <Offcanvas.Body className='ps-5 pe-5'>
+                        <Nav className="justify-content-end flex-grow-1">
+                            <div className={styles.container}>
+                                <div className="ms-3 me-3">
+                                    <button className={styles.navbar_help_button}>
+                                        ศูนย์ช่วยเหลือ
+                                    </button>
+                                </div>
+                                <div className="ms-3 me-3">
+                                    <button className={styles.navbar_login_button}>
+                                        เข้าสู่ระบบ
+                                    </button>
+                                </div>
+                            </div>
+                        </Nav>
+                    </Offcanvas.Body>
+                </Navbar.Offcanvas>
             </Container>
 
         </Navbar>
