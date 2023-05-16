@@ -1,0 +1,25 @@
+.navbar_header_color {
+    color: #00FFAB;
+}
+
+.navbar_help_button {
+    color: #FFFFFF;
+    transition: text-shadow 0.3s;
+    border: none;
+    background-color: transparent;
+}
+
+.navbar_help_button:hover {
+    text-shadow: 0 0 10px rgba(211, 203, 203, 0.5);
+    background-color: transparent;
+}
+
+.navbar_login_button{
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #DBFFF3 !important;
+    border: none;
+    color: #000000 !important;
+    border-radius: 20px;
+}
+
