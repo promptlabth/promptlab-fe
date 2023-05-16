@@ -17,7 +17,7 @@ import { t } from "../language";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { PageDescriptionModal } from "../modals/PageDescriptionModal";
 import generateMessageWithBackend from "@/api/OpenAiBackend";
-
+import { MenuDrawer } from "../navbar/MenuDrawer";
 
 type ComponentProps = {
     input: string;
@@ -225,7 +225,7 @@ const TableComponents = (config: pageConfig) => {
 
     return (
         <Container fluid className="p-0 bg-dark bg-lighten-xs pt-5">
-            <Container fluid className="pt-5 pb-2" style={{ backgroundColor: "#1F1F21" }}>
+            <Container fluid className="pt-5 pb-2" style={{ backgroundColor: "#212529" }}>
                 <figure className="text-center pt-4 pb-4 text-light">
                     <blockquote className="blockquote">
                         <p className="display-4">{t(config.titlePage, language)}</p>
@@ -349,6 +349,7 @@ const TableComponents = (config: pageConfig) => {
                 onHide={() => setModalShow(false)}
                 config={config}
             />
+        {/* <MenuDrawer/> */}
         </Container>
     );
 };

@@ -6,7 +6,7 @@ const path = require('path')
 const nextConfig = {
     reactStrictMode: true,
     env: {
-        openAPI_KEY : process.env.OPEN_API_KEY
+        openAPI_KEY : process.env.OPEN_API_KEY,
     },
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],

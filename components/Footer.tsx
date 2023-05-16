@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { Button, Carousel, Col, Row } from "react-bootstrap";
 import { AiOutlineMessage } from 'react-icons/ai';
 
+
 /**
  * Footer using Bootstrap 5
  */
@@ -40,7 +41,7 @@ const Footer = () => {
                 <Carousel style={{ cursor: "pointer" }} >
                     <Carousel.Item onClick={handleClickConnect} interval={5000}>
                         <img
-                            className="d-block w-100"
+                            className="d-block w-100 h-100"
                             src="/images/promote_bg.png"
                             alt="Third slide"
                         />
