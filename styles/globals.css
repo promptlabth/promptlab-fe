@@ -177,10 +177,9 @@ input:checked+.slider:before {
     background: rgb(255, 255, 255,0.8);
 }
 
-.navbar-nav .nav-link:hover {
+/* .navbar-nav .nav-link:hover {
     color: black;
     background: rgb(255, 255, 255,0.8);
-    /* background-color: #ffffff; */
 }
 
 .navbar .navbar-nav .nav-link {
@@ -191,7 +190,7 @@ input:checked+.slider:before {
 
 .navbar .navbar-brand {
     padding: 0 0.6em;
-}
+} */
 
 @media only screen and (min-width: 992px) {
     .navbar .navbar-nav .nav-link {

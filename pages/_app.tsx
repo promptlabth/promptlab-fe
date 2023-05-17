@@ -1,4 +1,4 @@
-import Footer from '@/components/Footer';
+import Footer from '@/components/footer/Footer';
 import { AppNavbar } from '@/components/navbar/Navbar';
 import { LanguageProvider } from '@/language/ LanguageContext';
 
