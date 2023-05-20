@@ -1,5 +1,6 @@
 .page_container{
     background-color: #212529;
+    padding-bottom: 2rem;
 }
 
 @media (min-width: 1000px) {
@@ -8,8 +9,6 @@
         padding-right: 5rem;
     }
 }
-
-
 
 .page_prompt_area{
     padding: 1rem;
@@ -68,4 +67,10 @@
 .page_prompt_add_new_row_button:active {
 	position:relative;
 	top:1px;
+}
+
+.page_prompt_generate_btn{
+	background-color:#00FFAB;
+    border: none;
+	border-radius:28px;
 }

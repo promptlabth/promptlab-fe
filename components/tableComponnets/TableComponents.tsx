@@ -131,7 +131,7 @@ const TableComponents = (config: pageConfig) => {
 
         return (
             <button
-                className={`btn btn-outline-secondary text-light ${loading ? "disabled" : ""}`}
+                className={`${styles.page_prompt_generate_btn} ${loading ? "disabled" : ""}`}
                 type="button"
                 onClick={handleClick}
                 style={{ padding: 3, paddingBottom: 8, paddingTop: 8 }}
@@ -249,8 +249,6 @@ const TableComponents = (config: pageConfig) => {
                                     <Col className="fs-5 text-light" xs={12} md={12}>{t('table.input.title', language)}</Col>
                                     <div className="pt-2">
                                         <textarea
-
-                                            // placeholder={`placeholder.${router.pathname}`}
                                             placeholder={t(`placeholder.${pathname}`, language)}
                                             className={styles.page_prompt_area_textfield}
                                             value={input}
@@ -324,7 +322,7 @@ const TableComponents = (config: pageConfig) => {
                             </button>
                         </Container>
                     </Container>
-
+                  
                 </Container>
             </Container>
         </div>
