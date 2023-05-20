@@ -1,0 +1,42 @@
+.page_container{
+    background-color: #212529;
+}
+
+@media (min-width: 1000px) {
+    .page_container{
+        padding-left: 5rem;
+        padding-right: 5rem;
+    }
+}
+
+
+
+.page_prompt_area{
+    padding: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    border-radius: 15px;
+    background-color: #33393F;
+}
+
+.page_prompt_area_row{
+    border-radius: 15px;
+    background-color: #212529;
+    padding: 0.5rem;
+}
+
+.page_prompt_area_textfield{
+    background-color: #3D434A;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.page_prompt_area_combobox{
+    background-color: #3D434A;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 10px;
+    width: 100%;
+}
