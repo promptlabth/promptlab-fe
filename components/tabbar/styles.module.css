@@ -1,0 +1,36 @@
+.container{
+    display: flex;
+    justify-content: center;
+    padding-right: 75px;
+    margin-top: 110px;
+}
+
+@media (max-width: 1000px) {
+    .container {
+        padding-right: 0;
+    }
+}
+
+.btn{
+    margin-left: 10px;
+    border-radius: 20px;
+    border-color: transparent;
+    background-color: #00FFAB;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.btn:hover,
+.btn:active,
+.btn.active{
+    margin-left: 10px;
+    border-radius: 20px;
+    color: white;
+    background-color: transparent;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
