@@ -7,6 +7,7 @@ import { urlLinks } from './constant';
 import { useRouter } from 'next/router';
 import styles from './styles.module.css';
 import { RiMenu4Fill } from "react-icons/ri"
+const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 
 export const AppNavbar: React.FC = () => {
@@ -36,8 +37,8 @@ export const AppNavbar: React.FC = () => {
 
 
     return (
-        <Navbar className="pt-3" expand="lg" fixed="top">
-            <Container className="">
+        <Navbar className={noto_sans_thai.className} expand="lg" fixed="top">
+            <Container className="pt-3">
                 <div className={styles.navbar_header}>
                     <h3>Prompt Lab</h3>
                 </div>

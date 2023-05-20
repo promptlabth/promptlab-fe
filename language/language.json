@@ -45,8 +45,12 @@
         "createClickBait.description":"อยากได้ประโยคเปิดคลิปที่น่าสนใจใช่ไหม ลองให้ Prompt Lab ช่วยคุณได้นะ!",
         "footer.description_1": "จงใช้ Prompt Lab อันทรงพลังเพื่อสร้างทุกสิ่งที่คุณต้องการ",
         "footer.description_2": "Prompt Lab ทำอะไรได้มากกว่าที่คุณคิด!!",
-        "footer.links":"ลิงค์",
-        "footer.sponsors":"สปอนเซอร์"
+        "footer.links":"บริการต่างๆ",
+        "footer.sponsors":"พื้นที่โฆษณา",
+        "footer.aboutUs":"เกี่ยวกับเรา",
+        "footer.joinUs":"ร่วมงานกับเรา",
+        "footer.privacy_policy":"นโยบายความเป็นส่วนตัว",
+        "footer.help":"ศูนย์ช่วยเหลือ"
     },
     "en": {
         "language":"Language",
@@ -94,7 +98,11 @@
         "createClickBait.description": "Seeking for interesting Click Bait Word, let Prompt Lab help you!",
         "footer.description_1": "Use powerful Prompt Lab to create what you want",
         "footer.description_2": "Prompt Lab can do better than possibly you imagine!!!!",
-        "footer.links":"LINKS",
-        "footer.sponsors":"SPONSORS"
+        "footer.links":"Prompt Service",
+        "footer.sponsors":"Advertisement",
+        "footer.aboutUs":"About us",
+        "footer.joinUs":"Join Us",
+        "footer.privacy_policy":"Privacy Policy",
+        "footer.help":"Help"
     }
 }
