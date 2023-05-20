@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
 import { GoDiffAdded } from 'react-icons/go';
+import { IoMdAddCircleOutline } from "react-icons/io";
 import { IoIosArrowForward } from 'react-icons/io';
 import { AiOutlineSend } from 'react-icons/ai';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -18,6 +19,9 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { PageDescriptionModal } from "../modals/PageDescriptionModal";
 import generateMessageWithBackend from "@/api/OpenAiBackend";
 import { MenuDrawer } from "../navbar/MenuDrawer";
+import styles from "./styles.module.css";
+import { Noto_Sans_Thai } from 'next/font/google'
+const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 type ComponentProps = {
     input: string;
@@ -127,7 +131,7 @@ const TableComponents = (config: pageConfig) => {
 
         return (
             <button
-                className={`btn btn-outline-secondary text-light ${loading ? "disabled" : ""}`}
+                className={`${styles.page_prompt_generate_btn} ${loading ? "disabled" : ""}`}
                 type="button"
                 onClick={handleClick}
                 style={{ padding: 3, paddingBottom: 8, paddingTop: 8 }}
@@ -218,139 +222,110 @@ const TableComponents = (config: pageConfig) => {
         if (components.length == 0) {
             handleAddNewRow();
         }
-        if (router.pathname.slice(1,).length !== 0){
+        if (router.pathname.slice(1,).length !== 0) {
             setPathname(router.pathname.slice(1,))
         }
     }, []);
 
     return (
-        <Container fluid className="p-0 bg-dark bg-lighten-xs pt-5">
-            <Container fluid className="pt-5 pb-2" style={{ backgroundColor: "#212529" }}>
-                <figure className="text-center pt-4 pb-4 text-light">
-                    <blockquote className="blockquote">
-                        <p className="display-4">{t(config.titlePage, language)}</p>
-                    </blockquote>
-                    <figcaption className="blockquote-footer">
-                        {t(config.titleDescription, language)}
-                    </figcaption>
-                </figure>
-                <div className="text-light text-center">
-                    <h3>{t("language", language)}</h3>
-                    <ToggleSwitch isOn={isTh} handleToggle={handleToggle} />
-                    <p>{isTh ? 'TH' : 'EN'}</p>
-                    <div className="d-flex justify-content-center">
-                        <Button variant="outline-light" className="d-flex" onClick={() => setModalShow(true)}>
-                            <div className="fs-5"> {t("button.learnMore", language)} </div>
-                            <div className="fs-5 ps-2">
-                                <IoIosArrowForward />
-                            </div>
-                        </Button>
-                    </div>
-                </div>
+        <div className={noto_sans_thai.className}>
+            <Container fluid={true} className="p-0 bg-dark bg-lighten-xs pt-5">
+                <Container className={styles.page_container}>
 
+                    <figure className="text-center pt-4 pb-4 text-light">
+                        <blockquote className="blockquote">
+                            <p className="display-4">{t(config.titlePage, language)}</p>
+                        </blockquote>
+                        <figcaption className="blockquote-footer">
+                            {t(config.titleDescription, language)}
+                        </figcaption>
+                    </figure>
+
+                    <Container fluid={true} className={styles.page_prompt_area}>
+                        {components.map(({ input, type, message }, index) => (
+                            <Row key={index} className={styles.page_prompt_area_row}>
+                                {/* Input Textfield */}
+                                <Col xs={12} md={3} className="pb-2">
+                                    <Col className="fs-5 text-light" xs={12} md={12}>{t('table.input.title', language)}</Col>
+                                    <div className="pt-2">
+                                        <textarea
+                                            placeholder={t(`placeholder.${pathname}`, language)}
+                                            className={styles.page_prompt_area_textfield}
+                                            value={input}
+                                            onChange={(event) => handleInputTextChange(index, event)}
+                                            required
+                                        />
+                                    </div>
+                                </Col>
+                                {/* Type Dropdown */}
+                                <Col className="pb-2">
+                                    <Col className="fs-5 text-light" xs={12} md={9}>{t('table.type.title', language)}</Col>
+                                    <Col sm className="pt-2">
+                                        <select
+                                            className={styles.page_prompt_area_combobox}
+                                            value={type}
+                                            onChange={(event) => handleTypeChange(index, event)}
+                                            required
+                                        >
+                                            {postTypes.map(({ value, label }) => (
+                                                <option key={value} value={value}>
+                                                    {label}
+                                                </option>
+                                            ))}
+                                        </select>
+
+
+                                    </Col>
+                                </Col>
+                                {/* Message */}
+                                <Col xs={12} md={3} lg={4} xl={5} className="pb-2">
+                                    <Col className="fs-5 text-light" xs={12} md={6}>{t('table.massage.title', language)}</Col>
+                                    <div className="pt-1">
+                                        {/* If message length is 0, show "No generated message..." */}
+                                        {message.length === 0 && (
+                                            <span className="text-white-50">{t("table.no_message", language)}</span>
+                                        )}
+
+                                        {/* If there is a message */}
+                                        {message.length > 0 && (
+                                            <Container fluid className="">
+                                                <Row>
+                                                    <Col className="d-flex p-0 justify-content-end">
+                                                        {/* Copy to Clipboard component */}
+                                                        <CopyToClipboardButton message={message} />
+                                                    </Col>
+                                                    <Col xs={12} className="text-light p-0 mb-3" style={{ whiteSpace: 'pre-wrap' }}>
+                                                        {message}
+                                                    </Col>
+                                                </Row>
+                                            </Container>
+                                        )}
+                                    </div>
+                                </Col>
+
+                                {/* Generate Button */}
+                                <div className="col p-0" >
+                                    <div className="pt-3 d-flex justify-content-center">
+                                        <GenerateButton index={index} />
+                                    </div>
+                                </div>
+                            </Row>
+                        ))}
+                        <Container className={styles.page_prompt_area_addrow}>
+                            <button className={styles.page_prompt_add_new_row_button} onClick={handleAddNewRow}>
+                                <div className="d-flex pe-0">
+                                    <div className=""> {t("button.newRow", language)} </div>
+                                    <div className="ps-2">
+                                        <IoMdAddCircleOutline size={25} />
+                                    </div>
+                                </div>
+                            </button>
+                        </Container>
+                    </Container>
+                  
+                </Container>
             </Container>
-
-            {/* Table component */}
-
-            <Container fluid className="pt-2 ps-4 pe-4">
-
-                {components.map(({ input, type, message }, index) => (
-                    <Row key={index} className="styled-row justify-content-center text-light my-2">
-                        {/* Input Textfield */}
-                        <Col xs={12} md={3} className="pb-2">
-                            {/* <Col xs={12} md={2} className="pb-2 border"> */}
-                            <Col className="fs-5" xs={12} md={12}>{t('table.input.title', language)}</Col>
-                            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" />
-                            <div className="pt-2">
-                                <textarea
-                                    // placeholder={`placeholder.${router.pathname}`}
-                                    placeholder={t(`placeholder.${pathname}`, language)}
-                                    className="form-control bg-dark text-light"
-                                    value={input}
-                                    onChange={(event) => handleInputTextChange(index, event)}
-                                    required
-                                />
-                            </div>
-                        </Col>
-                        {/* Type Dropdown */}
-                        {/* <Col xs={12} md={"auto"} lg={"auto"} xl={"auto"} className="border pb-2"> */}
-                        <Col className="pb-2">
-                            <Col className="fs-5" xs={12} md={9}>{t('table.type.title', language)}</Col>
-                            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" />
-                            <Col sm className="pt-2">
-                                <select
-                                    className="form-select bg-dark text-light"
-                                    value={type}
-                                    onChange={(event) => handleTypeChange(index, event)}
-                                    required
-                                >
-                                    {postTypes.map(({ value, label }) => (
-                                        <option key={value} value={value}>
-                                            {label}
-                                        </option>
-                                    ))}
-                                </select>
-
-
-                            </Col>
-                        </Col>
-                        {/* Message */}
-                        <Col xs={12} md={4} lg={5} xl={6} className="pb-2">
-                            <Col className="fs-5" xs={12} md={6}>{t('table.massage.title', language)}</Col>
-                            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" />
-                            <div className="pt-1">
-                                {/* If message length is 0, show "No generated message..." */}
-                                {message.length === 0 && (
-                                    <span className="text-white-50">{t("table.no_message", language)}</span>
-                                )}
-
-                                {/* If there is a message */}
-                                {message.length > 0 && (
-                                    <Container fluid className="">
-                                        <Row>
-                                            <Col className="d-flex p-0 justify-content-end">
-                                                {/* Copy to Clipboard component */}
-                                                <CopyToClipboardButton message={message} />
-                                            </Col>
-                                            <Col xs={12} className="text-light p-0 mb-3" style={{ whiteSpace: 'pre-wrap' }}>
-                                                {message}
-                                            </Col>
-                                        </Row>
-                                    </Container>
-                                )}
-                            </div>
-                        </Col>
-
-                        {/* Generate Button */}
-                        <div className="col p-0" >
-                            <div className="pt-3 d-flex justify-content-center">
-                                <GenerateButton index={index} />
-                            </div>
-                        </div>
-                    </Row>
-                ))}
-            </Container>
-
-            {/* Button Container */}
-            <Container fluid className="p-1 ps-3 pb-4">
-                <Button variant="outline-light" onClick={handleAddNewRow}>
-                    <div className="d-flex pe-2">
-                        <div className="pe-2">
-                            <GoDiffAdded size={20} />
-                        </div>
-                        <div className=""> {t("button.newRow", language)} </div>
-                    </div>
-                </Button>
-
-            </Container>
-            {/*  */}
-            <PageDescriptionModal
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-                config={config}
-            />
-        {/* <MenuDrawer/> */}
-        </Container>
+        </div>
     );
 };
 
