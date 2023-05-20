@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
 import { GoDiffAdded } from 'react-icons/go';
+import { IoMdAddCircleOutline } from "react-icons/io";
 import { IoIosArrowForward } from 'react-icons/io';
 import { AiOutlineSend } from 'react-icons/ai';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -312,7 +313,18 @@ const TableComponents = (config: pageConfig) => {
                                 </div>
                             </Row>
                         ))}
+                        <Container className={styles.page_prompt_area_addrow}>
+                            <button className={styles.page_prompt_add_new_row_button} onClick={handleAddNewRow}>
+                                <div className="d-flex pe-0">
+                                    <div className=""> {t("button.newRow", language)} </div>
+                                    <div className="ps-2">
+                                        <IoMdAddCircleOutline size={25} />
+                                    </div>
+                                </div>
+                            </button>
+                        </Container>
                     </Container>
+
                 </Container>
             </Container>
         </div>
