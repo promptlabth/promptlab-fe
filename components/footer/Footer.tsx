@@ -72,6 +72,7 @@ const Footer = () => {
         <footer className={noto_sans_thai.className}>
             <Container fluid={true} className={styles.footer}>
                 <Container className={styles.footer_container}>
+                    <hr className={styles.footer_divider} />
                     <div className="row d-flex justify-content-sm-evenly">
                         <div className="col-lg-4">
                             <h5 className={styles.footer_header}>{t("footer.sponsors", language)}</h5>
@@ -109,30 +110,41 @@ const Footer = () => {
                         </div>
 
                     </div>
-                    <Container fluid={true} className="p-4 d-flex justify-content-center">
+                    <Container fluid={true} className="p-3 d-flex justify-content-center">
                         <div className={styles.footer_link}>
-                            เกี่ยวกับเรา
+                            {t("footer.aboutUs", language)}
                         </div>
                         <div className={styles.footer_vertical_div} />
                         <div className={styles.footer_link}>
-                            ร่วมงานกับเรา
+                            {t("footer.joinUs", language)}
                         </div>
                         <div className={styles.footer_vertical_div} />
-                        
+
                         <Link href={"/privacy-policy"} className="nav-link text-dark">
                             <div className={styles.footer_link}>
-                                นโยบายความเป็นส่วนตัว
+                                {t("footer.privacy_policy", language)}
                             </div>
                         </Link>
-                        
+
                         <div className={styles.footer_vertical_div} />
                         <div className={styles.footer_link}>
-                            ศูนย์ช่วยเหลือ
+                            {t("footer.help", language)}
                         </div>
                         <div className={styles.footer_vertical_div} />
 
                     </Container>
+
+                    <Container className={styles.footer_container}>
+                        <hr className={styles.footer_lower_divider} />
+                        <div className="d-flex justify-content-center">
+                            <div className={styles.footer_copyright}>
+                                @prompt.sutmeme.com
+                            </div>
+                        </div>
+                    </Container>
+
                 </Container>
+
             </Container>
         </footer>
     )

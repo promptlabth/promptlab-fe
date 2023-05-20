@@ -46,7 +46,11 @@
         "footer.description_1": "จงใช้ Prompt Lab อันทรงพลังเพื่อสร้างทุกสิ่งที่คุณต้องการ",
         "footer.description_2": "Prompt Lab ทำอะไรได้มากกว่าที่คุณคิด!!",
         "footer.links":"บริการต่างๆ",
-        "footer.sponsors":"พื้นที่โฆษณา"
+        "footer.sponsors":"พื้นที่โฆษณา",
+        "footer.aboutUs":"เกี่ยวกับเรา",
+        "footer.joinUs":"ร่วมงานกับเรา",
+        "footer.privacy_policy":"นโยบายความเป็นส่วนตัว",
+        "footer.help":"ศูนย์ช่วยเหลือ"
     },
     "en": {
         "language":"Language",
@@ -95,6 +99,10 @@
         "footer.description_1": "Use powerful Prompt Lab to create what you want",
         "footer.description_2": "Prompt Lab can do better than possibly you imagine!!!!",
         "footer.links":"Prompt Service",
-        "footer.sponsors":"Advertisement"
+        "footer.sponsors":"Advertisement",
+        "footer.aboutUs":"About us",
+        "footer.joinUs":"Join Us",
+        "footer.privacy_policy":"Privacy Policy",
+        "footer.help":"Help"
     }
 }

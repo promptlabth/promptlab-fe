@@ -2,6 +2,24 @@
     background-color: #212529;
 }
 
+.footer_divider{
+    background-color: white;
+    margin: 0;
+    margin-left: 3.5rem;
+    margin-right: 3.5rem;
+    margin-bottom: 2rem;
+    height: 2.5px;
+}
+
+.footer_lower_divider{
+    background-color: white;
+    margin: 0;
+    margin-left: 3.5rem;
+    margin-right: 3.5rem;
+    margin-bottom: 0.75rem;
+    height: 2.5px;
+}
+
 .footer_container{
     width: 100%;
 }
@@ -29,6 +47,7 @@
 .footer_link{
     color: white;
     font-weight: bold;
+    font-size: 13px;
     transition: text-shadow 0.3s;
 
 }
@@ -45,7 +64,7 @@
     margin: 0.5rem;
     font-weight: bold;
     width: 10rem;
-    height: 3rem;
+    height: 2.2rem;
     transition: box-shadow 0.3s;
 }
 
@@ -66,4 +85,10 @@
     border-radius: 20px;
     color:black;
     background-color: rgb(0, 255, 171, 0.8);
+}
+
+.footer_copyright{
+    color: white;
+    font-size: 13px;
+    margin-bottom: 2rem;
 }
