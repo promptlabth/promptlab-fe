@@ -7,6 +7,7 @@ import { urlLinks } from './constant';
 import { useRouter } from 'next/router';
 import styles from './styles.module.css';
 import { RiMenu4Fill } from "react-icons/ri"
+import Flag from "react-flagkit";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 
@@ -37,47 +38,78 @@ export const AppNavbar: React.FC = () => {
 
 
     return (
-        <Navbar className={noto_sans_thai.className} expand="lg" fixed="top">
-            <Container className="pt-3">
-                <div className={styles.navbar_header}>
-                    <h3>Prompt Lab</h3>
+      <Navbar
+        className={`${noto_sans_thai.className}  navbar-dark bg-dark`}
+        expand="lg"
+        fixed="top"
+      >
+        <Container className="pt-3 bg-dark">
+          <div className={styles.navbar_header}>
+            <h3>Prompt Lab</h3>
+          </div>
+          <Navbar.Toggle
+            className={styles.offcanvas_toggler}
+            aria-controls="offcanvasNavbar-expand-md"
+          >
+            <RiMenu4Fill className={styles.offcanvas_menu} />
+          </Navbar.Toggle>
+          <Navbar.Offcanvas
+            id={`offcanvasNavbar-expand-mf`}
+            aria-labelledby={`offcanvasNavbarLabel-expand-md`}
+            placement="end"
+            className="bg-dark"
+          >
+            <Offcanvas.Header className="">
+              <Offcanvas.Title className="p-0 d-flex justify-content-center">
+                <h2 className="text-white">
+                  <b>Prompt Lab</b>
+                </h2>
+              </Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body className="ps-5 pe-5">
+              <Nav className="justify-content-end flex-grow-1">
+                <div className={styles.container}>
+                  <li className="nav-item dropdown">
+                    <a
+                      className={`nav-link dropdown-toggle`}
+                      href="#"
+                      id="navbarDropdown"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <Flag country="TH" />
+                    </a>
+                    <ul
+                      className="dropdown-menu dropdown-menu-dark"
+                      aria-labelledby="navbarDropdown"
+                    >
+                      <li>
+                        <a className="dropdown-item" href="#">
+                          <Flag country="US" /> English
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li className="nav-item">
+                    <div className="nav-link ">
+                      <button className={styles.navbar_help_button}>
+                        ศูนย์ช่วยเหลือ
+                      </button>
+                    </div>
+                  </li>
+                  <li className="nav-item">
+                    <div className="nav-link ">
+                      <button className={styles.navbar_login_button}>
+                        เข้าสู่ระบบ
+                      </button>
+                    </div>
+                  </li>
                 </div>
-                <Navbar.Toggle className={styles.offcanvas_toggler} aria-controls="offcanvasNavbar-expand-md">
-                    <RiMenu4Fill className={styles.offcanvas_menu}/>
-                </Navbar.Toggle>
-                <Navbar.Offcanvas
-                    id={`offcanvasNavbar-expand-mf`}
-                    aria-labelledby={`offcanvasNavbarLabel-expand-md`}
-                    placement="end"
-                    className="bg-dark"
-                >
-                    <Offcanvas.Header className="">
-                        <Offcanvas.Title className='p-0 d-flex justify-content-center'>
-                            <h2 className='text-white'>
-                                <b>Prompt Lab</b>
-                            </h2>
-                        </Offcanvas.Title>
-                    </Offcanvas.Header>
-                    <Offcanvas.Body className='ps-5 pe-5'>
-                        <Nav className="justify-content-end flex-grow-1">
-                            <div className={styles.container}>
-                                <div className="ms-3 me-3">
-                                    <button className={styles.navbar_help_button}>
-                                        ศูนย์ช่วยเหลือ
-                                    </button>
-                                </div>
-                                <div className="ms-3 me-3">
-                                    <button className={styles.navbar_login_button}>
-                                        เข้าสู่ระบบ
-                                    </button>
-                                </div>
-                            </div>
-                        </Nav>
-                    </Offcanvas.Body>
-                </Navbar.Offcanvas>
-            </Container>
-
-        </Navbar>
+              </Nav>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </Container>
+      </Navbar>
     );
 };
 
