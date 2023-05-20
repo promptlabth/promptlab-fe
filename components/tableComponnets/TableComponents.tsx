@@ -130,28 +130,40 @@ const TableComponents = (config: pageConfig) => {
         };
 
         return (
-            <button
-                className={`${styles.page_prompt_generate_btn} ${loading ? "disabled" : ""}`}
-                type="button"
-                onClick={handleClick}
-                style={{ padding: 3, paddingBottom: 8, paddingTop: 8 }}
-            >
-                {loading ?
-                    <div className="d-flex">
-                        <div className="pe-2 ps-2">
-                            <div className="spinner-border spinner-border-sm"></div>
-                        </div>
-                        <div className="pe-2"> Generating... </div>
-                    </div>
-                    :
-                    <div className="d-flex pe-2 ps-2">
-                        <div className="pe-2">
-                            <AiOutlineSend size={20} />
-                        </div>
-                        <div className=""> Generate </div>
-                    </div>
+            <>
+                {
+                    loading ?
+                        <button
+                            className={styles.page_prompt_loading_generate_btn}
+                            type="button"
+                            onClick={handleClick}
+                            disabled={true}
+                            style={{ padding: 3, paddingBottom: 8, paddingTop: 8 }}
+                        >
+                            <div className="d-flex">
+                                <div className="pe-2 ps-2">
+                                    <div className="spinner-border spinner-border-sm"></div>
+                                </div>
+                                <div className="pe-2"> Generating... </div>
+                            </div>
+                        </button>
+                        :
+                        <button
+                            className={styles.page_prompt_generate_btn}
+                            type="button"
+                            onClick={handleClick}
+                            style={{ padding: 3, paddingBottom: 8, paddingTop: 8 }}
+                        >
+                            <div className="d-flex pe-2 ps-2">
+                                <div className="pe-2">
+                                    <AiOutlineSend size={20} />
+                                </div>
+                                <div className=""> Generate </div>
+                            </div>
+
+                        </button>
                 }
-            </button>
+            </>
         );
     };
 
@@ -322,7 +334,7 @@ const TableComponents = (config: pageConfig) => {
                             </button>
                         </Container>
                     </Container>
-                  
+
                 </Container>
             </Container>
         </div>

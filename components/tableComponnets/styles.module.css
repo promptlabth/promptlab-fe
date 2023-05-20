@@ -72,5 +72,22 @@
 .page_prompt_generate_btn{
 	background-color:#00FFAB;
     border: none;
+    color: black;
+    font-weight: bold;
 	border-radius:28px;
+    transition: all 0.2s;
+}
+
+.page_prompt_loading_generate_btn{
+    background-color:#00FFAB;
+    border: none;
+    color: black;
+    font-weight: bold;
+	border-radius:28px;
+    opacity:0.2;
+}
+
+
+.page_prompt_generate_btn:hover{
+    transform: scale(1.05);
 }
