@@ -22,6 +22,7 @@ import { MenuDrawer } from "../navbar/MenuDrawer";
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
+import { CiShoppingTag } from "react-icons/ci"
 
 type ComponentProps = {
     input: string;

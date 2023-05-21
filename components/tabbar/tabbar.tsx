@@ -18,6 +18,7 @@ export const AppTabbar: React.FC = () => {
   // const [pathname, setPathname] = useState<string>("createSellingPost");
   // const [profileImage, setProfileImage] = useState<string>("");
   // const [loginStatus, setLoginStatus] = useState(false);
+  
 
   useEffect(() => {
     // if (router.pathname === "/") {
@@ -33,31 +34,11 @@ export const AppTabbar: React.FC = () => {
       <div className={styles.container}>
         <ul>
           <li>
-            <button type="button" className={styles.btn}>
-              หน้าหลัก
-            </button>
             {urlLinks.map(({ href }, index) => (
-                <Link key={index} href={href} className={styles.btn}>
+                <Link className={styles.btn} href={href} key={index}>
                   {titles[index]}
                 </Link>
             ))}
-
-            {/* 
-              <button type="button" className={styles.btn}>
-                เขียนแคปชั่นขายของ
-              </button>
-              <button type="button" className={styles.btn}>
-                ช่วยคิดคอนเทนต์
-              </button>
-              <button type="button" className={styles.btn}>
-                เขียนบทความ
-              </button>
-              <button type="button" className={styles.btn}>
-                เขียนสคริปวิดีโอสั้น
-              </button>
-              <button type="button" className={styles.btn}>
-                เขียนประโยคเปิดคลิป
-              </button> */}
           </li>
         </ul>
       </div>
