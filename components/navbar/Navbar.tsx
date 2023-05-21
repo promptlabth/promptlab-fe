@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { useLanguage } from '@/language/ LanguageContext';
 import { t } from '../language';
 import { Noto_Sans_Thai } from 'next/font/google'
@@ -12,105 +12,122 @@ const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 
 export const AppNavbar: React.FC = () => {
-    const { language } = useLanguage();
-    const [titles, setTitles] = useState(urlLinks.map(({ titleKey }) => t(titleKey, language)));
-    const router = useRouter()
-    const [pathname, setPathname] = useState<string>("createSellingPost")
-    const [profileImage, setProfileImage] = useState<string>("")
-    const [loginStatus, setLoginStatus] = useState(false);
+  const { language, setLanguage } = useLanguage();
+  const [isTh, setIsTh] = useState(true);
+  const [titles, setTitles] = useState(urlLinks.map(({ titleKey }) => t(titleKey, language)));
+  const router = useRouter()
+  const [pathname, setPathname] = useState<string>("createSellingPost")
+  const [profileImage, setProfileImage] = useState<string>("")
+  const [loginStatus, setLoginStatus] = useState(false);
 
-    useEffect(() => {
-        if (router.pathname === "/") {
-            setPathname("/createSellingPost")
-        } else {
-            setPathname(router.pathname)
-        }
-        setTitles(urlLinks.map(({ titleKey }) => t(titleKey, language)));
-    }, [language]);
-
-
-    const handleLogin = (result: any) => {
-        console.log("Login successful, do something with the result:", result);
-        setProfileImage(result['user']['photoURL']);
-        setLoginStatus(true);
-        // You can use the result here or update the state of your parent component
-    };
+  useEffect(() => {
+    if (router.pathname === "/") {
+      setPathname("/createSellingPost")
+    } else {
+      setPathname(router.pathname)
+    }
+    setTitles(urlLinks.map(({ titleKey }) => t(titleKey, language)));
+  }, [language]);
 
 
-    return (
-      <Navbar
-        className={`${noto_sans_thai.className}  navbar-dark bg-dark`}
-        expand="lg"
-        fixed="top"
-      >
-        <Container className="pt-3 bg-dark">
-          <div className={styles.navbar_header}>
-            <h3>Prompt Lab</h3>
-          </div>
-          <Navbar.Toggle
-            className={styles.offcanvas_toggler}
-            aria-controls="offcanvasNavbar-expand-md"
-          >
-            <RiMenu4Fill className={styles.offcanvas_menu} />
-          </Navbar.Toggle>
-          <Navbar.Offcanvas
-            id={`offcanvasNavbar-expand-mf`}
-            aria-labelledby={`offcanvasNavbarLabel-expand-md`}
-            placement="end"
-            className="bg-dark"
-          >
-            <Offcanvas.Header className="">
-              <Offcanvas.Title className="p-0 d-flex justify-content-center">
-                <h2 className="text-white">
-                  <b>Prompt Lab</b>
-                </h2>
-              </Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body className="ps-5 pe-5">
-              <Nav className="justify-content-end flex-grow-1">
-                <div className={styles.container}>
-                  <li className="nav-item dropdown">
-                    <a
-                      className={`nav-link dropdown-toggle`}
-                      href="#"
-                      id="navbarDropdown"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <Flag country="TH" />
-                    </a>
-                    <ul
-                      className="dropdown-menu dropdown-menu-dark"
-                      aria-labelledby="navbarDropdown"
-                    >
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          <Flag country="US" /> English
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li className="nav-item">
-                    <div className="nav-link ">
-                      <button className={styles.navbar_help_button}>
-                        ศูนย์ช่วยเหลือ
-                      </button>
-                    </div>
-                  </li>
-                  <li className="nav-item">
-                    <div className="nav-link ">
-                      <button className={styles.navbar_login_button}>
-                        เข้าสู่ระบบ
-                      </button>
-                    </div>
-                  </li>
-                </div>
-              </Nav>
-            </Offcanvas.Body>
-          </Navbar.Offcanvas>
-        </Container>
-      </Navbar>
-    );
+  const handleLogin = (result: any) => {
+    console.log("Login successful, do something with the result:", result);
+    setProfileImage(result['user']['photoURL']);
+    setLoginStatus(true);
+    // You can use the result here or update the state of your parent component
+  };
+
+  // function for handle language
+  const handleLanguageChange = (event: ChangeEvent<HTMLInputElement>, language:string) => {
+    // setIsTh(event.target.checked);
+
+    const newLanguage = event.target.checked ? 'th' : 'en';
+    setLanguage(newLanguage);
+  };
+  // Code something
+  // Code something
+  // Code something
+
+
+  return (
+    <Navbar
+      className={`${noto_sans_thai.className}  navbar-dark bg-dark`}
+      expand="lg"
+      fixed="top"
+    >
+      <Container className="pt-3 bg-dark">
+        <div className={styles.navbar_header}>
+          <h3>Prompt Lab</h3>
+        </div>
+        <Navbar.Toggle
+          className={styles.offcanvas_toggler}
+          aria-controls="offcanvasNavbar-expand-md"
+        >
+          <RiMenu4Fill className={styles.offcanvas_menu} />
+        </Navbar.Toggle>
+        <Navbar.Offcanvas
+          id={`offcanvasNavbar-expand-mf`}
+          aria-labelledby={`offcanvasNavbarLabel-expand-md`}
+          placement="end"
+          className="bg-dark"
+        >
+          <Offcanvas.Header className="">
+            <Offcanvas.Title className="p-0 d-flex justify-content-center">
+              <h2 className="text-white">
+                <b>Prompt Lab</b>
+              </h2>
+            </Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body className="ps-5 pe-5">
+            <Nav className="justify-content-end flex-grow-1">
+              <div className={styles.container}>
+                <li className="nav-item dropdown">
+
+                  <a
+                    className={`nav-link dropdown-toggle`}
+                    id="navbarDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    { language === "th" && <Flag country="TH" />}
+                    { language === "en" && <Flag country="US" />}
+                    
+                  </a>
+                  <ul
+                    className="dropdown-menu dropdown-menu-dark"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <li>
+                      <a className="dropdown-item" onClick={()=>{setLanguage("en")}}>
+                        <Flag country="US" /> English
+                      </a>
+                      <a className="dropdown-item" onClick={()=>{setLanguage("th")}}>
+                        <Flag country="TH" /> Thai
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li className="nav-item">
+                  <div className="nav-link ">
+                    <button className={styles.navbar_help_button}>
+                      ศูนย์ช่วยเหลือ
+                    </button>
+                  </div>
+                </li>
+                <li className="nav-item">
+                  <div className="nav-link ">
+                    <button className={styles.navbar_login_button}>
+                      เข้าสู่ระบบ
+                    </button>
+                  </div>
+                </li>
+              </div>
+            </Nav>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
+      </Container>
+    </Navbar>
+  );
 };
 
 export default AppNavbar;

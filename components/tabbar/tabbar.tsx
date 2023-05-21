@@ -5,6 +5,7 @@ import { Noto_Sans_Thai } from "next/font/google";
 import { Nav } from "react-bootstrap";
 import { urlLinks } from "../navbar/constant";
 import { useRouter } from "next/router";
+import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import styles from "./styles.module.css";
 import Link from "next/link";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });

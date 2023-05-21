@@ -27,6 +27,7 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "18.2.0",
     "react-flagkit": "^2.0.4",
+    "react-horizontal-scrolling-menu": "^4.0.4",
     "react-icons": "^4.8.0",
     "react-router": "^6.10.0",
     "react-router-dom": "^6.10.0",
