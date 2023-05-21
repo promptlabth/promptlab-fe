@@ -38,6 +38,7 @@
     padding-bottom: 5px;
     text-decoration: none;
     color: black;
+    transition: all 0.1s;
 }
 
 .btn:hover,
@@ -46,11 +47,10 @@
     margin-left: 10px;
     border-radius: 20px;
     color: white;
-    background-color: transparent;
+    background-color: transparent !important;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
+    transform: scale(1.05);
 }
-
-/* ------------------------------- */

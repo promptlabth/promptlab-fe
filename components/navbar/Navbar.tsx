@@ -13,21 +13,9 @@ const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 export const AppNavbar: React.FC = () => {
   const { language, setLanguage } = useLanguage();
-  const [isTh, setIsTh] = useState(true);
-  const [titles, setTitles] = useState(urlLinks.map(({ titleKey }) => t(titleKey, language)));
-  const router = useRouter()
-  const [pathname, setPathname] = useState<string>("createSellingPost")
+
   const [profileImage, setProfileImage] = useState<string>("")
   const [loginStatus, setLoginStatus] = useState(false);
-
-  useEffect(() => {
-    if (router.pathname === "/") {
-      setPathname("/createSellingPost")
-    } else {
-      setPathname(router.pathname)
-    }
-    setTitles(urlLinks.map(({ titleKey }) => t(titleKey, language)));
-  }, [language]);
 
 
   const handleLogin = (result: any) => {
@@ -44,10 +32,6 @@ export const AppNavbar: React.FC = () => {
     const newLanguage = event.target.checked ? 'th' : 'en';
     setLanguage(newLanguage);
   };
-  // Code something
-  // Code something
-  // Code something
-
 
   return (
     <Navbar

@@ -12,12 +12,11 @@ import Link from "next/link";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 export const AppTabbar: React.FC = () => {
   const { language } = useLanguage();
+  const router = useRouter()
   const ref = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
   const { events } = useDraggable(ref); // Now we pass the reference to the useDraggable hook:
   
-  const [titles, setTitles] = useState(
-    urlLinks.map(({ titleKey }) => t(titleKey, language))
-  );
+  const [titles, setTitles] = useState( urlLinks.map(({ titleKey }) => t(titleKey, language)) );
 
 
   useEffect(() => {
@@ -31,7 +30,15 @@ export const AppTabbar: React.FC = () => {
         <div className={styles.scroll} {...events} ref={ref}>
           <li>
             {urlLinks.map(({ href }, index) => (
-              <Link className={styles.btn} href={href} key={index}>
+              <Link 
+                className={styles.btn} 
+                href={href} 
+                key={index}
+                style={{ 
+                  background: href === router.pathname ? "none" : "rgb(0, 255, 171,0.8)",
+                  color: href === router.pathname ? "white" : ""
+                }}
+              >
                 {titles[index]}
               </Link>
             ))}
