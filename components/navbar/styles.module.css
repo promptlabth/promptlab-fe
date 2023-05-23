@@ -50,6 +50,22 @@
     transition: all 0.3s ease-in;
 }
 
+.language_dropdown{
+    transition: 0.3s;
+}
+.language_dropdown:hover {
+    background-color: #8c8c8c;
+}
+
+.language_dropdown .language_list{
+    transition: 0.3s;
+}
+
+.language_dropdown .language_list:hover{
+    background-color: #8c8c8c;
+}
+
+
 .navbar_help_button:hover {
     color: #00FFAB;
     background-color: transparent;
@@ -62,16 +78,13 @@
     color: #ffffff;
     border-radius: 100px;
     border: 1px solid #00FFAB;
-    /* transition: box-shadow 0.3s; */
-    transition: all 0.3s ease-in;
-    transition: transform 1.0s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
 }
 
 .navbar_login_button:hover {
-    /* box-shadow: 0 0 5px rgba(211, 203, 203, 0.5); */
     background-color: #00FFAB;
     color: #000000;
-    transform: scale(1.05);
+    transform: scale(1.07);
     box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.1);
 }
 

@@ -1,0 +1,22 @@
+.privacy_policy_container{
+    padding-top: 3rem;
+    background-color: #212529;
+
+}
+
+.privacy_policy_container .privacy_policy_bg {
+    padding-top: 1rem;
+    background-color: #212529;
+}
+
+.privacy_policy_container .privacy_policy_info {
+    color: white;
+}
+
+@media (min-width: 1400px) {
+    .privacy_policy_container .privacy_policy_info {
+        padding-left: 5rem;
+        padding-right: 5rem;
+    }
+}
+

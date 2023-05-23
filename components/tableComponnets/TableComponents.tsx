@@ -1,28 +1,21 @@
-import gennerateMassage, { openApiMassageConfig } from "@/api/OpenApiEngine";
-import { useState, useEffect, ChangeEvent } from "react";
+import { openApiMassageConfig } from "@/api/OpenApiEngine";
+import { useState, useEffect, ChangeEvent, useRef } from "react";
 import { useRouter } from 'next/router';
-
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
-import { GoDiffAdded } from 'react-icons/go';
 import { IoMdAddCircleOutline } from "react-icons/io";
-import { IoIosArrowForward } from 'react-icons/io';
 import { AiOutlineSend } from 'react-icons/ai';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
-import ToggleSwitch from "../starndart/ToggleSwitch";
 import { useLanguage } from "@/language/ LanguageContext";
 import { t } from "../language";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import { PageDescriptionModal } from "../modals/PageDescriptionModal";
+import {  Col, Container, Row } from "react-bootstrap";
 import generateMessageWithBackend from "@/api/OpenAiBackend";
-import { MenuDrawer } from "../navbar/MenuDrawer";
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
-import { CiShoppingTag } from "react-icons/ci"
 
 type ComponentProps = {
     input: string;
@@ -49,8 +42,7 @@ const TableComponents = (config: pageConfig) => {
     const [components, setComponents] = useState<ComponentProps[]>([]);
     const [isTh, setIsTh] = useState(true);
     const { language, setLanguage } = useLanguage();
-    const [modalShow, setModalShow] = useState(false);
-    const [pathname, setPathname] = useState<string>("createSellingPost")
+    const [pathname, setPathname] = useState<string>("")
     const router = useRouter()
 
 
@@ -111,17 +103,6 @@ const TableComponents = (config: pageConfig) => {
 
     }
 
-    const handleToggle = (event: ChangeEvent<HTMLInputElement>) => {
-        setIsTh(event.target.checked);
-
-        const newLanguage = event.target.checked ? 'th' : 'en';
-        setLanguage(newLanguage);
-
-    };
-
-
-
-
     const GenerateButton = ({ index }: { index: number }) => {
         const [loading, setLoading] = useState(false);
 
@@ -177,8 +158,6 @@ const TableComponents = (config: pageConfig) => {
             promptTh: config.promptTh(input, type),
             ...config.modelConfig
         }
-
-
 
         try {
             const message = await generateMessageWithBackend(apiConfig) ?? 'Error Please try again'

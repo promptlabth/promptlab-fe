@@ -1,47 +1,27 @@
-import { t } from "@/components/language";
-import ToggleSwitch from "@/components/starndart/ToggleSwitch";
-import { useLanguage } from "@/language/ LanguageContext";
-import { ChangeEvent, useState } from "react";
 import { Container } from "react-bootstrap";
 import Head from "next/head";
 import Link from "next/link";
-
+import styles from "./privacy.module.css"
+import { Noto_Sans_Thai } from "next/font/google";
+const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 
 const PrivacyPolicy = () => {
-    const { language, setLanguage } = useLanguage();
-    const [isTh, setIsTh] = useState(true);
-
-    const handleToggle = (event: ChangeEvent<HTMLInputElement>) => {
-        setIsTh(event.target.checked);
-
-        const newLanguage = event.target.checked ? 'th' : 'en';
-        setLanguage(newLanguage);
-
-    };
     return (
-        <div>
+        <div className={noto_sans_thai.className}>
             <Head>
                 <title>นโยบายความเป็นส่วนตัว</title>
                 <meta name="description" content="Meta description for the Home page" />
             </Head>
-            <Container fluid="true" className="text-light text-center bg-dark pt-5" >
-                <Container fluid className="pt-5 pb-2" style={{ backgroundColor: "#1F1F21" }}>
+            <Container fluid={true} className={styles.privacy_policy_container}>
+                <Container className={styles.privacy_policy_bg}>
                     <figure className="text-center pt-4 pb-4 text-light">
                         <blockquote className="blockquote">
                             <p className="display-4">นโยบายความเป็นส่วนตัว</p>
                         </blockquote>
-
                     </figure>
-                    <Container className="text-light text-center">
-                        <h3>{t("language", language)}</h3>
-                        <ToggleSwitch isOn={isTh} handleToggle={handleToggle} />
-                        <p>{isTh ? 'TH' : 'EN'}</p>
-                        <Container className="d-flex justify-content-center">
-                        </Container>
-                    </Container>
 
                 </Container>
-                <Container className="pt-4 ps-4 pe-4">
+                <Container className={styles.privacy_policy_info}>
                     <Container className="p-2 text-start">
                         <p className="">
                             ในฐานะผู้พัฒนาและทีมงานของเว็บไซต์ Prompt Lab (<Link href="/" className="text-light">www.prompt.sutmeme.com</Link>) ทางทีมงานได้ตระหนักถึงความสำคัญของความเป็นส่วนตัวของผู้ใช้ทุกท่าน เราจึงให้ควาามเชื่อมั่นแก่ทุกท่านว่าข้อมูลส่วนบุคคลทั้งหมดของท่านจะได้รับความคุ้มครองและ

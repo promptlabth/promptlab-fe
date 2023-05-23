@@ -26,7 +26,7 @@ export const AppNavbar: React.FC = () => {
   };
 
   // function for handle language
-  const handleLanguageChange = (event: ChangeEvent<HTMLInputElement>, language:string) => {
+  const handleLanguageChange = (event: ChangeEvent<HTMLInputElement>, language: string) => {
     // setIsTh(event.target.checked);
 
     const newLanguage = event.target.checked ? 'th' : 'en';
@@ -65,7 +65,7 @@ export const AppNavbar: React.FC = () => {
           <Offcanvas.Body className="ps-5 pe-5">
             <Nav className="justify-content-end flex-grow-1">
               <div className={styles.container}>
-                <li className="nav-item dropdown">
+                <li className={`${styles.language_dropdown} nav-item dropdown`}>
 
                   <a
                     className={`nav-link dropdown-toggle`}
@@ -73,19 +73,19 @@ export const AppNavbar: React.FC = () => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    { language === "th" && <Flag country="TH" />}
-                    { language === "en" && <Flag country="US" />}
-                    
+                    {language === "th" && <Flag country="TH" />}
+                    {language === "en" && <Flag country="US" />}
+
                   </a>
                   <ul
                     className="dropdown-menu dropdown-menu-dark"
                     aria-labelledby="navbarDropdown"
                   >
                     <li>
-                      <a className="dropdown-item" onClick={()=>{setLanguage("en")}}>
+                      <a className={`dropdown-item ${styles.language_list}`} onClick={() => { setLanguage("en") }}>
                         <Flag country="US" /> English
                       </a>
-                      <a className="dropdown-item" onClick={()=>{setLanguage("th")}}>
+                      <a className={`dropdown-item ${styles.language_list}`} onClick={() => { setLanguage("th") }}>
                         <Flag country="TH" /> Thai
                       </a>
                     </li>
@@ -94,14 +94,14 @@ export const AppNavbar: React.FC = () => {
                 <li className="nav-item">
                   <div className="nav-link ">
                     <button className={styles.navbar_help_button}>
-                      ศูนย์ช่วยเหลือ
+                      {t("footer.help", language)}
                     </button>
                   </div>
                 </li>
                 <li className="nav-item">
                   <div className="nav-link ">
                     <button className={styles.navbar_login_button}>
-                      เข้าสู่ระบบ
+                      {t("login", language)}
                     </button>
                   </div>
                 </li>

@@ -31,6 +31,7 @@
     padding: 0.5rem;
     border-radius: 10px;
     width: 100%;
+    min-height: 60px;
 }
 
 .page_prompt_area_combobox{
@@ -56,12 +57,12 @@
 	font-family:Arial;
 	font-size:17px;
     padding: 5px 15px;
-    font-weight: bold;
 	text-decoration:none;
+    transition: 0.3s;
 }
 
 .page_prompt_add_new_row_button:hover{
-    background-color: #03b479;
+    transform: scale(1.05);
 }
 
 .page_prompt_add_new_row_button:active {
