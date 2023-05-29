@@ -53,10 +53,10 @@ const Footer = () => {
                         />
 
                     </Carousel.Item>
-                    <Carousel.Item onClick={handleClickLotto} interval={3000}>
+                    <Carousel.Item onClick={handleClickConnect} interval={3000}>
                         <img
                             className="d-block w-100"
-                            src="/images/promote_lotto.png"
+                            src="/images/promote_bg.png"
                             alt="Third slide"
                         />
                     </Carousel.Item>
