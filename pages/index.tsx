@@ -41,7 +41,7 @@ export default function Home() {
                       src="https://mdbcdn.b-cdn.net/img/video/forest.mp4"
                       type="video/mp4"
                     />
-                    Sorry, your browser doesn&apos't support embedded videos.
+                    Sorry, your browser doesn&apos;t support embedded videos.
                   </video>
                 </div>
                 <div className={`row mb-2`}>
