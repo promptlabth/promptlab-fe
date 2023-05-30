@@ -3,7 +3,7 @@ import { MouseEventHandler, createContext, useContext, useState } from 'react';
 
 interface User {
    /* 
-       id: Optional[int] = Field(default=None, primary_key=True)
+   id: Optional[int] = Field(default=None, primary_key=True)
    uid : Optional[str] = Field(default=None, unique=True)
    name: Optional[str] = None
    email: str
@@ -38,21 +38,37 @@ export function useUserContext() {
 
 export function UserContextProvider({ children }: Props) {
    const [user, setUser] = useState<User>(); // Initialize modal show status to false
+   
+   // Wait API url
+   const apiUrl = "?????";
+
+   // Not complete function, wait api url
+   const getUser = async () => {
+      const requestOptions = {
+         method: "GET",
+         headers: {
+            "Content-Type": "application/json"
+         },
+         // body: JSON.stringify(signin)
+      };
+
+      fetch(`${apiUrl}/`, requestOptions)
+         .then((response) => response.json())
+         .then((result) => {
+            if (result.data) {
+               setUser(result.data)
+            }
+         });
+   }
+
 
    const handleFacebookLogin = async () => {
       const result = await signInWithFacebook();
-      console.log(result)
       if (result) {
-         // onLogin(result)
          console.log("Facebook login successful:", result);
-         console.log(result)
 
-         //* Logic for set user
-         // Statement
-         // Statement
-         // Statement
-         // Statement
-
+         // get user from db
+         getUser();  
 
       } else {
          console.log("Facebook login failed");
@@ -63,7 +79,7 @@ export function UserContextProvider({ children }: Props) {
    const current_context: UserContextInterface = {
       user: null,
       setUser: setUser,
-      handleFacebookLogin : handleFacebookLogin,
+      handleFacebookLogin: handleFacebookLogin,
    }
    return (
       <UserContext.Provider value={current_context}> {children} </UserContext.Provider>
