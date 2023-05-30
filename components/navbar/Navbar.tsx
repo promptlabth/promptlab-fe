@@ -104,7 +104,7 @@ export const AppNavbar: React.FC = () => {
                   <div className="nav-link ">
                     <button className={styles.navbar_help_button}>
                       <Link
-                        href={"/createHelp"}
+                        href={"/help"}
                         className={`${styles.remove_underline}`}
                       >
                         {t("footer.help", language)}
