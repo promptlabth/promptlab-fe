@@ -9,7 +9,7 @@ import styles from './styles.module.css';
 import { RiMenu4Fill } from "react-icons/ri"
 import Flag from "react-flagkit";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
-
+import LoginComponent from './LoginButton';
 
 export const AppNavbar: React.FC = () => {
   const { language, setLanguage } = useLanguage();
@@ -100,9 +100,10 @@ export const AppNavbar: React.FC = () => {
                 </li>
                 <li className="nav-item">
                   <div className="nav-link ">
-                    <button className={styles.navbar_login_button}>
+                    <LoginComponent onLogin={handleLogin}/>
+                    {/* <button className={styles.navbar_login_button}>
                       {t("login", language)}
-                    </button>
+                    </button> */}
                   </div>
                 </li>
               </div>
