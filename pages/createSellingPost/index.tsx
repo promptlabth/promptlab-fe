@@ -3,6 +3,9 @@ import TableComponents from "@/components/tableComponnets/TableComponents";
 import { useLanguage } from "@/language/ LanguageContext";
 import Head from "next/head";
 const CreateSellingPost = () => {
+    /* 
+    ใช้ idToken ในการ authen และ extract ข้อมูล
+    */
     const { language } = useLanguage();
     return (
         <div>

@@ -57,6 +57,11 @@ const TableComponents = (config: pageConfig) => {
         { value: "retro", label: t('table.type.retro', language) },
     ];
 
+    //* Write fetch function! 
+    // Fetch statement
+    // Fetch statement
+    // Fetch statement
+    // Fetch statement
 
     const CopyToClipboardButton = ({ message }: { message: string }) => {
         const [isCopied, setIsCopied] = useState(false);
