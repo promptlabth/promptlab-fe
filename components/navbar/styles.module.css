@@ -92,3 +92,12 @@
     color: white;
 }
 
+.remove_underline {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.remove_underline:hover{
+    text-decoration: none;
+    color: #41ffa3;
+}
