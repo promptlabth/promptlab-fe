@@ -4,7 +4,6 @@ import { useLanguage } from "@/language/ LanguageContext";
 import { t } from "@/components/language";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 import Head from "next/head";
-import { Button, Carousel, Col, Row } from "react-bootstrap";
 import styles from "./styles.module.css";
 export default function Home() {
     const { language } = useLanguage();
@@ -32,7 +31,7 @@ export default function Home() {
               <Container className={`${styles.gray} ${styles.container}`}>
                 <figure className="text-center pt-4 pb-1 text-light">
                   <h3>
-                    <b> Prompt Lab หน้าตาเป็นยังไงกันนะ</b>
+                    <b> {t("home.what_promptlab_look_like",language)}</b>
                   </h3>
                 </figure>
                 <div style={{ width: "100%" }}>
@@ -57,13 +56,9 @@ export default function Home() {
                   <div className="col-sm-8 col-lg-5">
                     <figure className="text-start pt-2 pb-2 text-light">
                       <h4 className="mb-4">
-                        <b> Prompt Lab คืออะไร?</b>
+                        <b> {t("home.what_is_promptlab.title", language)}</b>
                       </h4>
-                      <p>
-                        Prompt Lab
-                        คือเว็บไซต์ที่ช่วยให้ผู้คนปลดล็อคความคิดสร้างสรรค์ของคุณโดยมี
-                        AI คอยช่วยคิดอะไรต่างๆ ให้
-                      </p>
+                      <p> {t("home.what_is_promptlab.description", language)} </p>
                     </figure>
                   </div>
                 </div>
@@ -79,13 +74,9 @@ export default function Home() {
                   >
                     <figure className="text-start text-light">
                       <h4 className="mb-4">
-                        <b> Prompt Lab คืออะไร?</b>
+                        <b> {t("home.unlock_your_cretivity.title", language)} </b>
                       </h4>
-                      <p>
-                        Prompt Lab
-                        คือเว็บไซต์ที่ช่วยให้ผู้คนปลดล็อคความคิดสร้างสรรค์ของคุณโดยมี
-                        AI คอยช่วยคิดอะไรต่างๆ ให้
-                      </p>
+                      <p> {t("home.unlock_your_cretivity.description", language)}</p>
                     </figure>
                   </div>
                 </div>
