@@ -48,14 +48,7 @@ export default function Home() {
                      <div className="d-flex justify-content-center pb-4">
                         <TikTokEmbed url="https://www.tiktok.com/@coderbizz/video/7218015296366431514" width={325} />
                      </div>
-                     {/* <video className="active w-50 mt-3" loop controls>
-                        <source
-                           src="https://drive.google.com/uc?export=download&id=1WN0Ay2HIEe-KaOWjAtkwYglxybBOQz0d"
-                           type="video/mp4"
-                        />
-                        Sorry, your browser doesn&apos;t support embedded
-                        videos.
-                     </video> */}
+                    
                      <div className={`row mb-2`}>
                         <div
                            className={`col-sm-4 mb-3 col-lg-5 ${styles.marginleft}`}
