@@ -114,10 +114,10 @@ export const AppNavbar: React.FC = () => {
                 </li>
                 <li className="nav-item">
                   <div className="nav-link ">
-                    <LoginComponent/>
-                    {/* <button className={styles.navbar_login_button}>
+                    {/* <LoginComponent/> */}
+                    <button className={styles.navbar_login_button}>
                       {t("login", language)}
-                    </button> */}
+                    </button>
                   </div>
                 </li>
               </div>
