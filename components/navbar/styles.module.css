@@ -78,15 +78,17 @@
     color: #ffffff;
     border-radius: 100px;
     border: 1px solid #00FFAB;
+    opacity: 0.4;
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
 }
 
-.navbar_login_button:hover {
+/* ซ่อนไว้ชั่วคราว รอระบบ login */
+/* .navbar_login_button:hover {
     background-color: #00FFAB;
     color: #000000;
     transform: scale(1.07);
     box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.1);
-}
+} */
 
 .dropdown:hover{
     color: white;
