@@ -6,15 +6,8 @@ const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 import Head from "next/head";
 import styles from "./styles.module.css";
 import Link from 'next/link';
+import { TikTokEmbed } from 'react-social-media-embed';
 
-
-const TikTokVideo = () => (
-   <div
-     dangerouslySetInnerHTML={{
-       __html: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@coderbizz/video/7217780564261129499" data-video-id="7217780564261129499"> <section> <a target="_blank" title="@coderbizz" href="https://www.tiktok.com/@coderbizz?refer=embed">@coderbizz</a> เขียนแคปชั่นสำหรับขายของได้อย่างรวดเร็วได้แล้ววันนี้ <a title="programming" target="_blank" href="https://www.tiktok.com/tag/programming?refer=embed">#programming</a> <a title="fyp" target="_blank" href="https://www.tiktok.com/tag/fyp?refer=embed">#fyp</a> <a title="โปรแกรมเมอร์" target="_blank" href="https://www.tiktok.com/tag/%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B9%81%E0%B8%81%E0%B8%A3%E0%B8%A1%E0%B9%80%E0%B8%A1%E0%B8%AD%E0%B8%A3%E0%B9%8C?refer=embed">#โปรแกรมเมอร์</a> <a title="chatgpt" target="_blank" href="https://www.tiktok.com/tag/chatgpt?refer=embed">#chatGPT</a> <a title="ขายของออนไลน์" target="_blank" href="https://www.tiktok.com/tag/%E0%B8%82%E0%B8%B2%E0%B8%A2%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C?refer=embed">#ขายของออนไลน์</a> <a title="การตลาด" target="_blank" href="https://www.tiktok.com/tag/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%95%E0%B8%A5%E0%B8%B2%E0%B8%94?refer=embed">#การตลาด</a> <a target="_blank" title="♬ Funk Rave - Don´t Let Me Down 140 Bpm - kirtap" href="https://www.tiktok.com/music/Funk-Rave-Don´t-Let-Me-Down-140-Bpm-7092133950117677058?refer=embed">♬ Funk Rave - Don´t Let Me Down 140 Bpm - kirtap</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>`,
-     }}
-   />
- );
 
 export default function Home() {
    const { language } = useLanguage();
@@ -52,7 +45,17 @@ export default function Home() {
                         </h3>
                      </figure>
 
-                     <TikTokVideo />
+                     <div className="d-flex justify-content-center pb-4">
+                        <TikTokEmbed url="https://www.tiktok.com/@coderbizz/video/7218015296366431514" width={325} />
+                     </div>
+                     {/* <video className="active w-50 mt-3" loop controls>
+                        <source
+                           src="https://drive.google.com/uc?export=download&id=1WN0Ay2HIEe-KaOWjAtkwYglxybBOQz0d"
+                           type="video/mp4"
+                        />
+                        Sorry, your browser doesn&apos;t support embedded
+                        videos.
+                     </video> */}
                      <div className={`row mb-2`}>
                         <div
                            className={`col-sm-4 mb-3 col-lg-5 ${styles.marginleft}`}
