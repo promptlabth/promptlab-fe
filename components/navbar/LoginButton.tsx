@@ -1,39 +1,23 @@
 import signInWithFacebook from '@/api/autth/auth_facebook';
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { Button } from 'react-bootstrap';
 import { BiLogIn } from 'react-icons/bi';
-
+import { useUserContext } from '@/contexts/UserContext';
 // Import signInWithFacebook function here
 
-interface LoginComponentProps {
-  onLogin: (result: any) => void;
-}
+const LoginComponent = () => {
+   const userContext = useUserContext();
 
-
-
-const LoginComponent: React.FC<LoginComponentProps> = ({ onLogin }) => {
-
-  async function handleFacebookLogin() {
-    const result = await signInWithFacebook();
-    if (result) {
-      onLogin(result)
-      console.log("Facebook login successful:", result);
-    } else {
-      console.log("Facebook login failed");
-    }
-  }
-
-
-  return (
+   return (
       <div className="d-flex">
-          <Button variant="outline-light" className="d-flex" onClick={handleFacebookLogin}>
-              Login
-              <div className="">
-                  <BiLogIn size={25}/>
-              </div>
-          </Button>
+         <Button variant="outline-light" className="d-flex" onClick={userContext?.handleFacebookLogin}>
+            Login
+            <div className="">
+               <BiLogIn size={25} />
+            </div>
+         </Button>
       </div>
-  );
+   );
 };
 
 export default LoginComponent;

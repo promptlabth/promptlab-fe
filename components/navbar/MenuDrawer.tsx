@@ -52,7 +52,7 @@ export const MenuDrawer = () => {
                         </h5>
                     </Container>
                     <Container className='p-2 border d-flex justify-content-center'>
-                        <LoginComponent onLogin={handleLogin} />
+                        <LoginComponent />
                     </Container>
                     <Container className='border p-0'>
                         <ul className="list-group">

@@ -5,11 +5,12 @@ import { Noto_Sans_Thai } from 'next/font/google'
 import { Navbar, Nav, Container, Offcanvas } from 'react-bootstrap';
 import { urlLinks } from './constant';
 import { useRouter } from 'next/router';
+import Link from "next/link";
 import styles from './styles.module.css';
 import { RiMenu4Fill } from "react-icons/ri"
 import Flag from "react-flagkit";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
-
+import LoginComponent from './LoginButton';
 
 export const AppNavbar: React.FC = () => {
   const { language, setLanguage } = useLanguage();
@@ -66,7 +67,6 @@ export const AppNavbar: React.FC = () => {
             <Nav className="justify-content-end flex-grow-1">
               <div className={styles.container}>
                 <li className={`${styles.language_dropdown} nav-item dropdown`}>
-
                   <a
                     className={`nav-link dropdown-toggle`}
                     id="navbarDropdown"
@@ -75,17 +75,26 @@ export const AppNavbar: React.FC = () => {
                   >
                     {language === "th" && <Flag country="TH" />}
                     {language === "en" && <Flag country="US" />}
-
                   </a>
                   <ul
                     className="dropdown-menu dropdown-menu-dark"
                     aria-labelledby="navbarDropdown"
                   >
                     <li>
-                      <a className={`dropdown-item ${styles.language_list}`} onClick={() => { setLanguage("en") }}>
+                      <a
+                        className={`dropdown-item ${styles.language_list}`}
+                        onClick={() => {
+                          setLanguage("en");
+                        }}
+                      >
                         <Flag country="US" /> English
                       </a>
-                      <a className={`dropdown-item ${styles.language_list}`} onClick={() => { setLanguage("th") }}>
+                      <a
+                        className={`dropdown-item ${styles.language_list}`}
+                        onClick={() => {
+                          setLanguage("th");
+                        }}
+                      >
                         <Flag country="TH" /> Thai
                       </a>
                     </li>
@@ -94,13 +103,19 @@ export const AppNavbar: React.FC = () => {
                 <li className="nav-item">
                   <div className="nav-link ">
                     <button className={styles.navbar_help_button}>
-                      {t("footer.help", language)}
+                      <Link
+                        href={"/help"}
+                        className={`${styles.remove_underline}`}
+                      >
+                        {t("footer.help", language)}
+                      </Link>
                     </button>
                   </div>
                 </li>
                 <li className="nav-item">
                   <div className="nav-link ">
-                    <button className={styles.navbar_login_button}>
+                    {/* <LoginComponent/> */}
+                    <button disabled={true} className={styles.navbar_login_button}>
                       {t("login", language)}
                     </button>
                   </div>

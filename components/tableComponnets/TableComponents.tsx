@@ -5,16 +5,19 @@ import { useRouter } from 'next/router';
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from "react-icons/io";
-import { AiOutlineSend } from 'react-icons/ai';
+import { AiOutlineSend, AiFillVideoCamera } from 'react-icons/ai';
+import { MdSell, MdOutlineArticle } from 'react-icons/md';
+import { HiOutlineLightBulb } from 'react-icons/hi';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-
+import { FaClosedCaptioning } from 'react-icons/fa';
 import { useLanguage } from "@/language/ LanguageContext";
 import { t } from "../language";
-import {  Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import generateMessageWithBackend from "@/api/OpenAiBackend";
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
+import { IconType } from "react-icons/lib";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 type ComponentProps = {
@@ -57,6 +60,18 @@ const TableComponents = (config: pageConfig) => {
         { value: "retro", label: t('table.type.retro', language) },
     ];
 
+    const icons: { [key: string]: JSX.Element } = {
+        "/createSellingPost": <MdSell fontSize={96} />,
+        "/createIdeaContent": <HiOutlineLightBulb fontSize={96} />,
+        "/createArticle": <MdOutlineArticle fontSize={96} />,
+        "/createShortVideoScripts": <AiFillVideoCamera fontSize={96} />,
+        "/createClickBaitWord": <FaClosedCaptioning fontSize={96} />
+    };
+    //* Write fetch function! 
+    // Fetch statement
+    // Fetch statement
+    // Fetch statement
+    // Fetch statement
 
     const CopyToClipboardButton = ({ message }: { message: string }) => {
         const [isCopied, setIsCopied] = useState(false);
@@ -223,8 +238,9 @@ const TableComponents = (config: pageConfig) => {
                 <Container className={styles.page_container}>
 
                     <figure className="text-center pt-4 pb-4 text-light">
+                        <div className="pb-2"> {icons[router.pathname]} </div>
                         <blockquote className="blockquote">
-                            <p className="display-4">{t(config.titlePage, language)}</p>
+                            <p className="display-4 fw-bold">{t(config.titlePage, language)}</p>
                         </blockquote>
                         <figcaption className="blockquote-footer">
                             {t(config.titleDescription, language)}
