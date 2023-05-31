@@ -6,6 +6,7 @@ const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 import Head from "next/head";
 import styles from "./styles.module.css";
 export default function Home() {
+  
     const { language } = useLanguage();
     return (
       <>
