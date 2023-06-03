@@ -1,6 +1,5 @@
 import Footer from '@/components/footer/Footer';
 import { AppNavbar } from '@/components/navbar/Navbar';
-import { AppNavbarMobile } from "@/components/navbar/NavbarMobile";
 import { AppTabbar } from "@/components/tabbar/tabbar";
 import { LanguageProvider } from '@/language/ LanguageContext';
 
