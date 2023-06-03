@@ -24,7 +24,7 @@ type ComponentProps = {
     input: string;
     type: string;
     message: string;
-    generate_status : boolean;
+    generate_status: boolean;
 };
 
 
@@ -119,17 +119,23 @@ const TableComponents = (config: pageConfig) => {
 
     }
 
-    const GenerateButton = ({ index }: { index: number }) => {
-        const [loading, setLoading] = useState(false);
+    const GenerateButton = ({ index, generate_status }: { index: number, generate_status: boolean }) => {
 
         const handleClick = () => {
-            setLoading(true);
+            setComponents((prevComponents) => {
+                const updatedComponents = [...prevComponents];
+                updatedComponents[index] = {
+                    ...updatedComponents[index],
+                    generate_status: true,
+                };
+                return updatedComponents;
+            });
             handleSendSocialMediaPost(index);
         };
 
         return (
             <>
-                {loading ?
+                {generate_status ?
                     <button
                         className={styles.page_prompt_loading_generate_btn}
                         type="button"
@@ -180,7 +186,7 @@ const TableComponents = (config: pageConfig) => {
 
             setComponents((prevComponents) => {
                 const updatedComponents = [...prevComponents];
-                updatedComponents[index] = { ...updatedComponents[index], message };
+                updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
                 return updatedComponents;
             });
         } catch (error) {
@@ -189,7 +195,7 @@ const TableComponents = (config: pageConfig) => {
     };
 
     const handleAddNewRow = () => {
-        setComponents([...components, { input: "", type: "funny", message: "", generate_status:false }]);
+        setComponents([...components, { input: "", type: "funny", message: "", generate_status: false }]);
     };
 
     const handleInputTextChange = (
@@ -249,7 +255,7 @@ const TableComponents = (config: pageConfig) => {
                     </figure>
 
                     <Container fluid={true} className={styles.page_prompt_area}>
-                        {components.map(({ input, type, message }, index) => (
+                        {components.map(({ input, type, message, generate_status }, index) => (
                             <Row key={index} className={styles.page_prompt_area_row}>
                                 {/* Input Textfield */}
                                 <Col xs={12} md={3} className="pb-2">
@@ -313,7 +319,7 @@ const TableComponents = (config: pageConfig) => {
                                 {/* Generate Button */}
                                 <div className="col p-0" >
                                     <div className="pt-3 d-flex justify-content-center">
-                                        <GenerateButton index={index} />
+                                        <GenerateButton index={index} generate_status={generate_status} />
                                     </div>
                                 </div>
                             </Row>
