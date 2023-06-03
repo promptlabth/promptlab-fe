@@ -50,6 +50,14 @@
     transition: all 0.3s ease-in;
 }
 
+.navbar_language{
+    color: #FFFFFF;
+    border: none;
+    text-decoration: none;
+    background-color: transparent;
+    transition: all 0.3s ease-in;
+}
+
 .language_dropdown{
     transition: 0.3s;
 }
