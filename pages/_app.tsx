@@ -68,10 +68,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
       <LanguageProvider>
         <UserContextProvider>
-          {/* <AppNavbar /> */}
-          <AppNavbarMobile />
+          <AppNavbar />
 
-          {/* UserProvider */}
           <AppTabbar />
           <Component {...pageProps} />
           <Footer />

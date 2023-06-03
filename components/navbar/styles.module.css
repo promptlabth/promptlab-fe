@@ -2,15 +2,11 @@
     border: none;
     background-color: transparent;
 }
-
-
-
 .offcanvas_menu{
     transform: rotate(90deg);
     color: #00FFAB;
     font-size: 30px;
     transition: 0.3s filter;
-
 }
 
 .offcanvas_menu:hover {
