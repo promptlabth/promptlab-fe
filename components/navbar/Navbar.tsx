@@ -14,7 +14,6 @@ import LoginComponent from './LoginButton';
 
 export const AppNavbar: React.FC = () => {
   const { language, setLanguage } = useLanguage();
-
   const [profileImage, setProfileImage] = useState<string>("")
   const [loginStatus, setLoginStatus] = useState(false);
 

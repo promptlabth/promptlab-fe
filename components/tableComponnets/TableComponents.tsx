@@ -24,6 +24,7 @@ type ComponentProps = {
     input: string;
     type: string;
     message: string;
+    generate_status : boolean;
 };
 
 
@@ -188,7 +189,7 @@ const TableComponents = (config: pageConfig) => {
     };
 
     const handleAddNewRow = () => {
-        setComponents([...components, { input: "", type: "funny", message: "" }]);
+        setComponents([...components, { input: "", type: "funny", message: "", generate_status:false }]);
     };
 
     const handleInputTextChange = (

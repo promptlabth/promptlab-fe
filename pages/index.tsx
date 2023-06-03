@@ -45,7 +45,7 @@ export default function Home() {
                         </h3>
                      </figure>
 
-                     <div className="d-flex justify-content-center pb-4">
+                     <div className="d-flex justify-content-center pb-4 mb-4">
                         <TikTokEmbed url="https://www.tiktok.com/@coderbizz/video/7218015296366431514" width={325} />
                      </div>
                     
