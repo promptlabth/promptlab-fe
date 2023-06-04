@@ -1,16 +1,13 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
-import { useLanguage } from '@/language/ LanguageContext';
-import { t } from '../language';
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translate } from '../../languages/language';
 import { Noto_Sans_Thai } from 'next/font/google'
 import { Navbar, Nav, Container, Offcanvas } from 'react-bootstrap';
-import { urlLinks } from './constant';
-import { useRouter } from 'next/router';
 import Link from "next/link";
 import styles from './styles.module.css';
 import { RiMenu4Fill } from "react-icons/ri"
 import Flag from "react-flagkit";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
-import LoginComponent from './LoginButton';
 
 export const AppNavbar: React.FC = () => {
   const { language, setLanguage } = useLanguage();
@@ -18,20 +15,20 @@ export const AppNavbar: React.FC = () => {
   const [loginStatus, setLoginStatus] = useState(false);
 
 
-  const handleLogin = (result: any) => {
-    console.log("Login successful, do something with the result:", result);
-    setProfileImage(result['user']['photoURL']);
-    setLoginStatus(true);
-    // You can use the result here or update the state of your parent component
-  };
+  // const handleLogin = (result: any) => {
+  //   console.log("Login successful, do something with the result:", result);
+  //   setProfileImage(result['user']['photoURL']);
+  //   setLoginStatus(true);
+  //   // You can use the result here or update the state of your parent component
+  // };
 
   // function for handle language
-  const handleLanguageChange = (event: ChangeEvent<HTMLInputElement>, language: string) => {
-    // setIsTh(event.target.checked);
+  // const handleLanguageChange = (event: ChangeEvent<HTMLInputElement>, language: string) => {
+  //   // setIsTh(event.target.checked);
 
-    const newLanguage = event.target.checked ? 'th' : 'en';
-    setLanguage(newLanguage);
-  };
+  //   const newLanguage = event.target.checked ? 'th' : 'en';
+  //   setLanguage(newLanguage);
+  // };
 
   return (
     <Navbar
@@ -106,7 +103,7 @@ export const AppNavbar: React.FC = () => {
                         href={"/help"}
                         className={`${styles.remove_underline}`}
                       >
-                        {t("footer.help", language)}
+                        {translate("footer.help", language)}
                       </Link>
                     </button>
                   </div>
@@ -115,7 +112,7 @@ export const AppNavbar: React.FC = () => {
                   <div className="nav-link ">
                     {/* <LoginComponent/> */}
                     <button disabled={true} className={styles.navbar_login_button}>
-                      {t("login", language)}
+                      {translate("login", language)}
                     </button>
                   </div>
                 </li>

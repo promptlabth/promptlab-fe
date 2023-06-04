@@ -4,8 +4,8 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Noto_Sans_Thai } from 'next/font/google'
 import LoginComponent from './LoginButton';
 import { urlLinks } from "./constant";
-import { useLanguage } from "@/language/ LanguageContext";
-import { t } from '../language';
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translate } from '../../languages/language';
 import { useRouter } from 'next/router';
 import Link from "next/link";
 
@@ -14,7 +14,7 @@ const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 export const MenuDrawer = () => {
     const { language } = useLanguage();
-    const [titles, setTitles] = useState(urlLinks.map(({ titleKey }) => t(titleKey, language)));
+    const [titles, setTitles] = useState(urlLinks.map(({ titleKey }) => translate(titleKey, language)));
     const [show, setShow] = useState(true);
     const [profileImage, setProfileImage] = useState<string>("")
     const router = useRouter()
@@ -28,7 +28,7 @@ export const MenuDrawer = () => {
     };
     
     useEffect(() => {
-        setTitles(urlLinks.map(({ titleKey }) => t(titleKey, language)));
+        setTitles(urlLinks.map(({ titleKey }) => translate(titleKey, language)));
     }, [language]);
 
 

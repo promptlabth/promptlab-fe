@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Container from 'react-bootstrap/Container';
-import { useLanguage } from '@/language/ LanguageContext';
-import { t } from "../language";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translate } from "../../languages/language";
 import { useEffect, useState } from "react";
 import { urlLinks } from "../navbar/constant";
 import { useRouter } from 'next/router';
@@ -14,7 +14,7 @@ const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 const Footer = () => {
     const { language } = useLanguage();
     const [titles, setTitles] = useState(
-        urlLinks.map(({ titleKey }) => t(titleKey, language))
+        urlLinks.map(({ titleKey }) => translate(titleKey, language))
     );
     const router = useRouter()
 
@@ -66,7 +66,7 @@ const Footer = () => {
     }
 
     useEffect(() => {
-        setTitles(urlLinks.map(({ titleKey }) => t(titleKey, language)));
+        setTitles(urlLinks.map(({ titleKey }) => translate(titleKey, language)));
     }, [language]);
     return (
         <footer className={noto_sans_thai.className}>
@@ -75,7 +75,7 @@ const Footer = () => {
                     <hr className={styles.footer_divider} />
                     <div className="row d-flex justify-content-sm-evenly">
                         <div className="col-lg-4">
-                            <h5 className={styles.footer_header}>{t("footer.sponsors", language)}</h5>
+                            <h5 className={styles.footer_header}>{translate("footer.sponsors", language)}</h5>
                             <hr className={styles.footer_header_div} />
                             <SponsorCarousel />
                             <div className="p-2 justify-content-center d-flex">
@@ -90,7 +90,7 @@ const Footer = () => {
                         </div>
 
                         <div className="col-lg-4 pb-3">
-                            <h5 className={styles.footer_header}>{t("footer.links", language)}</h5>
+                            <h5 className={styles.footer_header}>{translate("footer.links", language)}</h5>
                             <hr className={styles.footer_header_div} />
                             <ul className="list-group">
                                 {urlLinks.map(({ href }, index) => (
@@ -112,23 +112,23 @@ const Footer = () => {
                     </div>
                     <Container fluid={true} className="p-3 d-flex justify-content-center">
                         <div className={styles.footer_link}>
-                            {t("footer.aboutUs", language)}
+                            {translate("footer.aboutUs", language)}
                         </div>
                         <div className={styles.footer_vertical_div} />
                         <div className={styles.footer_link}>
-                            {t("footer.joinUs", language)}
+                            {translate("footer.joinUs", language)}
                         </div>
                         <div className={styles.footer_vertical_div} />
 
                         <Link href={"/privacy-policy"} className="nav-link text-dark">
                             <div className={styles.footer_link}>
-                                {t("footer.privacy_policy", language)}
+                                {translate("footer.privacy_policy", language)}
                             </div>
                         </Link>
 
                         <div className={styles.footer_vertical_div} />
                         <div className={styles.footer_link}>
-                            {t("footer.help", language)}
+                            {translate("footer.help", language)}
                         </div>
                         <div className={styles.footer_vertical_div} />
 

@@ -1,4 +1,3 @@
-
 export const urlLinks = [
     { titleKey: 'home.title', href: '/' },
     { titleKey: 'createSellingPost.title', href: '/createSellingPost' },

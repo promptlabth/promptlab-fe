@@ -1,5 +1,5 @@
 // LanguageContext.tsx
-import { setCurrentLanguage } from '@/components/language';
+import { setCurrentLanguage } from '@/languages/language';
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 type Language = 'en' | 'th';

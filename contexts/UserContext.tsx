@@ -23,7 +23,7 @@ interface UserContextInterface {
 
 }
 // Create user context
-const UserContext = createContext<UserContextInterface | null>(null);
+const UserContext = createContext<UserContextInterface | undefined>(undefined);
 
 
 // Type '(event: any) => Promise<void>' is not assignable to type '() => void'.

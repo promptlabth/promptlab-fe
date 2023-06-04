@@ -1,6 +1,6 @@
-import { t } from "@/components/language";
+import { translate } from "@/languages/language";
 import TableComponents from "@/components/tableComponnets/TableComponents";
-import { useLanguage } from "@/language/ LanguageContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import Head from "next/head";
 const CreateSellingPost = () => {
     /* 
@@ -10,7 +10,7 @@ const CreateSellingPost = () => {
     return (
         <div>
             <Head>
-                <title>{t('createSellingPost.title', language)}</title>
+                <title>{translate('createSellingPost.title', language)}</title>
                 <meta name="description" content="Meta description for the Home page" />
             </Head>
             <TableComponents

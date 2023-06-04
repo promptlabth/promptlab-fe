@@ -11,13 +11,12 @@ import { HiOutlineLightBulb } from 'react-icons/hi';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { FaClosedCaptioning } from 'react-icons/fa';
-import { useLanguage } from "@/language/ LanguageContext";
-import { t } from "../language";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translate } from "../../languages/language";
 import { Col, Container, Row } from "react-bootstrap";
 import generateMessageWithBackend from "@/api/OpenAiBackend";
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
-import { IconType } from "react-icons/lib";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 type ComponentProps = {
@@ -51,14 +50,14 @@ const TableComponents = (config: pageConfig) => {
 
 
     const postTypes = [
-        { value: "funny", label: t('table.type.funny', language) },
-        { value: "confident", label: t('table.type.confident', language) },
-        { value: "professional", label: t('table.type.professional', language) },
-        { value: "luxury", label: t('table.type.luxury', language) },
-        { value: "educational", label: t('table.type.educational', language) },
-        { value: "happy", label: t('table.type.happy', language) },
-        { value: "modern", label: t('table.type.modern', language) },
-        { value: "retro", label: t('table.type.retro', language) },
+        { value: "funny", label: translate('table.type.funny', language) },
+        { value: "confident", label: translate('table.type.confident', language) },
+        { value: "professional", label: translate('table.type.professional', language) },
+        { value: "luxury", label: translate('table.type.luxury', language) },
+        { value: "educational", label: translate('table.type.educational', language) },
+        { value: "happy", label: translate('table.type.happy', language) },
+        { value: "modern", label: translate('table.type.modern', language) },
+        { value: "retro", label: translate('table.type.retro', language) },
     ];
 
     const icons: { [key: string]: JSX.Element } = {
@@ -247,10 +246,10 @@ const TableComponents = (config: pageConfig) => {
                     <figure className="text-center pt-4 pb-4 text-light">
                         <div className="pb-2"> {icons[router.pathname]} </div>
                         <blockquote className="blockquote">
-                            <p className="display-4 fw-bold">{t(config.titlePage, language)}</p>
+                            <p className="display-4 fw-bold">{translate(config.titlePage, language)}</p>
                         </blockquote>
                         <figcaption className="blockquote-footer">
-                            {t(config.titleDescription, language)}
+                            {translate(config.titleDescription, language)}
                         </figcaption>
                     </figure>
 
@@ -259,10 +258,10 @@ const TableComponents = (config: pageConfig) => {
                             <Row key={index} className={styles.page_prompt_area_row}>
                                 {/* Input Textfield */}
                                 <Col xs={12} md={3} className="pb-2">
-                                    <Col className="fs-5 text-light" xs={12} md={12}>{t('table.input.title', language)}</Col>
+                                    <Col className="fs-5 text-light" xs={12} md={12}>{translate('table.input.title', language)}</Col>
                                     <div className="pt-2">
                                         <textarea
-                                            placeholder={t(`placeholder.${pathname}`, language)}
+                                            placeholder={translate(`placeholder.${pathname}`, language)}
                                             className={styles.page_prompt_area_textfield}
                                             value={input}
                                             onChange={(event) => handleInputTextChange(index, event)}
@@ -272,7 +271,7 @@ const TableComponents = (config: pageConfig) => {
                                 </Col>
                                 {/* Type Dropdown */}
                                 <Col className="pb-2">
-                                    <Col className="fs-5 text-light" xs={12} md={9}>{t('table.type.title', language)}</Col>
+                                    <Col className="fs-5 text-light" xs={12} md={9}>{translate('table.type.title', language)}</Col>
                                     <Col sm className="pt-2">
                                         <select
                                             className={styles.page_prompt_area_combobox}
@@ -292,16 +291,16 @@ const TableComponents = (config: pageConfig) => {
                                 </Col>
                                 {/* Message */}
                                 <Col xs={12} md={3} lg={4} xl={5} className="pb-2">
-                                    <Col className="fs-5 text-light" xs={12} md={6}>{t('table.massage.title', language)}</Col>
+                                    <Col className="fs-5 text-light" xs={12} md={6}>{translate('table.massage.title', language)}</Col>
                                     <div className="pt-1">
                                         {/* If message length is 0, show "No generated message..." */}
                                         {message.length === 0 && (
-                                            <span className="text-white-50">{t("table.no_message", language)}</span>
+                                            <span className="text-white-50">{translate("table.no_message", language)}</span>
                                         )}
 
                                         {/* If there is a message */}
                                         {message.length > 0 && (
-                                            <Container fluid className="">
+                                            <Container fluid={true} className="">
                                                 <Row>
                                                     <Col className="d-flex p-0 justify-content-end">
                                                         {/* Copy to Clipboard component */}
@@ -327,7 +326,7 @@ const TableComponents = (config: pageConfig) => {
                         <Container className={styles.page_prompt_area_addrow}>
                             <button className={styles.page_prompt_add_new_row_button} onClick={handleAddNewRow}>
                                 <div className="d-flex pe-0">
-                                    <div className=""> {t("button.newRow", language)} </div>
+                                    <div className=""> {translate("button.newRow", language)} </div>
                                     <div className="ps-2">
                                         <IoMdAddCircleOutline size={25} />
                                     </div>
