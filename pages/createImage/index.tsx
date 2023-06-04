@@ -1,4 +1,5 @@
-import { generateImage, openApiImageConfig } from "@/api/OpenApiEngine";
+import { generateImage } from "@/api/OpenApiEngine";
+import { openApiImageConfig } from "@/models";
 import { useState } from "react";
 
 const ImageGenerator = () => {
