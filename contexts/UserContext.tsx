@@ -1,20 +1,6 @@
-import signInWithFacebook from '@/api/autth/auth_facebook';
-import { MouseEventHandler, createContext, useContext, useState } from 'react';
-
-interface User {
-   /* 
-   id: Optional[int] = Field(default=None, primary_key=True)
-   uid : Optional[str] = Field(default=None, unique=True)
-   name: Optional[str] = None
-   email: str
-   profilepic: str
-   */
-   id: number;
-   uid: string;
-   name: string;
-   email: string;
-   profilepic: string;
-}
+import signInWithFacebook from '@/api/auth/auth_facebook';
+import { ReactNode, createContext, useContext, useState } from 'react';
+import { User } from '@/models';
 
 interface UserContextInterface {
    user: User | null
@@ -25,11 +11,8 @@ interface UserContextInterface {
 // Create user context
 const UserContext = createContext<UserContextInterface | undefined>(undefined);
 
-
-// Type '(event: any) => Promise<void>' is not assignable to type '() => void'.
-
 interface Props {
-   children: React.ReactNode;
+   children: ReactNode;
 }
 
 export function useUserContext() {
@@ -44,21 +27,11 @@ export function UserContextProvider({ children }: Props) {
 
    // Not complete function, wait api url
    const getUser = async () => {
-      const requestOptions = {
-         method: "GET",
-         headers: {
-            "Content-Type": "application/json"
-         },
-         // body: JSON.stringify(signin)
-      };
-
-      fetch(`${apiUrl}/`, requestOptions)
-         .then((response) => response.json())
-         .then((result) => {
-            if (result.data) {
-               setUser(result.data)
-            }
-         });
+      // Code for fetch user data
+      // Code for fetch user data
+      // Code for fetch user data
+      // Code for fetch user data
+      
    }
 
 

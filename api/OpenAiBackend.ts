@@ -1,27 +1,29 @@
 // utils/generateMessage.ts
 import axios from 'axios';
-import { openApiMassageConfig } from './OpenApiEngine';
+import { openApiMassageConfig } from '@/models';
 
 async function generateMessageWithBackend(config: openApiMassageConfig) {
-  try {
-    const response = await axios.post(
-      'https://prompt-lab-be-uu4qhhj35a-as.a.run.app/gennerate',
-      {
-        prompt: config.isTh ? config.promptTh : config.promptEn,
-        model: config.model,
+   try {
+      
+      const apiUrl = "https://prompt-lab-be-uu4qhhj35a-as.a.run.app/gennerate"
 
-      },
-      {
-        headers: { 'Content-Type': 'application/json' },
-      },
-    );
-
-
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return 'Error Please try again'
-  }
+      const data = {
+         prompt: config.isTh ? config.promptTh : config.promptEn,
+         model: config.model,
+      }
+      const requestOption = {
+         headers: { 'Content-Type': 'application/json' },
+      }
+      const response = await axios.post(
+         apiUrl,
+         data,
+         requestOption
+      );
+      return response.data;
+   } catch (error) {
+      console.error(error);
+      return 'Error Please try again'
+   }
 }
 
 export default generateMessageWithBackend;
