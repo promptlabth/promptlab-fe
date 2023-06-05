@@ -2,38 +2,29 @@ import React, { useState, useEffect, ChangeEvent } from 'react';
 import { useLanguage } from '@/language/ LanguageContext';
 import { t } from '../language';
 import { Noto_Sans_Thai } from 'next/font/google'
-import { Navbar, Nav, Container, Offcanvas } from 'react-bootstrap';
-import { urlLinks } from './constant';
-import { useRouter } from 'next/router';
 import Link from "next/link";
 import styles from './styles.module.css';
-import { RiMenu4Fill } from "react-icons/ri"
 import Flag from "react-flagkit";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
-import LoginComponent from './LoginButton';
-import { VscTriangleLeft } from "react-icons/vsc";
 
+
+const useWidth = () => {
+  const [width, setWidth] = useState(0)
+  const handleResize = () => setWidth(window.innerWidth)
+  useEffect(() => {
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+  return width
+}
+
+/* 
+If width >= 922, then a menu dropdown disappear.
+*/
 export const AppNavbar: React.FC = () => {
   const { language, setLanguage } = useLanguage();
-  const [profileImage, setProfileImage] = useState<string>("")
-  const [loginStatus, setLoginStatus] = useState(false);
-  const [menuShow, setMenuShow] = useState<boolean>(false);
-  const [navActive, setNavActive] = useState(null);
-
-  const handleLogin = (result: any) => {
-    console.log("Login successful, do something with the result:", result);
-    setProfileImage(result['user']['photoURL']);
-    setLoginStatus(true);
-    // You can use the result here or update the state of your parent component
-  };
-
-  // function for handle language
-  const handleLanguageChange = (event: ChangeEvent<HTMLInputElement>, language: string) => {
-    // setIsTh(event.target.checked);
-
-    const newLanguage = event.target.checked ? 'th' : 'en';
-    setLanguage(newLanguage);
-  };
+  const width = useWidth()
 
   return (
     <nav
@@ -41,7 +32,7 @@ export const AppNavbar: React.FC = () => {
     >
       <div className="container d-flex mt-auto">
         <div className={styles.navbar_header}>
-          <h3>Prompt Lab</h3>
+          <h3>Prompt Lab{` ${width}`}</h3>
         </div>
         <button
           className="navbar-toggler"
@@ -54,11 +45,9 @@ export const AppNavbar: React.FC = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mt-auto mb-auto ms-auto pe-5 me-5 mb-lg-0">
-            <li
-              className={`${styles.language_dropdown} ms-2 mt-auto mb-auto nav-item dropdown`}
-            >
+        <div className="collapse navbar-collapse border" id="navbarSupportedContent">
+          <ul className="border navbar-nav mt-auto mb-auto ms-auto pe-0 me-5 mb-lg-0">
+            <li className={`${styles.language_dropdown} nav-item dropdown border`}>
               <a
                 className={`nav-link dropdown-toggle`}
                 id="navbarDropdown"
