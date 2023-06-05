@@ -5,6 +5,7 @@ import { Noto_Sans_Thai } from 'next/font/google'
 import Link from "next/link";
 import styles from './styles.module.css';
 import Flag from "react-flagkit";
+import { RiMenu4Fill } from "react-icons/ri"
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 
@@ -200,7 +201,7 @@ export const AppNavbar: React.FC = () => {
                <h3>Prompt Lab</h3>
             </div>
             <button
-               className="navbar-toggler"
+               className="navbar-toggler border border-0"
                type="button"
                data-bs-toggle="collapse"
                data-bs-target="#navbarSupportedContent"
@@ -208,7 +209,8 @@ export const AppNavbar: React.FC = () => {
                aria-expanded="false"
                aria-label="Toggle navigation"
             >
-               <span className="navbar-toggler-icon"></span>
+               <RiMenu4Fill className={styles.offcanvas_menu} />
+               {/* <span className="navbar-toggler-icon"></span> */}
             </button>
             {width >= 992 ?
                <NavbarMenu /> :
