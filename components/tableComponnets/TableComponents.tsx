@@ -18,6 +18,8 @@ import generateMessageWithBackend from "@/api/OpenAiBackend";
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
+import { ListTones } from '@/api/ToneAPI';
+import { tones_model } from "@/models/tones";
 
 type Prompt = {
    input: string;
@@ -58,10 +60,11 @@ type pageConfig = {
 const TableComponents = (config: pageConfig) => {
    const [components, setComponents] = useState<Prompt[]>([]);
    const [isTh, setIsTh] = useState(true);
-   const { language, setLanguage } = useLanguage();
+   const { language } = useLanguage();
    const [pathname, setPathname] = useState<string>("")
    const router = useRouter()
 
+   const [tones, setTones] = useState<tones_model[]>([]);
 
    // Define an array of post types
    // @Attribute
@@ -95,11 +98,12 @@ const TableComponents = (config: pageConfig) => {
       "/createClickBaitWord": <FaClosedCaptioning fontSize={96} />
    };
 
-   //* Write fetch function! 
-   // Fetch statement
-   // Fetch statement
-   // Fetch statement
-   // Fetch statement
+   const getTones = async () => {
+      const result = await ListTones(language);
+      if (result) {
+         setTones(result);
+      }
+   }
 
    const CopyToClipboardButton = ({ message }: { message: string }) => {
       const [isCopied, setIsCopied] = useState(false);
@@ -254,14 +258,17 @@ const TableComponents = (config: pageConfig) => {
       });
    };
 
+
    useEffect(() => {
+      getTones();
+      // console.log(tones)
       if (components.length == 0) {
          handleAddNewRow();
       }
       if (router.pathname.slice(1,).length !== 0) {
          setPathname(router.pathname.slice(1,))
       }
-   }, []);
+   }, [language]);
 
    return (
       <div className={noto_sans_thai.className}>
@@ -304,9 +311,9 @@ const TableComponents = (config: pageConfig) => {
                                  onChange={(event) => handleTypeChange(index, event)}
                                  required
                               >
-                                 {postTypes.map(({ value, label }) => (
-                                    <option key={value} value={value}>
-                                       {label}
+                                 {tones.map((item : tones_model) => (
+                                    <option key={item.id} value={item.tone_name}>
+                                       {item.tone_name}
                                     </option>
                                  ))}
                               </select>

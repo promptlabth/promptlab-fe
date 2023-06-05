@@ -3,7 +3,7 @@ import { setCurrentLanguage } from '@/languages/language';
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 // Define the available language options
-type Language = 'en' | 'th';
+export type Language = 'en' | 'th';
 
 
 // Define the type of the LanguageContext
