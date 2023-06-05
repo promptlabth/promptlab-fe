@@ -86,7 +86,7 @@ export const AppNavbar: React.FC = () => {
       return (
          <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0">
-               <li className={`${styles.language_dropdown} nav-item dropdown`}>
+               <li className={`${styles.language_dropdown} ms-4 me-4 mb-2 nav-item dropdown`}>
                   <a
                      className="nav-link dropdown-toggle ps-3"
                      id="navbarDropdown"
@@ -117,8 +117,8 @@ export const AppNavbar: React.FC = () => {
                   </ul>
                </li>
                
-               <li className="nav-item border ms-4 me-4 d-flex justify-content-center">
-                  <div className="nav-link border w-50 d-flex justify-content-center">
+               <li className="nav-item ms-4 me-4 d-flex justify-content-center">
+                  <div className="nav-link  w-50 d-flex justify-content-center">
                      <button disabled={true} className={styles.navbar_login_button}>
                         {t("login", language)}
                      </button>
@@ -127,7 +127,7 @@ export const AppNavbar: React.FC = () => {
                <div>
 
                </div>
-               <div className='border ms-4 me-4'>
+               <div className='ms-4 me-4'>
                   <li className="nav-item">
                      <div className="nav-link">
                         <button className={styles.navbar_help_button}>
@@ -197,7 +197,7 @@ export const AppNavbar: React.FC = () => {
       <nav className={`${noto_sans_thai.className} navbar navbar-expand-lg navbar-dark bg-dark fixed-top pt-4`}>
          <div className="container d-flex mt-auto">
             <div className={styles.navbar_header}>
-               <h3>Prompt Lab{` ${width}`}</h3>
+               <h3>Prompt Lab</h3>
             </div>
             <button
                className="navbar-toggler"

@@ -86,6 +86,13 @@
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
 }
 
+@media (max-width: 991px) {
+    .navbar_login_button{
+        width: 75%;
+    }
+}
+
+
 /* ซ่อนไว้ชั่วคราว รอระบบ login */
 /* .navbar_login_button:hover {
     background-color: #00FFAB;
