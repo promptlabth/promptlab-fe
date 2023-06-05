@@ -57,8 +57,7 @@ type pageConfig = {
 
 const TableComponents = (config: pageConfig) => {
    const [components, setComponents] = useState<Prompt[]>([]);
-   const [isTh, setIsTh] = useState(true);
-   const { language, setLanguage } = useLanguage();
+   const { language, setLanguage, isTh } = useLanguage();
    const [pathname, setPathname] = useState<string>("")
    const router = useRouter()
 

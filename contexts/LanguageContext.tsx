@@ -13,6 +13,7 @@ type Language = 'en' | 'th';
 interface LanguageContextType {
    language: Language;
    setLanguage: (language: Language) => void;
+   isTh: boolean;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -31,14 +32,24 @@ interface LanguageProviderProps {
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
    const [language, setLanguage] = useState<Language>('th');
+   const [isTh, setIsTh] = useState(true);
+
 
    useEffect(() => {
       // Update the language in translations.ts when the context changes
       setCurrentLanguage(language);
+
+      if (language !== 'th') {
+         setIsTh(false)
+      }
    }, [language]);
 
    // Create a value object to be passed to the LanguageContext.Provider
-   const value = { language, setLanguage };
+   const value = {
+      language,
+      setLanguage,
+      isTh
+   };
 
    // Render the LanguageContext.Provider with the provided children
    return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
