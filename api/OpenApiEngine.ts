@@ -1,4 +1,6 @@
-import { Configuration, CreateImageRequestSizeEnum, OpenAIApi } from 'openai'
+import { Configuration, OpenAIApi } from 'openai'
+import { openApiMassageConfig, openApiImageConfig } from '@/models';
+
 const API_KEY_CONFIG = new Configuration({
     apiKey: process.env.openAPI_KEY,
 });
@@ -47,23 +49,6 @@ export const generateImage = async (config: openApiImageConfig): Promise<Generat
         return { success: false, data: 'Error Please try again' };
     }
 };
-
-export type openApiImageConfig = {
-    promptEn: string;
-    promptTh: string;
-    numberImage: number;
-    isTh: boolean;
-    size: CreateImageRequestSizeEnum;
-}
-
-export type openApiMassageConfig = {
-    model: string;
-    temperature: number;
-    maxToken: number;
-    promptEn: string;
-    promptTh: string;
-    isTh: boolean;
-}
 
 
 export default gennerateMassage

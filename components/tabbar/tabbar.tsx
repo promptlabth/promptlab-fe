@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef} from "react";
-import { useLanguage } from "@/language/ LanguageContext";
-import { t } from "../language";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translate } from "../../languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
 import { Nav } from "react-bootstrap";
 import { urlLinks } from "../navbar/constant";
@@ -16,11 +16,11 @@ export const AppTabbar: React.FC = () => {
   const ref = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
   const { events } = useDraggable(ref); // Now we pass the reference to the useDraggable hook:
   
-  const [titles, setTitles] = useState( urlLinks.map(({ titleKey }) => t(titleKey, language)) );
+  const [titles, setTitles] = useState( urlLinks.map(({ titleKey }) => translate(titleKey, language)) );
 
 
   useEffect(() => {
-    setTitles(urlLinks.map(({ titleKey }) => t(titleKey, language)));
+    setTitles(urlLinks.map(({ titleKey }) => translate(titleKey, language)));
   }, [language]);
 
 

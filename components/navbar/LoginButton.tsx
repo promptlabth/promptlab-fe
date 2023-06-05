@@ -1,4 +1,4 @@
-import signInWithFacebook from '@/api/autth/auth_facebook';
+import signInWithFacebook from '@/api/auth/auth_facebook';
 import React, { MouseEventHandler } from 'react';
 import { Button } from 'react-bootstrap';
 import { BiLogIn } from 'react-icons/bi';
