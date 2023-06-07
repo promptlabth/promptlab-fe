@@ -4,9 +4,10 @@ export async function Login() {
    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/login`
    
    try {
-      const requestOption = { headers: { "Content-Type": "application/json" },}
-    //   const response = await axios.get(apiUrl, requestOption);
-    //   return response.data
+      const requestOption = { headers: { "Authorization": `Bearer ${"access_token"}` },}
+      const response = await axios.get(apiUrl, requestOption);
+      console.log(response.data)
+      return response.data
 
    } catch (error) {
       console.error(error);

@@ -30,6 +30,8 @@ export function UserContextProvider({ children }: Props) {
 
       if (result){
          console.log("Facebook login successful:", result);
+         const loginUser = null;
+         
       }
    }
 
