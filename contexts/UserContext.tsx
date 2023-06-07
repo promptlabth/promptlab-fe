@@ -32,7 +32,12 @@ export function UserContextProvider({ children }: Props) {
       if (result){ 
 
          // Print login success
-         console.log("Facebook login successful:", result.user.toJSON());
+         
+         console.log("Facebook login successful:", result.user.getIdToken().then(
+            (token) => {
+               console.log(token)
+            }
+         ));
          // const loginUser = await Login(result.);
          
       }
