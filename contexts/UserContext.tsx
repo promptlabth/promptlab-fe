@@ -1,11 +1,11 @@
 import signInWithFacebook from '@/api/auth/auth_facebook';
 import { ReactNode, createContext, useContext, useState } from 'react';
-import { User } from '@/models';
+import { LoginUser } from '@/models';
 import { Login } from '@/api/LoginAPI';
 
 interface UserContextInterface {
-   user: User | null
-   setUser: (user: User) => void;
+   user: LoginUser | null
+   setUser: (user: LoginUser) => void;
    handleLogin: () => Promise<void>;
 
 }
@@ -21,7 +21,7 @@ export function useUserContext() {
 }
 
 export function UserContextProvider({ children }: Props) {
-   const [user, setUser] = useState<User>(); // Initialize modal show status to false
+   const [User, setUser] = useState<LoginUser>(); // Initialize modal show status to false
    
    const handleLogin = async () => {
       
@@ -29,8 +29,8 @@ export function UserContextProvider({ children }: Props) {
       const result = await signInWithFacebook();
 
       if (result){
-         console.log("Facebook login successful:", result);
-         const loginUser = null;
+         console.log("Facebook login successful:", result.user);
+         // const loginUser = await Login(result.);
          
       }
    }

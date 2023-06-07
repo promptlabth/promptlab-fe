@@ -1,6 +1,6 @@
 import axios from "axios";
-import { User } from "@/models";
-export async function Login() {
+
+export async function Login(access_token : string) {
    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/login`
    
    try {
