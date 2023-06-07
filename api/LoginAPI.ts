@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function Login(accessToken : string) {
-   const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/login`
+   const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}login`
    
    try {
       const requestOption = { headers: { "Authorization": `Bearer ${accessToken}` },}

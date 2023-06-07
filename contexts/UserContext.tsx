@@ -22,7 +22,6 @@ export function useUserContext() {
 
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>(); // Initialize modal show status to false
-   
    const handleLogin = async () => {
       
       // sign in with facebook to get token 
