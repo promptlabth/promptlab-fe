@@ -10,6 +10,22 @@
     }
 }
 
+.delete_row_btn{
+    color: white;
+    transition: 0.3s;
+
+}
+
+.disable_delete_row_btn{
+    color: white;
+    opacity: 0.4;
+}
+
+.delete_row_btn:hover{
+    transform: scale(1.1);
+
+}
+
 .page_prompt_area{
     padding: 1rem;
     padding-left: 1.5rem;
