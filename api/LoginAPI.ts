@@ -1,6 +1,6 @@
 import axios from "axios";
 import { User } from "@/models";
-export async function ListTones() {
+export async function Login() {
    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/login`
    
    try {

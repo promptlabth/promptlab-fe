@@ -6,6 +6,7 @@ import Link from "next/link";
 import styles from './styles.module.css';
 import Flag from "react-flagkit";
 import { RiMenu4Fill } from "react-icons/ri"
+import { useUserContext } from '@/contexts/UserContext';
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 
@@ -27,6 +28,8 @@ If width >= 922, then a menu dropdown disappear.
 */
 export const AppNavbar: React.FC = () => {
    const { language, setLanguage } = useLanguage();
+   const userContext = useUserContext();
+
    const width = useWidth()
    const NavbarMenu = () => {
       return (
@@ -73,7 +76,7 @@ export const AppNavbar: React.FC = () => {
                </li>
                <li className="nav-item">
                   <div className="nav-link ">
-                     <button disabled={true} className={styles.navbar_login_button}>
+                     <button className={styles.navbar_login_button} onClick={()=>{userContext?.handleLogin()}}>
                         {translate("login", language)}
                      </button>
                   </div>

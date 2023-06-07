@@ -1,11 +1,12 @@
 import signInWithFacebook from '@/api/auth/auth_facebook';
 import { ReactNode, createContext, useContext, useState } from 'react';
 import { User } from '@/models';
+import { Login } from '@/api/LoginAPI';
 
 interface UserContextInterface {
    user: User | null
    setUser: (user: User) => void;
-   handleFacebookLogin: () => Promise<void>; // Function to update modal show status
+   handleLogin: () => Promise<void>;
 
 }
 // Create user context
@@ -22,37 +23,20 @@ export function useUserContext() {
 export function UserContextProvider({ children }: Props) {
    const [user, setUser] = useState<User>(); // Initialize modal show status to false
    
-   // Wait API url
-   const apiUrl = "?????";
-
-   // Not complete function, wait api url
-   const getUser = async () => {
-      // Code for fetch user data
-      // Code for fetch user data
-      // Code for fetch user data
-      // Code for fetch user data
+   const handleLogin = async () => {
       
-   }
-
-
-   const handleFacebookLogin = async () => {
+      // sign in with facebook to get token 
       const result = await signInWithFacebook();
-      if (result) {
+
+      if (result){
          console.log("Facebook login successful:", result);
-
-         // get user from db
-         getUser();  
-
-      } else {
-         console.log("Facebook login failed");
       }
    }
-
 
    const current_context: UserContextInterface = {
       user: null,
       setUser: setUser,
-      handleFacebookLogin: handleFacebookLogin,
+      handleLogin: handleLogin,
    }
    return (
       <UserContext.Provider value={current_context}> {children} </UserContext.Provider>
