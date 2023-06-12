@@ -9,7 +9,6 @@ import { RiMenu4Fill } from "react-icons/ri"
 import { useUserContext } from '@/contexts/UserContext';
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
-
 const useWidth = () => {
    const [width, setWidth] = useState(0)
    const handleResize = () => setWidth(window.innerWidth)
@@ -21,16 +20,14 @@ const useWidth = () => {
    return width
 }
 
-
-
 /* 
 If width >= 922, then a menu dropdown disappear.
 */
 export const AppNavbar: React.FC = () => {
    const { language, setLanguage } = useLanguage();
    const userContext = useUserContext();
-
    const width = useWidth()
+
    const NavbarMenu = () => {
       return (
          <div className="collapse navbar-collapse pe-5 me-5" id="navbarSupportedContent">
@@ -82,6 +79,7 @@ export const AppNavbar: React.FC = () => {
                   </div>
                </li>
             </ul>
+            <img src={userContext?.user?.profilepic} alt="profilePic"/>
          </div>
       )
    }
