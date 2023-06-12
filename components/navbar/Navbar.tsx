@@ -27,7 +27,7 @@ export const AppNavbar: React.FC = () => {
    const { language, setLanguage } = useLanguage();
    const userContext = useUserContext();
    const width = useWidth()
-   console.log(userContext?.user?.profilepic)
+   // console.log(userContext?.user?.profilepic)
 
    const NavbarMenu = () => {
       return (
@@ -72,16 +72,21 @@ export const AppNavbar: React.FC = () => {
                      </button>
                   </div>
                </li>
-               <li className="nav-item">
-                  <div className="nav-link ">
-                     <button className={styles.navbar_login_button} onClick={() => { userContext?.handleLogin() }}>
-                        {translate("login", language)}
-                     </button>
-                  </div>
-               </li>
+               {userContext?.user ?
+                  <li className="nav-item">
+                     <img src={userContext?.user?.profilepic} alt="profilePic" />
+                  </li>
+                  :
+                  <li className="nav-item">
+                     <div className="nav-link ">
+                        <button className={styles.navbar_login_button} onClick={() => { userContext?.handleLogin() }}>
+                           {translate("login", language)}
+                        </button>
+                     </div>
+                  </li>
+               }
             </ul>
 
-            <img src={userContext?.user?.profilepic} alt="profilePic" />
          </div>
       )
    }

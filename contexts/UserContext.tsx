@@ -4,7 +4,7 @@ import { LoginUser } from '@/models';
 import { Login } from '@/api/LoginAPI';
 
 interface UserContextInterface {
-   user: LoginUser | undefined
+   user: LoginUser | null
    setUser: (user: LoginUser) => void;
    handleLogin: () => Promise<void>;
 
@@ -46,7 +46,7 @@ export function UserContextProvider({ children }: Props) {
    },[])
 
    const current_context: UserContextInterface = {
-      user: User,
+      user: User || null,
       setUser: setUser,
       handleLogin: handleLogin,
    }
