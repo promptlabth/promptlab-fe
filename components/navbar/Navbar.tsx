@@ -27,6 +27,7 @@ export const AppNavbar: React.FC = () => {
    const { language, setLanguage } = useLanguage();
    const userContext = useUserContext();
    const width = useWidth()
+   console.log(userContext?.user?.profilepic)
 
    const NavbarMenu = () => {
       return (
@@ -73,13 +74,14 @@ export const AppNavbar: React.FC = () => {
                </li>
                <li className="nav-item">
                   <div className="nav-link ">
-                     <button className={styles.navbar_login_button} onClick={()=>{userContext?.handleLogin()}}>
+                     <button className={styles.navbar_login_button} onClick={() => { userContext?.handleLogin() }}>
                         {translate("login", language)}
                      </button>
                   </div>
                </li>
             </ul>
-            <img src={userContext?.user?.profilepic} alt="profilePic"/>
+
+            <img src={userContext?.user?.profilepic} alt="profilePic" />
          </div>
       )
    }
@@ -118,7 +120,7 @@ export const AppNavbar: React.FC = () => {
                      </li>
                   </ul>
                </li>
-               
+
                <li className="nav-item ms-4 me-4 d-flex justify-content-center">
                   <div className="nav-link  w-50 d-flex justify-content-center">
                      <button disabled={true} className={styles.navbar_login_button}>
