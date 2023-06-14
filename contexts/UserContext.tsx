@@ -7,8 +7,8 @@ interface UserContextInterface {
    user: LoginUser | null
    setUser: (user: LoginUser) => void;
    handleLogin: () => Promise<void>;
-
 }
+
 // Create user context
 const UserContext = createContext<UserContextInterface | undefined>(undefined);
 
@@ -21,46 +21,37 @@ export function useUserContext() {
 }
 
 export function UserContextProvider({ children }: Props) {
-   const [User, setUser] = useState<LoginUser>(); // Initialize modal show status to false
-
-
-   const UserLogin = async (token : string) => {
+   const [User, setUser] = useState<LoginUser>();
+   const UserLogin = async (token: string) => {
       const loginUser = await Login(token);
       setUser(loginUser)
    }
 
-   /**
-    * User login function. It execute when user click login button
-    **/
    const handleLogin = async () => {
 
-      // sign in with facebook to get token 
+      // Sign in with Facebook to obtain a token
       const result = await signInWithFacebook();
 
+      // Proceed if the sign-in with Facebook is successful
       if (result) {
 
-         // Print login success
+         // Retrieve the access token from the user data
          const accessToken = await result.user.getIdToken()
-         // .then(
-         //    (token) => {
-         //       return token
-         //    }
-         // );
-
-         const loginUser = await Login(accessToken);
-         setUser(loginUser)
-
+         
+         UserLogin(accessToken)
+         
+         // Set access token to local storage
          localStorage.setItem('accessToken', accessToken);
-         // localStorage.setItem('user', JSON.stringify(loginUser));
       }
    }
 
+   /**
+    * This useEffect function retrieves the access token from local storage.
+    * It then checks whether the access token has a value or not.
+    * If the token exists, it logs in the user using the retrieved access token.
+    **/
    useEffect(() => {
       const token = localStorage.getItem("accessToken")
-      // if (typeof window !== 'undefined') {
-      //    // Perform localStorage action
-      //    const currentAccessToken = localStorage.getItem('accessToken');
-      // }
       console.log(`Current token ${token}`)
       if (token) {
          UserLogin(token)
