@@ -22,6 +22,18 @@ export function useUserContext() {
 
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>(); // Initialize modal show status to false
+   const currentAccessToken = localStorage.getItem('accessToken');
+   
+   const UserLogin = async () => {
+      if (currentAccessToken){
+         const loginUser = await Login(currentAccessToken);
+         setUser(loginUser)
+      } 
+   }
+
+   /**
+    * User login function. It execute when user click login button
+    **/
    const handleLogin = async () => {
 
       // sign in with facebook to get token 
@@ -30,22 +42,24 @@ export function UserContextProvider({ children }: Props) {
       if (result) {
 
          // Print login success
-         const accessToken = await result.user.getIdToken().then(
-            (token) => {
-               return token
-            }
-         );
+         const accessToken = await result.user.getIdToken()
+         // .then(
+         //    (token) => {
+         //       return token
+         //    }
+         // );
 
          const loginUser = await Login(accessToken);
          setUser(loginUser)
 
          localStorage.setItem('accessToken', accessToken);
-         localStorage.setItem('user', JSON.stringify(loginUser));
+         // localStorage.setItem('user', JSON.stringify(loginUser));
       }
    }
 
    useEffect(()=>{
-      handleLogin()
+      UserLogin()
+      // handleLogin()
    },[])
 
    const current_context: UserContextInterface = {
