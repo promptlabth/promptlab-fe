@@ -22,13 +22,14 @@ export function useUserContext() {
 
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>(); // Initialize modal show status to false
-   const currentAccessToken = localStorage.getItem('accessToken');
-   
+   const [currentAccessToken, setCurrentAccessToken] = useState<string | null>("")
+
+
    const UserLogin = async () => {
-      if (currentAccessToken){
+      if (currentAccessToken) {
          const loginUser = await Login(currentAccessToken);
          setUser(loginUser)
-      } 
+      }
    }
 
    /**
@@ -57,10 +58,17 @@ export function UserContextProvider({ children }: Props) {
       }
    }
 
-   useEffect(()=>{
+   useEffect(() => {
+      const token = localStorage.getItem("accessToken")
+      // if (typeof window !== 'undefined') {
+      //    // Perform localStorage action
+      //    const currentAccessToken = localStorage.getItem('accessToken');
+      // }
+      if (token) {
+         setCurrentAccessToken(token)
+      }
       UserLogin()
-      // handleLogin()
-   },[])
+   }, [])
 
    const current_context: UserContextInterface = {
       user: User || null,
