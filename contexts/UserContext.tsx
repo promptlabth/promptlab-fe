@@ -38,6 +38,9 @@ export function UserContextProvider({ children }: Props) {
 
          const loginUser = await Login(accessToken);
          setUser(loginUser)
+
+         localStorage.setItem('accessToken', accessToken);
+         localStorage.setItem('user', JSON.stringify(loginUser));
       }
    }
 

@@ -7,7 +7,6 @@ import { ListTones } from '@/api/ToneAPI';
 // Define the available language options
 export type Language = 'en' | 'th';
 
-
 // Define the type of the LanguageContext
 // @Attribute
 // language: Represents the current language handled by this context. It is a string value that can be either 'en' (English) or 'th' (Thai).
@@ -48,7 +47,6 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
    useEffect(() => {
       // Update the language in translations.ts when the context changes
       setCurrentLanguage(language);
-
       getTones();
 
       if (language !== 'th') {
