@@ -1,9 +1,11 @@
 // LanguageContext.tsx
 import { setCurrentLanguage } from '@/languages/language';
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { Tones } from '@/models/tones';
+import { ListTones } from '@/api/ToneAPI';
 
 // Define the available language options
-type Language = 'en' | 'th';
+export type Language = 'en' | 'th';
 
 
 // Define the type of the LanguageContext
@@ -14,6 +16,7 @@ interface LanguageContextType {
    language: Language;
    setLanguage: (language: Language) => void;
    isTh: boolean;
+   tones: Tones[];
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -33,11 +36,20 @@ interface LanguageProviderProps {
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
    const [language, setLanguage] = useState<Language>('th');
    const [isTh, setIsTh] = useState(true);
+   const [tones, setTones] = useState<Tones[]>([]);
 
+   const getTones = async () => {
+      const result = await ListTones(language);
+      if (result) {
+         setTones(result)
+      }
+   }
 
    useEffect(() => {
       // Update the language in translations.ts when the context changes
       setCurrentLanguage(language);
+
+      getTones();
 
       if (language !== 'th') {
          setIsTh(false)
@@ -48,7 +60,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
    const value = {
       language,
       setLanguage,
-      isTh
+      isTh,
+      tones
    };
 
    // Render the LanguageContext.Provider with the provided children

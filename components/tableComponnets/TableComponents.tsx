@@ -17,6 +17,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import generateMessageWithBackend from "@/api/OpenAiBackend";
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
+import { Tones } from "@/models/tones";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 type Prompt = {
@@ -57,7 +58,7 @@ type pageConfig = {
 
 const TableComponents = (config: pageConfig) => {
    const [components, setComponents] = useState<Prompt[]>([]);
-   const { language, setLanguage, isTh } = useLanguage();
+   const { language, setLanguage, isTh, tones } = useLanguage();
    const [pathname, setPathname] = useState<string>("")
    const router = useRouter()
 
@@ -94,11 +95,6 @@ const TableComponents = (config: pageConfig) => {
       "/createClickBaitWord": <FaClosedCaptioning fontSize={96} />
    };
 
-   //* Write fetch function! 
-   // Fetch statement
-   // Fetch statement
-   // Fetch statement
-   // Fetch statement
 
    const CopyToClipboardButton = ({ message }: { message: string }) => {
       const [isCopied, setIsCopied] = useState(false);
@@ -253,14 +249,16 @@ const TableComponents = (config: pageConfig) => {
       });
    };
 
+
    useEffect(() => {
+      // console.log(tones)
       if (components.length == 0) {
          handleAddNewRow();
       }
       if (router.pathname.slice(1,).length !== 0) {
          setPathname(router.pathname.slice(1,))
       }
-   }, []);
+   }, [language]);
 
    return (
       <div className={noto_sans_thai.className}>
@@ -303,9 +301,9 @@ const TableComponents = (config: pageConfig) => {
                                  onChange={(event) => handleTypeChange(index, event)}
                                  required
                               >
-                                 {postTypes.map(({ value, label }) => (
-                                    <option key={value} value={value}>
-                                       {label}
+                                 {tones.map((item : Tones) => (
+                                    <option key={item.id} value={item.tone_name}>
+                                       {item.tone_name}
                                     </option>
                                  ))}
                               </select>

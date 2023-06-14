@@ -79,7 +79,10 @@ export const AppNavbar: React.FC = () => {
                   :
                   <li className="nav-item">
                      <div className="nav-link ">
-                        <button className={styles.navbar_login_button} onClick={() => { userContext?.handleLogin() }}>
+                        <button 
+                           className={styles.navbar_login_button} 
+                           onClick={() => { userContext?.handleLogin() }}
+                        >
                            {translate("login", language)}
                         </button>
                      </div>
