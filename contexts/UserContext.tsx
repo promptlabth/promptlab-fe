@@ -8,6 +8,7 @@ interface UserContextInterface {
    user: LoginUser | null
    setUser: (user: LoginUser) => void;
    handleLogin: () => Promise<void>;
+   handleLogout: () => Promise<void>;
 }
 
 // Create user context
@@ -27,6 +28,11 @@ export function UserContextProvider({ children }: Props) {
    const UserLogin = async (token: string) => {
       const loginUser = await Login(token);
       setUser(loginUser)
+   }
+
+   const handleLogout =async () => {
+      localStorage.removeItem("accessToken");
+      router.reload()
    }
 
    const handleLogin = async () => {
@@ -66,6 +72,7 @@ export function UserContextProvider({ children }: Props) {
       user: User || null,
       setUser: setUser,
       handleLogin: handleLogin,
+      handleLogout : handleLogout,
    }
    return (
       <UserContext.Provider value={current_context}> {children} </UserContext.Provider>
