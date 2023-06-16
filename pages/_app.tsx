@@ -1,6 +1,6 @@
 import Footer from '@/components/footer/Footer';
 import { AppNavbar } from '@/components/navbar/Navbar';
-// import { NavbarMobileAfterLogin } from "@/components/navbar/NavbarMobileAfterLogin";
+import { NavbarMobileAfterLogin } from "@/components/navbar/NavbarMobileAfterLogin";
 import { AppTabbar } from "@/components/tabbar/tabbar";
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import {NavbarMobile} from "@/components/navbar/NavbarMobile";
@@ -12,7 +12,7 @@ import { Noto_Sans_Thai } from 'next/font/google'
 import Head from 'next/head';
 import Script from 'next/script';
 import { ReactElement, ReactNode } from 'react';
-import { UserContextProvider } from '@/contexts/UserContext';
+import { UserContextProvider, useUserContext } from '@/contexts/UserContext';
 
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
@@ -26,6 +26,7 @@ type AppPropsWithLayout = AppProps & {
 }
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  const userContext = useUserContext()
   const getLayout = Component.getLayout ?? ((page) => page)
   return getLayout(
     <main className={noto_sans_thai.className}>
@@ -69,7 +70,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
       <LanguageProvider>
         <UserContextProvider>
-          <NavbarMobile />
+          {/* { 
+            userContext?.user ?
+            <NavbarMobile /> :
+          } */}
+          <NavbarMobileAfterLogin />
 
           <AppTabbar />
           <Component {...pageProps} />

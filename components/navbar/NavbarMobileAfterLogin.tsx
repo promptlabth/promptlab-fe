@@ -238,7 +238,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
               <li className="nav-item text-center mt-2 mb-2">
                 <div className="nav-link ">
                   <button className={`${styles.navbar_logout_button}`}>
-                    ออกจากระบบ
+                    {translate("logout", language)}
                   </button>
                 </div>
               </li>
@@ -320,7 +320,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
               <li className="nav-item text-center">
                 <div className="nav-link ">
                   <button className={`${styles.navbar_logout_button}`}>
-                    ออกจากระบบ
+                    {translate("logout", language)}
                   </button>
                 </div>
               </li>

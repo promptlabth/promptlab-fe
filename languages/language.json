@@ -58,7 +58,8 @@
         "footer.joinUs":"ร่วมงานกับเรา",
         "footer.privacy_policy":"นโยบายความเป็นส่วนตัว",
         "footer.help":"ศูนย์ช่วยเหลือ",
-        "login":"เข้าสู่ระบบ"
+        "login":"เข้าสู่ระบบ",
+        "logout":"ออกจากระบบ"
     },
     "en": {
         "language":"Language",
@@ -119,6 +120,7 @@
         "footer.joinUs":"Join Us",
         "footer.privacy_policy":"Privacy Policy",
         "footer.help":"Help",
-        "login":"Sign In"
+        "login":"Sign In",
+        "logout":"Sign Out"
     }
 }
