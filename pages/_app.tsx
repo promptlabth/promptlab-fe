@@ -27,6 +27,7 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const userContext = useUserContext()
+  console.log("user:",userContext?.user)
   const getLayout = Component.getLayout ?? ((page) => page)
   return getLayout(
     <main className={noto_sans_thai.className}>

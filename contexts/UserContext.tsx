@@ -23,6 +23,7 @@ export function useUserContext() {
 
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
+   const router = useRouter()
    const UserLogin = async (token: string) => {
       const loginUser = await Login(token);
       setUser(loginUser)
@@ -43,7 +44,7 @@ export function UserContextProvider({ children }: Props) {
          
          // Set access token to local storage
          localStorage.setItem('accessToken', accessToken);
-
+         router.reload()
       }
    }
 
@@ -53,12 +54,11 @@ export function UserContextProvider({ children }: Props) {
     * If the token exists, it logs in the user using the retrieved access token.
     **/
    useEffect(() => {
-      console.log(User)
       const token = localStorage.getItem("accessToken")
       if (token) {
          UserLogin(token)
       }
-   }, [User])
+   }, [])
 
    const current_context: UserContextInterface = {
       user: User || null,
