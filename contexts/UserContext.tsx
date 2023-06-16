@@ -56,7 +56,7 @@ export function UserContextProvider({ children }: Props) {
       if (token) {
          UserLogin(token)
       }
-   }, [])
+   }, [User])
 
    const current_context: UserContextInterface = {
       user: User || null,

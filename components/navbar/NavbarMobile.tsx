@@ -103,7 +103,6 @@ export const NavbarMobile: React.FC = () => {
                   </p>
                   <div className="nav-link ">
                     <button
-                      disabled={true}
                       className={styles.navbar_login_button}
                       onClick={() => { userContext?.handleLogin() }}
                     >
@@ -310,7 +309,6 @@ export const NavbarMobile: React.FC = () => {
               <li className="nav-item">
                 <div className="nav-link ">
                   <button
-                    disabled={true}
                     className={styles.navbar_login_button}
                     onClick={() => { userContext?.handleLogin() }}
                   >
