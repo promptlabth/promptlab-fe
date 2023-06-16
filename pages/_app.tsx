@@ -1,6 +1,6 @@
 import Footer from '@/components/footer/Footer';
 import { AppNavbar } from '@/components/navbar/Navbar';
-import { AppNavbarMobile } from "@/components/navbar/NavbarMobile";
+import { NavbarMobileAfterLogin } from "@/components/navbar/NavbarMobileAfterLogin";
 import { AppTabbar } from "@/components/tabbar/tabbar";
 import { LanguageProvider } from '@/language/ LanguageContext';
 
@@ -68,7 +68,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
       <LanguageProvider>
         <UserContextProvider>
-          <AppNavbar />
+          <NavbarMobileAfterLogin />
 
           <AppTabbar />
           <Component {...pageProps} />

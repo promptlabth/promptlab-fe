@@ -1,0 +1,153 @@
+.container {
+    border-radius: 20px;
+}
+
+
+.gray {
+    background-color: #33393F;
+}
+
+@media (min-width: 1024px) {
+    .container {
+        border-radius: 20px;
+        padding-left: 90px;
+        padding-right: 90px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .margintop {
+        margin-top: 50px;
+    }
+
+    .marginright {
+        margin-right: auto;
+    }
+
+    .marginleft {
+        margin-right: 100px;
+    }
+}
+
+.page_container {
+    background-color: #212529;
+    padding-bottom: 2rem;
+}
+
+@media (min-width: 1000px) {
+    .page_container {
+        padding-left: 5rem;
+        padding-right: 5rem;
+    }
+}
+
+.page_prompt_area {
+    padding: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    border-radius: 15px;
+    background-color: #33393F;
+}
+
+.page_prompt_area_row {
+    border-radius: 15px;
+    background-color: #212529;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.page_prompt_area_textfield {
+    background-color: #3D434A;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 10px;
+    width: 100%;
+    min-height: 60px;
+}
+
+.page_prompt_area_combobox {
+    background-color: #3D434A;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.page_prompt_area_addrow {
+    padding-top: 1rem;
+    padding-left: 0;
+}
+
+.page_prompt_add_new_row_button {
+    background-color: #00FFAB;
+    border: none;
+    border-radius: 28px;
+    display: inline-block;
+    cursor: pointer;
+    color: black;
+    font-size: 17px;
+    padding: 5px 15px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.page_prompt_add_new_row_button:hover {
+    transform: scale(1.05);
+}
+
+.page_prompt_add_new_row_button:active {
+    position: relative;
+    top: 1px;
+}
+
+.page_prompt_generate_btn {
+    background-color: #00FFAB;
+    border: none;
+    color: black;
+    font-weight: bold;
+    border-radius: 28px;
+    transition: all 0.2s;
+}
+
+.page_prompt_loading_generate_btn {
+    background-color: #00FFAB;
+    border: none;
+    color: black;
+    font-weight: bold;
+    border-radius: 28px;
+    opacity: 0.2;
+}
+
+
+.page_prompt_generate_btn:hover {
+    transform: scale(1.05);
+}
+
+.pagination {
+    display: flex;
+}
+
+.pagination_item {
+    padding: 8px;
+    margin-right: 4px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+.pagination_item.active{
+    background-color: #ccc;
+    color: rgb(0, 182, 97);
+}
+
+.pagination_item:hover {
+    background-color: #f0f0f0;
+    color: rgb(0, 182, 97);
+    border-radius: 100%;
+}
+
+.link {
+    color: rgb(255, 255, 255);
+}
+.link:hover{
+    color: rgb(0, 255, 166);
+}

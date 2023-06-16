@@ -16,13 +16,11 @@ import { FaUserCircle } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
 import { BiHelpCircle } from "react-icons/bi";
 import { AiOutlineHistory } from "react-icons/ai";
-import { IoMdAddCircleOutline } from "react-icons/io";
 import { AiOutlineSend, AiFillVideoCamera } from "react-icons/ai";
 import { MdSell, MdOutlineArticle } from "react-icons/md";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaClosedCaptioning } from "react-icons/fa";
-
-export const NavbarMobile: React.FC = () => {
+export const NavbarMobileAfterLogin: React.FC = () => {
   const { language, setLanguage } = useLanguage();
   const [profileImage, setProfileImage] = useState<string>("");
   const [loginStatus, setLoginStatus] = useState(false);
@@ -47,29 +45,21 @@ export const NavbarMobile: React.FC = () => {
     setLanguage(newLanguage);
   };
 
-  const icons: { [key: string]: JSX.Element } = {
-    "/createSellingPost": <MdSell fontSize={96} />,
-    "/createIdeaContent": <HiOutlineLightBulb fontSize={96} />,
-    "/createArticle": <MdOutlineArticle fontSize={96} />,
-    "/createShortVideoScripts": <AiFillVideoCamera fontSize={96} />,
-    "/createClickBaitWord": <FaClosedCaptioning fontSize={96} />,
-  };
+ const [windowWidth, setWindowWidth] = useState(0);
 
-  const [windowWidth, setWindowWidth] = useState(0);
+ useEffect(() => {
+   const handleResize = () => {
+     setWindowWidth(window.innerWidth);
+   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
+   handleResize(); // เรียกใช้งานฟังก์ชัน handleResize เพื่อกำหนดค่าเริ่มต้น
 
-    handleResize(); // เรียกใช้งานฟังก์ชัน handleResize เพื่อกำหนดค่าเริ่มต้น
+   window.addEventListener("resize", handleResize);
 
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+   return () => {
+     window.removeEventListener("resize", handleResize);
+   };
+ }, []);
 
   return (
     <nav
@@ -93,17 +83,12 @@ export const NavbarMobile: React.FC = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           {windowWidth < 1000 ? (
             <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0">
-              <li className={`${styles.profileUnlog} nav-item text-center pb-3`}>
+              <li className={`${styles.profile} nav-item text-center`}>
                 <div className="pt-4">
-                  <p><b>ท่านยังไม่ได้เข้าสู่ระบบ</b></p>
-                  <div className="nav-link ">
-                    <button
-                      disabled={true}
-                      className={styles.navbar_login_button}
-                    >
-                      {t("login", language)}
-                    </button>
-                  </div>
+                  <FaUserCircle fontSize={98} />
+                  <b>
+                    <p className="profile-name pt-2">John Doe</p>
+                  </b>
                 </div>
               </li>
               <li
@@ -168,6 +153,19 @@ export const NavbarMobile: React.FC = () => {
                   </button>
                 </div>
               </li>
+              <li className="nav-item">
+                <div className="nav-link">
+                  <button className={styles.navbar_help_button}>
+                    <AiOutlineHistory />
+                    <Link
+                      href={"/help"}
+                      className={`${styles.remove_underline} ms-2`}
+                    >
+                      ประวัติการสร้างข้อความ
+                    </Link>
+                  </button>
+                </div>
+              </li>
               <li>
                 <hr style={{ color: "white" }}></hr>
               </li>
@@ -175,7 +173,7 @@ export const NavbarMobile: React.FC = () => {
                 <li className="nav-item">
                   <div className="nav-link">
                     <button className={styles.navbar_help_button}>
-                      <MdSell/>
+                      <MdSell />
                       <Link
                         href={"/help"}
                         className={`${styles.remove_underline} ms-2`}
@@ -188,7 +186,7 @@ export const NavbarMobile: React.FC = () => {
                 <li className="nav-item">
                   <div className="nav-link">
                     <button className={styles.navbar_help_button}>
-                      <HiOutlineLightBulb/>
+                      <HiOutlineLightBulb />
                       <Link
                         href={"/help"}
                         className={`${styles.remove_underline} ms-2`}
@@ -201,7 +199,7 @@ export const NavbarMobile: React.FC = () => {
                 <li className="nav-item">
                   <div className="nav-link">
                     <button className={styles.navbar_help_button}>
-                      <MdOutlineArticle/>
+                      <MdOutlineArticle />
                       <Link
                         href={"/help"}
                         className={`${styles.remove_underline} ms-2`}
@@ -214,7 +212,7 @@ export const NavbarMobile: React.FC = () => {
                 <li className="nav-item">
                   <div className="nav-link">
                     <button className={styles.navbar_help_button}>
-                      <AiFillVideoCamera/>
+                      <AiFillVideoCamera />
                       <Link
                         href={"/help"}
                         className={`${styles.remove_underline} ms-2`}
@@ -227,7 +225,7 @@ export const NavbarMobile: React.FC = () => {
                 <li className="nav-item">
                   <div className="nav-link">
                     <button className={styles.navbar_help_button}>
-                      <FaClosedCaptioning/>
+                      <FaClosedCaptioning />
                       <Link
                         href={"/help"}
                         className={`${styles.remove_underline} ms-2`}
@@ -238,6 +236,13 @@ export const NavbarMobile: React.FC = () => {
                   </div>
                 </li>
               </div>
+              <li className="nav-item text-center mt-2 mb-2">
+                <div className="nav-link ">
+                  <button className={`${styles.navbar_logout_button}`}>
+                    ออกจากระบบ
+                  </button>
+                </div>
+              </li>
             </ul>
           ) : (
             <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0">
@@ -302,12 +307,21 @@ export const NavbarMobile: React.FC = () => {
                 </div>
               </li>
               <li className="nav-item">
+                <div className="nav-link">
+                  <button className={styles.navbar_help_button}>
+                    <Link
+                      href={"/help"}
+                      className={`${styles.remove_underline}`}
+                    >
+                      ประวัติการสร้างข้อความ
+                    </Link>
+                  </button>
+                </div>
+              </li>
+              <li className="nav-item text-center">
                 <div className="nav-link ">
-                  <button
-                    disabled={true}
-                    className={styles.navbar_login_button}
-                  >
-                    {t("login", language)}
+                  <button className={`${styles.navbar_logout_button}`}>
+                    ออกจากระบบ
                   </button>
                 </div>
               </li>
@@ -319,4 +333,4 @@ export const NavbarMobile: React.FC = () => {
   );
 };
 
-export default NavbarMobile;
+export default NavbarMobileAfterLogin;
