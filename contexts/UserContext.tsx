@@ -44,7 +44,9 @@ export function UserContextProvider({ children }: Props) {
          
          // Set access token to local storage
          localStorage.setItem('accessToken', accessToken);
+
          router.reload()
+
       }
    }
 
