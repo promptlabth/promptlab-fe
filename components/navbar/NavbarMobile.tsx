@@ -87,7 +87,7 @@ export const NavbarMobile: React.FC = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <RiMenu4Fill className={styles.offcanvas_menu} />
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           {windowWidth < 1000 ? (
