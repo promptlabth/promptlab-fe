@@ -25,36 +25,7 @@ import { useUserContext } from "@/contexts/UserContext";
 export const NavbarMobile: React.FC = () => {
   const userContext = useUserContext()
   const { language, setLanguage } = useLanguage();
-  const [profileImage, setProfileImage] = useState<string>("");
-  const [loginStatus, setLoginStatus] = useState(false);
-  const [menuShow, setMenuShow] = useState<boolean>(false);
-  const [navActive, setNavActive] = useState(null);
 
-  const handleLogin = (result: any) => {
-    console.log("Login successful, do something with the result:", result);
-    setProfileImage(result["user"]["photoURL"]);
-    setLoginStatus(true);
-    // You can use the result here or update the state of your parent component
-  };
-
-  // function for handle language
-  const handleLanguageChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    language: string
-  ) => {
-    // setIsTh(event.target.checked);
-
-    const newLanguage = event.target.checked ? "th" : "en";
-    setLanguage(newLanguage);
-  };
-
-  const icons: { [key: string]: JSX.Element } = {
-    "/createSellingPost": <MdSell fontSize={96} />,
-    "/createIdeaContent": <HiOutlineLightBulb fontSize={96} />,
-    "/createArticle": <MdOutlineArticle fontSize={96} />,
-    "/createShortVideoScripts": <AiFillVideoCamera fontSize={96} />,
-    "/createClickBaitWord": <FaClosedCaptioning fontSize={96} />,
-  };
 
   const [windowWidth, setWindowWidth] = useState(0);
 

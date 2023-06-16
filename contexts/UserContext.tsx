@@ -52,7 +52,6 @@ export function UserContextProvider({ children }: Props) {
     **/
    useEffect(() => {
       const token = localStorage.getItem("accessToken")
-      console.log(`Current token ${token}`)
       if (token) {
          UserLogin(token)
       }
