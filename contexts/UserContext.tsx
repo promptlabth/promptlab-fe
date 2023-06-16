@@ -2,6 +2,7 @@ import signInWithFacebook from '@/api/auth/auth_facebook';
 import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
 import { LoginUser } from '@/models';
 import { Login } from '@/api/LoginAPI';
+import { useRouter } from 'next/router';
 
 interface UserContextInterface {
    user: LoginUser | null
@@ -42,6 +43,7 @@ export function UserContextProvider({ children }: Props) {
          
          // Set access token to local storage
          localStorage.setItem('accessToken', accessToken);
+
       }
    }
 
@@ -51,6 +53,7 @@ export function UserContextProvider({ children }: Props) {
     * If the token exists, it logs in the user using the retrieved access token.
     **/
    useEffect(() => {
+      console.log(User)
       const token = localStorage.getItem("accessToken")
       if (token) {
          UserLogin(token)
