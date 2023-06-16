@@ -3,7 +3,7 @@ import { AppNavbar } from '@/components/navbar/Navbar';
 import { NavbarMobileAfterLogin } from "@/components/navbar/NavbarMobileAfterLogin";
 import { AppTabbar } from "@/components/tabbar/tabbar";
 import { LanguageProvider } from '@/contexts/LanguageContext';
-import {NavbarMobile} from "@/components/navbar/NavbarMobile";
+import { NavbarMobile } from "@/components/navbar/NavbarMobile";
 import '@/styles/globals.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NextPage } from 'next';
@@ -70,12 +70,10 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
       <LanguageProvider>
         <UserContextProvider>
-          {/* { 
-            userContext?.user ?
+          {userContext?.user ?
             <NavbarMobile /> :
-          } */}
-          <NavbarMobileAfterLogin />
-
+            <NavbarMobileAfterLogin />
+          }
           <AppTabbar />
           <Component {...pageProps} />
           <Footer />

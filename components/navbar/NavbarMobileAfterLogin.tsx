@@ -19,46 +19,30 @@ import { AiOutlineSend, AiFillVideoCamera } from "react-icons/ai";
 import { MdSell, MdOutlineArticle } from "react-icons/md";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaClosedCaptioning } from "react-icons/fa";
+import { useUserContext } from "@/contexts/UserContext";
 export const NavbarMobileAfterLogin: React.FC = () => {
   const { language, setLanguage } = useLanguage();
+  const userContext = useUserContext()
   const [profileImage, setProfileImage] = useState<string>("");
   const [loginStatus, setLoginStatus] = useState(false);
   const [menuShow, setMenuShow] = useState<boolean>(false);
   const [navActive, setNavActive] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(0);
 
-  const handleLogin = (result: any) => {
-    console.log("Login successful, do something with the result:", result);
-    setProfileImage(result["user"]["photoURL"]);
-    setLoginStatus(true);
-    // You can use the result here or update the state of your parent component
-  };
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
 
-  // function for handle language
-  const handleLanguageChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    language: string
-  ) => {
-    // setIsTh(event.target.checked);
+    handleResize(); // เรียกใช้งานฟังก์ชัน handleResize เพื่อกำหนดค่าเริ่มต้น
 
-    const newLanguage = event.target.checked ? "th" : "en";
-    setLanguage(newLanguage);
-  };
+    window.addEventListener("resize", handleResize);
 
- const [windowWidth, setWindowWidth] = useState(0);
-
- useEffect(() => {
-   const handleResize = () => {
-     setWindowWidth(window.innerWidth);
-   };
-
-   handleResize(); // เรียกใช้งานฟังก์ชัน handleResize เพื่อกำหนดค่าเริ่มต้น
-
-   window.addEventListener("resize", handleResize);
-
-   return () => {
-     window.removeEventListener("resize", handleResize);
-   };
- }, []);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <nav
@@ -84,7 +68,8 @@ export const NavbarMobileAfterLogin: React.FC = () => {
             <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0">
               <li className={`${styles.profile} nav-item text-center`}>
                 <div className="pt-4">
-                  <FaUserCircle fontSize={98} />
+                  <img src={userContext?.user?.profilepic} alt="profic-pic" />
+                  {/* <FaUserCircle fontSize={98} /> */}
                   <b>
                     <p className="profile-name pt-2">John Doe</p>
                   </b>

@@ -20,8 +20,10 @@ import { AiOutlineSend, AiFillVideoCamera } from "react-icons/ai";
 import { MdSell, MdOutlineArticle } from "react-icons/md";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaClosedCaptioning } from "react-icons/fa";
+import { useUserContext } from "@/contexts/UserContext";
 
 export const NavbarMobile: React.FC = () => {
+  const userContext = useUserContext()
   const { language, setLanguage } = useLanguage();
   const [profileImage, setProfileImage] = useState<string>("");
   const [loginStatus, setLoginStatus] = useState(false);
@@ -309,6 +311,7 @@ export const NavbarMobile: React.FC = () => {
                   <button
                     disabled={true}
                     className={styles.navbar_login_button}
+                    onClick={() => { userContext?.handleLogin() }}
                   >
                     {translate("login", language)}
                   </button>
