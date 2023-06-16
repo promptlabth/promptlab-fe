@@ -105,6 +105,7 @@ export const NavbarMobile: React.FC = () => {
                     <button
                       disabled={true}
                       className={styles.navbar_login_button}
+                      onClick={() => { userContext?.handleLogin() }}
                     >
                       {translate("login", language)}
                     </button>
