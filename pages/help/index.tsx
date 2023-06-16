@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import Head from "next/head";
-import { useLanguage } from "@/language/ LanguageContext";
-import { t } from "@/components/language";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 import styles from "./styles.module.css";
@@ -11,7 +11,7 @@ const Help = () => {
    return (
       <div className={noto_sans_thai.className}>
          <Head>
-            <title>{t("home.title", language)}</title>
+            <title>{translate("home.title", language)}</title>
             <meta
                name="description"
                content="Meta description for the Home page"

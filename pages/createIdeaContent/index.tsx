@@ -1,13 +1,13 @@
-import { t } from "@/components/language";
+import { translate } from "@/languages/language";
 import TableComponents from "@/components/tableComponnets/TableComponents";
-import { useLanguage } from "@/language/ LanguageContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import Head from "next/head";
 const CreateContent = () => {
     const { language } = useLanguage();
     return (
         <div>
             <Head>
-                <title>{t('createContents.title', language)}</title>
+                <title>{translate('createContents.title', language)}</title>
                 <meta name="description" content="Meta description for the Home page" />
             </Head>
             <TableComponents

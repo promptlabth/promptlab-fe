@@ -1,23 +1,23 @@
 import { Noto_Sans_Thai } from 'next/font/google'
 import { Container } from 'react-bootstrap'
-import { useLanguage } from "@/language/ LanguageContext";
-import { t } from "@/components/language";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translate } from "@/languages/language";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 import Head from "next/head";
 import styles from "./styles.module.css";
 import Link from 'next/link';
 import { TikTokEmbed } from 'react-social-media-embed';
 
-
 export default function Home() {
    const { language } = useLanguage();
    const featureLinks: string[] = ["/createSellingPost", "/createIdeaContent", "/createArticle", "/createShortVideoScripts", "/createClickBaitWord"]
    const randomIndex = Math.floor(Math.random() * featureLinks.length);
 
+   
    return (
       <>
          <Head>
-            <title>{t("home.title", language)}</title>
+            <title>{translate("home.title", language)}</title>
             <meta
                name="description"
                content="Meta description for the Home page"
@@ -30,7 +30,7 @@ export default function Home() {
                      <p className="display-4"> Prompt Lab</p>
                   </blockquote>
                   <figcaption className="blockquote-footer">
-                     <h6> {t("home.description", language)} </h6>
+                     <h6> {translate("home.description", language)} </h6>
                   </figcaption>
 
                   <Link href={featureLinks[randomIndex]}>
@@ -41,7 +41,7 @@ export default function Home() {
                   <Container className={`${styles.gray} ${styles.container}`}>
                      <figure className="text-center pt-4 pb-1 text-light">
                         <h3>
-                           <b> {t("home.what_promptlab_look_like", language)}</b>
+                           <b> {translate("home.what_promptlab_look_like", language)}</b>
                         </h3>
                      </figure>
 
@@ -62,9 +62,9 @@ export default function Home() {
                         <div className="col-sm-8 col-lg-5">
                            <figure className="text-start pt-2 pb-2 text-light">
                               <h4 className="mb-4">
-                                 <b> {t("home.what_is_promptlab.title", language)}</b>
+                                 <b> {translate("home.what_is_promptlab.title", language)}</b>
                               </h4>
-                              <p> {t("home.what_is_promptlab.description", language)} </p>
+                              <p> {translate("home.what_is_promptlab.description", language)} </p>
                            </figure>
                         </div>
                      </div>
@@ -80,9 +80,9 @@ export default function Home() {
                         >
                            <figure className="text-start text-light">
                               <h4 className="mb-4">
-                                 <b> {t("home.unlock_your_cretivity.title", language)} </b>
+                                 <b> {translate("home.unlock_your_cretivity.title", language)} </b>
                               </h4>
-                              <p> {t("home.unlock_your_cretivity.description", language)}</p>
+                              <p> {translate("home.unlock_your_cretivity.description", language)}</p>
                            </figure>
                         </div>
                      </div>

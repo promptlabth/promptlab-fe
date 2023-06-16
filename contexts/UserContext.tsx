@@ -1,35 +1,19 @@
-import signInWithFacebook from '@/api/autth/auth_facebook';
-import { MouseEventHandler, createContext, useContext, useState } from 'react';
-
-interface User {
-   /* 
-   id: Optional[int] = Field(default=None, primary_key=True)
-   uid : Optional[str] = Field(default=None, unique=True)
-   name: Optional[str] = None
-   email: str
-   profilepic: str
-   */
-   id: number;
-   uid: string;
-   name: string;
-   email: string;
-   profilepic: string;
-}
+import signInWithFacebook from '@/api/auth/auth_facebook';
+import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
+import { LoginUser } from '@/models';
+import { Login } from '@/api/LoginAPI';
 
 interface UserContextInterface {
-   user: User | null
-   setUser: (user: User) => void;
-   handleFacebookLogin: () => Promise<void>; // Function to update modal show status
-
+   user: LoginUser | null
+   setUser: (user: LoginUser) => void;
+   handleLogin: () => Promise<void>;
 }
+
 // Create user context
-const UserContext = createContext<UserContextInterface | null>(null);
-
-
-// Type '(event: any) => Promise<void>' is not assignable to type '() => void'.
+const UserContext = createContext<UserContextInterface | undefined>(undefined);
 
 interface Props {
-   children: React.ReactNode;
+   children: ReactNode;
 }
 
 export function useUserContext() {
@@ -37,49 +21,47 @@ export function useUserContext() {
 }
 
 export function UserContextProvider({ children }: Props) {
-   const [user, setUser] = useState<User>(); // Initialize modal show status to false
-   
-   // Wait API url
-   const apiUrl = "?????";
-
-   // Not complete function, wait api url
-   const getUser = async () => {
-      const requestOptions = {
-         method: "GET",
-         headers: {
-            "Content-Type": "application/json"
-         },
-         // body: JSON.stringify(signin)
-      };
-
-      fetch(`${apiUrl}/`, requestOptions)
-         .then((response) => response.json())
-         .then((result) => {
-            if (result.data) {
-               setUser(result.data)
-            }
-         });
+   const [User, setUser] = useState<LoginUser>();
+   const UserLogin = async (token: string) => {
+      const loginUser = await Login(token);
+      setUser(loginUser)
    }
 
+   const handleLogin = async () => {
 
-   const handleFacebookLogin = async () => {
+      // Sign in with Facebook to obtain a token
       const result = await signInWithFacebook();
+
+      // Proceed if the sign-in with Facebook is successful
       if (result) {
-         console.log("Facebook login successful:", result);
 
-         // get user from db
-         getUser();  
-
-      } else {
-         console.log("Facebook login failed");
+         // Retrieve the access token from the user data
+         const accessToken = await result.user.getIdToken()
+         
+         UserLogin(accessToken)
+         
+         // Set access token to local storage
+         localStorage.setItem('accessToken', accessToken);
       }
    }
 
+   /**
+    * This useEffect function retrieves the access token from local storage.
+    * It then checks whether the access token has a value or not.
+    * If the token exists, it logs in the user using the retrieved access token.
+    **/
+   useEffect(() => {
+      const token = localStorage.getItem("accessToken")
+      console.log(`Current token ${token}`)
+      if (token) {
+         UserLogin(token)
+      }
+   }, [])
 
    const current_context: UserContextInterface = {
-      user: null,
+      user: User || null,
       setUser: setUser,
-      handleFacebookLogin: handleFacebookLogin,
+      handleLogin: handleLogin,
    }
    return (
       <UserContext.Provider value={current_context}> {children} </UserContext.Provider>

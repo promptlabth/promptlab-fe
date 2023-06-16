@@ -1,8 +1,11 @@
 import Footer from '@/components/footer/Footer';
 import { AppNavbar } from '@/components/navbar/Navbar';
+<<<<<<< HEAD
 import { NavbarMobileAfterLogin } from "@/components/navbar/NavbarMobileAfterLogin";
+=======
+>>>>>>> 8f8c8dbc050275fb6dde9dcd1d73323700090760
 import { AppTabbar } from "@/components/tabbar/tabbar";
-import { LanguageProvider } from '@/language/ LanguageContext';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 
 import '@/styles/globals.css'
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -36,14 +39,15 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       />
 
       <Script id="gtag-id-engine" strategy="lazyOnload">
-        {`
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', 'G-958P0ZZK61', {
-                    page_path: window.location.pathname,
-                    });
-                `}
+        {`	window.dataLayer = window.dataLayer || [];
+		  		function gtag(){
+					dataLayer.push(arguments);
+				}
+				gtag('js', new Date());
+				gtag('config', 'G-958P0ZZK61', {
+					page_path: window.location.pathname,
+				});
+         `}
       </Script>
       <Script
         src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
@@ -68,13 +72,16 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
       <LanguageProvider>
         <UserContextProvider>
+<<<<<<< HEAD
           <NavbarMobileAfterLogin />
 
+=======
+          <AppNavbar />
+>>>>>>> 8f8c8dbc050275fb6dde9dcd1d73323700090760
           <AppTabbar />
           <Component {...pageProps} />
           <Footer />
         </UserContextProvider>
-        {/* UserProvider */}
       </LanguageProvider>
     </main>
   );
