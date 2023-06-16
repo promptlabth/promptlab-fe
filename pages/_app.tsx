@@ -71,7 +71,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
       <LanguageProvider>
         <UserContextProvider>
-          {userContext?.user == undefined ?
+          {userContext!.user == undefined ?
             <NavbarMobile /> :
             <NavbarMobileAfterLogin />
           }
