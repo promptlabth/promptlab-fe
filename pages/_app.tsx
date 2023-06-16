@@ -1,12 +1,9 @@
 import Footer from '@/components/footer/Footer';
 import { AppNavbar } from '@/components/navbar/Navbar';
-<<<<<<< HEAD
-import { NavbarMobileAfterLogin } from "@/components/navbar/NavbarMobileAfterLogin";
-=======
->>>>>>> 8f8c8dbc050275fb6dde9dcd1d73323700090760
+// import { NavbarMobileAfterLogin } from "@/components/navbar/NavbarMobileAfterLogin";
 import { AppTabbar } from "@/components/tabbar/tabbar";
 import { LanguageProvider } from '@/contexts/LanguageContext';
-
+import {NavbarMobile} from "@/components/navbar/NavbarMobile";
 import '@/styles/globals.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NextPage } from 'next';
@@ -72,12 +69,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
       <LanguageProvider>
         <UserContextProvider>
-<<<<<<< HEAD
-          <NavbarMobileAfterLogin />
+          <NavbarMobile />
 
-=======
-          <AppNavbar />
->>>>>>> 8f8c8dbc050275fb6dde9dcd1d73323700090760
           <AppTabbar />
           <Component {...pageProps} />
           <Footer />

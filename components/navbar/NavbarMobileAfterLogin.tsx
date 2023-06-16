@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
-import { useLanguage } from "@/language/ LanguageContext";
-import { t } from "../language";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
 import { Navbar, Nav, Container, Offcanvas } from "react-bootstrap";
 import { urlLinks } from "./constant";
@@ -10,7 +10,6 @@ import styles from "./styles.module.css";
 import { RiMenu4Fill } from "react-icons/ri";
 import Flag from "react-flagkit";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
-import LoginComponent from "./LoginButton";
 import { VscTriangleLeft } from "react-icons/vsc";
 import { FaUserCircle } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
@@ -148,7 +147,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                       href={"/help"}
                       className={`${styles.remove_underline} ms-2`}
                     >
-                      {t("footer.help", language)}
+                      {translate("footer.help", language)}
                     </Link>
                   </button>
                 </div>
@@ -301,7 +300,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                       href={"/help"}
                       className={`${styles.remove_underline}`}
                     >
-                      {t("footer.help", language)}
+                      {translate("footer.help", language)}
                     </Link>
                   </button>
                 </div>

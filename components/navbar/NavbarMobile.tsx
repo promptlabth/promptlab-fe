@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
-import { useLanguage } from "@/language/ LanguageContext";
-import { t } from "../language";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
 import { Navbar, Nav, Container, Offcanvas } from "react-bootstrap";
 import { urlLinks } from "./constant";
@@ -10,7 +10,6 @@ import styles from "./styles.module.css";
 import { RiMenu4Fill } from "react-icons/ri";
 import Flag from "react-flagkit";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
-import LoginComponent from "./LoginButton";
 import { VscTriangleLeft } from "react-icons/vsc";
 import { FaUserCircle } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
@@ -93,15 +92,19 @@ export const NavbarMobile: React.FC = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           {windowWidth < 1000 ? (
             <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0">
-              <li className={`${styles.profileUnlog} nav-item text-center pb-3`}>
+              <li
+                className={`${styles.profileUnlog} nav-item text-center pb-3`}
+              >
                 <div className="pt-4">
-                  <p><b>ท่านยังไม่ได้เข้าสู่ระบบ</b></p>
+                  <p>
+                    <b>ท่านยังไม่ได้เข้าสู่ระบบ</b>
+                  </p>
                   <div className="nav-link ">
                     <button
                       disabled={true}
                       className={styles.navbar_login_button}
                     >
-                      {t("login", language)}
+                      {translate("login", language)}
                     </button>
                   </div>
                 </div>
@@ -163,7 +166,7 @@ export const NavbarMobile: React.FC = () => {
                       href={"/help"}
                       className={`${styles.remove_underline} ms-2`}
                     >
-                      {t("footer.help", language)}
+                      {translate("footer.help", language)}
                     </Link>
                   </button>
                 </div>
@@ -175,7 +178,7 @@ export const NavbarMobile: React.FC = () => {
                 <li className="nav-item">
                   <div className="nav-link">
                     <button className={styles.navbar_help_button}>
-                      <MdSell/>
+                      <MdSell />
                       <Link
                         href={"/help"}
                         className={`${styles.remove_underline} ms-2`}
@@ -188,7 +191,7 @@ export const NavbarMobile: React.FC = () => {
                 <li className="nav-item">
                   <div className="nav-link">
                     <button className={styles.navbar_help_button}>
-                      <HiOutlineLightBulb/>
+                      <HiOutlineLightBulb />
                       <Link
                         href={"/help"}
                         className={`${styles.remove_underline} ms-2`}
@@ -201,7 +204,7 @@ export const NavbarMobile: React.FC = () => {
                 <li className="nav-item">
                   <div className="nav-link">
                     <button className={styles.navbar_help_button}>
-                      <MdOutlineArticle/>
+                      <MdOutlineArticle />
                       <Link
                         href={"/help"}
                         className={`${styles.remove_underline} ms-2`}
@@ -214,7 +217,7 @@ export const NavbarMobile: React.FC = () => {
                 <li className="nav-item">
                   <div className="nav-link">
                     <button className={styles.navbar_help_button}>
-                      <AiFillVideoCamera/>
+                      <AiFillVideoCamera />
                       <Link
                         href={"/help"}
                         className={`${styles.remove_underline} ms-2`}
@@ -227,7 +230,7 @@ export const NavbarMobile: React.FC = () => {
                 <li className="nav-item">
                   <div className="nav-link">
                     <button className={styles.navbar_help_button}>
-                      <FaClosedCaptioning/>
+                      <FaClosedCaptioning />
                       <Link
                         href={"/help"}
                         className={`${styles.remove_underline} ms-2`}
@@ -296,7 +299,7 @@ export const NavbarMobile: React.FC = () => {
                       href={"/help"}
                       className={`${styles.remove_underline}`}
                     >
-                      {t("footer.help", language)}
+                      {translate("footer.help", language)}
                     </Link>
                   </button>
                 </div>
@@ -307,7 +310,7 @@ export const NavbarMobile: React.FC = () => {
                     disabled={true}
                     className={styles.navbar_login_button}
                   >
-                    {t("login", language)}
+                    {translate("login", language)}
                   </button>
                 </div>
               </li>
