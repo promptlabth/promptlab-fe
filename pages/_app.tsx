@@ -27,7 +27,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
   const [token, setToken] = useState<string>("")
   useEffect(() => {
-    console.log("cokie",document.cookie)
     const accessToken = localStorage.getItem("accessToken")
     if (accessToken) {
       setToken(accessToken)

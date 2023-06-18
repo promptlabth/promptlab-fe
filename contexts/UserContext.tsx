@@ -3,7 +3,7 @@ import { ReactNode, createContext, useContext, useState, useEffect } from 'react
 import { LoginUser } from '@/models';
 import { Login } from '@/api/LoginAPI';
 import { useRouter } from 'next/router';
-
+import { setCookie } from 'cookies-next';
 interface UserContextInterface {
    user: LoginUser | null;
    setUser: (user: LoginUser) => void;
@@ -46,8 +46,14 @@ export function UserContextProvider({ children }: Props) {
 
          // Retrieve the access token from the user data
          const accessToken = await result.user.getIdToken()
+         const encodeAccessToken: string = Buffer.from(accessToken, "utf8").toString("base64");
+
          const refreshToken = result.user.refreshToken
-         document.cookie = `${accessToken} ${refreshToken}`
+         const encodeRefreshToken : string = Buffer.from(refreshToken, "utf8").toString("base64");
+         
+         setCookie("rt",encodeRefreshToken)
+         setCookie("at",encodeAccessToken)
+
          UserLogin(accessToken)
          // Set access token to local storage
          localStorage.setItem('accessToken', accessToken);

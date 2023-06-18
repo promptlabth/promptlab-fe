@@ -790,6 +790,11 @@
     "@tufjs/canonical-json" "1.0.0"
     minimatch "^9.0.0"
 
+"@types/cookie@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.npmjs.org/@types/cookie/-/cookie-0.4.1.tgz"
+  integrity sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==
+
 "@types/http-errors@^1.8.2":
   version "1.8.2"
   resolved "https://registry.npmjs.org/@types/http-errors/-/http-errors-1.8.2.tgz"
@@ -804,6 +809,11 @@
   version "4.0.2"
   resolved "https://registry.npmjs.org/@types/long/-/long-4.0.2.tgz"
   integrity sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==
+
+"@types/node@^16.10.2":
+  version "16.18.36"
+  resolved "https://registry.npmjs.org/@types/node/-/node-16.18.36.tgz"
+  integrity sha512-8egDX8dE50XyXWH6C6PRCNkTP106DuUrvdrednFouDSmCi7IOvrqr0frznfZaHifHH/3aq/7a7v9N4wdXMqhBQ==
 
 "@types/node@>=12.12.47", "@types/node@>=13.7.0", "@types/node@18.15.10":
   version "18.15.10"
@@ -1345,6 +1355,20 @@ concat-map@0.0.1:
 
 console-control-strings@^1.1.0:
   version "1.1.0"
+
+cookie@^0.4.0:
+  version "0.4.2"
+  resolved "https://registry.npmjs.org/cookie/-/cookie-0.4.2.tgz"
+  integrity sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==
+
+cookies-next@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.npmjs.org/cookies-next/-/cookies-next-2.1.2.tgz"
+  integrity sha512-czxcfqVaQlo0Q/3xMgp/2jpspsuLJrIm6D37wlmibP3DAcYT315c8UxQmDMohhAT/GRWpaHzpDEFANBjzTFQGg==
+  dependencies:
+    "@types/cookie" "^0.4.1"
+    "@types/node" "^16.10.2"
+    cookie "^0.4.0"
 
 copy-to-clipboard@^3.3.1:
   version "3.3.3"
