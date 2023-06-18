@@ -3,7 +3,7 @@ import { ReactNode, createContext, useContext, useState, useEffect } from 'react
 import { LoginUser } from '@/models';
 import { Login } from '@/api/LoginAPI';
 import { useRouter } from 'next/router';
-import { setCookie } from 'cookies-next';
+import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 interface UserContextInterface {
    user: LoginUser | null;
    setUser: (user: LoginUser) => void;
@@ -68,6 +68,8 @@ export function UserContextProvider({ children }: Props) {
     * If the token exists, it logs in the user using the retrieved access token.
     **/
    useEffect(() => {
+      const accessToken = getCookie("at")
+      console.log(accessToken)
       const token = localStorage.getItem("accessToken")
       if (token) {
          UserLogin(token)
