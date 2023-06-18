@@ -3,7 +3,6 @@ import { ReactNode, createContext, useContext, useState, useEffect } from 'react
 import { LoginUser } from '@/models';
 import { Login } from '@/api/LoginAPI';
 import { useRouter } from 'next/router';
-import { cookies } from 'next/headers'
 
 interface UserContextInterface {
    user: LoginUser | null;
@@ -26,7 +25,6 @@ export function useUserContext() {
 
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
-   const tokenCookies = cookies()
    const router = useRouter()
    const UserLogin = async (token: string) => {
       const loginUser = await Login(token);
@@ -49,8 +47,7 @@ export function UserContextProvider({ children }: Props) {
          // Retrieve the access token from the user data
          const accessToken = await result.user.getIdToken()
          const refreshToken = result.user.refreshToken
-         tokenCookies.set("accessToken",accessToken)
-         tokenCookies.set("refreshToken",refreshToken)
+         document.cookie = `${accessToken} {refreshToken}`
          UserLogin(accessToken)
          // Set access token to local storage
          localStorage.setItem('accessToken', accessToken);

@@ -12,8 +12,6 @@ import Head from 'next/head';
 import Script from 'next/script';
 import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { UserContextProvider } from '@/contexts/UserContext';
-import { cookies } from 'next/headers';
-
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
@@ -28,8 +26,8 @@ type AppPropsWithLayout = AppProps & {
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
   const [token, setToken] = useState<string>("")
-  console.log(cookies().getAll())
   useEffect(() => {
+    console.log("cokie",document.cookie)
     const accessToken = localStorage.getItem("accessToken")
     if (accessToken) {
       setToken(accessToken)
