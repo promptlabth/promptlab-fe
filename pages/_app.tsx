@@ -12,6 +12,8 @@ import Head from 'next/head';
 import Script from 'next/script';
 import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { UserContextProvider } from '@/contexts/UserContext';
+import { CookiesProvider } from 'react-cookie';
+
 
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
@@ -73,17 +75,19 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <LanguageProvider>
-        <UserContextProvider>
-          {token ?
-            <NavbarMobileAfterLogin /> :
-            <NavbarMobile />
-          }
-          <AppTabbar />
-          <Component {...pageProps} />
-          <Footer />
-        </UserContextProvider>
-      </LanguageProvider>
+      <CookiesProvider>
+        <LanguageProvider>
+          <UserContextProvider>
+            {token ?
+              <NavbarMobileAfterLogin /> :
+              <NavbarMobile />
+            }
+            <AppTabbar />
+            <Component {...pageProps} />
+            <Footer />
+          </UserContextProvider>
+        </LanguageProvider>
+      </CookiesProvider>
     </main>
   );
 

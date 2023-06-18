@@ -7,7 +7,6 @@ import { CreateImageRequestSizeEnum } from "openai";
 // - name: An optional field representing the user's name. It is of type string.
 // - email: A required field representing the user's email. It is of type string.
 // - profilepic: A required field representing the URL of the user's profile picture. It is of type string.
-
 export type LoginUser = {
    id?: number;
    uid?: string;
