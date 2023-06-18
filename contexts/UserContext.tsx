@@ -48,13 +48,11 @@ export function UserContextProvider({ children }: Props) {
 
          // Retrieve the access token from the user data
          const accessToken = await result.user.getIdToken()
-         const encodeAccessToken: string = Buffer.from(accessToken, "utf8").toString("base64");
 
          const refreshToken = result.user.refreshToken
-         const encodeRefreshToken : string = Buffer.from(refreshToken, "utf8").toString("base64");
          
-         setCookie("rt",encodeRefreshToken)
-         setCookie("at",encodeAccessToken)
+         setCookie("rt",refreshToken)
+         setCookie("at",accessToken)
 
          UserLogin(accessToken)
          // Set access token to local storage
@@ -70,8 +68,7 @@ export function UserContextProvider({ children }: Props) {
     * If the token exists, it logs in the user using the retrieved access token.
     **/
    useEffect(() => {
-      const encodeAccessToken = getCookie("at")?.toString()
-      const token: string = Buffer.from(encodeAccessToken! , 'base64').toString('utf8');
+      const token = getCookie("at")?.toString()
       console.log(token)
       
       if (token) {
