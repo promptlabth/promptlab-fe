@@ -33,6 +33,8 @@ export function UserContextProvider({ children }: Props) {
 
    const handleLogout = async () => {
       localStorage.removeItem("accessToken");
+      deleteCookie("rt");
+      deleteCookie("at");
       router.reload()
    }
 
@@ -68,9 +70,10 @@ export function UserContextProvider({ children }: Props) {
     * If the token exists, it logs in the user using the retrieved access token.
     **/
    useEffect(() => {
-      const accessToken = getCookie("at")
-      console.log(accessToken)
-      const token = localStorage.getItem("accessToken")
+      const encodeAccessToken = getCookie("at")?.toString()
+      const token: string = Buffer.from(encodeAccessToken! , 'base64').toString('utf8');
+      console.log(token)
+      
       if (token) {
          UserLogin(token)
       }
