@@ -46,10 +46,8 @@ export type modelCofig = {
 // -  titilePage : A string representing title of page
 // -  titleDescription : A string representing page description, which describe what a page is.
 // -  modelConfig: A configuration object for the page, specifying the OpenAI model and its settings.
-// -  promptEn: A function that takes an input string and a type string as parameters, and 
-//    returns a generated English message based on the provided prompt.
-// -  promptTh: A function that takes an input string and a type string as parameters, and 
-//    returns a generated Thai message based on the provided prompt.
+// -  getPrompt: A function that takes an input string and a type string as parameters, and 
+//    returns a generated message based on the provided prompt and language.
 type pageConfig = {
    titlePage: string;
    titleDescription: string;
@@ -58,9 +56,9 @@ type pageConfig = {
 }
 
 const TableComponents = (config: pageConfig) => {
-   const [components, setComponents] = useState<Prompt[]>([]);
+   const [prompts, setPrompts] = useState<Prompt[]>([]);
    const userContext = useUserContext()
-   const { language, isTh, tones } = useLanguage();
+   const { language, tones } = useLanguage();
    const [pathname, setPathname] = useState<string>("")
    const router = useRouter()
 
@@ -117,15 +115,12 @@ const TableComponents = (config: pageConfig) => {
 
             </CopyToClipboard>
          </OverlayTrigger>
-
-
       );
-
    }
 
    const GenerateButton = ({ index, generate_status }: { index: number, generate_status: boolean }) => {
       const handleClick = () => {
-         setComponents((prevComponents) => {
+         setPrompts((prevComponents) => {
             const updatedComponents = [...prevComponents];
             updatedComponents[index] = {
                ...updatedComponents[index],
@@ -173,10 +168,9 @@ const TableComponents = (config: pageConfig) => {
    };
 
    const handleGenerateMessage = async (index: number) => {
-      const { input, tone_id } = components[index];
+      const { input, tone_id } = prompts[index];
       const tone = tones[tone_id-1].tone_name
       const prompt = config.getPrompt(input, tone)
-      // console.log(prompt)
       
       // UserGenerateMessage Type
       const data : UserGenerateMessage = {
@@ -189,11 +183,10 @@ const TableComponents = (config: pageConfig) => {
       }
       console.log("generate payload",data)
       
-
       try {
          const message = await generateMessage(data) ?? 'Error Please try again'
 
-         setComponents((prevComponents) => {
+         setPrompts((prevComponents) => {
             const updatedComponents = [...prevComponents];
             updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
             return updatedComponents;
@@ -204,7 +197,7 @@ const TableComponents = (config: pageConfig) => {
    };
 
    const handleAddNewRow = () => {
-      setComponents([...components, { input: "", tone_id: 1, message: "", generate_status: false }]);
+      setPrompts([...prompts, { input: "", tone_id: 1, message: "", generate_status: false }]);
    };
 
    const handleInputTextChange = (
@@ -213,7 +206,7 @@ const TableComponents = (config: pageConfig) => {
    ) => {
       const newInput = event.target.value;
 
-      setComponents((prevComponents) => {
+      setPrompts((prevComponents) => {
          const updatedComponents = [...prevComponents];
          updatedComponents[index] = {
             ...updatedComponents[index],
@@ -229,7 +222,7 @@ const TableComponents = (config: pageConfig) => {
       event: React.ChangeEvent<HTMLSelectElement>
    ) => {
       const newType = event.target.value;
-      setComponents((prevComponents) => {
+      setPrompts((prevComponents) => {
          const updatedComponents = [...prevComponents];
          updatedComponents[index] = {
             ...updatedComponents[index],
@@ -243,7 +236,7 @@ const TableComponents = (config: pageConfig) => {
 
    useEffect(() => {
       // console.log(tones)
-      if (components.length == 0) {
+      if (prompts.length == 0) {
          handleAddNewRow();
       }
       if (router.pathname.slice(1,).length !== 0) {
@@ -267,7 +260,7 @@ const TableComponents = (config: pageConfig) => {
                </figure>
 
                <Container fluid={true} className={styles.page_prompt_area}>
-                  {components.map(({ input, tone_id, message, generate_status }, index) => (
+                  {prompts.map(({ input, tone_id, message, generate_status }, index) => (
                      <Row key={index} className={styles.page_prompt_area_row}>
                         {/* Input Textfield */}
                         <Col xs={12} md={3} className="pb-2">
