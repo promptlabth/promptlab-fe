@@ -3,7 +3,6 @@ import { ReactNode, createContext, useContext, useState, useEffect } from 'react
 import { LoginUser } from '@/models';
 import { Login } from '@/api/LoginAPI';
 import { useRouter } from 'next/router';
-import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 interface UserContextInterface {
    user: LoginUser | null;
    setUser: (user: LoginUser) => void;
@@ -32,9 +31,10 @@ export function UserContextProvider({ children }: Props) {
    }
 
    const handleLogout = async () => {
-      localStorage.removeItem("accessToken");
-      deleteCookie("rt");
-      deleteCookie("at");
+      localStorage.removeItem("at");
+      localStorage.removeItem("rt");
+      // deleteCookie("rt");
+      // deleteCookie("at");
       router.reload()
    }
 
@@ -50,9 +50,11 @@ export function UserContextProvider({ children }: Props) {
          const accessToken = await result.user.getIdToken()
 
          const refreshToken = result.user.refreshToken
+         localStorage.setItem("at",accessToken);
+         localStorage.setItem("rt",refreshToken);
          
-         setCookie("rt",refreshToken)
-         setCookie("at",accessToken)
+         // setCookie("rt",refreshToken)
+         // setCookie("at",accessToken)
 
          UserLogin(accessToken)
 
@@ -66,7 +68,8 @@ export function UserContextProvider({ children }: Props) {
     * If the token exists, it logs in the user using the retrieved access token.
     **/
    useEffect(() => {
-      const token = getCookie("at")?.toString()
+      // const token = getCookie("at")?.toString()
+      const token = localStorage.getItem("at")
       // console.log(token)
       
       if (token) {

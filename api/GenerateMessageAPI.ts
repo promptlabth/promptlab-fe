@@ -8,8 +8,8 @@ async function generateMessage(UserGenerateMessage: UserGenerateMessage) {
 
         const requestOption = { 
             headers: { 
-                "Authorization": `Bearer ${getCookie("at")?.toString()}`,
-                "RefreshToken": getCookie("rt")?.toString()
+                "Authorization": `Bearer ${localStorage.getItem("at")}`,
+                "RefreshToken": localStorage.getItem("rt")
             },
         }
         const response = await axios.post(
