@@ -7,7 +7,7 @@ const API_KEY_CONFIG = new Configuration({
 // const API_URL = "https://api.openai.com/v1/completions";
 // const API_KEY = process.env.openAPI_KEY;
 
-const gennerateMassage = async (config: openApiMassageConfig) => {
+const gennerateMassageWithAPI = async (config: openApiMassageConfig) => {
     const openai = new OpenAIApi(API_KEY_CONFIG);
     try {
         const response = await openai.createChatCompletion({
@@ -51,4 +51,4 @@ export const generateImage = async (config: openApiImageConfig): Promise<Generat
 };
 
 
-export default gennerateMassage
+export default gennerateMassageWithAPI

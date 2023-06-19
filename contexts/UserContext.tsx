@@ -55,8 +55,6 @@ export function UserContextProvider({ children }: Props) {
          setCookie("at",accessToken)
 
          UserLogin(accessToken)
-         // Set access token to local storage
-         localStorage.setItem('accessToken', accessToken);
 
          router.reload()
       }
@@ -69,7 +67,7 @@ export function UserContextProvider({ children }: Props) {
     **/
    useEffect(() => {
       const token = getCookie("at")?.toString()
-      console.log(token)
+      // console.log(token)
       
       if (token) {
          UserLogin(token)

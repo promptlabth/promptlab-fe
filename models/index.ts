@@ -1,4 +1,5 @@
 import { CreateImageRequestSizeEnum } from "openai";
+import { StringLiteral } from "typescript";
 
 // Define an interface for User data
 // @Properties
@@ -41,16 +42,17 @@ export type openApiMassageConfig = {
    isTh: boolean;
 }
 
-// Define a type for prompt payload
-// @Attribute
-// promptPayload: Represents the payload data for a prompt that will send to OpenAI.
-// It is an object with the following properties:
-// - prompt: A string representing the prompt message.
-// - input: A string representing the input data.
-// - type: A string representing the type of data.
-export type promptPayload = {
+// user_id: str # firebase ID
+// prompt: str
+// model: str
+// input_message: str
+// tone_id: int
+// feature_id: int
+export type UserGenerateMessage = {
+   user_id?: string;
    prompt: string;
-   input: string;
-   type: string;
+   model: string;
+   input_message: string;
+   tone_id: number;
+   feature_id: number;
 }
-

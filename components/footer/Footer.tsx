@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "../../languages/language";
 import { useEffect, useState } from "react";
-import { urlLinks } from "../navbar/constant";
+import { urlLinks } from "../../constant";
 import { useRouter } from 'next/router';
 import { Button, Carousel, Col, Row } from "react-bootstrap";
 import { AiOutlineMessage } from 'react-icons/ai';

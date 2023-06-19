@@ -1,6 +1,6 @@
 import { translate } from "@/languages/language";
 import TableComponents from "@/components/tableComponnets/TableComponents";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { Language, useLanguage } from "@/contexts/LanguageContext";
 import Head from "next/head";
 
 const CreateArticle = () => {
@@ -19,12 +19,29 @@ const CreateArticle = () => {
                     temperature: 0.7,
                     maxToken: 4000
                 }}
-                promptEn={(input: string, type: string) => getPromtforEmailtEn(input, type)}
-                promptTh={(input: string, type: string) => getPromtforEmailTh(input, type)}
+                getPrompt={(input: string, type: string) => getPromptForArticle(input, type, language)}
             />
         </div>
     );
 
+}
+
+export function getPromptForArticle(input: string, type: string, language : Language): string {
+    const prompt =
+        language === "th" ?
+            `Write a blog post with hight demand SED keyword that talk about [main topic of article] that article should feeling like [emotion of massage] in Thai:
+            main topic of article: ${input}
+            emotion of massage: ${type}`:
+            
+        language === "en" ?
+            `Write a blog post with hight demand SED keyword that talk about [main topic of article] that article should feeling like [emotion of massage]:
+            main topic of article: ${input}
+            emotion of massage: ${type}`:
+
+            `Write a blog post with hight demand SED keyword that talk about [main topic of article] that article should feeling like [emotion of massage]:
+            main topic of article: ${input}
+            emotion of massage: ${type}`
+    return prompt
 }
 
 

@@ -41,6 +41,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       const result = await ListTones(language);
       if (result) {
          setTones(result)
+         console.log(tones)
       }
    }
 
@@ -48,7 +49,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       // Update the language in translations.ts when the context changes
       setCurrentLanguage(language);
       getTones();
-
+      
       if (language !== 'th') {
          setIsTh(false)
       }
