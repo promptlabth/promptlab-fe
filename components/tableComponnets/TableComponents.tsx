@@ -180,7 +180,7 @@ const TableComponents = (config: pageConfig) => {
       
       // UserGenerateMessage Type
       const data : UserGenerateMessage = {
-         user_id : userContext?.user?.uid,
+         user_id : userContext?.user?.firebase_id,
          prompt : prompt,
          input_message: input,
          model: config.modelConfig.model, 

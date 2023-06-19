@@ -10,7 +10,7 @@ import { StringLiteral } from "typescript";
 // - profilepic: A required field representing the URL of the user's profile picture. It is of type string.
 export type LoginUser = {
    id?: number;
-   uid?: string;
+   firebase_id?: string;
    name?: string;
    email: string;
    profilepic: string;
