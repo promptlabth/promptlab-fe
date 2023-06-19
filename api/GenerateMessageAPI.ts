@@ -3,7 +3,7 @@ import { UserGenerateMessage } from '@/models';
 import { getCookie } from 'cookies-next';
 
 async function generateMessage(UserGenerateMessage: UserGenerateMessage) {
-    const apiUrl = "https://prompt-lab-be-dev-uu4qhhj35a-as.a.run.app/gennerate"
+    const apiUrl = "https://prompt-lab-be-dev-uu4qhhj35a-as.a.run.app/user/gennerate"
     try {
 
         const requestOption = { 
