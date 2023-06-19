@@ -41,7 +41,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       const result = await ListTones(language);
       if (result) {
          setTones(result)
-         console.log(tones)
+         console.log("tones",result)
       }
    }
 

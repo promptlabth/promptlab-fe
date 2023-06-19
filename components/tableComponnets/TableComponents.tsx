@@ -187,7 +187,7 @@ const TableComponents = (config: pageConfig) => {
          tone_id : tones[tone_id-1].id,
          feature_id : features[config.titlePage],
       }
-      // console.log(data)
+      console.log("generate payload",data)
       
 
       try {

@@ -28,6 +28,7 @@ export function UserContextProvider({ children }: Props) {
    const UserLogin = async (token: string) => {
       const loginUser = await Login(token);
       setUser(loginUser)
+      console.log("user",loginUser)
    }
 
    const handleLogout = async () => {
