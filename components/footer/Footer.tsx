@@ -5,7 +5,7 @@ import { translate } from "../../languages/language";
 import { useEffect, useState } from "react";
 import { urlLinks } from "../../constant";
 import { useRouter } from 'next/router';
-import { Button, Carousel, Col, Row } from "react-bootstrap";
+import { Carousel} from "react-bootstrap";
 import { AiOutlineMessage } from 'react-icons/ai';
 import styles from "../footer/styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'

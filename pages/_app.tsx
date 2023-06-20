@@ -41,15 +41,16 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       />
 
       <Script id="gtag-id-engine" strategy="lazyOnload">
-        {`	window.dataLayer = window.dataLayer || [];
-		  		function gtag(){
-					dataLayer.push(arguments);
+        {`	
+        window.dataLayer = window.dataLayer || [];
+		  	function gtag(){
+          dataLayer.push(arguments);
 				}
 				gtag('js', new Date());
 				gtag('config', 'G-958P0ZZK61', {
 					page_path: window.location.pathname,
 				});
-         `}
+        `}
       </Script>
       <Script
         src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

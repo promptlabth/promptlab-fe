@@ -1,10 +1,7 @@
-import { useEffect, ChangeEvent, useRef } from "react";
+import { useEffect, useState} from "react";
 import { useRouter } from "next/router";
-import { useState } from "react";
-
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from "react-icons/bs";
-import { IoMdAddCircleOutline } from "react-icons/io";
 import { AiOutlineSend, AiFillVideoCamera } from "react-icons/ai";
 import { MdSell, MdOutlineArticle } from "react-icons/md";
 import { HiOutlineLightBulb } from "react-icons/hi";

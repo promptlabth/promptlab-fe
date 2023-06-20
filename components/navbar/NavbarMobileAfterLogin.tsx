@@ -2,20 +2,15 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
-import { Navbar, Nav, Container, Offcanvas } from "react-bootstrap";
-import { urlLinks } from "../../constant";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import styles from "./styles.module.css";
 import { RiMenu4Fill } from "react-icons/ri";
 import Flag from "react-flagkit";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
-import { VscTriangleLeft } from "react-icons/vsc";
-import { FaUserCircle } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
 import { BiHelpCircle } from "react-icons/bi";
 import { AiOutlineHistory } from "react-icons/ai";
-import { AiOutlineSend, AiFillVideoCamera } from "react-icons/ai";
+import { AiFillVideoCamera } from "react-icons/ai";
 import { MdSell, MdOutlineArticle } from "react-icons/md";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaClosedCaptioning } from "react-icons/fa";
@@ -23,10 +18,6 @@ import { useUserContext } from "@/contexts/UserContext";
 export const NavbarMobileAfterLogin: React.FC = () => {
   const { language, setLanguage } = useLanguage();
   const userContext = useUserContext()
-  const [profileImage, setProfileImage] = useState<string>("");
-  const [loginStatus, setLoginStatus] = useState(false);
-  const [menuShow, setMenuShow] = useState<boolean>(false);
-  const [navActive, setNavActive] = useState(null);
   const [windowWidth, setWindowWidth] = useState(0);
 
   

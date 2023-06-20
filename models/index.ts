@@ -1,5 +1,4 @@
 import { CreateImageRequestSizeEnum } from "openai";
-import { StringLiteral } from "typescript";
 
 // Define an interface for User data
 // @Properties
@@ -24,15 +23,6 @@ export type openApiImageConfig = {
    size: CreateImageRequestSizeEnum;
 }
 
-
-//todo : A upcoming new openApiMassageConfig type
-//    model: string;
-//    temperature: number;
-//    maxToken: number;
-//    promptEn: promptPayload;
-//    promptTh: promptPayload;
-//    isTh: boolean;
-
 export type openApiMassageConfig = {
    model: string;
    temperature: number;
@@ -42,12 +32,7 @@ export type openApiMassageConfig = {
    isTh: boolean;
 }
 
-// user_id: str # firebase ID
-// prompt: str
-// model: str
-// input_message: str
-// tone_id: int
-// feature_id: int
+
 export type UserGenerateMessage = {
    user_id?: string;
    prompt: string;
