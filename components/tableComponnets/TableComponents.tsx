@@ -184,8 +184,9 @@ const TableComponents = (config: pageConfig) => {
       console.log("generate payload",data)
       
       try {
-         const message = await generateMessage(data) ?? 'Error Please try again'
-
+         const result = await generateMessage(data) ?? 'Error Please try again'
+         console.log(result)
+         const message = result.message
          setPrompts((prevComponents) => {
             const updatedComponents = [...prevComponents];
             updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
