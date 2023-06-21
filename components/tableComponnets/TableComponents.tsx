@@ -1,6 +1,4 @@
 import { useState, useEffect,} from "react";
-import { useRouter } from 'next/router';
-
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from "react-icons/io";
@@ -20,6 +18,7 @@ import { Tones } from "@/models/tones";
 import { UserGenerateMessage } from "@/models";
 import { useUserContext } from "@/contexts/UserContext";
 import { features } from "@/constant";
+import { usePathname } from 'next/navigation'
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 type Prompt = {
@@ -59,8 +58,7 @@ const TableComponents = (config: pageConfig) => {
    const [prompts, setPrompts] = useState<Prompt[]>([]);
    const userContext = useUserContext()
    const { language, tones } = useLanguage();
-   const [pathname, setPathname] = useState<string>("")
-   const router = useRouter()
+   const pathname = usePathname()
 
    // Define an object mapping paths to icons
    // @Attribute
@@ -186,7 +184,7 @@ const TableComponents = (config: pageConfig) => {
       try {
          const result = await generateMessage(data) ?? 'Error Please try again'
          console.log(result)
-         const message = result.message
+         const message = result.reply
          setPrompts((prevComponents) => {
             const updatedComponents = [...prevComponents];
             updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
@@ -240,10 +238,7 @@ const TableComponents = (config: pageConfig) => {
       if (prompts.length == 0) {
          handleAddNewRow();
       }
-      if (router.pathname.slice(1,).length !== 0) {
-         setPathname(router.pathname.slice(1,))
-      }
-   }, [language]);
+   }, []);
 
    return (
       <div className={noto_sans_thai.className}>
@@ -251,7 +246,7 @@ const TableComponents = (config: pageConfig) => {
             <Container className={styles.page_container}>
 
                <figure className="text-center pt-4 pb-4 text-light">
-                  <div className="pb-2"> {icons[router.pathname]} </div>
+                  <div className="pb-2"> {icons[pathname]} </div>
                   <blockquote className="blockquote">
                      <p className="display-4 fw-bold">{translate(config.titlePage, language)}</p>
                   </blockquote>
