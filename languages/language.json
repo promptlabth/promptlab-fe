@@ -59,7 +59,9 @@
         "footer.privacy_policy":"นโยบายความเป็นส่วนตัว",
         "footer.help":"ศูนย์ช่วยเหลือ",
         "login":"เข้าสู่ระบบ",
-        "logout":"ออกจากระบบ"
+        "logout":"ออกจากระบบ",
+        "unlog" : "ท่านยังไม่ได้เข้าสู่ระบบ",
+        "history" : "ประวัติการสร้างข้อความ"
     },
     "en": {
         "language":"Language",
@@ -121,6 +123,8 @@
         "footer.privacy_policy":"Privacy Policy",
         "footer.help":"Help",
         "login":"Sign In",
-        "logout":"Sign Out"
+        "logout":"Sign Out",
+        "unlog" : "You are not logged in",
+        "history" : "History"
     }
 }

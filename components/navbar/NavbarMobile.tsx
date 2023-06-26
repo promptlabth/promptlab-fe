@@ -55,7 +55,10 @@ export const NavbarMobile: React.FC = () => {
         >
           <RiMenu4Fill className={styles.offcanvas_menu} />
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div
+          className={`${styles.navcollapse} collapse navbar-collapse`}
+          id="navbarSupportedContent"
+        >
           {windowWidth < 1000 ? (
             <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0">
               <li
@@ -63,12 +66,14 @@ export const NavbarMobile: React.FC = () => {
               >
                 <div className="pt-4">
                   <p>
-                    <b>ท่านยังไม่ได้เข้าสู่ระบบ</b>
+                    <b>{translate("unlog", language)}</b>
                   </p>
                   <div className="nav-link ">
                     <button
                       className={styles.navbar_login_button}
-                      onClick={() => { userContext?.handleLogin() }}
+                      onClick={() => {
+                        userContext?.handleLogin();
+                      }}
                     >
                       {translate("login", language)}
                     </button>
@@ -116,10 +121,10 @@ export const NavbarMobile: React.FC = () => {
                   <button className={styles.navbar_help_button}>
                     <AiFillHome />
                     <Link
-                      href={"/help"}
+                      href={"/"}
                       className={`${styles.remove_underline} ms-2`}
                     >
-                      หน้าหลัก
+                      {translate("home.title", language)}
                     </Link>
                   </button>
                 </div>
@@ -146,10 +151,10 @@ export const NavbarMobile: React.FC = () => {
                     <button className={styles.navbar_help_button}>
                       <MdSell />
                       <Link
-                        href={"/help"}
+                        href={"/createSellingPost"}
                         className={`${styles.remove_underline} ms-2`}
                       >
-                        เขียนแคปชั่นขายของ
+                        {translate("createSellingPost.title", language)}
                       </Link>
                     </button>
                   </div>
@@ -159,10 +164,10 @@ export const NavbarMobile: React.FC = () => {
                     <button className={styles.navbar_help_button}>
                       <HiOutlineLightBulb />
                       <Link
-                        href={"/help"}
+                        href={"/createIdeaContent"}
                         className={`${styles.remove_underline} ms-2`}
                       >
-                        ช่วยคิดคอนเทนต์
+                        {translate("createContents.title", language)}
                       </Link>
                     </button>
                   </div>
@@ -172,10 +177,10 @@ export const NavbarMobile: React.FC = () => {
                     <button className={styles.navbar_help_button}>
                       <MdOutlineArticle />
                       <Link
-                        href={"/help"}
+                        href={"/createArticle"}
                         className={`${styles.remove_underline} ms-2`}
                       >
-                        เขียนบทความ
+                        {translate("createArticle.title", language)}
                       </Link>
                     </button>
                   </div>
@@ -185,10 +190,10 @@ export const NavbarMobile: React.FC = () => {
                     <button className={styles.navbar_help_button}>
                       <AiFillVideoCamera />
                       <Link
-                        href={"/help"}
+                        href={"/createShortVideoScripts"}
                         className={`${styles.remove_underline} ms-2`}
                       >
-                        เขียนสคริปวีดีโอสั้น
+                        {translate("createScripts.title", language)}
                       </Link>
                     </button>
                   </div>
@@ -198,10 +203,10 @@ export const NavbarMobile: React.FC = () => {
                     <button className={styles.navbar_help_button}>
                       <FaClosedCaptioning />
                       <Link
-                        href={"/help"}
+                        href={"/createClickBaitWord"}
                         className={`${styles.remove_underline} ms-2`}
                       >
-                        เขียนประโยคเปิดคลิป
+                        {translate("createClickBait.title", language)}
                       </Link>
                     </button>
                   </div>
@@ -250,10 +255,10 @@ export const NavbarMobile: React.FC = () => {
                 <div className="nav-link">
                   <button className={styles.navbar_help_button}>
                     <Link
-                      href={"/help"}
+                      href={"/"}
                       className={`${styles.remove_underline}`}
                     >
-                      หน้าหลัก
+                      {translate("home.title", language)}
                     </Link>
                   </button>
                 </div>
@@ -274,7 +279,9 @@ export const NavbarMobile: React.FC = () => {
                 <div className="nav-link ">
                   <button
                     className={styles.navbar_login_button}
-                    onClick={() => { userContext?.handleLogin() }}
+                    onClick={() => {
+                      userContext?.handleLogin();
+                    }}
                   >
                     {translate("login", language)}
                   </button>
