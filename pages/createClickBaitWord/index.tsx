@@ -34,7 +34,7 @@ export function getPromptForClickBaitWord(input: string, type: string, language 
             emotional message : ${type}
             "Compose a Captivating Clickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [Title] AndLook [emotional message] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience in Thai:`:
         
-            language === "en" ?
+            language === "eng" ?
             `Title : ${input}
             emotional message : ${type}
             "Compose a Captivating CClickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [Title] AndLook [emotional message] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience:`:

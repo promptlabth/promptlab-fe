@@ -51,7 +51,7 @@ const ImageGenerator = () => {
                 Language:
                 <select
                     className="form-select bg-dark text-light"
-                    value={config.isTh ? "TH" : "EN"}
+                    value={config. ? "TH" : "EN"}
                     onChange={(event) => handleLanguageChange(event)}
                     required
                 >

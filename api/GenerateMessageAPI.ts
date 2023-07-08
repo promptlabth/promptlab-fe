@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { UserGenerateMessage } from '@/models';
-import { getCookie } from 'cookies-next';
+import { UserGenerateMessage , GenerateMessage} from '@/models';
 
-async function generateMessage(UserGenerateMessage: UserGenerateMessage) {
+async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage) {
     const apiUrl = "https://prompt-lab-be-dev-uu4qhhj35a-as.a.run.app/gennerate-with-user"
     try {
 
@@ -24,4 +23,25 @@ async function generateMessage(UserGenerateMessage: UserGenerateMessage) {
     }
 }
 
-export { generateMessage }
+async function generateMessage(GenerateMessage: GenerateMessage) {
+    const apiUrl = "https://prompt-lab-be-dev-uu4qhhj35a-as.a.run.app/gennerate"
+    try {
+
+        const requestOption = { 
+            headers: { "Content-Type": "application/json" },
+        }
+        const response = await axios.post(
+            apiUrl,
+            GenerateMessage,
+            requestOption
+        );
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return 'Error Please try again'
+    }
+
+}
+
+
+export { generateMessageWithUser, generateMessage }

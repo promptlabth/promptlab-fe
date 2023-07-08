@@ -5,7 +5,7 @@ import { Tones } from '@/models/tones';
 import { ListTones } from '@/api/ToneAPI';
 
 // Define the available language options
-export type Language = 'en' | 'th';
+export type Language = 'eng' | 'th';
 
 // Define the type of the LanguageContext
 // @Attribute
@@ -41,7 +41,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       const result = await ListTones(language);
       if (result) {
          setTones(result)
-         console.log("tones",result)
+         // console.log("tones",result)
       }
    }
 
@@ -49,6 +49,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       // Update the language in translations.ts when the context changes
       setCurrentLanguage(language);
       getTones();
+      tones.sort((a, b) => a.id - b.id);
+      console.log(tones)
       
       if (language !== 'th') {
          setIsTh(false)

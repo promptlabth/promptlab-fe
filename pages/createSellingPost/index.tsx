@@ -34,7 +34,7 @@ export function getPromptForSellingPost(input: string, type: string, language: L
       `Write a social media announcement about [product] and the feeling of message is [emotional of massage] in Thai:
       product: ${input}
       emotional of massage ${type}`:
-      language === "en" ?
+      language === "eng" ?
       `Write a social media announcement about [product] and the feeling of message is [emotional of massage]:   
       product: ${input}
       emotional of massage ${type}`:

@@ -90,7 +90,7 @@ export const NavbarMobile: React.FC = () => {
                   aria-expanded="false"
                 >
                   {language === "th" && <Flag country="TH" />}
-                  {language === "en" && <Flag country="US" />}
+                  {language === "eng" && <Flag country="US" />}
                 </a>
                 <ul
                   className="dropdown-menu dropdown-menu-dark"
@@ -100,7 +100,7 @@ export const NavbarMobile: React.FC = () => {
                     <a
                       className={`dropdown-item ${styles.language_list}`}
                       onClick={() => {
-                        setLanguage("en");
+                        setLanguage("eng");
                       }}
                     >
                       <Flag country="US" /> English
@@ -225,7 +225,7 @@ export const NavbarMobile: React.FC = () => {
                   aria-expanded="false"
                 >
                   {language === "th" && <Flag country="TH" />}
-                  {language === "en" && <Flag country="US" />}
+                  {language === "eng" && <Flag country="US" />}
                 </a>
                 <ul
                   className="dropdown-menu dropdown-menu-dark"
@@ -235,7 +235,7 @@ export const NavbarMobile: React.FC = () => {
                     <a
                       className={`dropdown-item ${styles.language_list}`}
                       onClick={() => {
-                        setLanguage("en");
+                        setLanguage("eng");
                       }}
                     >
                       <Flag country="US" /> English
@@ -278,6 +278,7 @@ export const NavbarMobile: React.FC = () => {
               <li className="nav-item">
                 <div className="nav-link ">
                   <button
+                    // disabled
                     className={styles.navbar_login_button}
                     onClick={() => {
                       userContext?.handleLogin();

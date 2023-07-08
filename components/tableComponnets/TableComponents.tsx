@@ -11,14 +11,15 @@ import { FaClosedCaptioning } from 'react-icons/fa';
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "../../languages/language";
 import { Col, Container, Row } from "react-bootstrap";
-import { generateMessage } from "@/api/GenerateMessageAPI";
+import { generateMessage, generateMessageWithUser } from "@/api/GenerateMessageAPI";
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
 import { Tones } from "@/models/tones";
-import { UserGenerateMessage } from "@/models";
+import { GenerateMessage, UserGenerateMessage } from "@/models";
 import { useUserContext } from "@/contexts/UserContext";
 import { features } from "@/constant";
 import { usePathname } from 'next/navigation'
+import { GetTonesByID } from "@/api/ToneAPI";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 type Prompt = {
@@ -27,6 +28,7 @@ type Prompt = {
    message: string;
    generate_status: boolean;
 };
+
 // Define an OpenAI configuration data type
 // @Attribute
 // modelConfig: Represents the configuration data for OpenAI.
@@ -167,22 +169,42 @@ const TableComponents = (config: pageConfig) => {
 
    const handleGenerateMessage = async (index: number) => {
       const { input, tone_id } = prompts[index];
-      const tone = tones[tone_id-1].tone_name
-      const prompt = config.getPrompt(input, tone)
+      const tone = await GetTonesByID(tone_id)
+      const prompt = config.getPrompt(input, tone.tone_name)
+      // console.log(prompt)
+
+      // TODO Need to add code to check that is login or not
+      // TODO If yes, execute generate message with user func
+      // TODO Else,  execute free generate message instead
       
+      // ? Temporary hide this code. 
       // UserGenerateMessage Type
-      const data : UserGenerateMessage = {
-         user_id : userContext?.user?.firebase_id,
+      // const data : UserGenerateMessage = {
+      //    user_id : userContext?.user?.firebase_id,
+      //    prompt : prompt,
+      //    input_message: input,
+      //    model: config.modelConfig.model, 
+      //    tone_id : tones[tone_id-1].id,
+      //    feature_id : features[config.titlePage],
+      // }
+
+      const data : GenerateMessage = {
          prompt : prompt,
          input_message: input,
          model: config.modelConfig.model, 
-         tone_id : tones[tone_id-1].id,
+         tone_id : tone_id,
          feature_id : features[config.titlePage],
       }
       console.log("generate payload",data)
       
+      // ? Comment temporary because need to assert a payload data
       try {
-         const result = await generateMessage(data) ?? 'Error Please try again'
+         // const result = await generateMessageWithUser(data) ?? 'Error Please try again'
+         const result = 
+            userContext?.user == null ? 
+               await generateMessage(data) ?? 'Error Please try again' :
+               console.log("OK user Login")
+
          console.log(result)
          const message = result.reply
          setPrompts((prevComponents) => {
@@ -196,8 +218,13 @@ const TableComponents = (config: pageConfig) => {
    };
 
    const handleAddNewRow = () => {
-      setPrompts([...prompts, { input: "", tone_id: 1, message: "", generate_status: false }]);
+      setPrompts([...prompts, {
+         input: "", 
+         tone_id: language === "th" ? 1 : 9, 
+         message: "", 
+         generate_status: false }]);
    };
+
 
    const handleInputTextChange = (
       index: number,
@@ -215,7 +242,6 @@ const TableComponents = (config: pageConfig) => {
       });
    };
 
-
    const handleTypeChange = (
       index: number,
       event: React.ChangeEvent<HTMLSelectElement>
@@ -232,13 +258,12 @@ const TableComponents = (config: pageConfig) => {
       console.log(newType)
    };
 
-
    useEffect(() => {
-      // console.log(tones)
       if (prompts.length == 0) {
          handleAddNewRow();
       }
-   }, []);
+   }, [prompts]);
+
 
    return (
       <div className={noto_sans_thai.className}>
@@ -279,7 +304,7 @@ const TableComponents = (config: pageConfig) => {
                                  className={styles.page_prompt_area_combobox}
                                  value={tone_id}
                                  onChange={(event) => handleTypeChange(index, event)}
-                                 required
+                                 // required
                               >
                                  {tones.map((item : Tones) => (
                                     <option key={item.id} value={item.id}>

@@ -63,7 +63,7 @@
         "unlog" : "ท่านยังไม่ได้เข้าสู่ระบบ",
         "history" : "ประวัติการสร้างข้อความ"
     },
-    "en": {
+    "eng": {
         "language":"Language",
         "modal.title.howToUse": "How to use it",
         "modal.title.inputMessage": "Input your message",

@@ -33,7 +33,7 @@ export function getPromptForArticle(input: string, type: string, language : Lang
             main topic of article: ${input}
             emotion of massage: ${type}`:
             
-        language === "en" ?
+        language === "eng" ?
             `Write a blog post with hight demand SED keyword that talk about [main topic of article] that article should feeling like [emotion of massage]:
             main topic of article: ${input}
             emotion of massage: ${type}`:

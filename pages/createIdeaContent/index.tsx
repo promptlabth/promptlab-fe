@@ -29,7 +29,7 @@ export function getPromtforIdeaContent(input: string, type: string, language : L
       language === "th" ?
          `Create list of idea content with short biref about [${input}] that all content should make feeling like [${type}]
          Show list of idea with short biref in Thai language:`:
-      language === "en" ?
+      language === "eng" ?
          `Create list of idea content with short biref about [${input}] that all content should make feeling like [${type}] 
          show list of idea with short biref:`:
          

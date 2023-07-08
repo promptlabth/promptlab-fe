@@ -32,6 +32,14 @@ export type openApiMassageConfig = {
    isTh: boolean;
 }
 
+export type GenerateMessage = {
+   prompt: string;
+   model: string;
+   input_message: string;
+   tone_id: number;
+   feature_id: number;
+}
+
 
 export type UserGenerateMessage = {
    user_id?: string;

@@ -30,7 +30,7 @@ export function getPromptForShortVideoScripts(input: string, type: string, langu
             `write scripts for short video that talk about [short video content] and the feeling of scripts is [emotional of content] in Thai:
             short video content: ${input}
             emotional of content ${type}`:
-        language === "en" ?
+        language === "eng" ?
             `write scripts for short video that talk about [short video content] and the feeling of scripts is [emotional of content]:
             short video content: ${input}
             emotional of content ${type}`:
