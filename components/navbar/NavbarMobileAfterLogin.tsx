@@ -79,7 +79,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                   aria-expanded="false"
                 >
                   {language === "th" && <Flag country="TH" />}
-                  {language === "en" && <Flag country="US" />}
+                  {language === "eng" && <Flag country="US" />}
                 </a>
                 <ul
                   className="dropdown-menu dropdown-menu-dark"
@@ -89,7 +89,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                     <a
                       className={`dropdown-item ${styles.language_list}`}
                       onClick={() => {
-                        setLanguage("en");
+                        setLanguage("eng");
                       }}
                     >
                       <Flag country="US" /> English
@@ -239,7 +239,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                   aria-expanded="false"
                 >
                   {language === "th" && <Flag country="TH" />}
-                  {language === "en" && <Flag country="US" />}
+                  {language === "eng" && <Flag country="US" />}
                 </a>
                 <ul
                   className="dropdown-menu dropdown-menu-dark"
@@ -249,7 +249,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                     <a
                       className={`dropdown-item ${styles.language_list}`}
                       onClick={() => {
-                        setLanguage("en");
+                        setLanguage("eng");
                       }}
                     >
                       <Flag country="US" /> English

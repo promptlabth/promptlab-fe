@@ -83,7 +83,7 @@ const Footer = () => {
                                     <AiOutlineMessage className="fs-5" />
                                     <text className="ps-2">
                                         {language === "th" && "สนใจติดต่อเรา"}
-                                        {language === "en" && "Contact us"}
+                                        {language === "eng" && "Contact us"}
                                     </text>
                                 </button>
                             </div>
