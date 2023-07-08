@@ -31,7 +31,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     if (accessToken) {
       setToken(accessToken)
     }
-  })
+  },[])
   return getLayout(
     <main className={noto_sans_thai.className}>
       <Script
