@@ -18,6 +18,8 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { VscTriangleLeft } from "react-icons/vsc";
 import { VscTriangleRight } from "react-icons/vsc";
 import { openApiMassageConfig } from "@/models";
+import { getMessageHistoryWithUserId } from "@/api/GetMessageHistory";
+import { useUserContext } from "@/contexts/UserContext";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 
 type ComponentProps = {
@@ -46,7 +48,14 @@ const History = (config: pageConfig) => {
   const [isTh, setIsTh] = useState(true);
   const { language, setLanguage } = useLanguage();
   const [pathname, setPathname] = useState<string>("");
+  const userContext = useUserContext();
   const router = useRouter();
+
+  const user_id = userContext?.user?.firebase_id
+  const getMessage = async () => {
+    const message = await getMessageHistoryWithUserId(user_id);
+    console.log(message);
+  }
 
   const postTypes = [
     { value: "funny", label: translate("table.type.funny", language) },
@@ -249,6 +258,7 @@ const History = (config: pageConfig) => {
   };
  
   useEffect(() => {
+    getMessage();
     if (components.length == 0) {
       handleAddNewRow();
     }
