@@ -29,17 +29,13 @@ const CreateShortVideoScripts = () => {
 
 const getPromtforSellingPostEn = (input: string, type: string): string => {
     return `
-    write scripts for short video that talk about [short video content] and the feeling of scripts is [emotional of content]:
-    short video content: ${input}
-    emotional of content ${type}
+    write full scripts for short video that talk about [${input}] and the feeling of scripts is [${type}]:
     `;
 }
 
 const getPromtforSellingPostTh = (input: string, type: string): string => {
     return `
-    write scripts for short video that talk about [short video content] and the feeling of scripts is [emotional of content] in Thai:
-    short video content: ${input}
-    emotional of content ${type}
+    write full scripts for short video that talk about [${input}] and the feeling of scripts is [${type}] [เป็นภาษาไทยเท่านั้น]:
     `;
 }
 

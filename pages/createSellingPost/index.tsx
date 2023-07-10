@@ -49,9 +49,7 @@ const CreateSellingPost = () => {
 
 const getPromptforSellingPostEn = (input: string, type: string): string => {
    return `
-    Write a social media announcement about [product] and the feeling of message is [emotional of massage]:
-    product: ${input}
-    emotional of massage ${type}
+    Write a social media announcement about [${input}] and the feeling of message is [${type}]:
     `;
 }
 
@@ -63,9 +61,7 @@ const getPromptforSellingPostEn = (input: string, type: string): string => {
 */
 const getPromptforSellingPostTh = (input: string, type: string): string => {
    return `
-    Write a social media announcement about [product] and the feeling of message is [emotional of massage] in Thai:
-    product: ${input}
-    emotional of massage ${type}
+    Write a social media announcement about [${input}] and the feeling of message is [${type}] [เป็นภาษาไทยเท่านั้น]:
     `;
 }
 
