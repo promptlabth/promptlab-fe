@@ -1,4 +1,4 @@
-import { useState, useEffect,} from "react";
+import { useState, useEffect, } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from "react-icons/io";
@@ -171,39 +171,32 @@ const TableComponents = (config: pageConfig) => {
       const { input, tone_id } = prompts[index];
       const tone = await GetTonesByID(tone_id)
       const prompt = config.getPrompt(input, tone.tone_name)
-      // console.log(prompt)
+      console.log()
+      const data: UserGenerateMessage | GenerateMessage = userContext?.user
+         ? {
+            user_id: userContext.user.firebase_id,
+            prompt: prompt,
+            input_message: input,
+            model: config.modelConfig.model,
+            tone_id: tone_id,
+            feature_id: features[config.titlePage],
+         }
+         : {
+            prompt: prompt,
+            input_message: input,
+            model: config.modelConfig.model,
+            tone_id: tone_id,
+            feature_id: features[config.titlePage],
+         };
 
-      // TODO Need to add code to check that is login or not
-      // TODO If yes, execute generate message with user func
-      // TODO Else,  execute free generate message instead
-      
-      // ? Temporary hide this code. 
-      // UserGenerateMessage Type
-      // const data : UserGenerateMessage = {
-      //    user_id : userContext?.user?.firebase_id,
-      //    prompt : prompt,
-      //    input_message: input,
-      //    model: config.modelConfig.model, 
-      //    tone_id : tones[tone_id-1].id,
-      //    feature_id : features[config.titlePage],
-      // }
 
-      const data : GenerateMessage = {
-         prompt : prompt,
-         input_message: input,
-         model: config.modelConfig.model, 
-         tone_id : tone_id,
-         feature_id : features[config.titlePage],
-      }
-      console.log("generate payload",data)
-      
-      // ? Comment temporary because need to assert a payload data
+      console.log("generate payload", data)
+
       try {
-         // const result = await generateMessageWithUser(data) ?? 'Error Please try again'
-         const result = 
-            userContext?.user == null ? 
+         const result =
+            userContext?.user == null ?
                await generateMessage(data) ?? 'Error Please try again' :
-               console.log("OK user Login")
+               await generateMessageWithUser(data) ?? 'Error Please try again'
 
          console.log(result)
          const message = result.reply
@@ -219,10 +212,11 @@ const TableComponents = (config: pageConfig) => {
 
    const handleAddNewRow = () => {
       setPrompts([...prompts, {
-         input: "", 
-         tone_id: language === "th" ? 1 : 9, 
-         message: "", 
-         generate_status: false }]);
+         input: "",
+         tone_id: language === "th" ? 1 : 9,
+         message: "",
+         generate_status: false
+      }]);
    };
 
 
@@ -304,9 +298,9 @@ const TableComponents = (config: pageConfig) => {
                                  className={styles.page_prompt_area_combobox}
                                  value={tone_id}
                                  onChange={(event) => handleTypeChange(index, event)}
-                                 // required
+                              // required
                               >
-                                 {tones.map((item : Tones) => (
+                                 {tones.map((item: Tones) => (
                                     <option key={item.id} value={item.id}>
                                        {item.tone_name}
                                     </option>

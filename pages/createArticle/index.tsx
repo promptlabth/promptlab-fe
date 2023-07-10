@@ -44,21 +44,4 @@ export function getPromptForArticle(input: string, type: string, language : Lang
     return prompt
 }
 
-
-const getPromtforEmailtEn = (input: string, type: string): string => {
-    return `
-    Write a blog post with hight demand SED keyword that talk about [main topic of article] that article should feeling like [emotion of massage]:
-    main topic of article: ${input}
-    emotion of massage: ${type}
-    `;
-}
-
-const getPromtforEmailTh = (input: string, type: string): string => {
-    return `    
-    Write a blog post with hight demand SED keyword that talk about [main topic of article] that article should feeling like [emotion of massage] in Thai:
-    main topic of article: ${input}
-    emotion of massage: ${type}
-    `;
-}
-
 export default CreateArticle

@@ -51,9 +51,8 @@ const History = (config: pageConfig) => {
   const userContext = useUserContext();
   const router = useRouter();
 
-  const user_id = userContext?.user?.firebase_id
   const getMessage = async () => {
-    const message = await getMessageHistoryWithUserId(user_id);
+    const message = await getMessageHistoryWithUserId();
     console.log(message);
   }
 
