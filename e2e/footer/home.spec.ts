@@ -1,4 +1,9 @@
 import { test, expect } from '@playwright/test'
+
+// jest ///
+// cypress ///// 
+// playwright /
+// robot ///// -> selenium = robot
  
 test('should running main page', async ({ page }) => {
 
