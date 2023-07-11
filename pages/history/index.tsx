@@ -13,20 +13,14 @@ import { VscTriangleLeft } from "react-icons/vsc";
 import { VscTriangleRight } from "react-icons/vsc";
 import { PromptMessage } from "@/models";
 import { getMessageHistoryWithUserId } from "@/api/GetMessageHistory";
+import { GetTonesByID } from "@/api/ToneAPI";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 
-function formatDate(date_time: Date): string {
+function formatDate(date_time: string): string {
    const date = new Date(date_time);
-   const year = date.getFullYear();
-   const month = String(date.getMonth() + 1).padStart(2, '0');
-   const day = String(date.getDate()).padStart(2, '0');
-   const hours = String(date.getHours()).padStart(2, '0');
-   const minutes = String(date.getMinutes()).padStart(2, '0');
-   const seconds = String(date.getSeconds()).padStart(2, '0');
-   const milliseconds = String(date.getMilliseconds()).padStart(3, '0');
-
-   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}`;
+   return date.toUTCString()
 }
+ 
 
 const History = () => {
    const [prompts, setPrompts] = useState<PromptMessage[]>([]);
@@ -37,8 +31,19 @@ const History = () => {
    const getMessage = async () => {
       const result = await getMessageHistoryWithUserId();
       if (result) {
-         setPrompts(result)
+         const updatedPrompts = await Promise.all(
+            result.map(async (prompt : PromptMessage) => ({
+               ...prompt,
+               tone_name: await getToneName(prompt.tone_id),
+            }))
+         );
+         console.log(updatedPrompts)
+         setPrompts(updatedPrompts);
       }
+   }
+   const getToneName = async (tone_id: number) => {
+      const tone = await GetTonesByID(tone_id)
+      return tone.tone_name
    }
 
    const CopyToClipboardButton = ({ message }: { message: string }) => {
@@ -94,9 +99,36 @@ const History = () => {
    const indexOfLastPrompt = currentPage * promptsPerPage;
    const indexOfFirstPrompt = indexOfLastPrompt - promptsPerPage;
    const currentPrompts = prompts.slice(indexOfFirstPrompt, indexOfLastPrompt);
-
-   console.log(currentPrompts)
-
+   const totalPages = Math.ceil(prompts.length / promptsPerPage);
+   const Pagination = () => {
+      return (
+         <div className={`${styles.pagination} -flex justify-content-end pb-2`}>
+            <button
+               className={`${currentPage === 1 ? styles.pagination_item_disable : styles.pagination_item}`}
+               disabled={currentPage === 1}
+               onClick={() => setCurrentPage(currentPage - 1)}
+            >
+               <VscTriangleLeft/>
+            </button>
+            {Array.from({ length: Math.ceil(prompts.length / promptsPerPage) }, (_, index) => (
+               <a
+                  key={index}
+                  className={`${styles.pagination_page_number} ${currentPage === index + 1 ? 'active' : ''}`}
+                  onClick={() => setCurrentPage(index + 1)}
+               >
+                  {index + 1}
+               </a>
+            ))}
+            <button
+               className={`${currentPage === totalPages ? styles.pagination_item_disable : styles.pagination_item}`}
+               disabled={currentPage === totalPages}
+               onClick={() => setCurrentPage(currentPage + 1)}
+            >
+               <VscTriangleRight />
+            </button>
+         </div>
+      )
+   }
    useEffect(() => {
       getMessage();
    }, []);
@@ -107,54 +139,37 @@ const History = () => {
             <Container className={styles.page_container}>
                <figure className="text-center pb-1 pt-3 text-light">
                   <h2>
-                     <b>ประวัติการสร้างข้อความ</b>
+                     <b>{translate("history", language)}</b>
                   </h2>
                </figure>
 
                <Container fluid={true} className={styles.page_prompt_area}>
-                  <div className={`${styles.pagination} -flex justify-content-end`}>
-                     <a href="#" className={`${styles.pagination_item}`} onClick={() => setCurrentPage(currentPage - 1)}>
-                        <VscTriangleLeft />
-                     </a>
-                     {Array.from({ length: Math.ceil(prompts.length / promptsPerPage) }, (_, index) => (
-                        <a
-                           key={index}
-                           href="#"
-                           className={`${styles.pagination_item} ${currentPage === index + 1 ? 'active' : ''}`}
-                           onClick={() => setCurrentPage(index + 1)}
-                        >
-                           {index + 1}
-                        </a>
-                     ))}
-                     <a href="#" className={styles.pagination_item} onClick={() => setCurrentPage(currentPage + 1)}>
-                        <VscTriangleRight />
-                     </a>
-                  </div>
+                  <Pagination />
                   {currentPrompts.map(
-                     ({ input_message, result_message, tone_id, date_time }, index) => (
+                     ({ input_message, result_message, tone_name, date_time, }, index) => (
                         <Row key={index} className={styles.page_prompt_area_row}>
-                           <Col xs={1} md={1} lg={1} className="text-light">
+                           <Col className="text-light">
                               <div className="fs-5 text-light"> {index + 1}</div>
                            </Col>
                            <Col xs={12} md={2} lg={2} className="pb-2 ">
                               <Col className="fs-5 text-light" xs={12} md={12}>
-                                 {translate("table.input.title", language)}
+                                 <b> {translate("table.input.title", language)}</b>
                               </Col>
-                              <div className="pt-2 text-light ">
+                              <div className={styles.page_prompt_area_textfield}>
                                  {input_message}
                               </div>
                            </Col>
-                           <Col xs={12} md={2} lg={2} className="pb-2">
+                           <Col xs={12} md={2} lg={2} className="pb-2 ">
                               <Col className="fs-5 text-light" xs={12} md={6} lg={12}>
-                                 {translate("table.type.title", language)}
+                                 <b> {translate("table.type.title", language)}</b>
                               </Col>
                               <Col sm className="pt-2">
-                                 <div className="text-light"> Style {tone_id} </div>
+                                 <div className={styles.page_prompt_area_combobox}> {tone_name}</div>
                               </Col>
                            </Col>
-                           <Col xs={12} md={3} lg={5} xl={5} className="pb-2">
+                           <Col xs={12} md={4} lg={5} xl={5} className="pb-2">
                               <Col className="fs-5 text-light" xs={12} md={6} lg={12}>
-                                 {translate("table.massage.title", language)}
+                                 <b> {translate("table.massage.title", language)}</b>
                               </Col>
                               <div className="pt-1 text-light">
                                  <Container fluid={true} className="">
@@ -171,34 +186,14 @@ const History = () => {
                            </Col>
                            <Col xs={12} md={3} lg={2} xl={2} className="pb-2">
                               <Col className="fs-5 text-light d-flex justify-content-between align-items-center">
-                                 <div>วันที่สร้าง</div>
+                                 <b> {translate("createAt", language)}</b>
                               </Col>
-                              <div className="text-light"> {formatDate(date_time)}</div>
+                              <div className="text-light"> {formatDate(date_time.toString())}</div>
                            </Col>
                         </Row>
                      ))
                   }
-
-                  {/* A pagination, need to make this be functional */}
-                  <div className={`${styles.pagination} -flex justify-content-end`}>
-                     <a href="#" className={`${styles.pagination_item}`} onClick={() => setCurrentPage(currentPage - 1)}>
-                        <VscTriangleLeft />
-                     </a>
-                     {Array.from({ length: Math.ceil(prompts.length / promptsPerPage) }, (_, index) => (
-                        <a
-                           key={index}
-                           href="#"
-                           className={`${styles.pagination_item} ${currentPage === index + 1 ? 'active' : ''}`}
-                           onClick={() => setCurrentPage(index + 1)}
-                        >
-                           {index + 1}
-                        </a>
-                     ))}
-                     <a href="#" className={styles.pagination_item} onClick={() => setCurrentPage(currentPage + 1)}>
-                        <VscTriangleRight />
-                     </a>
-                  </div>
-
+                  <Pagination />
                </Container>
             </Container>
          </Container>

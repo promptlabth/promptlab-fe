@@ -61,6 +61,7 @@ const TableComponents = (config: pageConfig) => {
    const userContext = useUserContext()
    const { language, tones } = useLanguage();
    const pathname = usePathname()
+   const featureName = `${pathname.slice(1)}`
 
    // Define an object mapping paths to icons
    // @Attribute
@@ -281,7 +282,7 @@ const TableComponents = (config: pageConfig) => {
                            <Col className="fs-5 text-light" xs={12} md={12}>{translate('table.input.title', language)}</Col>
                            <div className="pt-2">
                               <textarea
-                                 placeholder={translate(`placeholder.${pathname}`, language)}
+                                 placeholder={translate(`placeholder.${featureName}`, language)}
                                  className={styles.page_prompt_area_textfield}
                                  value={input}
                                  onChange={(event) => handleInputTextChange(index, event)}

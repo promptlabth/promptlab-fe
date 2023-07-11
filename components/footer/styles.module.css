@@ -52,6 +52,15 @@
 
 }
 
+.footer_link_disable{
+    color: white;
+    opacity: 50%;
+    font-weight: bold;
+    font-size: 14px;
+    transition:  0.3s;
+
+}
+
 .footer_link:hover{
     color: #00FFAB;
 }

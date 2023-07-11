@@ -31,7 +31,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     if (accessToken) {
       setToken(accessToken)
     }
-  },[])
+  }, [])
   return getLayout(
     <main className={noto_sans_thai.className}>
       <Script
@@ -42,14 +42,14 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
       <Script id="gtag-id-engine" strategy="lazyOnload">
         {`	
-        window.dataLayer = window.dataLayer || [];
-		  	function gtag(){
-          dataLayer.push(arguments);
-				}
-				gtag('js', new Date());
-				gtag('config', 'G-958P0ZZK61', {
-					page_path: window.location.pathname,
-				});
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-958P0ZZK61', {
+            page_path: window.location.pathname,
+          });
         `}
       </Script>
       <Script

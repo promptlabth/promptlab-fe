@@ -183,8 +183,14 @@
   }
 }
 
-/* ซ่อนไว้ชั่วคราว รอระบบ login */
 .navbar_login_button:hover {
+    background-color: #00FFAB;
+    color: #000000;
+    transform: scale(1.07);
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navbar_logout_button:hover {
     background-color: #00FFAB;
     color: #000000;
     transform: scale(1.07);

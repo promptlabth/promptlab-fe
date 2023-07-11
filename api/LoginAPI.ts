@@ -7,7 +7,7 @@ export async function Login(accessToken : string) {
    try {
       const requestOption = { headers: { "Authorization": `Bearer ${accessToken}` },}
       const response = await axios.post(apiUrl, {}, requestOption);
-      return response.data
+      return response
 
    } catch (error) {
       console.error(error);

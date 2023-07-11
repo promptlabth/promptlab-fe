@@ -60,6 +60,7 @@
     background-color: #3D434A;
     color: white;
     padding: 0.5rem;
+    margin-top: 0.5rem;
     border-radius: 10px;
     width: 100%;
     min-height: 60px;
@@ -127,7 +128,20 @@
     display: flex;
 }
 
-.pagination_item {
+.pagination_item, .pagination_item_disable {
+    border: none;
+    background: none;
+    padding: 5px 9px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+.pagination_item_disable {
+    opacity: 30%;
+}
+
+
+.pagination_page_number {
     padding: 5px 12px;
     text-decoration: none;
     color: rgb(255, 255, 255);
@@ -139,6 +153,17 @@
 }
 
 .pagination_item:hover {
+    background-color: #f0f0f0;
+    color: rgb(0, 182, 97);
+    border-radius: 100%;
+}
+
+.pagination_page_number.active{
+    background-color: #ccc;
+    color: rgb(0, 182, 97);
+}
+
+.pagination_page_number:hover {
     background-color: #f0f0f0;
     color: rgb(0, 182, 97);
     border-radius: 100%;

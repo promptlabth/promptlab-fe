@@ -61,7 +61,8 @@
         "login":"เข้าสู่ระบบ",
         "logout":"ออกจากระบบ",
         "unlog" : "ท่านยังไม่ได้เข้าสู่ระบบ",
-        "history" : "ประวัติการสร้างข้อความ"
+        "history" : "ประวัติการสร้างข้อความ",
+        "createAt" : "สร้างเมื่อ"
     },
     "eng": {
         "language":"Language",
@@ -125,6 +126,7 @@
         "login":"Sign In",
         "logout":"Sign Out",
         "unlog" : "You are not logged in",
-        "history" : "History"
+        "history" : "History",
+        "createAt" : "Create at"
     }
 }

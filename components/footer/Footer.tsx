@@ -111,11 +111,11 @@ const Footer = () => {
 
                     </div>
                     <Container fluid={true} className="p-3 d-flex justify-content-center">
-                        <div className={styles.footer_link}>
+                        <div className={styles.footer_link_disable}>
                             {translate("footer.aboutUs", language)}
                         </div>
                         <div className={styles.footer_vertical_div} />
-                        <div className={styles.footer_link}>
+                        <div className={styles.footer_link_disable}>
                             {translate("footer.joinUs", language)}
                         </div>
                         <div className={styles.footer_vertical_div} />
@@ -127,9 +127,11 @@ const Footer = () => {
                         </Link>
 
                         <div className={styles.footer_vertical_div} />
-                        <div className={styles.footer_link}>
-                            {translate("footer.help", language)}
-                        </div>
+                        <Link href={"/help"} className="nav-link">
+                            <div className={styles.footer_link}>
+                                {translate("footer.help", language)}
+                            </div>
+                        </Link>
                         <div className={styles.footer_vertical_div} />
 
                     </Container>

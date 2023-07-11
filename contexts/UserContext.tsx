@@ -26,16 +26,34 @@ export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
    const router = useRouter()
    const UserLogin = async (token: string) => {
-      const loginUser = await Login(token);
-      setUser(loginUser)
-      console.log("user",loginUser)
+      const loginResult = await Login(token);
+
+      if(loginResult?.status !== 200) {
+         localStorage.removeItem("at");
+         localStorage.removeItem("rt");
+         const result = await signInWithFacebook();
+         if (result) {
+
+            // Retrieve the access token from the user data
+            const accessToken = await result.user.getIdToken()
+            const refreshToken = result.user.refreshToken
+            localStorage.setItem("at",accessToken);
+            localStorage.setItem("rt",refreshToken);
+            const loginResult = await Login(accessToken);
+            if (loginResult) {
+               setUser(loginResult?.data)
+               console.log("relogin-user",loginResult?.data)
+            }
+         }
+      } else {
+         setUser(loginResult?.data)
+         console.log("user",loginResult?.data)
+      }
    }
 
    const handleLogout = async () => {
       localStorage.removeItem("at");
       localStorage.removeItem("rt");
-      // deleteCookie("rt");
-      // deleteCookie("at");
       router.reload()
    }
 
@@ -54,13 +72,9 @@ export function UserContextProvider({ children }: Props) {
          const refreshToken = result.user.refreshToken
          localStorage.setItem("at",accessToken);
          localStorage.setItem("rt",refreshToken);
-         
-         // setCookie("rt",refreshToken)
-         // setCookie("at",accessToken)
 
          UserLogin(accessToken)
-
-         // router.reload()
+         router.reload()
       }
    }
 
@@ -70,9 +84,7 @@ export function UserContextProvider({ children }: Props) {
     * If the token exists, it logs in the user using the retrieved access token.
     **/
    useEffect(() => {
-      // const token = getCookie("at")?.toString()
       const token = localStorage.getItem("at")
-      // console.log(token)
 
       // TODO Check that access token is expired or not
       // Pseudo code
