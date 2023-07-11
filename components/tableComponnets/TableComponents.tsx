@@ -247,10 +247,19 @@ const TableComponents = (config: pageConfig) => {
       console.log(newType)
    };
 
+   const handleAddNewRow = () => {
+      setPrompts([...prompts, {
+         input: "",
+         tone_id: language === "th" ? 1 : 9,
+         message: "",
+         generate_status: false
+      }]);
+   };
+
    const handleDeleteRow = (index: number) => {
-      setComponents([
-         ...components.slice(0, index),
-         ...components.slice(index + 1, components.length)
+      setPrompts([
+         ...prompts.slice(0, index),
+         ...prompts.slice(index + 1, prompts.length)
       ]);
    }
 
@@ -279,7 +288,7 @@ const TableComponents = (config: pageConfig) => {
                   {prompts.map(({ input, tone_id, message, generate_status }, index) => (
                      <Row key={index} className={styles.page_prompt_area_row}>
                         <div className="pt-1 pe-1 justify-content-end d-flex">
-                           {components.length > 1 ?
+                           {prompts.length > 1 ?
                               <>
                                  {generate_status ? 
                                     <ImCross className={styles.disable_delete_row_btn} fontSize={20} />
