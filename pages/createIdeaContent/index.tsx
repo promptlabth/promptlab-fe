@@ -46,11 +46,4 @@ const getPromtforIdeaContentEn = (input: string, type: string): string => {
     `;
 }
 
-const getPromtforIdeaContentTh = (input: string, type: string): string => {
-   return `    
-    Create list of idea content with short biref about [${input}] that all content should make feeling like [${type}]
-    Show list of idea with short biref in Thai language:
-    `;
-}
-
 export default CreateContent

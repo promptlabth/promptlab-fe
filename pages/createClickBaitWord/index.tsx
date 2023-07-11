@@ -47,17 +47,13 @@ export function getPromptForClickBaitWord(input: string, type: string, language 
 
 const getPromtforEmailtEn = (input: string, type: string): string => {
     return `
-    Title : ${input}
-    emotional message : ${type}
-    "Compose a Captivating CClickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [Title] AndLook [emotional message] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience:
+    "Compose a Captivating CClickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [${input}] And Look [${type}] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience:
     `;
 }
 
 const getPromtforEmailTh = (input: string, type: string): string => {
     return `    
-    Title : ${input}
-    emotional message : ${type}
-    "Compose a Captivating Clickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [Title] AndLook [emotional message] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience in Thai:
+    "Compose a Captivating Clickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [${input}] And Look [${type}] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience in [เป็นภาษาไทยเท่านั้น]:
     `;
 }
 

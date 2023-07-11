@@ -12,6 +12,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "../../languages/language";
 import { Col, Container, Row } from "react-bootstrap";
 import { generateMessage, generateMessageWithUser } from "@/api/GenerateMessageAPI";
+import { ImCross } from 'react-icons/im';
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
 import { Tones } from "@/models/tones";
@@ -214,16 +215,6 @@ const TableComponents = (config: pageConfig) => {
       }
    };
 
-   const handleAddNewRow = () => {
-      setPrompts([...prompts, {
-         input: "",
-         tone_id: language === "th" ? 1 : 9,
-         message: "",
-         generate_status: false
-      }]);
-   };
-
-
    const handleInputTextChange = (
       index: number,
       event: React.ChangeEvent<HTMLTextAreaElement>
@@ -256,12 +247,18 @@ const TableComponents = (config: pageConfig) => {
       console.log(newType)
    };
 
+   const handleDeleteRow = (index: number) => {
+      setComponents([
+         ...components.slice(0, index),
+         ...components.slice(index + 1, components.length)
+      ]);
+   }
+
    useEffect(() => {
       if (prompts.length == 0) {
          handleAddNewRow();
       }
    }, [prompts]);
-
 
    return (
       <div className={noto_sans_thai.className}>
@@ -281,6 +278,20 @@ const TableComponents = (config: pageConfig) => {
                <Container fluid={true} className={styles.page_prompt_area}>
                   {prompts.map(({ input, tone_id, message, generate_status }, index) => (
                      <Row key={index} className={styles.page_prompt_area_row}>
+                        <div className="pt-1 pe-1 justify-content-end d-flex">
+                           {components.length > 1 ?
+                              <>
+                                 {generate_status ? 
+                                    <ImCross className={styles.disable_delete_row_btn} fontSize={20} />
+                                    :
+                                    <ImCross className={styles.delete_row_btn} fontSize={20} onClick={() => handleDeleteRow(index)} />
+                                 }
+                              </>
+                              :
+                              <div className="pt-3"/>
+                           }
+                        </div>
+
                         {/* Input Textfield */}
                         <Col xs={12} md={3} className="pb-2">
                            <Col className="fs-5 text-light" xs={12} md={12}>{translate('table.input.title', language)}</Col>
