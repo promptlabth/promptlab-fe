@@ -1,8 +1,8 @@
 import Footer from '@/components/footer/Footer';
-import { AppNavbar } from '@/components/navbar/Navbar';
+import { NavbarMobileAfterLogin } from "@/components/navbar/NavbarMobileAfterLogin";
 import { AppTabbar } from "@/components/tabbar/tabbar";
 import { LanguageProvider } from '@/contexts/LanguageContext';
-
+import { NavbarMobile } from "@/components/navbar/NavbarMobile";
 import '@/styles/globals.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NextPage } from 'next';
@@ -10,9 +10,8 @@ import type { AppProps } from 'next/app'
 import { Noto_Sans_Thai } from 'next/font/google'
 import Head from 'next/head';
 import Script from 'next/script';
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { UserContextProvider } from '@/contexts/UserContext';
-
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
@@ -26,6 +25,13 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
+  const [token, setToken] = useState<string>("")
+  useEffect(() => {
+    const accessToken = localStorage.getItem("at")
+    if (accessToken) {
+      setToken(accessToken)
+    }
+  }, [])
   return getLayout(
     <main className={noto_sans_thai.className}>
       <Script
@@ -35,15 +41,16 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       />
 
       <Script id="gtag-id-engine" strategy="lazyOnload">
-        {`	window.dataLayer = window.dataLayer || [];
-		  		function gtag(){
-					dataLayer.push(arguments);
-				}
-				gtag('js', new Date());
-				gtag('config', 'G-958P0ZZK61', {
-					page_path: window.location.pathname,
-				});
-         `}
+        {`	
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-958P0ZZK61', {
+            page_path: window.location.pathname,
+          });
+        `}
       </Script>
       <Script
         src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
@@ -68,7 +75,10 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
       <LanguageProvider>
         <UserContextProvider>
-          <AppNavbar />
+          {token ?
+            <NavbarMobileAfterLogin /> :
+            <NavbarMobile />
+          }
           <AppTabbar />
           <Component {...pageProps} />
           <Footer />

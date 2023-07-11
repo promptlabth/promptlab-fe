@@ -1,7 +1,4 @@
-import { openApiMassageConfig } from "@/models";
-import { useState, useEffect, ChangeEvent, useRef } from "react";
-import { useRouter } from 'next/router';
-
+import { useState, useEffect, } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from "react-icons/io";
@@ -14,18 +11,25 @@ import { FaClosedCaptioning } from 'react-icons/fa';
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "../../languages/language";
 import { Col, Container, Row } from "react-bootstrap";
+import { generateMessage, generateMessageWithUser } from "@/api/GenerateMessageAPI";
 import { ImCross } from 'react-icons/im';
-import generateMessageWithBackend from "@/api/OpenAiBackend";
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
+import { Tones } from "@/models/tones";
+import { GenerateMessage, UserGenerateMessage } from "@/models";
+import { useUserContext } from "@/contexts/UserContext";
+import { features } from "@/constant";
+import { usePathname } from 'next/navigation'
+import { GetTonesByID } from "@/api/ToneAPI";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 type Prompt = {
    input: string;
-   type: string;
+   tone_id: number;
    message: string;
    generate_status: boolean;
 };
+
 // Define an OpenAI configuration data type
 // @Attribute
 // modelConfig: Represents the configuration data for OpenAI.
@@ -44,43 +48,21 @@ export type modelCofig = {
 // -  titilePage : A string representing title of page
 // -  titleDescription : A string representing page description, which describe what a page is.
 // -  modelConfig: A configuration object for the page, specifying the OpenAI model and its settings.
-// -  promptEn: A function that takes an input string and a type string as parameters, and 
-//    returns a generated English message based on the provided prompt.
-// -  promptTh: A function that takes an input string and a type string as parameters, and 
-//    returns a generated Thai message based on the provided prompt.
+// -  getPrompt: A function that takes an input string and a type string as parameters, and 
+//    returns a generated message based on the provided prompt and language.
 type pageConfig = {
    titlePage: string;
    titleDescription: string;
    modelConfig: modelCofig;
-   promptEn: (input: string, type: string) => string;
-   promptTh: (input: string, type: string) => string;
+   getPrompt: (input: string, type: string) => string;
 }
 
 const TableComponents = (config: pageConfig) => {
-   const [components, setComponents] = useState<Prompt[]>([]);
-   const { language, setLanguage, isTh } = useLanguage();
-   const [pathname, setPathname] = useState<string>("")
-   const router = useRouter()
-
-
-   // Define an array of post types
-   // @Attribute
-   // postTypes: An array containing objects representing different post types. Each object has two properties:
-   // - value: Represents the value associated with the post types, styles.
-   // - label: Represents the label for the post type, obtained by calling the translate function with a specific translation key and the current language.
-   // translate: A function used to translate the translation keys into corresponding labels based on the current language.
-   // language: Represents the current language used for translation.
-   const postTypes = [
-      { value: "funny", label: translate('table.type.funny', language) },
-      { value: "confident", label: translate('table.type.confident', language) },
-      { value: "professional", label: translate('table.type.professional', language) },
-      { value: "luxury", label: translate('table.type.luxury', language) },
-      { value: "educational", label: translate('table.type.educational', language) },
-      { value: "happy", label: translate('table.type.happy', language) },
-      { value: "modern", label: translate('table.type.modern', language) },
-      { value: "retro", label: translate('table.type.retro', language) },
-   ];
-
+   const [prompts, setPrompts] = useState<Prompt[]>([]);
+   const userContext = useUserContext()
+   const { language, tones } = useLanguage();
+   const pathname = usePathname()
+   const featureName = `${pathname.slice(1)}`
 
    // Define an object mapping paths to icons
    // @Attribute
@@ -95,11 +77,6 @@ const TableComponents = (config: pageConfig) => {
       "/createClickBaitWord": <FaClosedCaptioning fontSize={96} />
    };
 
-   //* Write fetch function! 
-   // Fetch statement
-   // Fetch statement
-   // Fetch statement
-   // Fetch statement
 
    const CopyToClipboardButton = ({ message }: { message: string }) => {
       const [isCopied, setIsCopied] = useState(false);
@@ -140,15 +117,12 @@ const TableComponents = (config: pageConfig) => {
 
             </CopyToClipboard>
          </OverlayTrigger>
-
-
       );
-
    }
 
    const GenerateButton = ({ index, generate_status }: { index: number, generate_status: boolean }) => {
       const handleClick = () => {
-         setComponents((prevComponents) => {
+         setPrompts((prevComponents) => {
             const updatedComponents = [...prevComponents];
             updatedComponents[index] = {
                ...updatedComponents[index],
@@ -196,28 +170,50 @@ const TableComponents = (config: pageConfig) => {
    };
 
    const handleGenerateMessage = async (index: number) => {
-      const { input, type } = components[index];
+      const { input, tone_id } = prompts[index];
+      const tone = await GetTonesByID(tone_id)
+      const prompt = config.getPrompt(input, tone.tone_name)
+      const data: UserGenerateMessage | GenerateMessage = userContext?.user
+         ? {
+            user_id: userContext.user.firebase_id,
+            prompt: prompt,
+            input_message: input,
+            model: config.modelConfig.model,
+            tone_id: tone_id,
+            feature_id: features[config.titlePage],
+         }
+         : {
+            prompt: prompt,
+            input_message: input,
+            model: config.modelConfig.model,
+            tone_id: tone_id,
+            feature_id: features[config.titlePage],
+         };
 
-      const apiConfig: openApiMassageConfig = {
-         isTh: isTh,
-         promptEn: config.promptEn(input, type),
-         promptTh: config.promptTh(input, type),
-         ...config.modelConfig
-      }
+
+      console.log("generate payload", data)
 
       try {
-         const message = await generateMessageWithBackend(apiConfig) ?? 'Error Please try again'
+         const result =
+            userContext?.user == null ?
+               await generateMessage(data) ?? 'Error Please try again' :
+               await generateMessageWithUser(data) ?? 'Error Please try again'
 
-         setComponents((prevComponents) => {
+         console.log(result)
+         const message = userContext?.user ? result.reply : result
+         setPrompts((prevComponents) => {
             const updatedComponents = [...prevComponents];
             updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
             return updatedComponents;
          });
-      } catch (error) {
-         console.error(error);
+      } catch  {
+         setPrompts((prevComponents) => {
+            const updatedComponents = [...prevComponents];
+            updatedComponents[index] = { ...updatedComponents[index], message:"Error Please try again", generate_status: false };
+            return updatedComponents;
+         });
       }
    };
-
 
    const handleInputTextChange = (
       index: number,
@@ -225,7 +221,7 @@ const TableComponents = (config: pageConfig) => {
    ) => {
       const newInput = event.target.value;
 
-      setComponents((prevComponents) => {
+      setPrompts((prevComponents) => {
          const updatedComponents = [...prevComponents];
          updatedComponents[index] = {
             ...updatedComponents[index],
@@ -235,42 +231,43 @@ const TableComponents = (config: pageConfig) => {
       });
    };
 
-
    const handleTypeChange = (
       index: number,
       event: React.ChangeEvent<HTMLSelectElement>
    ) => {
       const newType = event.target.value;
-      setComponents((prevComponents) => {
+      setPrompts((prevComponents) => {
          const updatedComponents = [...prevComponents];
          updatedComponents[index] = {
             ...updatedComponents[index],
-            type: newType,
+            tone_id: parseInt(newType),
          };
          return updatedComponents;
       });
+      console.log(newType)
    };
 
    const handleAddNewRow = () => {
-      setComponents([...components, { input: "", type: "funny", message: "", generate_status: false }]);
-
+      setPrompts([...prompts, {
+         input: "",
+         tone_id: language === "th" ? 1 : 9,
+         message: "",
+         generate_status: false
+      }]);
    };
 
    const handleDeleteRow = (index: number) => {
-      setComponents([
-         ...components.slice(0, index),
-         ...components.slice(index + 1, components.length)
+      setPrompts([
+         ...prompts.slice(0, index),
+         ...prompts.slice(index + 1, prompts.length)
       ]);
    }
 
    useEffect(() => {
-      if (components.length == 0) {
+      if (prompts.length == 0) {
          handleAddNewRow();
       }
-      if (router.pathname.slice(1,).length !== 0) {
-         setPathname(router.pathname.slice(1,))
-      }
-   }, [components]);
+   }, [prompts]);
 
    return (
       <div className={noto_sans_thai.className}>
@@ -278,7 +275,7 @@ const TableComponents = (config: pageConfig) => {
             <Container className={styles.page_container}>
 
                <figure className="text-center pt-4 pb-4 text-light">
-                  <div className="pb-2"> {icons[router.pathname]} </div>
+                  <div className="pb-2"> {icons[pathname]} </div>
                   <blockquote className="blockquote">
                      <p className="display-4 fw-bold">{translate(config.titlePage, language)}</p>
                   </blockquote>
@@ -288,10 +285,10 @@ const TableComponents = (config: pageConfig) => {
                </figure>
 
                <Container fluid={true} className={styles.page_prompt_area}>
-                  {components.map(({ input, type, message, generate_status }, index) => (
+                  {prompts.map(({ input, tone_id, message, generate_status }, index) => (
                      <Row key={index} className={styles.page_prompt_area_row}>
                         <div className="pt-1 pe-1 justify-content-end d-flex">
-                           {components.length > 1 ?
+                           {prompts.length > 1 ?
                               <>
                                  {generate_status ? 
                                     <ImCross className={styles.disable_delete_row_btn} fontSize={20} />
@@ -309,7 +306,7 @@ const TableComponents = (config: pageConfig) => {
                            <Col className="fs-5 text-light" xs={12} md={12}>{translate('table.input.title', language)}</Col>
                            <div className="pt-2">
                               <textarea
-                                 placeholder={translate(`placeholder.${pathname}`, language)}
+                                 placeholder={translate(`placeholder.${featureName}`, language)}
                                  className={styles.page_prompt_area_textfield}
                                  value={input}
                                  onChange={(event) => handleInputTextChange(index, event)}
@@ -323,13 +320,13 @@ const TableComponents = (config: pageConfig) => {
                            <Col sm className="pt-2">
                               <select
                                  className={styles.page_prompt_area_combobox}
-                                 value={type}
+                                 value={tone_id}
                                  onChange={(event) => handleTypeChange(index, event)}
-                                 required
+                              // required
                               >
-                                 {postTypes.map(({ value, label }) => (
-                                    <option key={value} value={value}>
-                                       {label}
+                                 {tones.map((item: Tones) => (
+                                    <option key={item.id} value={item.id}>
+                                       {item.tone_name}
                                     </option>
                                  ))}
                               </select>

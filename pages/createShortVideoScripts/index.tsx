@@ -1,6 +1,6 @@
 import { translate } from "@/languages/language";
 import TableComponents from "@/components/tableComponnets/TableComponents";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { Language, useLanguage } from "@/contexts/LanguageContext";
 import Head from "next/head";
 const CreateShortVideoScripts = () => {
     const { language } = useLanguage();
@@ -18,14 +18,28 @@ const CreateShortVideoScripts = () => {
                     temperature: 0.7,
                     maxToken: 4000
                 }}
-                promptEn={(input: string, type: string) => getPromtforSellingPostEn(input, type)}
-                promptTh={(input: string, type: string) => getPromtforSellingPostTh(input, type)}
+                getPrompt={(input: string, type: string) => getPromptForShortVideoScripts(input, type, language)}
             />
         </div>
     );
 
 }
-
+export function getPromptForShortVideoScripts(input: string, type: string, language : Language): string {
+    const prompt =
+        language === "th" ?
+            `write scripts for short video that talk about [short video content] and the feeling of scripts is [emotional of content] in Thai:
+            short video content: ${input}
+            emotional of content ${type}`:
+        language === "eng" ?
+            `write scripts for short video that talk about [short video content] and the feeling of scripts is [emotional of content]:
+            short video content: ${input}
+            emotional of content ${type}`:
+            
+            `write scripts for short video that talk about [short video content] and the feeling of scripts is [emotional of content]:
+            short video content: ${input}
+            emotional of content ${type}`
+    return prompt
+}
 
 const getPromtforSellingPostEn = (input: string, type: string): string => {
     return `

@@ -1,6 +1,6 @@
 import { translate } from "@/languages/language";
 import TableComponents from "@/components/tableComponnets/TableComponents";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { Language, useLanguage } from "@/contexts/LanguageContext";
 import Head from "next/head";
 const CreateSellingPost = () => {
    /* 
@@ -21,24 +21,29 @@ const CreateSellingPost = () => {
                temperature: 0.7,
                maxToken: 4000
             }}
-            promptEn={(input: string, type: string) => getPromptforSellingPostEn(input, type)}
-            promptTh={(input: string, type: string) => getPromptforSellingPostTh(input, type)}
+            getPrompt={(input: string, type: string) => getPromptForSellingPost(input, type, language)}
          />
       </div>
    );
 
 }
 
-/* # Pseudo code of new get prompt function
-   function getPromptMessage(input, type) then
-      let promptPayload = {
-         prompt : `Write a social media announcement about [product] and the feeling....`
-         input : input,
-         type : type,
-      } 
-      return promptPayload
-   end
-*/
+export function getPromptForSellingPost(input: string, type: string, language: Language): string {
+   const prompt =
+   language === "th" ?
+      `Write a social media announcement about [product] and the feeling of message is [emotional of massage] in Thai:
+      product: ${input}
+      emotional of massage ${type}`:
+      language === "eng" ?
+      `Write a social media announcement about [product] and the feeling of message is [emotional of massage]:   
+      product: ${input}
+      emotional of massage ${type}`:
+      `Write a social media announcement about [product] and the feeling of message is [emotional of massage]:
+      product: ${input}
+      emotional of massage ${type}`
+   return prompt
+}
+
 
 /**
  * Function to generate an English prompt message for a selling post.

@@ -3,9 +3,9 @@ import Container from 'react-bootstrap/Container';
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "../../languages/language";
 import { useEffect, useState } from "react";
-import { urlLinks } from "../navbar/constant";
+import { urlLinks } from "../../constant";
 import { useRouter } from 'next/router';
-import { Button, Carousel, Col, Row } from "react-bootstrap";
+import { Carousel} from "react-bootstrap";
 import { AiOutlineMessage } from 'react-icons/ai';
 import styles from "../footer/styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
@@ -83,7 +83,7 @@ const Footer = () => {
                                     <AiOutlineMessage className="fs-5" />
                                     <text className="ps-2">
                                         {language === "th" && "สนใจติดต่อเรา"}
-                                        {language === "en" && "Contact us"}
+                                        {language === "eng" && "Contact us"}
                                     </text>
                                 </button>
                             </div>
@@ -111,11 +111,11 @@ const Footer = () => {
 
                     </div>
                     <Container fluid={true} className="p-3 d-flex justify-content-center">
-                        <div className={styles.footer_link}>
+                        <div className={styles.footer_link_disable}>
                             {translate("footer.aboutUs", language)}
                         </div>
                         <div className={styles.footer_vertical_div} />
-                        <div className={styles.footer_link}>
+                        <div className={styles.footer_link_disable}>
                             {translate("footer.joinUs", language)}
                         </div>
                         <div className={styles.footer_vertical_div} />
@@ -127,9 +127,11 @@ const Footer = () => {
                         </Link>
 
                         <div className={styles.footer_vertical_div} />
-                        <div className={styles.footer_link}>
-                            {translate("footer.help", language)}
-                        </div>
+                        <Link href={"/help"} className="nav-link">
+                            <div className={styles.footer_link}>
+                                {translate("footer.help", language)}
+                            </div>
+                        </Link>
                         <div className={styles.footer_vertical_div} />
 
                     </Container>

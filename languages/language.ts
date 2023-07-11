@@ -1,12 +1,12 @@
 // translations.ts
 import translationsJson from "./language.json";
 
-type Language = 'en' | 'th' | 'id';
+type Language = 'eng' | 'th' | 'id';
 type Translations = {[key in Language]: { [key: string]: string };};
 
 // Read datas from language.json
 const translations: Translations = translationsJson;
-let currentLanguage: Language = 'en'; // Default language
+let currentLanguage: Language = 'eng'; // Default language
 
 export function setCurrentLanguage(language: Language): void {
    currentLanguage = language;

@@ -8,12 +8,12 @@ import styles from "./styles.module.css";
 import Link from 'next/link';
 import { TikTokEmbed } from 'react-social-media-embed';
 
-
 export default function Home() {
    const { language } = useLanguage();
    const featureLinks: string[] = ["/createSellingPost", "/createIdeaContent", "/createArticle", "/createShortVideoScripts", "/createClickBaitWord"]
    const randomIndex = Math.floor(Math.random() * featureLinks.length);
 
+   
    return (
       <>
          <Head>
