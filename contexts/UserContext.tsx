@@ -25,6 +25,11 @@ export function useUserContext() {
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
    const router = useRouter()
+
+   const delay = (ms : number) => new Promise(
+      resolve => setTimeout(resolve, ms)
+   );
+
    const UserLogin = async (token: string) => {
       try {
 
@@ -66,6 +71,7 @@ export function UserContextProvider({ children }: Props) {
             localStorage.setItem("rt", refreshToken);
 
             UserLogin(accessToken)
+            await delay(500);
             router.reload()
          }
       }
@@ -94,6 +100,7 @@ export function UserContextProvider({ children }: Props) {
          localStorage.setItem("rt", refreshToken);
 
          UserLogin(accessToken)
+         await delay(500);
          router.reload()
       }
    }
