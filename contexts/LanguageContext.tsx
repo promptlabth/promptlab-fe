@@ -5,7 +5,8 @@ import { Tones } from '@/models/tones';
 import { ListTones } from '@/api/ToneAPI';
 
 // Define the available language options
-export type Language = 'eng' | 'th';
+type Language = 'eng' | 'th' | 'id';
+
 
 // Define the type of the LanguageContext
 // @Attribute
