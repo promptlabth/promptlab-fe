@@ -18,32 +18,26 @@ const CreateContent = () => {
                temperature: 0.7,
                maxToken: 4000
             }}
-            getPrompt={(input: string, type: string) => getPromtforIdeaContent(input, type, language)} />
+            prompt={(input: string, type: string) => getPrompt(input, type, language)} />
       </div>
    );
 
 }
 
-export function getPromtforIdeaContent(input: string, type: string, language : Language): string {
-   const prompt =
-      language === "th" ?
-         `Create list of idea content with short biref about [${input}] that all content should make feeling like [${type}]
-         Show list of idea with short biref in Thai language:`:
-      language === "eng" ?
-         `Create list of idea content with short biref about [${input}] that all content should make feeling like [${type}] 
-         show list of idea with short biref:`:
-         
-         `Create list of idea content with short biref about [${input}] that all content should make feeling like [${type}] 
-         show list of idea with short biref:`
-   return prompt
-}
+const getPrompt = (input: string, type: string, language: 'eng' | 'th' | 'id'): string => {
+    if (language === 'eng') {
+        return `Create list of idea content with short biref about [${input}] that all content should make feeling like [${type}] 
+        show list of idea with short biref:`;
+    } else if (language === 'th') {
+        return `Create list of idea content with short biref about [${input}] that all content should make feeling like [${type}] 
+        show list of idea with short biref [เป็นภาษาไทยเท่านั้น]:`;
+    } else if (language === 'id') {
+        return `Create list of idea content with short biref about [${input}] that all content should make feeling like [${type}] 
+        show list of idea with short biref [in Bahasa Indonesia Only]:`;
+    }
 
-
-const getPromtforIdeaContentEn = (input: string, type: string): string => {
-   return `
-    Create list of idea content with short biref about [${input}] that all content should make feeling like [${type}] 
-    show list of idea with short biref:
-    `;
-}
+    return `Create list of idea content with short biref about [${input}] that all content should make feeling like [${type}] 
+    show list of idea with short biref:`;
+};
 
 export default CreateContent
