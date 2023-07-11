@@ -64,7 +64,7 @@ export const AppNavbar: React.FC = () => {
                            className={`dropdown-item ${styles.language_list}`}
                            onClick={() => { setLanguage("id"); }}
                         >
-                           <Flag className="me-2" country="IDN" /> Thai
+                           <Flag className="me-2" country="IDN" /> Indonesia 
                         </a>
                      </li>
                   </ul>
