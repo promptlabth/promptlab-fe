@@ -41,6 +41,7 @@ export const AppNavbar: React.FC = () => {
                   >
                      {language === "th" && <Flag className="me-1" country="TH" />}
                      {language === "en" && <Flag className="me-1" country="US" />}
+                     {language === "id" && <Flag className="me-1" country="IDN" />}
                   </a>
                   <ul
                      className="dropdown-menu dropdown-menu-dark"
@@ -58,6 +59,12 @@ export const AppNavbar: React.FC = () => {
                            onClick={() => { setLanguage("th"); }}
                         >
                            <Flag className="me-2" country="TH" /> Thai
+                        </a>
+                        <a
+                           className={`dropdown-item ${styles.language_list}`}
+                           onClick={() => { setLanguage("id"); }}
+                        >
+                           <Flag className="me-2" country="IDN" /> Thai
                         </a>
                      </li>
                   </ul>
