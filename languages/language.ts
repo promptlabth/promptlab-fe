@@ -1,7 +1,7 @@
 // translations.ts
 import translationsJson from "./language.json";
 
-type Language = 'en' | 'th';
+type Language = 'en' | 'th' | 'id';
 type Translations = {[key in Language]: { [key: string]: string };};
 
 // Read datas from language.json
