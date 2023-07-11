@@ -71,7 +71,7 @@ export function UserContextProvider({ children }: Props) {
             localStorage.setItem("rt", refreshToken);
 
             UserLogin(accessToken)
-            await delay(500);
+            await delay(200);
             router.reload()
          }
       }
@@ -100,7 +100,7 @@ export function UserContextProvider({ children }: Props) {
          localStorage.setItem("rt", refreshToken);
 
          UserLogin(accessToken)
-         await delay(500);
+         await delay(200);
          router.reload()
       }
    }
