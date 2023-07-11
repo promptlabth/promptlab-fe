@@ -192,8 +192,9 @@
 
 .navbar_logout_button:hover {
     background-color: #00FFAB;
+    border: none;
     color: #000000;
-    transform: scale(1.07);
+    transform: scale(1.02);
     box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.1);
 }
 

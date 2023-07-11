@@ -26,28 +26,48 @@ export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
    const router = useRouter()
    const UserLogin = async (token: string) => {
-      const loginResult = await Login(token);
+      try {
 
-      if(loginResult?.status !== 200) {
-         localStorage.removeItem("at");
-         localStorage.removeItem("rt");
+         const loginResult = await Login(token);
+
+         if (loginResult?.status !== 200) {
+            localStorage.removeItem("at");
+            localStorage.removeItem("rt");
+            const result = await signInWithFacebook();
+            if (result) {
+
+               // Retrieve the access token from the user data
+               const accessToken = await result.user.getIdToken()
+               const refreshToken = result.user.refreshToken
+               localStorage.setItem("at", accessToken);
+               localStorage.setItem("rt", refreshToken);
+               const loginResult = await Login(accessToken);
+               if (loginResult) {
+                  setUser(loginResult?.data)
+                  console.log("relogin-user", loginResult?.data)
+               }
+            }
+         } else {
+            setUser(loginResult?.data)
+            console.log("user", loginResult?.data)
+         }
+      } catch (error) {
          const result = await signInWithFacebook();
+         console.log("FACEBOOK", result)
+
+         // Proceed if the sign-in with Facebook is successful
          if (result) {
 
             // Retrieve the access token from the user data
             const accessToken = await result.user.getIdToken()
+
             const refreshToken = result.user.refreshToken
-            localStorage.setItem("at",accessToken);
-            localStorage.setItem("rt",refreshToken);
-            const loginResult = await Login(accessToken);
-            if (loginResult) {
-               setUser(loginResult?.data)
-               console.log("relogin-user",loginResult?.data)
-            }
+            localStorage.setItem("at", accessToken);
+            localStorage.setItem("rt", refreshToken);
+
+            UserLogin(accessToken)
+            router.reload()
          }
-      } else {
-         setUser(loginResult?.data)
-         console.log("user",loginResult?.data)
       }
    }
 
@@ -61,7 +81,7 @@ export function UserContextProvider({ children }: Props) {
 
       // Sign in with Facebook to obtain a token
       const result = await signInWithFacebook();
-      console.log("FACEBOOK",result)
+      console.log("FACEBOOK", result)
 
       // Proceed if the sign-in with Facebook is successful
       if (result) {
@@ -70,8 +90,8 @@ export function UserContextProvider({ children }: Props) {
          const accessToken = await result.user.getIdToken()
 
          const refreshToken = result.user.refreshToken
-         localStorage.setItem("at",accessToken);
-         localStorage.setItem("rt",refreshToken);
+         localStorage.setItem("at", accessToken);
+         localStorage.setItem("rt", refreshToken);
 
          UserLogin(accessToken)
          router.reload()
@@ -90,7 +110,7 @@ export function UserContextProvider({ children }: Props) {
       // Pseudo code
       // Encode access token(which is JWT token) and get `iat` and `exp`
       // If token is expire then get a new access token
-      
+
       if (token) {
          UserLogin(token)
       }

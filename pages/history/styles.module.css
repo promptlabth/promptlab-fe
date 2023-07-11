@@ -141,10 +141,21 @@
 }
 
 
-.pagination_page_number {
+.pagination_page_number, .selected_pagination_page_number {
+    border: none;
+    background: none;
     padding: 5px 12px;
     text-decoration: none;
     color: rgb(255, 255, 255);
+    border-radius: 100%;
+}
+
+.pagination_page_number {
+    transition: 0.1s;
+}
+.selected_pagination_page_number {
+    background-color: white;
+    color: black;
 }
 
 .pagination_item.active{

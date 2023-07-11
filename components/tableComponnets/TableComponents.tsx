@@ -205,8 +205,12 @@ const TableComponents = (config: pageConfig) => {
             updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
             return updatedComponents;
          });
-      } catch (error) {
-         console.error(error);
+      } catch  {
+         setPrompts((prevComponents) => {
+            const updatedComponents = [...prevComponents];
+            updatedComponents[index] = { ...updatedComponents[index], message:"Error Please try again", generate_status: false };
+            return updatedComponents;
+         });
       }
    };
 

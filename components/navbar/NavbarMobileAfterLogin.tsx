@@ -37,7 +37,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
 
   return (
     <nav
-      className={`${noto_sans_thai.className} navbar navbar-expand-lg navbar-dark bg-dark fixed-top`}
+      className={`${noto_sans_thai.className}  navbar navbar-expand-lg navbar-dark bg-dark fixed-top`}
     >
       <div className={`container d-flex mt-auto`}>
         <div className={styles.navbar_header}>

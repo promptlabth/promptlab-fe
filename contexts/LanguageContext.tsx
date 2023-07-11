@@ -50,7 +50,6 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       setCurrentLanguage(language);
       getTones();
       tones.sort((a, b) => a.id - b.id);
-      console.log(tones)
       
       if (language !== 'th') {
          setIsTh(false)
