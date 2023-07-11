@@ -60,7 +60,7 @@ export function UserContextProvider({ children }: Props) {
 
          UserLogin(accessToken)
 
-         router.reload()
+         // router.reload()
       }
    }
 
@@ -73,6 +73,11 @@ export function UserContextProvider({ children }: Props) {
       // const token = getCookie("at")?.toString()
       const token = localStorage.getItem("at")
       // console.log(token)
+
+      // TODO Check that access token is expired or not
+      // Pseudo code
+      // Encode access token(which is JWT token) and get `iat` and `exp`
+      // If token is expire then get a new access token
       
       if (token) {
          UserLogin(token)

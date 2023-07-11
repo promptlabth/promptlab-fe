@@ -128,8 +128,7 @@
 }
 
 .pagination_item {
-    padding: 8px;
-    margin-right: 4px;
+    padding: 5px 12px;
     text-decoration: none;
     color: rgb(255, 255, 255);
 }

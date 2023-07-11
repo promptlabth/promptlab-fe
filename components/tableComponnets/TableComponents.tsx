@@ -171,7 +171,6 @@ const TableComponents = (config: pageConfig) => {
       const { input, tone_id } = prompts[index];
       const tone = await GetTonesByID(tone_id)
       const prompt = config.getPrompt(input, tone.tone_name)
-      console.log()
       const data: UserGenerateMessage | GenerateMessage = userContext?.user
          ? {
             user_id: userContext.user.firebase_id,
