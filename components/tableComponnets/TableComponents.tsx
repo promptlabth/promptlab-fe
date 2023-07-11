@@ -200,7 +200,7 @@ const TableComponents = (config: pageConfig) => {
                await generateMessageWithUser(data) ?? 'Error Please try again'
 
          console.log(result)
-         const message = result.reply
+         const message = userContext?.user ? result.reply : result
          setPrompts((prevComponents) => {
             const updatedComponents = [...prevComponents];
             updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };

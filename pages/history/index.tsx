@@ -14,6 +14,7 @@ import { VscTriangleRight } from "react-icons/vsc";
 import { PromptMessage } from "@/models";
 import { getMessageHistoryWithUserId } from "@/api/GetMessageHistory";
 import { GetTonesByID } from "@/api/ToneAPI";
+import Head from 'next/head';
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 
 function formatDate(date_time: string): string {
@@ -133,78 +134,84 @@ const History = () => {
    }, []);
 
    return (
-      <div className={noto_sans_thai.className}>
-         <Container fluid={true} className="p-0 bg-dark bg-lighten-xs pt-5">
-            <Container className={styles.page_container}>
-               <figure className="text-center pb-1 pt-3 text-light">
-                  <h2>
-                     <b>{translate("history", language)}</b>
-                  </h2>
-               </figure>
+      <div>
+         <Head>
+            <title>{translate("history", language)}</title>
+            <meta name="description" content="A generated messages history" />
+         </Head>
+         <div className={noto_sans_thai.className}>
+            <Container fluid={true} className="p-0 bg-dark bg-lighten-xs pt-5">
+               <Container className={styles.page_container}>
+                  <figure className="text-center pb-1 pt-3 text-light">
+                     <h2>
+                        <b>{translate("history", language)}</b>
+                     </h2>
+                  </figure>
 
-               <Container fluid={true} className={styles.page_prompt_area}>
-                  {prompts.length > 0 ?
-                     <>
-                        <Pagination />
-                        {currentPrompts.map(
-                           ({ input_message, result_message, tone_name, date_time, }, index) => (
-                              <Row key={index} className={styles.page_prompt_area_row}>
-                                 <Col className="text-light">
-                                    <div className="fs-5 text-light"> {index + 1}</div>
-                                 </Col>
-                                 <Col xs={12} md={2} lg={2} className="pb-2 ">
-                                    <Col className="fs-5 text-light" xs={12} md={12}>
-                                       <b> {translate("table.input.title", language)}</b>
+                  <Container fluid={true} className={styles.page_prompt_area}>
+                     {prompts.length > 0 ?
+                        <>
+                           <Pagination />
+                           {currentPrompts.map(
+                              ({ input_message, result_message, tone_name, date_time, }, index) => (
+                                 <Row key={index} className={styles.page_prompt_area_row}>
+                                    <Col className="text-light">
+                                       <div className="fs-5 text-light"> {index + 1}</div>
                                     </Col>
-                                    <div className={styles.page_prompt_area_textfield}>
-                                       {input_message}
-                                    </div>
-                                 </Col>
-                                 <Col xs={12} md={2} lg={2} className="pb-2 ">
-                                    <Col className="fs-5 text-light" xs={12} md={6} lg={12}>
-                                       <b> {translate("table.type.title", language)}</b>
+                                    <Col xs={12} md={2} lg={2} className="pb-2 ">
+                                       <Col className="fs-5 text-light" xs={12} md={12}>
+                                          <b> {translate("table.input.title", language)}</b>
+                                       </Col>
+                                       <div className={styles.page_prompt_area_textfield}>
+                                          {input_message}
+                                       </div>
                                     </Col>
-                                    <Col sm className="pt-2">
-                                       <div className={styles.page_prompt_area_combobox}> {tone_name}</div>
+                                    <Col xs={12} md={2} lg={2} className="pb-2 ">
+                                       <Col className="fs-5 text-light" xs={12} md={6} lg={12}>
+                                          <b> {translate("table.type.title", language)}</b>
+                                       </Col>
+                                       <Col sm className="pt-2">
+                                          <div className={styles.page_prompt_area_combobox}> {tone_name}</div>
+                                       </Col>
                                     </Col>
-                                 </Col>
-                                 <Col xs={12} md={4} lg={5} xl={5} className="pb-2">
-                                    <Col className="fs-5 text-light" xs={12} md={6} lg={12}>
-                                       <b> {translate("table.massage.title", language)}</b>
+                                    <Col xs={12} md={4} lg={5} xl={5} className="pb-2">
+                                       <Col className="fs-5 text-light" xs={12} md={6} lg={12}>
+                                          <b> {translate("table.massage.title", language)}</b>
+                                       </Col>
+                                       <div className="pt-1 text-light">
+                                          <Container fluid={true} className="">
+                                             <Row>
+                                                <Col className="d-flex p-0 justify-content-end">
+                                                   <CopyToClipboardButton message={result_message} />
+                                                </Col>
+                                                <Col xs={12} className="text-light p-0 mb-3" style={{ whiteSpace: 'pre-wrap' }}>
+                                                   {result_message}
+                                                </Col>
+                                             </Row>
+                                          </Container>
+                                       </div>
                                     </Col>
-                                    <div className="pt-1 text-light">
-                                       <Container fluid={true} className="">
-                                          <Row>
-                                             <Col className="d-flex p-0 justify-content-end">
-                                                <CopyToClipboardButton message={result_message} />
-                                             </Col>
-                                             <Col xs={12} className="text-light p-0 mb-3" style={{ whiteSpace: 'pre-wrap' }}>
-                                                {result_message}
-                                             </Col>
-                                          </Row>
-                                       </Container>
-                                    </div>
-                                 </Col>
-                                 <Col xs={12} md={3} lg={2} xl={2} className="pb-2">
-                                    <Col className="fs-5 text-light d-flex justify-content-between align-items-center">
-                                       <b> {translate("createAt", language)}</b>
+                                    <Col xs={12} md={3} lg={2} xl={2} className="pb-2">
+                                       <Col className="fs-5 text-light d-flex justify-content-between align-items-center">
+                                          <b> {translate("createAt", language)}</b>
+                                       </Col>
+                                       <div className="text-light"> {formatDate(date_time.toString())}</div>
                                     </Col>
-                                    <div className="text-light"> {formatDate(date_time.toString())}</div>
-                                 </Col>
-                              </Row>
-                           ))
-                        }
-                        <Pagination />
-                     </>
-                     :
-                     <Col xs={12} className="pb-2 d-flex justify-content-center">
-                        <div className="fs-4 text-light p-4 opacity-50">{translate("noPrompts",language)}</div>
-                     </Col>
-                  }
+                                 </Row>
+                              ))
+                           }
+                           <Pagination />
+                        </>
+                        :
+                        <Col xs={12} className="pb-2 d-flex justify-content-center">
+                           <div className="fs-4 text-light p-4 opacity-50">{translate("noPrompts", language)}</div>
+                        </Col>
+                     }
 
+                  </Container>
                </Container>
             </Container>
-         </Container>
+         </div>
       </div>
    );
 };
