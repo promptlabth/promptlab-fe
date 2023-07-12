@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 async function getMessageHistoryWithUserId() {
-    const apiUrl = `https://prompt-lab-be-dev-uu4qhhj35a-as.a.run.app/get-caption`
+    const apiUrl = `https://prompt-lab-be-uu4qhhj35a-as.a.run.app/get-caption`
     try {
 
         const requestOption = { 

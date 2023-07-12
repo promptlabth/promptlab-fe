@@ -2,7 +2,7 @@ import axios from 'axios';
 import { UserGenerateMessage , GenerateMessage} from '@/models';
 
 async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage) {
-    const apiUrl = "https://prompt-lab-be-dev-uu4qhhj35a-as.a.run.app/gennerate-with-user"
+    const apiUrl = "https://prompt-lab-be-uu4qhhj35a-as.a.run.app/gennerate-with-user"
     try {
 
         const requestOption = { 
