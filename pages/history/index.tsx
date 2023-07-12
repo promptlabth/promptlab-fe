@@ -161,7 +161,7 @@ const History = () => {
                                           <b> {translate("table.type.title", language)}</b>
                                        </Col>
                                        <Col sm className="pt-2">
-                                          <div className={styles.page_prompt_area_combobox}> {tone_name}</div>
+                                          <div className={styles.page_prompt_area_combobox}> {tone}</div>
                                        </Col>
                                     </Col>
                                     <Col xs={12} md={4} lg={5} xl={5} className="pb-2">
