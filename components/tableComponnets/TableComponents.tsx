@@ -192,27 +192,18 @@ const TableComponents = (config: pageConfig) => {
 
 
       console.log("generate payload", data)
+      const result =
+         userContext?.user == null ?
+            await generateMessage(data) ?? 'Error Please try again' :
+            await generateMessageWithUser(data) ?? 'Error Please try again'
 
-      try {
-         const result =
-            userContext?.user == null ?
-               await generateMessage(data) ?? 'Error Please try again' :
-               await generateMessageWithUser(data) ?? 'Error Please try again'
-
-         console.log(result)
-         const message = result.reply
-         setPrompts((prevComponents) => {
-            const updatedComponents = [...prevComponents];
-            updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
-            return updatedComponents;
-         });
-      } catch  {
-         setPrompts((prevComponents) => {
-            const updatedComponents = [...prevComponents];
-            updatedComponents[index] = { ...updatedComponents[index], message:"Error Please try again", generate_status: false };
-            return updatedComponents;
-         });
-      }
+      console.log(result)
+      const message = result.reply
+      setPrompts((prevComponents) => {
+         const updatedComponents = [...prevComponents];
+         updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
+         return updatedComponents;
+      });
    };
 
    const handleInputTextChange = (
@@ -290,14 +281,14 @@ const TableComponents = (config: pageConfig) => {
                         <div className="pt-1 pe-1 justify-content-end d-flex">
                            {prompts.length > 1 ?
                               <>
-                                 {generate_status ? 
+                                 {generate_status ?
                                     <ImCross className={styles.disable_delete_row_btn} fontSize={20} />
                                     :
                                     <ImCross className={styles.delete_row_btn} fontSize={20} onClick={() => handleDeleteRow(index)} />
                                  }
                               </>
                               :
-                              <div className="pt-3"/>
+                              <div className="pt-3" />
                            }
                         </div>
 
