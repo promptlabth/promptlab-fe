@@ -16,6 +16,7 @@ async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage)
             UserGenerateMessage,
             requestOption
         );
+
         return response.data;
     } catch (error) {
         console.error(error);
@@ -24,7 +25,7 @@ async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage)
 }
 
 async function generateMessage(GenerateMessage: GenerateMessage) {
-    const apiUrl = "https://prompt-lab-be-dev-uu4qhhj35a-as.a.run.app/gennerate"
+    const apiUrl = "https://prompt-lab-be-uu4qhhj35a-as.a.run.app//gennerate"
     try {
 
         const requestOption = { 
