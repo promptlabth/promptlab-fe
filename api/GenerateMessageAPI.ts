@@ -8,7 +8,7 @@ async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage)
         const requestOption = { 
             headers: { 
                 "Authorization": `Bearer ${localStorage.getItem("at")}`,
-                "RefreshToken": localStorage.getItem("rt")
+                "RefreshToken": `Bearer ${localStorage.getItem("rt")}`
             },
         }
         const response = await axios.post(
