@@ -189,18 +189,14 @@ const TableComponents = (config: pageConfig) => {
             tone_id: tone_id,
             feature_id: features[config.titlePage],
          };
-
-
-      console.log("generate payload", data);
-      
       try {
          const result =
             userContext?.user == null ?
                await generateMessage(data) ?? 'Error Please try again' :
                await generateMessageWithUser(data) ?? 'Error Please try again'
 
-         console.log(result)
-         const message = userContext?.user ? result.reply : result
+         const message = result.reply
+
          setPrompts((prevComponents) => {
             const updatedComponents = [...prevComponents];
             updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
