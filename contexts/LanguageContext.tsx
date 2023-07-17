@@ -62,14 +62,11 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       const fetchLocationAndSetLanguage = async () => {
           try {
               const locationLanguage = await getLocation();
-              setLanguage(locationLanguage);
+            //   setLanguage(locationLanguage);
               setCurrentLanguage(language);
               getTones();
               tones.sort((a, b) => a.id - b.id);
   
-              if (locationLanguage === 'th') {
-                  setIsTh(true);
-              }
           } catch (error) {
               // Set a default language when error occurs
               setLanguage('eng');
