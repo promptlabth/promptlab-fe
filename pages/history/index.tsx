@@ -32,18 +32,8 @@ const History = () => {
    const getMessage = async () => {
       const result = await getMessageHistoryWithUserId();
       if (result) {
-         const updatedPrompts = await Promise.all(
-            result.map(async (prompt: PromptMessage) => ({
-               ...prompt,
-               tone_name: await getToneName(prompt.tone_id),
-            }))
-         );
-         setPrompts(updatedPrompts);
+         setPrompts(result);
       }
-   }
-   const getToneName = async (tone_id: number) => {
-      const tone = await GetTonesByID(tone_id)
-      return tone.tone_name
    }
 
    const CopyToClipboardButton = ({ message }: { message: string }) => {
@@ -153,7 +143,7 @@ const History = () => {
                         <>
                            <Pagination />
                            {currentPrompts.map(
-                              ({ input_message, result_message, tone_name, date_time, }, index) => (
+                              ({ input_message, result_message, tone, date_time, }, index) => (
                                  <Row key={index} className={styles.page_prompt_area_row}>
                                     <Col className="text-light">
                                        <div className="fs-5 text-light"> {index + 1}</div>
@@ -171,7 +161,7 @@ const History = () => {
                                           <b> {translate("table.type.title", language)}</b>
                                        </Col>
                                        <Col sm className="pt-2">
-                                          <div className={styles.page_prompt_area_combobox}> {tone_name}</div>
+                                          <div className={styles.page_prompt_area_combobox}> {tone}</div>
                                        </Col>
                                     </Col>
                                     <Col xs={12} md={4} lg={5} xl={5} className="pb-2">

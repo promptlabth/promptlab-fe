@@ -41,6 +41,7 @@ export type PromptMessage = {
    result_message : string;
    user_id : number;
    tone_id : number;
-   tone_name : string;
+   tone? : string;
    feature_id : number;
+   feature?: number;
 }

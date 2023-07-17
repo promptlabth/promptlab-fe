@@ -290,14 +290,14 @@ const TableComponents = (config: pageConfig) => {
                         <div className="pt-1 pe-1 justify-content-end d-flex">
                            {prompts.length > 1 ?
                               <>
-                                 {generate_status ? 
+                                 {generate_status ?
                                     <ImCross className={styles.disable_delete_row_btn} fontSize={20} />
                                     :
                                     <ImCross className={styles.delete_row_btn} fontSize={20} onClick={() => handleDeleteRow(index)} />
                                  }
                               </>
                               :
-                              <div className="pt-3"/>
+                              <div className="pt-3" />
                            }
                         </div>
 

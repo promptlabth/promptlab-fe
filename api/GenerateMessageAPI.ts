@@ -2,13 +2,13 @@ import axios from 'axios';
 import { UserGenerateMessage , GenerateMessage} from '@/models';
 
 async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage) {
-    const apiUrl = "https://prompt-lab-be-dev-uu4qhhj35a-as.a.run.app/gennerate-with-user"
+    const apiUrl = "https://prompt-lab-be-uu4qhhj35a-as.a.run.app/gennerate-with-user"
     try {
 
         const requestOption = { 
             headers: { 
                 "Authorization": `Bearer ${localStorage.getItem("at")}`,
-                "RefreshToken": localStorage.getItem("rt")
+                "RefreshToken": `Bearer ${localStorage.getItem("rt")}`
             },
         }
         const response = await axios.post(
@@ -16,6 +16,8 @@ async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage)
             UserGenerateMessage,
             requestOption
         );
+        
+        console.log(response.data)
         return response.data;
     } catch (error) {
         console.error(error);
@@ -24,7 +26,7 @@ async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage)
 }
 
 async function generateMessage(GenerateMessage: GenerateMessage) {
-    const apiUrl = "https://prompt-lab-be-dev-uu4qhhj35a-as.a.run.app/gennerate"
+    const apiUrl = "https://prompt-lab-be-uu4qhhj35a-as.a.run.app/gennerate"
     try {
 
         const requestOption = { 
@@ -35,6 +37,7 @@ async function generateMessage(GenerateMessage: GenerateMessage) {
             GenerateMessage,
             requestOption
         );
+        console.log(response.data)
         return response.data;
     } catch (error) {
         console.error(error);
