@@ -54,7 +54,7 @@ type pageConfig = {
    titlePage: string;
    titleDescription: string;
    modelConfig: modelCofig;
-   getPrompt: (input: string, type: string) => string;
+   prompt: (input: string, type: string) => string;
 }
 
 const TableComponents = (config: pageConfig) => {
@@ -172,7 +172,7 @@ const TableComponents = (config: pageConfig) => {
    const handleGenerateMessage = async (index: number) => {
       const { input, tone_id } = prompts[index];
       const tone = await GetTonesByID(tone_id)
-      const prompt = config.getPrompt(input, tone.tone_name)
+      const prompt = config.prompt(input, tone.tone_name)
       const data: UserGenerateMessage | GenerateMessage = userContext?.user
          ? {
             user_id: userContext.user.firebase_id,

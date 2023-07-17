@@ -19,29 +19,35 @@ const CreateArticle = () => {
                     temperature: 0.7,
                     maxToken: 4000
                 }}
-                getPrompt={(input: string, type: string) => getPromptForArticle(input, type, language)}
+                prompt={(input: string, type: string) => getPrompt(input, type, language)}
             />
         </div>
     );
 
 }
 
-export function getPromptForArticle(input: string, type: string, language : Language): string {
-    const prompt =
-        language === "th" ?
-            `Write a blog post with hight demand SED keyword that talk about [main topic of article] that article should feeling like [emotion of massage] in Thai:
-            main topic of article: ${input}
-            emotion of massage: ${type}`:
-            
-        language === "eng" ?
-            `Write a blog post with hight demand SED keyword that talk about [main topic of article] that article should feeling like [emotion of massage]:
-            main topic of article: ${input}
-            emotion of massage: ${type}`:
 
-            `Write a blog post with hight demand SED keyword that talk about [main topic of article] that article should feeling like [emotion of massage]:
-            main topic of article: ${input}
-            emotion of massage: ${type}`
-    return prompt
-}
+const getPrompt = (input: string, type: string, language: 'eng' | 'th' | 'id'): string => {
+    if (language === 'eng') {
+        return `
+        Write a blog post with high demand SED keyword that talks about [${input}] that article should feel like [${type}]:
+        `;
+    } else if (language === 'th') {
+        return `
+        Write a blog post with high demand SED keyword that talks about [main topic of article] that article should feel like [emotion of message] [เป็นภาษาไทย]:
+        main topic of article: ${input}
+        emotion of message: ${type}
+        `;
+    } else if (language === 'id') {
+        return `
+        Write a blog post with high demand SED keyword that talks about [${input}] that article should feel like [${type}] in [Bahasa Indonesia]:
+        `;
+    }
 
+    return `
+    Write a blog post with high demand SED keyword that talks about [main topic of article] that article should feel like [emotion of message]:
+    main topic of article: ${input}
+    emotion of message: ${type}
+    `;
+};
 export default CreateArticle

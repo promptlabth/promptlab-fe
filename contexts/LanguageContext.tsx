@@ -3,6 +3,7 @@ import { setCurrentLanguage } from '@/languages/language';
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Tones } from '@/models/tones';
 import { ListTones } from '@/api/ToneAPI';
+import { getLocation } from '@/api/GetGeoLocaltion';
 
 // Define the available language options
 export type Language = 'eng' | 'th' | 'id';
@@ -56,6 +57,29 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
          setIsTh(false)
       }
    }, [language]);
+
+   useEffect(() => {
+      const fetchLocationAndSetLanguage = async () => {
+          try {
+              const locationLanguage = await getLocation();
+              setLanguage(locationLanguage);
+              setCurrentLanguage(language);
+              getTones();
+              tones.sort((a, b) => a.id - b.id);
+  
+              if (locationLanguage === 'th') {
+                  setIsTh(true);
+              }
+          } catch (error) {
+              // Set a default language when error occurs
+              setLanguage('eng');
+              console.log(error);
+          }
+      };
+  
+      fetchLocationAndSetLanguage();
+  }, [language]);
+  
 
    // Create a value object to be passed to the LanguageContext.Provider
    const value = {
