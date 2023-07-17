@@ -21,53 +21,24 @@ const CreateSellingPost = () => {
                temperature: 0.7,
                maxToken: 4000
             }}
-            getPrompt={(input: string, type: string) => getPromptForSellingPost(input, type, language)}
+            prompt={(input: string, type: string) => getPrompt(input, type, language)}
          />
       </div>
    );
 
 }
 
-export function getPromptForSellingPost(input: string, type: string, language: Language): string {
-   const prompt =
-   language === "th" ?
-      `Write a social media announcement about [product] and the feeling of message is [emotional of massage] in Thai:
-      product: ${input}
-      emotional of massage ${type}`:
-      language === "eng" ?
-      `Write a social media announcement about [product] and the feeling of message is [emotional of massage]:   
-      product: ${input}
-      emotional of massage ${type}`:
-      `Write a social media announcement about [product] and the feeling of message is [emotional of massage]:
-      product: ${input}
-      emotional of massage ${type}`
-   return prompt
-}
+const getPrompt = (input: string, type: string, language: 'eng' | 'th' | 'id'): string => {
+   if (language === 'eng') {
+      return `Write a social media announcement about [${input}] and the feeling of message is [${type}]:`
+   } else if (language === 'th') {
+       return `Write a social media announcement about [${input}] and the feeling of message is [${type}] [เป็นภาษาไทยเท่านั้น]:`
+   } else if (language === 'id') {
+      return `Write a social media announcement about [${input}] and the feeling of message is [${type}] [in Bahasa Indonesia Only]:`
+   }
 
+   return `Write a social media announcement about [${input}] and the feeling of message is [${type}]:`
+};
 
-/**
- * Function to generate an English prompt message for a selling post.
- * @param input The product description or name.
- * @param type The emotional aspect of the message. 
- * @returns The generated prompt message in English.
-*/
-
-const getPromptforSellingPostEn = (input: string, type: string): string => {
-   return `
-    Write a social media announcement about [${input}] and the feeling of message is [${type}]:
-    `;
-}
-
-/**
- * Function to generate a Thai prompt message for a selling post.
- * @param input The product description or name.
- * @param type The emotional aspect of the message. 
- * @returns The generated prompt message in Thai.
-*/
-const getPromptforSellingPostTh = (input: string, type: string): string => {
-   return `
-    Write a social media announcement about [${input}] and the feeling of message is [${type}] [เป็นภาษาไทยเท่านั้น]:
-    `;
-}
 
 export default CreateSellingPost

@@ -18,39 +18,24 @@ const CreateShortVideoScripts = () => {
                     temperature: 0.7,
                     maxToken: 4000
                 }}
-                getPrompt={(input: string, type: string) => getPromptForShortVideoScripts(input, type, language)}
+                prompt={(input: string, type: string) => getPrompt(input, type, language)}
             />
         </div>
     );
 
 }
-export function getPromptForShortVideoScripts(input: string, type: string, language : Language): string {
-    const prompt =
-        language === "th" ?
-            `write scripts for short video that talk about [short video content] and the feeling of scripts is [emotional of content] in Thai:
-            short video content: ${input}
-            emotional of content ${type}`:
-        language === "eng" ?
-            `write scripts for short video that talk about [short video content] and the feeling of scripts is [emotional of content]:
-            short video content: ${input}
-            emotional of content ${type}`:
-            
-            `write scripts for short video that talk about [short video content] and the feeling of scripts is [emotional of content]:
-            short video content: ${input}
-            emotional of content ${type}`
-    return prompt
-}
 
-const getPromtforSellingPostEn = (input: string, type: string): string => {
-    return `
-    write full scripts for short video that talk about [${input}] and the feeling of scripts is [${type}]:
-    `;
-}
-
-const getPromtforSellingPostTh = (input: string, type: string): string => {
-    return `
-    write full scripts for short video that talk about [${input}] and the feeling of scripts is [${type}] [เป็นภาษาไทยเท่านั้น]:
-    `;
-}
+const getPrompt = (input: string, type: string, language: 'eng' | 'th' | 'id'): string => {
+    if (language === 'eng') {
+        return `write full scripts for short video that talk about [${input}] and the feeling of scripts is [${type}]:`
+    } else if (language === 'th') {
+        return `write full scripts for short video that talk about [${input}] and the feeling of scripts is [${type}] [เป็นภาษาไทยเท่านั้น]:`
+    } else if (language === 'id') {
+       return `write full scripts for short video that talk about [${input}] and the feeling of scripts is [${type}] [in Bahasa Indonesia Only]:`
+    }
+ 
+    return `write full scripts for short video that talk about [${input}] and the feeling of scripts is [${type}]:`
+ };
+ 
 
 export default CreateShortVideoScripts

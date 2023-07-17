@@ -19,7 +19,7 @@ const CreateClickBaitWord = () => {
                     temperature: 0.5,
                     maxToken: 4000
                 }}
-                getPrompt={(input: string, type: string) => getPromptForClickBaitWord(input, type, language)}
+                prompt={(input: string, type: string) => getPrompt(input, type, language)}
             />
         </div>
     );
@@ -27,34 +27,24 @@ const CreateClickBaitWord = () => {
 }
 
 
-export function getPromptForClickBaitWord(input: string, type: string, language : Language): string {
-    const prompt =
-        language === "th" ?
-            `Title : ${input}
-            emotional message : ${type}
-            "Compose a Captivating Clickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [Title] AndLook [emotional message] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience in Thai:`:
-        
-            language === "eng" ?
-            `Title : ${input}
-            emotional message : ${type}
-            "Compose a Captivating CClickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [Title] AndLook [emotional message] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience:`:
-            
-            `Title : ${input}
-            emotional message : ${type}
-            "Compose a Captivating CClickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [Title] AndLook [emotional message] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience:`
-    return prompt
-}
+const getPrompt = (input: string, type: string, language: 'eng' | 'th' | 'id'): string => {
+    if (language === 'eng') {
+        return `
+        Compose a Captivating CClickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [${input}] And Look [${type}] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience:
+        `;
+    } else if (language === 'th') {
+        return `
+        "Compose a Captivating Clickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [${input}] And Look [${type}] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience [เป็นภาษาไทยเท่านั้น]
+        `;
+    } else if (language === 'id') {
+        return `
+        Compose a Captivating Clickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [${input}] And Look [${type}] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience [in Bahasa Indonesia Only]
+        `;
+    }
 
-const getPromtforEmailtEn = (input: string, type: string): string => {
     return `
-    "Compose a Captivating CClickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [${input}] And Look [${type}] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience:
+    Compose a Captivating CClickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [${input}] And Look [${type}] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience:
     `;
-}
-
-const getPromtforEmailTh = (input: string, type: string): string => {
-    return `    
-    "Compose a Captivating Clickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [${input}] And Look [${type}] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience in [เป็นภาษาไทยเท่านั้น]:
-    `;
-}
+};
 
 export default CreateClickBaitWord
