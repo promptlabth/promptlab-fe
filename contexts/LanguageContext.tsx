@@ -67,6 +67,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
               getTones();
               tones.sort((a, b) => a.id - b.id);
   
+              if (locationLanguage === 'th') {
+                  setIsTh(true);
+              }
           } catch (error) {
               // Set a default language when error occurs
               setLanguage('eng');

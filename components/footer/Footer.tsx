@@ -19,7 +19,7 @@ const Footer = () => {
     const router = useRouter()
 
     const handleClickConnect = () => {
-        router.push('https://line.me/ti/p/6U8C67P6q1');
+        router.push('https://lin.ee/4EpU6b6');
     };
 
     const handleClickPJean = () => {
