@@ -190,6 +190,11 @@
         "footer.joinUs": "Bergabung dengan kami",
         "footer.privacy_policy": "Kebijakan Privasi",
         "footer.help": "Bantuan",
-        "login": "Masuk"
+        "login": "Masuk",
+        "logout": "Keluar",
+        "unlog": "Anda tidak masuk log",
+        "history": "Riwayat",
+        "createAt": "Dibuat pada",
+        "noPrompts": "Tidak ada pesan yang dihasilkan..."
     }
 }
