@@ -80,6 +80,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                 >
                   {language === "th" && <Flag country="TH" />}
                   {language === "eng" && <Flag country="US" />}
+                  {language === "id" && <Flag country="ID" />}
                 </a>
                 <ul
                   className="dropdown-menu dropdown-menu-dark"
@@ -101,6 +102,14 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                       }}
                     >
                       <Flag country="TH" /> Thai
+                    </a>
+                    <a
+                      className={`dropdown-item ${styles.language_list}`}
+                      onClick={() => {
+                        setLanguage("id");
+                      }}
+                    >
+                      <Flag country="ID" /> Indonesia
                     </a>
                   </li>
                 </ul>

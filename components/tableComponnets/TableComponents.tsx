@@ -54,7 +54,7 @@ type pageConfig = {
    titlePage: string;
    titleDescription: string;
    modelConfig: modelCofig;
-   getPrompt: (input: string, type: string) => string;
+   prompt: (input: string, type: string) => string;
 }
 
 const TableComponents = (config: pageConfig) => {
@@ -172,7 +172,7 @@ const TableComponents = (config: pageConfig) => {
    const handleGenerateMessage = async (index: number) => {
       const { input, tone_id } = prompts[index];
       const tone = await GetTonesByID(tone_id)
-      const prompt = config.getPrompt(input, tone.tone_name)
+      const prompt = config.prompt(input, tone.tone_name)
       const data: UserGenerateMessage | GenerateMessage = userContext?.user
          ? {
             user_id: userContext.user.firebase_id,
@@ -189,21 +189,26 @@ const TableComponents = (config: pageConfig) => {
             tone_id: tone_id,
             feature_id: features[config.titlePage],
          };
+      try {
+         const result =
+            userContext?.user == null ?
+               await generateMessage(data) ?? 'Error Please try again' :
+               await generateMessageWithUser(data) ?? 'Error Please try again'
 
+         const message = result.reply
 
-      console.log("generate payload", data)
-      const result =
-         userContext?.user == null ?
-            await generateMessage(data) ?? 'Error Please try again' :
-            await generateMessageWithUser(data) ?? 'Error Please try again'
-
-      console.log(result)
-      const message = result.reply
-      setPrompts((prevComponents) => {
-         const updatedComponents = [...prevComponents];
-         updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
-         return updatedComponents;
-      });
+         setPrompts((prevComponents) => {
+            const updatedComponents = [...prevComponents];
+            updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
+            return updatedComponents;
+         });
+      } catch  {
+         setPrompts((prevComponents) => {
+            const updatedComponents = [...prevComponents];
+            updatedComponents[index] = { ...updatedComponents[index], message:"Error Please try again", generate_status: false };
+            return updatedComponents;
+         });
+      }
    };
 
    const handleInputTextChange = (

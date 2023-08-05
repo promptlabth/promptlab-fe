@@ -151,7 +151,7 @@
         "modal.title.clickGenerate": "Klik Hasilkan dan bersenang-senang!!",
         "table.input.title": "Input",
         "table.type.title": "Gaya",
-        "table.message.title": "Pesan yang Dihasilkan",
+        "table.massage.title": "Pesan yang Dihasilkan",
         "table.type.funny": "Lucu",
         "table.type.confident": "Penuh percaya diri",
         "table.type.professional": "Profesional",
@@ -190,6 +190,11 @@
         "footer.joinUs": "Bergabung dengan kami",
         "footer.privacy_policy": "Kebijakan Privasi",
         "footer.help": "Bantuan",
-        "login": "Masuk"
+        "login": "Masuk",
+        "logout": "Keluar",
+        "unlog": "Anda tidak masuk log",
+        "history": "Riwayat",
+        "createAt": "Dibuat pada",
+        "noPrompts": "Tidak ada pesan yang dihasilkan..."
     }
 }
