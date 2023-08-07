@@ -271,6 +271,14 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                     >
                       <Flag country="TH" /> Thai
                     </a>
+                    <a
+                      className={`dropdown-item ${styles.language_list}`}
+                      onClick={() => {
+                        setLanguage("id");
+                      }}
+                    >
+                      <Flag country="ID" /> Indonesia
+                    </a>
                   </li>
                 </ul>
               </li>
