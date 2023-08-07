@@ -55,8 +55,12 @@ export default function Home() {
                         >
                            <img
                               className={`${styles.rounded} float-start img-fluid`}
-                              src="https://cdn.pixabay.com/photo/2018/06/10/13/41/rice-terraces-3466518_640.jpg"
+                              src="/images/prompt_lab_logo.png"
+                              width={400}
+                              height={300}
+                              alt="PromptLabLogo"
                            ></img>
+                           
                         </div>
 
                         <div className="col-sm-8 col-lg-5">
@@ -72,7 +76,8 @@ export default function Home() {
                         <div className="col-sm-4 order-lg-2 mb-4 col-lg-5">
                            <img
                               className={`${styles.rounded} float-end img-fluid`}
-                              src="https://cdn.pixabay.com/photo/2021/07/05/15/18/senbon-torii-6389421_640.jpg"
+                              src="/images/prompt_gif.gif"
+                              alt="promptlab_gif"
                            ></img>
                         </div>
                         <div
