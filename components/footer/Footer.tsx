@@ -26,6 +26,11 @@ const Footer = () => {
         router.push('https://www.facebook.com/lasxna');
     };
 
+    const handleClickPermlikejj = () => {
+        router.push('https://lin.ee/htsNQqk');
+    };
+
+
     const handleClickPMost = () => {
         router.push('https://line.me/R/ti/p/@703vxfsh');
     }
@@ -38,10 +43,10 @@ const Footer = () => {
         return (
             <>
                 <Carousel style={{ cursor: "pointer" }} >
-                    <Carousel.Item onClick={handleClickConnect} interval={5000}>
+                    <Carousel.Item onClick={handleClickPermlikejj} interval={5000}>
                         <img
                             className="d-block w-100 h-100"
-                            src="/images/promote_bg.png"
+                            src="/images/promote_permlikejj.jpg"
                             alt="Third slide"
                         />
                     </Carousel.Item>
