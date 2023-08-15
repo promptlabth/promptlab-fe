@@ -1,4 +1,4 @@
-import { Auth, getAuth, getRedirectResult, FacebookAuthProvider, UserCredential, OAuthCredential, signInWithPopup } from "firebase/auth";
+import { Auth, FacebookAuthProvider, UserCredential, signInWithPopup } from "firebase/auth";
 import { authFirebase } from "../auth";
 
 // const auth: Auth = getAuth(appFirebase);
@@ -28,7 +28,7 @@ import { authFirebase } from "../auth";
 //     // ...
 //   });
 
-export async function signInWithFacebook(): Promise<UserCredential | null> {
+async function signInWithFacebook(): Promise<UserCredential | null> {
     try {
       const auth: Auth = authFirebase;
       const provider = new FacebookAuthProvider();
@@ -40,4 +40,5 @@ export async function signInWithFacebook(): Promise<UserCredential | null> {
     }
   }
 
-  export default signInWithFacebook
+  export default signInWithFacebook;
+
