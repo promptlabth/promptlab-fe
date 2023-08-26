@@ -11,8 +11,6 @@ interface UserContextInterface {
    setUser: (user: LoginUser) => void;
    handleLogin: (typeLogin: string) => Promise<void>;
    handleLogout: () => Promise<void>;
-   typeLogin: string | null;
-   setTypeLogin: (typeLogin: string) => void
 }
 
 // Create user context
@@ -29,7 +27,6 @@ export function useUserContext() {
 
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
-   const [typeLogin, setTypeLogin] = useState<string>();
    const router = useRouter()
 
    const delay = (ms : number) => new Promise(
@@ -90,7 +87,6 @@ export function UserContextProvider({ children }: Props) {
    }
 
    const handleLogin = async (typeLoginInput: string) => {
-      setTypeLogin(() => typeLoginInput);
       // Sign in with Facebook to obtain a token
       let result;
       let loginFunction;
@@ -160,9 +156,7 @@ export function UserContextProvider({ children }: Props) {
       user: User || null,
       setUser: setUser,
       handleLogin: handleLogin,
-      handleLogout: handleLogout,
-      typeLogin: typeLogin || null,
-      setTypeLogin: setTypeLogin
+      handleLogout: handleLogout
    }
    return (
       <UserContext.Provider value={current_context}> {children} </UserContext.Provider>
