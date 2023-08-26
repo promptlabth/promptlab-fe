@@ -5,6 +5,7 @@ import { Login } from '@/api/LoginAPI';
 import { useRouter } from 'next/router';
 import signInWithFacebook from '@/api/auth/auth_facebook';
 import signInWithGmail from '@/api/auth/auth_gmail';
+import { authFirebase } from '@/api/auth';
 interface UserContextInterface {
    user: LoginUser | null;
    setUser: (user: LoginUser) => void;
@@ -89,19 +90,21 @@ export function UserContextProvider({ children }: Props) {
    }
 
    const handleLogin = async (typeLoginInput: string) => {
-      setTypeLogin(typeLoginInput);
+      setTypeLogin(() => typeLoginInput);
       // Sign in with Facebook to obtain a token
       let result;
       let loginFunction;
-      if(typeLogin === "facebook"){
+      if(typeLoginInput === "facebook"){
          // Login with facebook
          loginFunction = signInWithFacebook
          result = await loginFunction();
-      }else if(typeLogin === "gmail"){
+         localStorage.setItem("typeLogin", "facebook");
+      }else if(typeLoginInput === "gmail"){
          loginFunction = signInWithGmail;
          result = await loginFunction();
+         localStorage.setItem("typeLogin", "gmail");
       }else{
-         console.log("error: You have a some bug")
+         console.log("error: You have a some bug 1")
          return;
       }
       console.log("FACEBOOK", result)
@@ -122,6 +125,7 @@ export function UserContextProvider({ children }: Props) {
       }
    }
 
+
    /**
     * This useEffect function retrieves the access token from local storage.
     * It then checks whether the access token has a value or not.
@@ -129,6 +133,7 @@ export function UserContextProvider({ children }: Props) {
     **/
    useEffect(() => {
       const token = localStorage.getItem("at")
+      const refToken = localStorage.getItem("rt")
 
       // TODO Check that access token is expired or not
       // Pseudo code
@@ -136,13 +141,13 @@ export function UserContextProvider({ children }: Props) {
       // If token is expire then get a new access token
 
       let loginFunction;
-      if(typeLogin === "facebook"){
+      if(localStorage.getItem("typeLogin") === "facebook"){
          // Login with facebook
          loginFunction = signInWithFacebook
-      }else if(typeLogin === "gmail"){
+      }else if(localStorage.getItem("typeLogin") === "gmail"){
          loginFunction = signInWithGmail;
       }else{
-         console.log("error: You have a some bug")
+         console.log("error: You not login in this time")
          return;
       }
       
