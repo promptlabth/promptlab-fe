@@ -1,12 +1,17 @@
+
 import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
 import { LoginUser } from '@/models';
 import { Login } from '@/api/LoginAPI';
 import { useRouter } from 'next/router';
+import signInWithFacebook from '@/api/auth/auth_facebook';
+import signInWithGmail from '@/api/auth/auth_gmail';
 interface UserContextInterface {
    user: LoginUser | null;
    setUser: (user: LoginUser) => void;
-   handleLogin: () => Promise<void>;
+   handleLogin: (typeLogin: string) => Promise<void>;
    handleLogout: () => Promise<void>;
+   typeLogin: string | null;
+   setTypeLogin: (typeLogin: string) => void
 }
 
 // Create user context
@@ -23,6 +28,7 @@ export function useUserContext() {
 
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
+   const [typeLogin, setTypeLogin] = useState<string>();
    const router = useRouter()
 
    const delay = (ms : number) => new Promise(
@@ -82,10 +88,22 @@ export function UserContextProvider({ children }: Props) {
       router.reload()
    }
 
-   const handleLogin = async (loginFunction: () => any) => {
-
+   const handleLogin = async (typeLoginInput: string) => {
+      setTypeLogin(typeLoginInput);
       // Sign in with Facebook to obtain a token
-      const result = await loginFunction();
+      let result;
+      let loginFunction;
+      if(typeLogin === "facebook"){
+         // Login with facebook
+         loginFunction = signInWithFacebook
+         result = await loginFunction();
+      }else if(typeLogin === "gmail"){
+         loginFunction = signInWithGmail;
+         result = await loginFunction();
+      }else{
+         console.log("error: You have a some bug")
+         return;
+      }
       console.log("FACEBOOK", result)
 
       // Proceed if the sign-in with Facebook is successful
@@ -117,8 +135,19 @@ export function UserContextProvider({ children }: Props) {
       // Encode access token(which is JWT token) and get `iat` and `exp`
       // If token is expire then get a new access token
 
+      let loginFunction;
+      if(typeLogin === "facebook"){
+         // Login with facebook
+         loginFunction = signInWithFacebook
+      }else if(typeLogin === "gmail"){
+         loginFunction = signInWithGmail;
+      }else{
+         console.log("error: You have a some bug")
+         return;
+      }
+      
       if (token) {
-         UserLogin(token)
+         UserLogin(token, loginFunction);
       }
    }, [])
 
@@ -127,6 +156,8 @@ export function UserContextProvider({ children }: Props) {
       setUser: setUser,
       handleLogin: handleLogin,
       handleLogout: handleLogout,
+      typeLogin: typeLogin || null,
+      setTypeLogin: setTypeLogin
    }
    return (
       <UserContext.Provider value={current_context}> {children} </UserContext.Provider>

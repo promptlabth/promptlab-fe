@@ -72,10 +72,20 @@ export const NavbarMobile: React.FC = () => {
                     <button
                       className={styles.navbar_login_button}
                       onClick={() => {
-                        userContext?.handleLogin();
+                        userContext?.handleLogin("facebook");
                       }}
                     >
                       {translate("login", language)}
+                      &nbsp;Facebook
+                    </button>
+                    <button
+                      className={styles.navbar_login_button}
+                      onClick={() => {
+                        userContext?.handleLogin("gmail");
+                      }}
+                    >
+                      {translate("login", language)}
+                      &nbsp;Gmail
                     </button>
                   </div>
                 </div>
@@ -299,10 +309,21 @@ export const NavbarMobile: React.FC = () => {
                     // disabled
                     className={styles.navbar_login_button}
                     onClick={() => {
-                      userContext?.handleLogin();
+                      userContext?.handleLogin("facebook");
                     }}
                   >
                     {translate("login", language)}
+                    &nbsp;Facebook
+                  </button>
+                  <button
+                    // disabled
+                    className={styles.navbar_login_button}
+                    onClick={() => {
+                      userContext?.handleLogin("gmail");
+                    }}
+                  >
+                    {translate("login", language)}
+                    &nbsp;Gmail
                   </button>
                 </div>
               </li>
