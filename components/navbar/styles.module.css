@@ -16,7 +16,12 @@
 
 .navbar_header {
     color: #00FFAB;
-    padding-left: 100px;
+    padding-top: 0.5rem;
+    padding-left: 2.5rem;
+}
+
+.navbar_container{
+    width: 75%;
 }
 
 .container{
@@ -73,16 +78,55 @@
     background-color: transparent;
 }
 
+.login_container {
+    background: black;
+    border-radius: 20px;
+}
+
 .navbar_login_button {
     padding-left: 20px;
     padding-right: 20px;
     background-color: transparent;
     color: #ffffff;
     border-radius: 100px;
+    width: 120px;
+    height: 35px;
     border: 1px solid #00FFAB;
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
 }
 
+.facebook_login_button {
+    width: 50vw;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #149FF9;
+    color: #000000;
+    border-radius: 10px;
+    border: none;
+    /* width: 200px; */
+    /* border: 1px solid #00FFAB; */
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
+}
+
+.gmail_login_button {
+    width: 50vw;
+
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 10px;
+    border: none;
+    /* border: 1px solid #00FFAB; */
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
+}
+
+.coin{
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    margin-top: -0.15rem;
+    color: #FFB800;;
+}
 .navbar_logout_button {
     padding-left: 20px;
     padding-right: 20px;
