@@ -42,7 +42,7 @@ export const NavbarMobile: React.FC = () => {
    return (
       <>
          <nav className={`${noto_sans_thai.className}  navbar navbar-expand-lg navbar-dark bg-dark fixed-top`}>
-            <div className={`border container ${styles.navbar_container} d-flex mt-auto`}>
+            <div className={`container ${styles.navbar_container} d-flex mt-auto`}>
                <div className={styles.navbar_header}>
                   <h3>Prompt Lab</h3>
                </div>
@@ -111,12 +111,12 @@ export const NavbarMobile: React.FC = () => {
                      {windowWidth >= 992 &&
                         (
                            <div className="d-flex  align-items-center">
-                              <li className="nav-item">
+                              {/* <li className="nav-item">
                                  <div className="nav-link">
                                     <BsFillCircleFill size={20} className={`${styles.coin}`} />
                                     99999 +
                                  </div>
-                              </li>
+                              </li> */}
 
                               <li className={`${styles.language_dropdown}  text-center ms-2 mt-auto mb-auto nav-item dropdown`}>
                                  <a
@@ -177,9 +177,9 @@ export const NavbarMobile: React.FC = () => {
                                  <button
                                     className={styles.navbar_login_button}
                                     // TODO Wait for onClick to show Modal
-                                    // onClick={() => {
-                                    //    userContext?.handleLogin("facebook");
-                                    // }}
+                                    onClick={() => {
+                                       userContext?.handleLogin("facebook");
+                                    }}
                                  >
                                     {translate("login", language)}
                                  </button>
@@ -191,7 +191,7 @@ export const NavbarMobile: React.FC = () => {
                      {windowWidth < 992 &&
                         (
                            <div>
-                              <div className={`${styles.login_container}`}>
+                              <div className={`${styles.login_container} p-3`}>
                                  <div className=" d-flex  justify-content-center">
                                     <h4 className="text-white">{translate("login", language)}</h4>
                                  </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "../../languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
@@ -15,8 +15,8 @@ export const AppTabbar: React.FC = () => {
   const router = useRouter()
   const ref = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
   const { events } = useDraggable(ref); // Now we pass the reference to the useDraggable hook:
-  
-  const [titles, setTitles] = useState( urlLinks.map(({ titleKey }) => translate(titleKey, language)) );
+
+  const [titles, setTitles] = useState(urlLinks.map(({ titleKey }) => translate(titleKey, language)));
 
 
   useEffect(() => {
@@ -25,10 +25,26 @@ export const AppTabbar: React.FC = () => {
 
 
   return (
-    <Nav className={`${noto_sans_thai.className} justify-content-center bg-dark`}>
-      <div className={styles.container}>
-        <div className={styles.scroll} {...events} ref={ref}>
-          <li>
+    <div className={`${noto_sans_thai.className}   bg-dark`} >
+      <div className={`${styles.container}`}>
+        <div className={`${styles.scroll} `} {...events} ref={ref}>
+          <div className="">
+            {urlLinks.map(({ href }, index) => (
+              <Link
+                className={styles.btn}
+                href={href}
+                key={index}
+                style={{
+                  background: href === router.pathname ? "none" : "rgb(0, 255, 171,0.8)",
+                  color: href === router.pathname ? "white" : ""
+                }}
+              >
+                {titles[index]}
+              </Link>
+            ))}
+          </div>
+          {/* 
+          <li className="">
             {urlLinks.map(({ href }, index) => (
               <Link 
                 className={styles.btn} 
@@ -42,10 +58,11 @@ export const AppTabbar: React.FC = () => {
                 {titles[index]}
               </Link>
             ))}
-          </li>
+          </li> 
+          */}
         </div>
       </div>
-    </Nav>
+    </div>
   );
 };
 export default AppTabbar;
