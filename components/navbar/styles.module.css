@@ -54,6 +54,11 @@
     background-color: #8c8c8c;
 }
 
+.flag_size {
+    width: 38px;
+    height: 38px;
+}
+
 .language_dropdown .language_list{
     transition: 0.3s;
 }
@@ -91,7 +96,7 @@
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 991px) {
     .navbar_header {
             padding-left: 0px;
         }
@@ -209,4 +214,8 @@
 .remove_underline:hover{
     text-decoration: none;
     color: #41ffa3;
+}
+
+.language_dropdown_test {
+    position: fixed;
 }
