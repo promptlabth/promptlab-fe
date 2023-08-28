@@ -187,7 +187,13 @@ const History = () => {
                                                 <Col className="d-flex p-0 justify-content-end">
                                                    <CopyToClipboardButton message={result_message} />
                                                 </Col>
-                                                <Col xs={12} className="text-light p-0 mb-3" style={{ whiteSpace: 'pre-wrap' }}>
+                                                <Col xs={12} className=" text-light p-0 mb-3"
+                                                   style={{
+                                                      whiteSpace: 'pre-wrap',
+                                                      overflow: 'hidden',
+                                                      textOverflow: 'none'
+                                                   }}
+                                                >
                                                    {result_message}
                                                 </Col>
                                              </Row>
