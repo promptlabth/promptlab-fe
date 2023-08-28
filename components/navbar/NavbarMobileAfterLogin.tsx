@@ -272,7 +272,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                         setLanguage("eng");
                       }}
                     >
-                      <Flag country="US" className = {`${styles.flag_size}`} /> English
+                      <Flag country="US" className = {`${styles.flag_size} me-2`} /> English
                     </a>
                     <a
                       className={`dropdown-item ${styles.language_list}`}
@@ -280,7 +280,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                         setLanguage("th");
                       }}
                     >
-                      <Flag country="TH" className = {`${styles.flag_size}`}/> Thai
+                      <Flag country="TH" className = {`${styles.flag_size} me-2`}/> Thai
                     </a>
                     <a
                       className={`dropdown-item ${styles.language_list}`}
@@ -288,7 +288,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                         setLanguage("id");
                       }}
                     >
-                      <Flag country="ID" className = {`${styles.flag_size}`}/> Indonesia
+                      <Flag country="ID" className = {`${styles.flag_size} me-2`}/> Indonesia
                     </a>
                   </li>
                 </ul>
