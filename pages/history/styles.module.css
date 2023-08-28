@@ -131,7 +131,10 @@
 .pagination_item, .pagination_item_disable {
     border: none;
     background: none;
-    padding: 5px 9px;
+    /* padding: 5px 9px; */
+    margin: 0 1px;
+    width: 40px; /* Set a fixed width for consistent circle sizes */
+    height: 40px; /* Set a fixed height for consistent circle sizes */
     text-decoration: none;
     color: rgb(255, 255, 255);
 }
@@ -142,12 +145,19 @@
 
 
 .pagination_page_number, .selected_pagination_page_number {
-    border: none;
     background: none;
+    border: none;
     padding: 5px 12px;
     text-decoration: none;
-    color: rgb(255, 255, 255);
-    border-radius: 100%;
+    color: #ffffff;
+    border-radius: 50%;
+    width: 40px; /* Set a fixed width for consistent circle sizes */
+    height: 40px; /* Set a fixed height for consistent circle sizes */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 0 1.5px; /* Add some space between circle buttons */
 }
 
 .pagination_page_number {

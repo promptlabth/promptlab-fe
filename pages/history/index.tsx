@@ -91,6 +91,17 @@ const History = () => {
    const currentPrompts = prompts.slice(indexOfFirstPrompt, indexOfLastPrompt);
    const totalPages = Math.ceil(prompts.length / promptsPerPage);
    const Pagination = () => {
+      const pagesToShow = 5; // Number of pages to show
+      const halfPagesToShow = Math.floor(pagesToShow / 2);
+
+      const getVisiblePageNumbers = () => {
+         let startPage = Math.max(1, currentPage - halfPagesToShow);
+         if (startPage + pagesToShow - 1 > totalPages) {
+            startPage = totalPages - pagesToShow + 1;
+         }
+         return Array.from({ length: pagesToShow }, (_, index) => startPage + index);
+      };
+
       return (
          <div className={`${styles.pagination} -flex justify-content-end pb-2`}>
             <button
@@ -100,13 +111,13 @@ const History = () => {
             >
                <VscTriangleLeft />
             </button>
-            {Array.from({ length: Math.ceil(prompts.length / promptsPerPage) }, (_, index) => (
+            {getVisiblePageNumbers().map((pageNumber) => (
                <button
-                  key={index}
-                  className={`${currentPage === index + 1 ? styles.selected_pagination_page_number : styles.pagination_page_number}`}
-                  onClick={() => setCurrentPage(index + 1)}
+                  key={pageNumber}
+                  className={`${currentPage === pageNumber ? styles.selected_pagination_page_number : styles.pagination_page_number}`}
+                  onClick={() => setCurrentPage(pageNumber)}
                >
-                  {index + 1}
+                  {pageNumber}
                </button>
             ))}
             <button
@@ -117,8 +128,10 @@ const History = () => {
                <VscTriangleRight />
             </button>
          </div>
-      )
-   }
+      );
+   };
+
+
    useEffect(() => {
       getMessage();
    }, []);
