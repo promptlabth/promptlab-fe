@@ -128,12 +128,35 @@
     width: 30px;
 }
 
+.coin_mobile_container {
+    justify-self: start;
+}
+
+.add_coin_button {
+    background: #FFB800;
+    justify-self: end;
+    border-radius:25px;
+    padding: 0.5rem;
+    color: #000000;
+    text-decoration: none;
+}
+
 .coin {
-    margin-right: 0.5rem;
+    margin-right: 0.15rem;
     margin-left: 0.5rem;
     margin-top: -0.15rem;
     color: #FFB800;
-    ;
+}
+
+.add_coin {
+    color:white;
+    margin-bottom: 0.2rem;
+    transition: 0.3s ease;
+}
+
+.add_coin:hover {
+    color:#00FFAB;
+    
 }
 
 .navbar_logout_button {
