@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@playwright/test": "^1.35.1",
+    "@stripe/stripe-js": "^2.0.0",
     "@types/node": "18.15.10",
     "@types/react": "18.0.29",
     "@types/react-dom": "18.0.11",
@@ -38,6 +39,7 @@
     "react-social-media-embed": "^2.3.5",
     "react-use-draggable-scroll": "^0.4.7",
     "sass": "^1.60.0",
+    "stripe": "^12.17.0",
     "typescript": "5.0.2"
   },
   "devDependencies": {

@@ -15,8 +15,10 @@ import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaClosedCaptioning } from "react-icons/fa";
 import { useUserContext } from "@/contexts/UserContext";
 import { FcGoogle } from "react-icons/fc"
-import { BsFillCircleFill } from "react-icons/bs"
+import { BsFacebook, BsFillCircleFill } from "react-icons/bs"
 import { RxAvatar } from "react-icons/rx"
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export const NavbarMobile: React.FC = () => {
    const userContext = useUserContext()
@@ -41,6 +43,45 @@ export const NavbarMobile: React.FC = () => {
 
    return (
       <>
+         <div
+            className={`modal fade ${noto_sans_thai.className} `}
+            id="exampleModal"
+            tabIndex={-1}
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+         >
+            <div className={`modal-dialog modal-dialog-centered`}>
+               <div className={`modal-content`}>
+                  <div className={`modal-body text-center mb-4`}>
+                     <div className={`text-end`}>
+                        <button
+                           type="button"
+                           className={`btn-close`}
+                           data-bs-dismiss="modal"
+                           aria-label="Close"
+                        ></button>
+                     </div>
+                     <h4 className="mb-4">เข้าสู่ระบบ</h4>
+                     <Row className="row">
+                        <Col className="d-flex flex-column align-items-center">
+                           <button className={`btn btn-block mb-3 ${styles.btn}`} onClick={()=>{userContext?.handleLogin("facebook")}}>
+                              <BsFacebook
+                                 className="me-3 align-items-start"
+                                 fontSize={20}
+                              ></BsFacebook>
+                              Sign in with facebook
+                           </button>
+                           <p style={{ color: "#c2c2c2" }}>- or -</p>
+                           <button className={`btn btn-block ${styles.btn_google}`} onClick={()=>{userContext?.handleLogin("gmail")}}>
+                              <FcGoogle className="me-3" fontSize={20}></FcGoogle>
+                              Sign in with google
+                           </button>
+                        </Col>
+                     </Row>
+                  </div>
+               </div>
+            </div>
+         </div>
          <nav className={`${noto_sans_thai.className}  navbar navbar-expand-lg navbar-dark bg-dark fixed-top`}>
             <div className={`container ${styles.navbar_container} d-flex mt-auto`}>
                <div className={styles.navbar_header}>
@@ -125,9 +166,9 @@ export const NavbarMobile: React.FC = () => {
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
                                  >
-                                    {language === "th" && <Flag country="TH" className = {`${styles.flag_size}`} />}
-                                    {language === "eng" && <Flag country="US" className = {`${styles.flag_size}`} />}
-                                    {language === "id" && <Flag country="ID" className = {`${styles.flag_size}`} />}
+                                    {language === "th" && <Flag country="TH" className={`${styles.flag_size}`} />}
+                                    {language === "eng" && <Flag country="US" className={`${styles.flag_size}`} />}
+                                    {language === "id" && <Flag country="ID" className={`${styles.flag_size}`} />}
                                  </a>
                                  <ul
                                     className="dropdown-menu dropdown-menu-dark"
@@ -140,7 +181,7 @@ export const NavbarMobile: React.FC = () => {
                                              setLanguage("eng");
                                           }}
                                        >
-                                          <Flag country="US" className = {`${styles.flag_size} me-2`}/> English
+                                          <Flag country="US" className={`${styles.flag_size} me-2`} /> English
                                        </a>
                                        <a
                                           className={`dropdown-item ${styles.language_list}`}
@@ -148,7 +189,7 @@ export const NavbarMobile: React.FC = () => {
                                              setLanguage("th");
                                           }}
                                        >
-                                          <Flag country="TH" className = {`${styles.flag_size} me-2`} /> Thai
+                                          <Flag country="TH" className={`${styles.flag_size} me-2`} /> Thai
                                        </a>
                                        <a
                                           className={`dropdown-item ${styles.language_list}`}
@@ -156,7 +197,7 @@ export const NavbarMobile: React.FC = () => {
                                              setLanguage("id");
                                           }}
                                        >
-                                          <Flag country="ID" className = {`${styles.flag_size} me-2`}/> Indonesia
+                                          <Flag country="ID" className={`${styles.flag_size} me-2`} /> Indonesia
                                        </a>
                                     </li>
                                  </ul>
@@ -175,12 +216,10 @@ export const NavbarMobile: React.FC = () => {
                               </li>
                               <div className="nav-link d-flex justify-content-center">
                                  <button
+                                    type="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal"
                                     className={styles.navbar_login_button}
-                                    // TODO Wait for onClick to show Modal
-                                    onClick={() => {
-                                       // userContext?.handleLogin("facebook");
-                                       userContext?.handleLogin("gmail");
-                                    }}
                                  >
                                     {translate("login", language)}
                                  </button>
@@ -327,151 +366,8 @@ export const NavbarMobile: React.FC = () => {
             </div>
 
          </nav>
-         {/* 
-     
-          <div
-            className={`${styles.navcollapse} collapse navbar-collapse`}
-            id="navbarSupportedContent"
-          >
-            {windowWidth < 1000 ? (
-              <>
-                <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0">
-                  <li
-                    className={`${styles.profileUnlog} nav-item text-center pb-3`}
-                  >
-                    <div className="pt-4">
-                      <p>
-                        <b>{translate("unlog", language)}</b>
-                      </p>
-                      <div className="nav-link ">
-                        <button
-                          className={styles.navbar_login_button}
-                          onClick={() => {
-                            userContext?.handleLogin("facebook");
-                          }}
-                        >
-                          {translate("login", language)}
-                          &nbsp;Facebook
-                        </button>
-                        <button
-                          className={styles.navbar_login_button}
-                          onClick={() => {
-                            userContext?.handleLogin("gmail");
-                          }}
-                        >
-                          {translate("login", language)}
-                          &nbsp;Gmail
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    className={`${styles.language_dropdown} text-center ms-2 mt-2 mb-auto nav-item dropdown`}
-                  >
-                    <a
-                      className={`nav-link dropdown-toggle`}
-                      id="navbarDropdown"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      {language === "th" && <Flag country="TH" />}
-                      {language === "eng" && <Flag country="US" />}
-                      {language === "id" && <Flag country="ID" />}
-                    </a>
-                    <ul
-                      className="dropdown-menu dropdown-menu-dark"
-                      aria-labelledby="navbarDropdown"
-                    >
-                      <li>
-                        <a
-                          className={`dropdown-item ${styles.language_list}`}
-                          onClick={() => {
-                            setLanguage("eng");
-                          }}
-                        >
-                          <Flag country="US" /> English
-                        </a>
-                        <a
-                          className={`dropdown-item ${styles.language_list}`}
-                          onClick={() => {
-                            setLanguage("th");
-                          }}
-                        >
-                          <Flag country="TH" /> Thai
-                        </a>
-                        <a
-                          className={`dropdown-item ${styles.language_list}`}
-                          onClick={() => {
-                            setLanguage("id");
-                          }}
-                        >
-                          <Flag country="ID" /> Indonesia
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  
-                  </div>
-                </ul>
-              </>
-
-            ) : (
-              <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0">
-                
-                <li className="nav-item">
-                  <div className="nav-link">
-                    <button className={styles.navbar_help_button}>
-                      <Link
-                        href={"/"}
-                        className={`${styles.remove_underline}`}
-                      >
-                        {translate("home.title", language)}
-                      </Link>
-                    </button>
-                  </div>
-                </li>
-                <li className="nav-item">
-                  <div className="nav-link">
-                    <button className={styles.navbar_help_button}>
-                      <Link
-                        href={"/help"}
-                        className={`${styles.remove_underline}`}
-                      >
-                        {translate("footer.help", language)}
-                      </Link>
-                    </button>
-                  </div>
-                </li>
-                <li className="nav-item">
-                  <div className="nav-link ">
-                    <button
-                      className={styles.navbar_login_button}
-                      onClick={() => {
-                        userContext?.handleLogin("facebook");
-                      }}
-                    >
-                      {translate("login", language)}
-                      &nbsp;Facebook
-                    </button>
-                    <button
-                      className={styles.navbar_login_button}
-                      onClick={() => {
-                        userContext?.handleLogin("gmail");
-                      }}
-                    >
-                      {translate("login", language)}
-                      &nbsp;Gmail
-                    </button>
-                  </div>
-                </li>
-              </ul>
-            )}
-          </div>
-        </div>
-      </nav> */}
       </>
-
-   );
+  );
 };
 
 export default NavbarMobile;

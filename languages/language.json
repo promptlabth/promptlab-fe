@@ -63,7 +63,14 @@
         "unlog": "ท่านยังไม่ได้เข้าสู่ระบบ",
         "history": "ประวัติการสร้างข้อความ",
         "createAt": "สร้างเมื่อ",
-        "noPrompts": "ไม่มีข้อความที่สร้าง..."
+        "noPrompts": "ไม่มีข้อความที่สร้าง...",
+        "payment":"เติมเหรียญ",
+        "payment.description_1":"กรุณาเลือกจำนวนเหรียญที่ต้องการเติมผ่านช่องทางออนไลน์โดยเหรียญจะถูกนำไปใช้ในสร้างข้อความท่านสามารถใช้งานเหรียญได้จนกว่าจะยกเลิกบัญชีใช้งานท่านไม่สามารถโอนเหรียญไปให้บัญชีอื่นได้",
+        "payment.coin_1":"50 เหรียญ",
+        "payment.coin_2":"150 เหรียญ",
+        "payment.coin_3":"300 เหรียญ",
+        "payment.coin_4":"500 เหรียญ",
+        "payment.selectCoin":"กรุณาเลือกจำนวนเหรียญที่ต้องการเติม"
     },
     "eng": {
         "language": "Language",
@@ -129,7 +136,14 @@
         "unlog": "You are not logged in",
         "history": "History",
         "createAt": "Create at",
-        "noPrompts": "No generated messages..."
+        "noPrompts": "No generated messages...",
+        "payment":"Coins",
+        "payment.description_1":"Please select the amount of coins you want to top up via online channels. Coins will be used to create a message. You can use coins until you cancel your account. You cannot transfer coins to other accounts.",
+        "payment.coin_1":"50 coins",
+        "payment.coin_2":"150 coins",
+        "payment.coin_3":"300 coins",
+        "payment.coin_4":"500 coins",
+        "payment.selectCoin":"Please select the amount of coins you want to top up."
     },
     "id": {
         "language": "Bahasa",

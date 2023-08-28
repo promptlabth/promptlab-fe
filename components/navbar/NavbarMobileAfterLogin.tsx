@@ -121,11 +121,15 @@ export const NavbarMobileAfterLogin: React.FC = () => {
               <div className="pt-3 d-flex justify-content-between p-2 align-items-center">
                 <div className="ms-4 d-flex align-items-center">
                   <BsFillCircleFill size={20} className={`${styles.coin}`} />
-                  <div className="px-2 text-white user-select-none fs-5">100000</div>
+                  <div className="px-2 text-white user-select-none fs-5">-</div>
                 </div>
-                <Link href={"/"} className={`${styles.add_coin_button} me-4 fs-5`}>
+                <div className={`${styles.add_coin_button} opacity-50 user-select-none me-4 fs-5`}>
                   เติมเหรียญ
-                </Link>
+
+                </div>
+                {/* <Link href={"/payments"} className={`${styles.add_coin_button} user-select-none me-4 fs-5`}>
+                  เติมเหรียญ
+                </Link> */}
               </div>
               <li>
                 <hr style={{ color: "white" }}></hr>
@@ -257,12 +261,14 @@ export const NavbarMobileAfterLogin: React.FC = () => {
               <li className="nav-item">
                 <div className="nav-link d-flex align-items-center">
                   <BsFillCircleFill size={20} className={`${styles.coin}`} />
-                  <div className="px-2 user-select-none">100000</div>
-                  <Link
-                    href={"/payments"}
-                  >
+                  <div className="px-2 user-select-none">-</div>
+
+                  <div className="user-select-none opacity-50 ">
                     <AiFillPlusCircle className={`${styles.add_coin}`} size={34} />
-                  </Link>
+                  </div>
+                  {/* <Link href={"/payments"} className="user-select-none">
+                    <AiFillPlusCircle className={`${styles.add_coin}`} size={34} />
+                  </Link> */}
                 </div>
               </li>
 

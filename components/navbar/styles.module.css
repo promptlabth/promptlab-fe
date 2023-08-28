@@ -123,6 +123,7 @@
     /* border: 1px solid #00FFAB; */
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
 }
+
 .social_media_icon {
     height: 30px;
     width: 30px;
@@ -135,7 +136,7 @@
 .add_coin_button {
     background: #FFB800;
     justify-self: end;
-    border-radius:25px;
+    border-radius: 25px;
     padding: 0.5rem;
     color: #000000;
     text-decoration: none;
@@ -149,14 +150,14 @@
 }
 
 .add_coin {
-    color:white;
+    color: white;
     margin-bottom: 0.2rem;
     transition: 0.3s ease;
 }
 
 .add_coin:hover {
-    color:#00FFAB;
-    
+    color: #00FFAB;
+
 }
 
 .navbar_logout_button {
@@ -332,4 +333,33 @@
 
 .login_dropdown_history_menu:hover {
     color: #00FFAB;
+
+    .btn {
+        width: 80%;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.56);
+        background-color: #0F8FF2;
+        text-align: center;
+    }
+
+    .btn:hover {
+        width: 80%;
+        font-size: 16px;
+        color: #fff;
+        background-color: #0d61a1;
+    }
+
+    .btn_google {
+        width: 80%;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.56);
+        background-color: #fff;
+        border: 1px solid #000;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn_google:hover {
+        color: #fff;
+        background-color: #dd4b39;
+    }
 }
