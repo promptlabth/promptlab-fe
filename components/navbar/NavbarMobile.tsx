@@ -63,7 +63,9 @@ export const NavbarMobile: React.FC = () => {
               <h4 className="mb-4">เข้าสู่ระบบ</h4>
               <Row className="row">
                 <Col className="d-flex flex-column align-items-center">
-                  <button className={`btn btn-block mb-3 ${styles.btn}`}>
+                  <button
+                    className={`btn btn-block mb-3 ${styles.btn}`}
+                  >
                     <BsFacebook
                       className="me-3 align-items-start"
                       fontSize={20}
@@ -71,7 +73,9 @@ export const NavbarMobile: React.FC = () => {
                     Sign in with facebook
                   </button>
                   <p style={{ color: "#c2c2c2" }}>- or -</p>
-                  <button className={`btn btn-block ${styles.btn_google}`}>
+                  <button
+                    className={`btn btn-block ${styles.btn_google}`}
+                  >
                     <FcGoogle className="me-3" fontSize={20}></FcGoogle>
                     Sign in with google
                   </button>
@@ -88,7 +92,6 @@ export const NavbarMobile: React.FC = () => {
           <div className={styles.navbar_header}>
             <h3>Prompt Lab</h3>
           </div>
-
 
           <button
             className="navbar-toggler"
