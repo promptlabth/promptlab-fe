@@ -334,32 +334,34 @@
 .login_dropdown_history_menu:hover {
     color: #00FFAB;
 
-    .btn {
-        width: 80%;
-        font-size: 16px;
-        color: rgba(0, 0, 0, 0.56);
-        background-color: #0F8FF2;
-        text-align: center;
-    }
+    
+}
 
-    .btn:hover {
-        width: 80%;
-        font-size: 16px;
-        color: #fff;
-        background-color: #0d61a1;
-    }
+.btn_google {
+    width: 80%;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.56);
+    background-color: #fff;
+    border: 1px solid #000;
+    transition: background-color 0.3s, color 0.3s;
+}
 
-    .btn_google {
-        width: 80%;
-        font-size: 16px;
-        color: rgba(0, 0, 0, 0.56);
-        background-color: #fff;
-        border: 1px solid #000;
-        transition: background-color 0.3s, color 0.3s;
-    }
+.btn_google:hover {
+    color: #fff;
+    background-color: #dd4b39;
+}
 
-    .btn_google:hover {
-        color: #fff;
-        background-color: #dd4b39;
-    }
+.btn_facebook {
+    width: 80%;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.56);
+    background-color: #0F8FF2;
+    text-align: center;
+}
+
+.btn_facebook:hover {
+    width: 80%;
+    font-size: 16px;
+    color: #fff;
+    background-color: #0d61a1;
 }

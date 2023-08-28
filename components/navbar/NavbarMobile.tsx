@@ -64,7 +64,7 @@ export const NavbarMobile: React.FC = () => {
                      <h4 className="mb-4">เข้าสู่ระบบ</h4>
                      <Row className="row">
                         <Col className="d-flex flex-column align-items-center">
-                           <button className={`btn btn-block mb-3 ${styles.btn}`} onClick={()=>{userContext?.handleLogin("facebook")}}>
+                           <button className={`btn btn-block mb-3 ${styles.btn_facebook}`} onClick={()=>{userContext?.handleLogin("facebook")}}>
                               <BsFacebook
                                  className="me-3 align-items-start"
                                  fontSize={20}

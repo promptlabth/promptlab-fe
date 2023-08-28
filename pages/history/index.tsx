@@ -91,46 +91,44 @@ const History = () => {
    const currentPrompts = prompts.slice(indexOfFirstPrompt, indexOfLastPrompt);
    const totalPages = Math.ceil(prompts.length / promptsPerPage);
    const Pagination = () => {
-      const pagesToShow = 5; // Number of pages to show
+      const pagesToShow = 5; // Number of pages to show around the current page
       const halfPagesToShow = Math.floor(pagesToShow / 2);
-
+      
       const getVisiblePageNumbers = () => {
-         let startPage = Math.max(1, currentPage - halfPagesToShow);
-         if (startPage + pagesToShow - 1 > totalPages) {
-            startPage = totalPages - pagesToShow + 1;
-         }
-         return Array.from({ length: pagesToShow }, (_, index) => startPage + index);
+        const startPage = Math.max(1, currentPage - halfPagesToShow);
+        const endPage = Math.min(totalPages, startPage + pagesToShow - 1);
+        return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
       };
-
+    
       return (
-         <div className={`${styles.pagination} -flex justify-content-end pb-2`}>
+        <div className={`${styles.pagination} -flex justify-content-end pb-2`}>
+          <button
+            className={`${currentPage === 1 ? styles.pagination_item_disable : styles.pagination_item}`}
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(currentPage - 1)}
+          >
+            <VscTriangleLeft />
+          </button>
+          {getVisiblePageNumbers().map((pageNumber) => (
             <button
-               className={`${currentPage === 1 ? styles.pagination_item_disable : styles.pagination_item}`}
-               disabled={currentPage === 1}
-               onClick={() => setCurrentPage(currentPage - 1)}
+              key={pageNumber}
+              className={`${currentPage === pageNumber ? styles.selected_pagination_page_number : styles.pagination_page_number}`}
+              onClick={() => setCurrentPage(pageNumber)}
             >
-               <VscTriangleLeft />
+              {pageNumber}
             </button>
-            {getVisiblePageNumbers().map((pageNumber) => (
-               <button
-                  key={pageNumber}
-                  className={`${currentPage === pageNumber ? styles.selected_pagination_page_number : styles.pagination_page_number}`}
-                  onClick={() => setCurrentPage(pageNumber)}
-               >
-                  {pageNumber}
-               </button>
-            ))}
-            <button
-               className={`${currentPage === totalPages ? styles.pagination_item_disable : styles.pagination_item}`}
-               disabled={currentPage === totalPages}
-               onClick={() => setCurrentPage(currentPage + 1)}
-            >
-               <VscTriangleRight />
-            </button>
-         </div>
+          ))}
+          <button
+            className={`${currentPage === totalPages ? styles.pagination_item_disable : styles.pagination_item}`}
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage(currentPage + 1)}
+          >
+            <VscTriangleRight />
+          </button>
+        </div>
       );
-   };
-
+    };
+    
 
    useEffect(() => {
       getMessage();
