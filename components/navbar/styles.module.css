@@ -99,6 +99,7 @@
 
 .facebook_login_button {
     width: 50vw;
+    height: 40px;
     padding-left: 20px;
     padding-right: 20px;
     background-color: #149FF9;
@@ -112,7 +113,7 @@
 
 .gmail_login_button {
     width: 50vw;
-
+    height: 40px;
     padding-left: 20px;
     padding-right: 20px;
     background-color: #ffffff;
@@ -121,6 +122,10 @@
     border: none;
     /* border: 1px solid #00FFAB; */
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
+}
+.social_media_icon {
+    height: 30px;
+    width: 30px;
 }
 
 .coin {
@@ -290,7 +295,7 @@
 }
 
 .login_dropdown_menu {
-    width: 200px;
+    width: 220px;
     margin-left: -2rem;
 }
 

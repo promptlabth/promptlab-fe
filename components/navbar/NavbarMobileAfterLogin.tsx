@@ -108,7 +108,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
           id="navbarSupportedContent"
         >
           {windowWidth < 992 ? (
-            <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0">
+            <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0 ">
               <li className={`${styles.profile} nav-item text-center`}>
                 <div className="pt-4">
                   <img className={`${styles.user_profile_pic}`} src={userContext?.user?.profilepic} alt="profic-pic" />
@@ -320,10 +320,10 @@ export const NavbarMobileAfterLogin: React.FC = () => {
 
                 </a>
                 <ul 
-                  className={`${styles.login_dropdown_menu} bg-dark border dropdown-menu`}
-                  style={{marginLeft:"-5rem"}}
+                  className={`${styles.login_dropdown_menu} border dropdown-menu px-1`}
+                  style={{marginLeft:"-8rem", background:"#33393F"}}
                 >
-                  <li><div className="text-white text-center  fw-semibold text">{userContext?.user?.name}</div></li>
+                  <li><div className="text-white text-center fs-5 fw-semibold text">{userContext?.user?.name}</div></li>
                   <li><hr className="dropdown-divider bg-white" /></li>
                   <li className="text-center py-1">
                     <a className={`${styles.login_dropdown_history_menu} `}>

@@ -58,9 +58,9 @@ export const NavbarMobile: React.FC = () => {
                            data-bs-toggle="dropdown"
                            aria-expanded="false"
                         >
-                           {language === "th" && <Flag className={`${styles.flag_size} pe-2`} country="TH" />}
-                           {language === "eng" && <Flag className={`${styles.flag_size} pe-2`} country="US" />}
-                           {language === "id" && <Flag className={`${styles.flag_size} pe-2`} country="ID" />}
+                           {language === "th" && <Flag className={`${styles.flag_size}`} country="TH" />}
+                           {language === "eng" && <Flag className={`${styles.flag_size}`} country="US" />}
+                           {language === "id" && <Flag className={`${styles.flag_size}`} country="ID" />}
                         </a>
                         <ul className={`dropdown-menu dropdown-menu-dark`} aria-labelledby="navbarDropdown">
                            <li>
@@ -125,9 +125,9 @@ export const NavbarMobile: React.FC = () => {
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
                                  >
-                                    {language === "th" && <Flag country="TH" />}
-                                    {language === "eng" && <Flag country="US" />}
-                                    {language === "id" && <Flag country="ID" />}
+                                    {language === "th" && <Flag country="TH" className = {`${styles.flag_size}`} />}
+                                    {language === "eng" && <Flag country="US" className = {`${styles.flag_size}`} />}
+                                    {language === "id" && <Flag country="ID" className = {`${styles.flag_size}`} />}
                                  </a>
                                  <ul
                                     className="dropdown-menu dropdown-menu-dark"
@@ -178,7 +178,8 @@ export const NavbarMobile: React.FC = () => {
                                     className={styles.navbar_login_button}
                                     // TODO Wait for onClick to show Modal
                                     onClick={() => {
-                                       userContext?.handleLogin("facebook");
+                                       // userContext?.handleLogin("facebook");
+                                       userContext?.handleLogin("gmail");
                                     }}
                                  >
                                     {translate("login", language)}
@@ -199,27 +200,26 @@ export const NavbarMobile: React.FC = () => {
                                  <li className="nav-item">
                                     <div className="nav-link d-flex justify-content-center">
                                        <button
-                                          className={styles.facebook_login_button}
+                                          className={`${styles.facebook_login_button} d-flex justify-content-center align-items-center`}
                                           onClick={() => {
                                              userContext?.handleLogin("facebook");
                                           }}
                                        >
-                                          <AiFillFacebook className="me-1" />
-                                          {translate("login", language)}
-                                          &nbsp;Facebook
+                                          <AiFillFacebook className={`me-1 ${styles.social_media_icon}`} />
+                                          <div className="">{translate("login", language)}&nbsp;Facebook</div>
                                        </button>
                                     </div>
+                                    <div className="d-flex justify-content-center text-white"> - or -</div>
                                     <div className="nav-link  d-flex  justify-content-center">
 
                                        <button
-                                          className={styles.gmail_login_button}
+                                          className={`${styles.gmail_login_button} d-flex justify-content-center align-items-center`}
                                           onClick={() => {
                                              userContext?.handleLogin("gmail");
                                           }}
                                        >
-                                          <FcGoogle className="me-1" />
-                                          {translate("login", language)}
-                                          &nbsp;Gmail
+                                          <FcGoogle className={`me-1 ${styles.social_media_icon}`} />
+                                          <div className="">{translate("login", language)}&nbsp;Gmail</div>
                                        </button>
                                     </div>
                                  </li>
