@@ -3,7 +3,7 @@
     justify-content: center;
     /* padding-right: 75px; */
     /* padding-left: 75px; */
-    padding-top: 90px;
+    padding-top: 100px;
 }
 
 .tabbar{
@@ -67,3 +67,4 @@
     padding-bottom: 5px;
     transform: scale(1.05);
 }
+

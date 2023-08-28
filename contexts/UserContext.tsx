@@ -84,6 +84,7 @@ export function UserContextProvider({ children }: Props) {
       localStorage.removeItem("at");
       localStorage.removeItem("rt");
       router.reload()
+
    }
 
    const handleLogin = async (typeLoginInput: string) => {

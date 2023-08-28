@@ -1,8 +1,9 @@
-.offcanvas_toggler{
+.offcanvas_toggler {
     border: none;
     background-color: transparent;
 }
-.offcanvas_menu{
+
+.offcanvas_menu {
     transform: rotate(90deg);
     color: #00FFAB;
     font-size: 30px;
@@ -20,11 +21,11 @@
     padding-left: 2.5rem;
 }
 
-.navbar_container{
+.navbar_container {
     width: 75%;
 }
 
-.container{
+.container {
     display: flex;
     justify-content: center;
     padding-right: 75px;
@@ -44,7 +45,7 @@
     transition: all 0.3s ease-in;
 }
 
-.navbar_language{
+.navbar_language {
     color: #FFFFFF;
     border: none;
     text-decoration: none;
@@ -52,23 +53,24 @@
     transition: all 0.3s ease-in;
 }
 
-.language_dropdown{
+.language_dropdown {
     transition: 0.3s;
 }
+
 .language_dropdown:hover {
     background-color: #8c8c8c;
 }
 
 .flag_size {
-    width: 38px;
-    height: 38px;
+    width: 31.5px;
+    height: 31.5px;
 }
 
-.language_dropdown .language_list{
+.language_dropdown .language_list {
     transition: 0.3s;
 }
 
-.language_dropdown .language_list:hover{
+.language_dropdown .language_list:hover {
     background-color: #8c8c8c;
 }
 
@@ -90,7 +92,7 @@
     color: #ffffff;
     border-radius: 100px;
     width: 120px;
-    height: 35px;
+    height: 30px;
     border: 1px solid #00FFAB;
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
 }
@@ -121,12 +123,14 @@
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
 }
 
-.coin{
+.coin {
     margin-right: 0.5rem;
     margin-left: 0.5rem;
     margin-top: -0.15rem;
-    color: #FFB800;;
+    color: #FFB800;
+    ;
 }
+
 .navbar_logout_button {
     padding-left: 20px;
     padding-right: 20px;
@@ -134,7 +138,10 @@
     height: 100%;
     background-color: transparent;
     color: #ffffff;
+    font-size: 18px;
     border-radius: 100px;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
     border: 1px solid #00FFAB;
     /* opacity: 0.4; */
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
@@ -142,15 +149,17 @@
 
 @media (max-width: 991px) {
     .navbar_header {
-            padding-left: 0px;
-        }
+        padding-left: 0px;
+    }
+
     .profile {
         padding: 0;
         background-color: #00FFAB;
         color: #000;
-        border-bottom-left-radius:10px ;
+        border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
     }
+
     .profileUnlog {
         padding: 0;
         padding-top: 50px;
@@ -159,6 +168,7 @@
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
     }
+
     .navbar_login_button {
         background-color: #DBFFF3;
         color: #000000;
@@ -198,37 +208,37 @@
         margin-left: 20px;
     }
 
-   .navbar_language {
-       color: #FFFFFF;
-       border: none;
-       text-decoration: none;
-       align-self: center;
-       background-color: transparent;
-       transition: all 0.3s ease-in;
-   }
+    .navbar_language {
+        color: #FFFFFF;
+        border: none;
+        text-decoration: none;
+        align-self: center;
+        background-color: transparent;
+        transition: all 0.3s ease-in;
+    }
 
-   .navcollapse::-webkit-scrollbar {
-       width: 8px;
-   }
+    .navcollapse::-webkit-scrollbar {
+        width: 8px;
+    }
 
-  .navcollapse::-webkit-scrollbar-track {
-       background-color: #f1f1f1;
-   }
+    .navcollapse::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
 
-   .navcollapse::-webkit-scrollbar-thumb {
-       background-color: #888;
-       border-radius: 4px;
-   }
+    .navcollapse::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 4px;
+    }
 
-   .navcollapse::-webkit-scrollbar-thumb:hover {
-       background-color: #555;
-   }
+    .navcollapse::-webkit-scrollbar-thumb:hover {
+        background-color: #555;
+    }
 
-  .navcollapse {
-      max-height: 400px;
-      overflow-y: scroll;
-      height: calc(100vh - 10px);
-  }
+    .navcollapse {
+        max-height: 400px;
+        overflow-y: scroll;
+        height: calc(100vh - 10px);
+    }
 }
 
 .navbar_login_button:hover {
@@ -246,7 +256,7 @@
     box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.1);
 }
 
-.dropdown:hover{
+.dropdown:hover {
     color: white;
 }
 
@@ -255,11 +265,43 @@
     color: #FFFFFF;
 }
 
-.remove_underline:hover{
+.remove_underline:hover {
     text-decoration: none;
     color: #41ffa3;
 }
 
 .language_dropdown_test {
     position: fixed;
+}
+
+.user_profile_pic,
+.user_profile_pic_desktop {
+    border-radius: 50%;
+}
+
+.user_profile_pic_desktop {
+
+    width: 40px;
+}
+
+.user_profile_pic {
+    width: 70px;
+
+}
+
+.login_dropdown_menu {
+    width: 200px;
+    margin-left: -2rem;
+}
+
+.login_dropdown_history_menu {
+    color: #ffffff;
+    /* opacity: 0.4; */
+
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
+}
+
+.login_dropdown_history_menu:hover {
+    color: #00FFAB;
 }
