@@ -1,12 +1,15 @@
-import signInWithFacebook from '@/api/auth/auth_facebook';
+
 import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
 import { LoginUser } from '@/models';
 import { Login } from '@/api/LoginAPI';
 import { useRouter } from 'next/router';
+import signInWithFacebook from '@/api/auth/auth_facebook';
+import signInWithGmail from '@/api/auth/auth_gmail';
+import { authFirebase } from '@/api/auth';
 interface UserContextInterface {
    user: LoginUser | null;
    setUser: (user: LoginUser) => void;
-   handleLogin: () => Promise<void>;
+   handleLogin: (typeLogin: string) => Promise<void>;
    handleLogout: () => Promise<void>;
 }
 
@@ -30,7 +33,7 @@ export function UserContextProvider({ children }: Props) {
       resolve => setTimeout(resolve, ms)
    );
 
-   const UserLogin = async (token: string) => {
+   const UserLogin = async (token: string, loginFunction : () => any) => {
       try {
 
          const loginResult = await Login(token);
@@ -38,7 +41,7 @@ export function UserContextProvider({ children }: Props) {
          if (loginResult?.status !== 200) {
             localStorage.removeItem("at");
             localStorage.removeItem("rt");
-            const result = await signInWithFacebook();
+            const result = await loginFunction();
             if (result) {
 
                // Retrieve the access token from the user data
@@ -57,7 +60,7 @@ export function UserContextProvider({ children }: Props) {
             console.log("user", loginResult?.data)
          }
       } catch (error) {
-         const result = await signInWithFacebook();
+         const result = await loginFunction();
          console.log("FACEBOOK", result)
 
          // Proceed if the sign-in with Facebook is successful
@@ -70,7 +73,7 @@ export function UserContextProvider({ children }: Props) {
             localStorage.setItem("at", accessToken);
             localStorage.setItem("rt", refreshToken);
 
-            UserLogin(accessToken)
+            UserLogin(accessToken, loginFunction)
             await delay(200);
             router.reload()
          }
@@ -83,10 +86,23 @@ export function UserContextProvider({ children }: Props) {
       router.reload()
    }
 
-   const handleLogin = async () => {
-
+   const handleLogin = async (typeLoginInput: string) => {
       // Sign in with Facebook to obtain a token
-      const result = await signInWithFacebook();
+      let result;
+      let loginFunction;
+      if(typeLoginInput === "facebook"){
+         // Login with facebook
+         loginFunction = signInWithFacebook
+         result = await loginFunction();
+         localStorage.setItem("typeLogin", "facebook");
+      }else if(typeLoginInput === "gmail"){
+         loginFunction = signInWithGmail;
+         result = await loginFunction();
+         localStorage.setItem("typeLogin", "gmail");
+      }else{
+         console.log("error: You have a some bug 1")
+         return;
+      }
       console.log("FACEBOOK", result)
 
       // Proceed if the sign-in with Facebook is successful
@@ -99,11 +115,12 @@ export function UserContextProvider({ children }: Props) {
          localStorage.setItem("at", accessToken);
          localStorage.setItem("rt", refreshToken);
 
-         UserLogin(accessToken)
+         UserLogin(accessToken, loginFunction)
          await delay(200);
          router.reload()
       }
    }
+
 
    /**
     * This useEffect function retrieves the access token from local storage.
@@ -112,22 +129,34 @@ export function UserContextProvider({ children }: Props) {
     **/
    useEffect(() => {
       const token = localStorage.getItem("at")
+      const refToken = localStorage.getItem("rt")
 
       // TODO Check that access token is expired or not
       // Pseudo code
       // Encode access token(which is JWT token) and get `iat` and `exp`
       // If token is expire then get a new access token
 
-      if (token) {
-         UserLogin(token)
+      let loginFunction;
+      if(localStorage.getItem("typeLogin") === "facebook"){
+         // Login with facebook
+         loginFunction = signInWithFacebook
+      }else if(localStorage.getItem("typeLogin") === "gmail"){
+         loginFunction = signInWithGmail;
+      }else{
+         console.log("error: You not login in this time")
+         return;
       }
+      
+      if (token) {
+         UserLogin(token, loginFunction);
+      } 
    }, [])
 
    const current_context: UserContextInterface = {
       user: User || null,
       setUser: setUser,
       handleLogin: handleLogin,
-      handleLogout: handleLogout,
+      handleLogout: handleLogout
    }
    return (
       <UserContext.Provider value={current_context}> {children} </UserContext.Provider>
