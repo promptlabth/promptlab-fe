@@ -20,11 +20,20 @@ import { RxAvatar } from "react-icons/rx"
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+const btn_google = {
+  width: "80%",
+  fontSize: "16px",
+  color: "rgba(0, 0, 0, 0.56)",
+  backgroundColor: "#fff",
+  border: ":1px solid #000",
+  transition: "background-color 0.3s, color 0.3s"
+}
+
+
 export const NavbarMobile: React.FC = () => {
    const userContext = useUserContext()
    const { language, setLanguage } = useLanguage();
-
-
+   const [isHovering, setIsHovering] = useState(false);
    const [windowWidth, setWindowWidth] = useState(0);
 
    useEffect(() => {
@@ -64,7 +73,7 @@ export const NavbarMobile: React.FC = () => {
                      <h4 className="mb-4">เข้าสู่ระบบ</h4>
                      <Row className="row">
                         <Col className="d-flex flex-column align-items-center">
-                           <button className={`btn btn-block mb-3 ${styles.btn_facebook}`} onClick={()=>{userContext?.handleLogin("facebook")}}>
+                           <button className={` mb-3 ${styles.btn}`} onClick={()=>{userContext?.handleLogin("facebook")}}>
                               <BsFacebook
                                  className="me-3 align-items-start"
                                  fontSize={20}
@@ -72,7 +81,7 @@ export const NavbarMobile: React.FC = () => {
                               Sign in with facebook
                            </button>
                            <p style={{ color: "#c2c2c2" }}>- or -</p>
-                           <button className={`btn btn-block ${styles.btn_google}`} onClick={()=>{userContext?.handleLogin("gmail")}}>
+                           <button className={`${styles.btn_google}`} onClick={()=>{userContext?.handleLogin("gmail")}}>
                               <FcGoogle className="me-3" fontSize={20}></FcGoogle>
                               Sign in with google
                            </button>
