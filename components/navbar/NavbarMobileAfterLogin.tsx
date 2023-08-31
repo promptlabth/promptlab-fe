@@ -246,6 +246,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
               <li className="nav-item text-center mt-2 mb-2">
                 <div className="nav-link ">
                   <button
+                    disabled
                     className={`${styles.navbar_logout_button}`}
                     onClick={() => {
                       userContext?.handleLogout();
@@ -364,7 +365,8 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                   </li>
                   <li className="py-1 ">
                     <a
-                      href=""
+                      href="/"
+                      
                       className={`${styles.login_dropdown_history_menu} d-flex align-items-center`}
                       onClick={() => {
                         userContext?.handleLogout();

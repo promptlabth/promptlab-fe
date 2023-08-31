@@ -70,7 +70,8 @@
         "payment.coin_2":"150 เหรียญ",
         "payment.coin_3":"300 เหรียญ",
         "payment.coin_4":"500 เหรียญ",
-        "payment.selectCoin":"กรุณาเลือกจำนวนเหรียญที่ต้องการเติม"
+        "payment.selectCoin":"กรุณาเลือกจำนวนเหรียญที่ต้องการเติม",
+        "maintain":"ขออภัย ตอนนี้เว็บไซต์กำลังปิดปรับปรุง"
     },
     "eng": {
         "language": "Language",
@@ -143,7 +144,9 @@
         "payment.coin_2":"150 coins",
         "payment.coin_3":"300 coins",
         "payment.coin_4":"500 coins",
-        "payment.selectCoin":"Please select the amount of coins you want to top up."
+        "payment.selectCoin":"Please select the amount of coins you want to top up.",
+        "maintain":"Sorry, the website is currently under maintenance"
+
     },
     "id": {
         "language": "Bahasa",
@@ -209,6 +212,7 @@
         "unlog": "Anda tidak masuk log",
         "history": "Riwayat",
         "createAt": "Dibuat pada",
-        "noPrompts": "Tidak ada pesan yang dihasilkan..."
+        "noPrompts": "Tidak ada pesan yang dihasilkan...",
+        "maintain":"Maaf, website sedang dalam pemeliharaan"
     }
 }

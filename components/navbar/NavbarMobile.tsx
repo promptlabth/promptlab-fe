@@ -73,7 +73,7 @@ export const NavbarMobile: React.FC = () => {
                      <h4 className="mb-4">เข้าสู่ระบบ</h4>
                      <Row className="row">
                         <Col className="d-flex flex-column align-items-center">
-                           <button className={` mb-3 ${styles.btn}`} onClick={()=>{userContext?.handleLogin("facebook")}}>
+                           <button disabled className={` mb-3 ${styles.btn}`} onClick={()=>{userContext?.handleLogin("facebook")}}>
                               <BsFacebook
                                  className="me-3 align-items-start"
                                  fontSize={20}
@@ -81,7 +81,7 @@ export const NavbarMobile: React.FC = () => {
                               Sign in with facebook
                            </button>
                            <p style={{ color: "#c2c2c2" }}>- or -</p>
-                           <button className={`${styles.btn_google}`} onClick={()=>{userContext?.handleLogin("gmail")}}>
+                           <button disabled className={`${styles.btn_google}`} onClick={()=>{userContext?.handleLogin("gmail")}}>
                               <FcGoogle className="me-3" fontSize={20}></FcGoogle>
                               Sign in with google
                            </button>
@@ -225,10 +225,12 @@ export const NavbarMobile: React.FC = () => {
                               </li>
                               <div className="nav-link d-flex justify-content-center">
                                  <button
+
                                     type="button"
                                     data-bs-toggle="modal"
+                                    disabled
                                     data-bs-target="#exampleModal"
-                                    className={styles.navbar_login_button}
+                                    className={`${styles.navbar_login_button}`}
                                  >
                                     {translate("login", language)}
                                  </button>
@@ -248,6 +250,7 @@ export const NavbarMobile: React.FC = () => {
                                  <li className="nav-item">
                                     <div className="nav-link d-flex justify-content-center">
                                        <button
+                                          disabled 
                                           className={`${styles.facebook_login_button} d-flex justify-content-center align-items-center`}
                                           onClick={() => {
                                              userContext?.handleLogin("facebook");
@@ -261,6 +264,7 @@ export const NavbarMobile: React.FC = () => {
                                     <div className="nav-link  d-flex  justify-content-center">
 
                                        <button
+                                          disabled
                                           className={`${styles.gmail_login_button} d-flex justify-content-center align-items-center`}
                                           onClick={() => {
                                              userContext?.handleLogin("gmail");
