@@ -246,7 +246,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
               <li className="nav-item text-center mt-2 mb-2">
                 <div className="nav-link ">
                   <button
-                    disabled
+                    
                     className={`${styles.navbar_logout_button}`}
                     onClick={() => {
                       userContext?.handleLogout();
