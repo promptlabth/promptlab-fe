@@ -364,7 +364,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                     </a>
                   </li>
                   <li className="py-1 ">
-                    <a
+                    <Link
                       href="/"
                       
                       className={`${styles.login_dropdown_history_menu} d-flex align-items-center`}
@@ -374,7 +374,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                     >
                       <BiLogOut className="m-1 ms-2" size={20} />
                       <div className="ps-2 pt-1"> {translate("logout", language)}</div>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </li>

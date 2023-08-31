@@ -7,6 +7,7 @@ const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 import styles from "./styles.module.css";
 
 const Help = () => {
+   // 
    const { language } = useLanguage();
    return (
       <div className={noto_sans_thai.className}>
