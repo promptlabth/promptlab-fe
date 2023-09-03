@@ -25,7 +25,7 @@ type AppPropsWithLayout = AppProps & {
 }
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  const isMaintain: boolean = false
+  const isMaintain: boolean = true
   const getLayout = Component.getLayout ?? ((page) => page)
   const [token, setToken] = useState<string>("")
   useEffect(() => {
@@ -79,10 +79,10 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       <LanguageProvider>
         <UserContextProvider>
           {isMaintain && <MaintainPage />}
-          {token ?
+          {/* {token ?
             <NavbarMobileAfterLogin /> :
             <NavbarMobile />
-          }
+          } */}
           <AppTabbar />
           <Component {...pageProps} />
           <Footer />
