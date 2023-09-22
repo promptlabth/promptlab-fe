@@ -25,7 +25,7 @@ type AppPropsWithLayout = AppProps & {
 }
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  const isMaintain: boolean = true
+  const isMaintain: boolean = false
   const getLayout = Component.getLayout ?? ((page) => page)
   const [token, setToken] = useState<string>("")
   useEffect(() => {
