@@ -21,7 +21,7 @@ async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage)
         return response.data;
     } catch (error) {
         console.error(error);
-        return 'Error Please try again'
+        return { reply: 'Error Please try again'}
     }
 }
 
@@ -41,7 +41,7 @@ async function generateMessage(GenerateMessage: GenerateMessage) {
         return response.data;
     } catch (error) {
         console.error(error);
-        return 'Error Please try again'
+        return { reply: 'Error Please try again'}
     }
 
 }
