@@ -172,37 +172,47 @@ const TableComponents = (config: pageConfig) => {
    const handleGenerateMessage = async (index: number) => {
       const { input, tone_id } = prompts[index];
       const tone = await GetTonesByID(tone_id)
-      const prompt = config.prompt(input, tone.tone_name)
-      const data: UserGenerateMessage | GenerateMessage = userContext?.user
-         ? {
-            user_id: userContext.user.firebase_id,
-            prompt: prompt,
-            input_message: input,
-            model: config.modelConfig.model,
-            tone_id: tone_id,
-            feature_id: features[config.titlePage],
-         }
-         : {
-            prompt: prompt,
-            input_message: input,
-            model: config.modelConfig.model,
-            tone_id: tone_id,
-            feature_id: features[config.titlePage],
-         };
+      const data : GenerateMessage = {
+         input_message : input,
+         tone_id: tone_id,
+         feature_id: features[config.titlePage],
+      }
+      // const prompt = config.prompt(input, tone.tone_name)
+      // const data: UserGenerateMessage | GenerateMessage = userContext?.user
+      //    ? {
+      //       user_id: userContext.user.firebase_id,
+      //       prompt: prompt,
+      //       input_message: input,
+      //       model: config.modelConfig.model,
+      //       tone_id: tone_id,
+      //       feature_id: features[config.titlePage],
+      //    }
+      //    : {
+      //       prompt: prompt,
+      //       input_message: input,
+      //       model: config.modelConfig.model,
+      //       tone_id: tone_id,
+      //       feature_id: features[config.titlePage],
+      //    };
       try {
-         const result =
-            userContext?.user == null ?
-               await generateMessage(data) :
-               await generateMessageWithUser(data) 
+         // const result =
+         //    userContext?.user == null ?
+         //       await generateMessage(data) :
+         //       await generateMessageWithUser(data) 
+         const result = await generateMessage(data)
+         //    userContext?.user == null ?
+         //       await generateMessage(data) :
+         //       await generateMessageWithUser(data) 
          
          console.log(result)
          const message = result.reply
-
-         setPrompts((prevComponents) => {
-            const updatedComponents = [...prevComponents];
-            updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
-            return updatedComponents;
-         });
+         if (result) {
+            setPrompts((prevComponents) => {
+               const updatedComponents = [...prevComponents];
+               updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
+               return updatedComponents;
+            });
+         }
       } catch  {
          setPrompts((prevComponents) => {
             const updatedComponents = [...prevComponents];
