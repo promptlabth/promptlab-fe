@@ -11,12 +11,12 @@ import { FaClosedCaptioning } from 'react-icons/fa';
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "../../languages/language";
 import { Col, Container, Row } from "react-bootstrap";
-import { generateMessage, generateMessageWithUser } from "@/api/GenerateMessageAPI";
+import { generateMessage, generateMessageWithUser, oldGenerateMessage, oldGenerateMessageWithUser } from "@/api/GenerateMessageAPI";
 import { ImCross } from 'react-icons/im';
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
 import { Tones } from "@/models/tones";
-import { GenerateMessage, UserGenerateMessage } from "@/models";
+import { GenerateMessage, UserGenerateMessage, OldGenerateMessage, OldUserGenerateMessage } from "@/models";
 import { useUserContext } from "@/contexts/UserContext";
 import { features } from "@/constant";
 import { usePathname } from 'next/navigation'
@@ -171,38 +171,78 @@ const TableComponents = (config: pageConfig) => {
 
    const handleGenerateMessage = async (index: number) => {
       const { input, tone_id } = prompts[index];
-      const tone = await GetTonesByID(tone_id)
-      const prompt = config.prompt(input, tone.tone_name)
-      const data: UserGenerateMessage | GenerateMessage = userContext?.user
-         ? {
-            user_id: userContext.user.firebase_id,
-            prompt: prompt,
-            input_message: input,
-            model: config.modelConfig.model,
-            tone_id: tone_id,
-            feature_id: features[config.titlePage],
-         }
-         : {
-            prompt: prompt,
-            input_message: input,
-            model: config.modelConfig.model,
-            tone_id: tone_id,
-            feature_id: features[config.titlePage],
-         };
+      let useOldGenerate = false
+      if (config.titlePage !== "createSellingPost.title") {
+         useOldGenerate = true
+      }
+      
       try {
-         const result =
-            userContext?.user == null ?
-               await generateMessage(data) :
-               await generateMessageWithUser(data) 
+         // const result =
+         //    userContext?.user == null ?
+         //       await generateMessage(data) :
+         //       await generateMessageWithUser(data) 
+       
+         //    userContext?.user == null ?
+         //       await generateMessage(data) :
+         //       await generateMessageWithUser(data) 
          
-         console.log(result)
-         const message = result.reply
+         if (useOldGenerate) {
+            console.log("use old generate")
+            const tone = await GetTonesByID(tone_id)
+            const prompt = config.prompt(input, tone.tone_name)
+            const data: OldUserGenerateMessage | OldGenerateMessage = userContext?.user
+            ? {
+               user_id: userContext.user.firebase_id,
+               prompt: prompt,
+               input_message: input,
+               model: config.modelConfig.model,
+               tone_id: tone_id,
+               feature_id: features[config.titlePage],
+            }
+            : {
+               prompt: prompt,
+               input_message: input,
+               model: config.modelConfig.model,
+               tone_id: tone_id,
+               feature_id: features[config.titlePage],
+            };
+   
+            // const result = await oldGenerateMessage(data)
+            const result = userContext?.user == null ?
+               await oldGenerateMessage(data) :
+               await oldGenerateMessageWithUser(data);
+            
+            const message = result.reply
+            if (result) {
+               setPrompts((prevComponents) => {
+                  const updatedComponents = [...prevComponents];
+                  updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
+                  return updatedComponents;
+               });
+            }
 
-         setPrompts((prevComponents) => {
-            const updatedComponents = [...prevComponents];
-            updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
-            return updatedComponents;
-         });
+         } else {
+            const data : GenerateMessage = {
+               input_message : input,
+               tone_id: tone_id,
+               feature_id: features[config.titlePage],
+            }
+
+            const result = userContext?.user == null ?
+               await generateMessage(data) :
+               await generateMessageWithUser(data)
+            // const result = await generateMessage(data)
+            console.log(result)
+            const message = result.reply
+            if (result) {
+               setPrompts((prevComponents) => {
+                  const updatedComponents = [...prevComponents];
+                  updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
+                  return updatedComponents;
+               });
+            }
+         }
+         
       } catch  {
          setPrompts((prevComponents) => {
             const updatedComponents = [...prevComponents];

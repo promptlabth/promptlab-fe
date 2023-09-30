@@ -16,7 +16,24 @@ export type LoginUser = {
    profilepic: string;
 }
 
+export type OldGenerateMessage = {
+   prompt: string;
+   model: string;
+   input_message: string;
+   tone_id: number;
+   feature_id: number;
+}
+
+
 export type GenerateMessage = {
+   input_message: string;
+   tone_id: number;
+   feature_id: number;
+}
+
+
+export type OldUserGenerateMessage = {
+   user_id?: string;
    prompt: string;
    model: string;
    input_message: string;
@@ -27,12 +44,12 @@ export type GenerateMessage = {
 
 export type UserGenerateMessage = {
    user_id?: string;
-   prompt: string;
-   model: string;
    input_message: string;
    tone_id: number;
    feature_id: number;
 }
+
+
 
 export type PromptMessage = {
    id : number;
