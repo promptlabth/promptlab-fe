@@ -1,3 +1,8 @@
+.navbar_body {
+    background: black;
+    /* opacity: 0.5; */
+}
+
 .offcanvas_toggler {
     border: none;
     background-color: transparent;
@@ -23,6 +28,8 @@
 
 .navbar_container {
     width: 75%;
+    /* opacity: 40%; */
+    pointer-events: none;
 }
 
 .container {

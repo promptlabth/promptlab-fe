@@ -79,10 +79,10 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       <LanguageProvider>
         <UserContextProvider>
           {isMaintain && <MaintainPage />}
-          {token ?
+          {/* {token ?
             <NavbarMobileAfterLogin /> :
             <NavbarMobile />
-          }
+          } */}
           <AppTabbar />
           <Component {...pageProps} />
           <Footer />
