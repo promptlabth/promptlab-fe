@@ -75,7 +75,7 @@ export function UserContextProvider({ children }: Props) {
 
             UserLogin(accessToken, loginFunction)
             await delay(200);
-            router.reload()
+            // router.reload()
          }
       }
    }
@@ -96,7 +96,6 @@ export function UserContextProvider({ children }: Props) {
          loginFunction = signInWithFacebook
          result = await loginFunction();
          localStorage.setItem("typeLogin", "facebook");
-         console.log("FACEBOOK", result)
 
       }else if(typeLoginInput === "gmail"){
          loginFunction = signInWithGmail;
@@ -106,6 +105,7 @@ export function UserContextProvider({ children }: Props) {
          console.log("error: You have a some bug 1")
          return;
       }
+      console.log("Login", result)
 
       // Proceed if the sign-in with Facebook is successful
       if (result) {
@@ -119,7 +119,7 @@ export function UserContextProvider({ children }: Props) {
 
          UserLogin(accessToken, loginFunction)
          await delay(200);
-         router.reload()
+         // router.reload()
       }
    }
 
