@@ -1,4 +1,5 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
@@ -112,6 +113,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
             <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0 ">
               <li className={`${styles.profile} nav-item text-center `}>
                 <div className="pt-4">
+                  {/* <Image className={`${styles.user_profile_pic}`} src={userContext?.user?.profilepic || ""} alt="profic-pic"/> */}
                   <img className={`${styles.user_profile_pic}`} src={userContext?.user?.profilepic} alt="profic-pic" />
                   <b>
                     <p className="fs-4 fw-bold pt-2"> {userContext?.user?.name} </p>
@@ -333,7 +335,6 @@ export const NavbarMobileAfterLogin: React.FC = () => {
               <li className={`nav-item dropdown`}>
                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <img className={`${styles.user_profile_pic_desktop}`} src={userContext?.user?.profilepic} alt="profic-pic" />
-
                 </a>
                 <ul
                   className={`${styles.login_dropdown_menu} border dropdown-menu px-1`}
