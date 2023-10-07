@@ -75,7 +75,7 @@ export function UserContextProvider({ children }: Props) {
 
             UserLogin(accessToken, loginFunction)
             await delay(200);
-            // router.reload()
+            router.reload()
          }
       }
    }
@@ -119,7 +119,7 @@ export function UserContextProvider({ children }: Props) {
 
          UserLogin(accessToken, loginFunction)
          await delay(200);
-         // router.reload()
+         router.reload()
       }
    }
 
