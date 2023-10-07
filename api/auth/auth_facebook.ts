@@ -33,6 +33,7 @@ async function signInWithFacebook(): Promise<UserCredential | null> {
       const auth: Auth = authFirebase;
       const provider = new FacebookAuthProvider();
       const result: UserCredential = await signInWithPopup(auth, provider);
+      console.log("Result is", result)
       return result;
     } catch (error: any) {
       console.error("Error signing in with Facebook:", error);

@@ -83,6 +83,7 @@ export function UserContextProvider({ children }: Props) {
    const handleLogout = async () => {
       localStorage.removeItem("at");
       localStorage.removeItem("rt");
+      await router.push("/")
       router.reload()
    }
 
@@ -95,6 +96,7 @@ export function UserContextProvider({ children }: Props) {
          loginFunction = signInWithFacebook
          result = await loginFunction();
          localStorage.setItem("typeLogin", "facebook");
+
       }else if(typeLoginInput === "gmail"){
          loginFunction = signInWithGmail;
          result = await loginFunction();
@@ -103,7 +105,7 @@ export function UserContextProvider({ children }: Props) {
          console.log("error: You have a some bug 1")
          return;
       }
-      console.log("FACEBOOK", result)
+      console.log("Login", result)
 
       // Proceed if the sign-in with Facebook is successful
       if (result) {

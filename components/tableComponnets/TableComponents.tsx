@@ -1,6 +1,6 @@
 import { useState, useEffect, } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { BsFillClipboardFill, BsFillClipboardCheckFill } from 'react-icons/bs';
+import { BsFillClipboardFill, BsFillClipboardCheckFill, BsFacebook } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { AiOutlineSend, AiFillVideoCamera } from 'react-icons/ai';
 import { MdSell, MdOutlineArticle } from 'react-icons/md';
@@ -21,6 +21,7 @@ import { useUserContext } from "@/contexts/UserContext";
 import { features } from "@/constant";
 import { usePathname } from 'next/navigation'
 import { GetTonesByID } from "@/api/ToneAPI";
+import { FcGoogle } from "react-icons/fc";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 type Prompt = {
@@ -122,19 +123,63 @@ const TableComponents = (config: pageConfig) => {
 
    const GenerateButton = ({ index, generate_status }: { index: number, generate_status: boolean }) => {
       const handleClick = () => {
-         setPrompts((prevComponents) => {
-            const updatedComponents = [...prevComponents];
-            updatedComponents[index] = {
-               ...updatedComponents[index],
-               generate_status: true,
-            };
-            return updatedComponents;
-         });
-         handleGenerateMessage(index);
+         /* 
+         
+         */
+         if (userContext?.user != null) {
+            setPrompts((prevComponents) => {
+               const updatedComponents = [...prevComponents];
+               updatedComponents[index] = {
+                  ...updatedComponents[index],
+                  generate_status: true,
+               };
+               return updatedComponents;
+            });
+            handleGenerateMessage(index);
+         }
       };
 
       return (
          <>
+            <div
+               className={`modal fade ${noto_sans_thai.className} `}
+               id="loginModal"
+               tabIndex={-1}
+               aria-labelledby="loginModallLabel"
+               aria-hidden="true"
+            >
+               <div className={`modal-dialog modal-dialog-centered`}>
+                  <div className={`modal-content`}>
+                     <div className={`modal-body text-center mb-4`}>
+                        <div className={`text-end`}>
+                           <button
+                              type="button"
+                              className={`btn-close`}
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                           ></button>
+                        </div>
+                        <h4 className="mb-4">กรุณาเข้าสู่ระบบก่อนกด Generate</h4>
+                        <Row className="row">
+                           <Col className="d-flex flex-column align-items-center">
+                              <button className={` mb-3 ${styles.btn}`} onClick={() => { userContext?.handleLogin("facebook") }}>
+                                 <BsFacebook
+                                    className="me-3 align-items-start"
+                                    fontSize={20}
+                                 ></BsFacebook>
+                                 Sign in with facebook
+                              </button>
+                              <p style={{ color: "#c2c2c2" }}>- or -</p>
+                              <button className={`${styles.btn_google}`} onClick={() => { userContext?.handleLogin("gmail") }}>
+                                 <FcGoogle className="me-3" fontSize={20}></FcGoogle>
+                                 Sign in with google
+                              </button>
+                           </Col>
+                        </Row>
+                     </div>
+                  </div>
+               </div>
+            </div>
             {generate_status ?
                <button
                   className={styles.page_prompt_loading_generate_btn}
@@ -152,6 +197,10 @@ const TableComponents = (config: pageConfig) => {
                </button>
                :
                <button
+                  data-bs-toggle={`${userContext?.user == null ? "modal" : ""}`}
+
+                  // data-bs-target="#loginModal"
+                  data-bs-target={`${userContext?.user == null ? "#loginModal" : ""}`}
                   className={styles.page_prompt_generate_btn}
                   type="button"
                   onClick={handleClick}
@@ -175,43 +224,43 @@ const TableComponents = (config: pageConfig) => {
       if (config.titlePage !== "createSellingPost.title") {
          useOldGenerate = true
       }
-      
+
       try {
          // const result =
          //    userContext?.user == null ?
          //       await generateMessage(data) :
          //       await generateMessageWithUser(data) 
-       
+
          //    userContext?.user == null ?
          //       await generateMessage(data) :
          //       await generateMessageWithUser(data) 
-         
+
          if (useOldGenerate) {
             console.log("use old generate")
             const tone = await GetTonesByID(tone_id)
             const prompt = config.prompt(input, tone.tone_name)
             const data: OldUserGenerateMessage | OldGenerateMessage = userContext?.user
-            ? {
-               user_id: userContext.user.firebase_id,
-               prompt: prompt,
-               input_message: input,
-               model: config.modelConfig.model,
-               tone_id: tone_id,
-               feature_id: features[config.titlePage],
-            }
-            : {
-               prompt: prompt,
-               input_message: input,
-               model: config.modelConfig.model,
-               tone_id: tone_id,
-               feature_id: features[config.titlePage],
-            };
-   
+               ? {
+                  user_id: userContext.user.firebase_id,
+                  prompt: prompt,
+                  input_message: input,
+                  model: config.modelConfig.model,
+                  tone_id: tone_id,
+                  feature_id: features[config.titlePage],
+               }
+               : {
+                  prompt: prompt,
+                  input_message: input,
+                  model: config.modelConfig.model,
+                  tone_id: tone_id,
+                  feature_id: features[config.titlePage],
+               };
+
             // const result = await oldGenerateMessage(data)
             const result = userContext?.user == null ?
                await oldGenerateMessage(data) :
                await oldGenerateMessageWithUser(data);
-            
+
             const message = result.reply
             if (result) {
                setPrompts((prevComponents) => {
@@ -222,8 +271,8 @@ const TableComponents = (config: pageConfig) => {
             }
 
          } else {
-            const data : GenerateMessage = {
-               input_message : input,
+            const data: GenerateMessage = {
+               input_message: input,
                tone_id: tone_id,
                feature_id: features[config.titlePage],
             }
@@ -242,11 +291,11 @@ const TableComponents = (config: pageConfig) => {
                });
             }
          }
-         
-      } catch  {
+
+      } catch {
          setPrompts((prevComponents) => {
             const updatedComponents = [...prevComponents];
-            updatedComponents[index] = { ...updatedComponents[index], message:"Error Please try again", generate_status: false };
+            updatedComponents[index] = { ...updatedComponents[index], message: "Error Please try again", generate_status: false };
             return updatedComponents;
          });
       }
