@@ -29,7 +29,7 @@
 .navbar_container {
     width: 75%;
     /* opacity: 40%; */
-    pointer-events: none;
+    /* pointer-events: none; */
 }
 
 .container {
