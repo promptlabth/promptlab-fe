@@ -26,7 +26,7 @@ async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage)
 }
 
 async function oldGenerateMessageWithUser(UserGenerateMessage: OldUserGenerateMessage) {
-    const apiUrl = "https://prompt-lab-be-uu4qhhj35a-as.a.run.app/gennerate-with-user"
+    const apiUrl = "https://prompt-lab-be-uu4qhhj35a-as.a.run.app/generate-random"
     try {
 
         const requestOption = { 
