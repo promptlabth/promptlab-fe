@@ -28,6 +28,7 @@ export function useUserContext() {
 
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
+
    const router = useRouter()
    const generateCount : number = 79;
 
