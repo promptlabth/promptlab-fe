@@ -24,3 +24,22 @@ export async function checkout(paymentDetails: PaymentStripe) {
 
   return session.url
 }
+
+export async function checkoutSub(paymentDetails: PaymentStripe) {
+
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+        price: paymentDetails.prize,
+        quantity: paymentDetails.quantity,
+      },
+    ],
+    mode: 'subscription',
+    payment_method_types: ['card'],
+    success_url: `${window.location.origin}?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: window.location.origin
+  });
+
+  return session.url
+}

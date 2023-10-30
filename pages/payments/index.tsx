@@ -1,4 +1,4 @@
-import { checkout } from '@/api/payments';
+import { checkout, checkoutSub } from '@/api/payments';
 import { loadStripe } from '@stripe/stripe-js';
 import { useRouter } from 'next/navigation';
 // import router from 'next/router';
@@ -30,6 +30,16 @@ export default function Payment() {
 
     // Calling the checkout function and awaiting the returned URL
     const url = await checkout({ prize: prize, quantity: 1 });
+    // Redirecting to the URL
+    router.push(url);
+
+  };
+
+  const handlePrizeClickSub = async (prize: string) => {
+    setSelectedPrize(prize);
+
+    // Calling the checkout function and awaiting the returned URL
+    const url = await checkoutSub({ prize: prize, quantity: 1 });
     // Redirecting to the URL
     router.push(url);
 
@@ -122,6 +132,22 @@ export default function Payment() {
                         }
                       >
                         300
+                      </button>
+                    </Col>
+                    <Col
+                      className={`d-flex flex-column align-items-center ${styles.custom_border}`}
+                    >
+                      <h5 className="mb-3">
+                        subscription
+                      </h5>
+                      <GiCoins fontSize={70} color={"yellow"}></GiCoins>
+                      <button
+                        className={`${styles.btn} btn mt-3`}
+                        onClick={() =>
+                          handlePrizeClickSub("price_1O4Mh1Aom1IgIvKKt3Ul6HnJ")
+                        }
+                      >
+                        subscription
                       </button>
                     </Col>
                     <p className={`${styles.select}`}>
