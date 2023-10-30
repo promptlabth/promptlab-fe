@@ -71,7 +71,14 @@
         "payment.coin_3":"300 เหรียญ",
         "payment.coin_4":"500 เหรียญ",
         "payment.selectCoin":"กรุณาเลือกจำนวนเหรียญที่ต้องการเติม",
-        "maintain":"ขออภัย ตอนนี้เว็บไซต์กำลังปิดปรับปรุง"
+        "maintain":"ขออภัย ตอนนี้เว็บไซต์กำลังปิดปรับปรุง",
+        "subscription":"การสมัครสมาชิก",
+        "subscription.message":"ข้อความต่อวัน",
+        "subscription.community":"บริการสนับสนุนผ่านชุมชน",
+        "subscription.chat":"บริการสนับสนุนผ่านแชท",
+        "subscription.support":"การสนับสนุนตลอด 24/7",
+        "subscription.selectSub":"กรุณาเลือกการสมัครสมาชิกที่ท่านต้องการ",
+        "subscription.buy":"เลือกซื้อ"
     },
     "eng": {
         "language": "Language",
@@ -145,7 +152,13 @@
         "payment.coin_3":"300 coins",
         "payment.coin_4":"500 coins",
         "payment.selectCoin":"Please select the amount of coins you want to top up.",
-        "maintain":"Sorry, the website is currently under maintenance"
+        "maintain":"Sorry, the website is currently under maintenance",
+        "subscription":"Subscription",
+        "subscription.message":"message per day",
+        "subscription.community":"Community Support",
+        "subscription.chat":"Chat Support",
+        "subscription.support":"24/7 Support",
+        "subscription.buy":"BUY NOW"
 
     },
     "id": {
