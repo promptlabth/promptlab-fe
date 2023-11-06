@@ -162,7 +162,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handlePrizeClickSub("price_1O9MteAom1IgIvKK2vWOmN5q")
+                        handlePrizeClickSub("price_1O9N1cAom1IgIvKKvbttMHdx")
                       }
                     >
                       {translate("subscription.buy", language)}
