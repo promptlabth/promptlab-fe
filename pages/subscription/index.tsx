@@ -46,24 +46,15 @@ export default function Subscription() {
   return (
     <>
       <div className={noto_sans_thai.className}>
-        <Container
-          fluid={true}
-          className="p-0 bg-dark pt-5 pb-5"
-          // className={`${styles.payment_hide}`}
-        >
+        <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">
           <Container className={`${styles.container}`}>
             <figure className="text-center  text-light">
-              {/* <div className="pb-2">
-                <BsCoin fontSize={96}></BsCoin>{" "}
-              </div> */}
               <blockquote className="blockquote">
                 <p className="display-4 fw-bold">
                   {translate("subscription", language)}
                 </p>
               </blockquote>
-              <figcaption className="blockquote-footer">
-                {/* {translate("payment.description_1", language)} */}
-              </figcaption>
+              <figcaption className="blockquote-footer"></figcaption>
             </figure>
             <div className={`row ${styles.page_payment_row}`}>
               <div className="container text-center">
@@ -71,10 +62,7 @@ export default function Subscription() {
                   <Col
                     className={`d-flex flex-column align-items-center position-relative ${styles.custom_border} ${styles.freeBorder}`}
                   >
-                    <h5 className="mb-3">
-                      {/* {translate("payment.coin_1", language)} */}
-                      FREE
-                    </h5>
+                    <h5 className="mb-3">FREE</h5>
                     <h1
                       className={`${styles.circle_background}`}
                       style={{
@@ -107,7 +95,7 @@ export default function Subscription() {
                         </small>
                       </Row>
                     </div>
-                    <button
+                    {/* <button
                       className={`${styles.btn} ${styles.free} btn position-absolute`}
                       style={{
                         background:
@@ -119,15 +107,12 @@ export default function Subscription() {
                       }
                     >
                       {translate("subscription.buy", language)}
-                    </button>
+                    </button> */}
                   </Col>
                   <Col
                     className={`d-flex flex-column align-items-center position-relative ${styles.custom_border} ${styles.broneBorder}`}
                   >
-                    <h5 className="mb-3">
-                      {/* {translate("payment.coin_2", language)} */}
-                      BRONZE
-                    </h5>
+                    <h5 className="mb-3">BRONZE</h5>
                     <h1
                       className={`${styles.circle_background}`}
                       style={{
@@ -177,7 +162,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handlePrizeClick("price_1NdZOtAom1IgIvKK5pWX5HLN")
+                        handlePrizeClickSub("price_1O9MteAom1IgIvKK2vWOmN5q")
                       }
                     >
                       {translate("subscription.buy", language)}
@@ -186,10 +171,7 @@ export default function Subscription() {
                   <Col
                     className={`d-flex flex-column align-items-center position-relative ${styles.custom_border} ${styles.silverBorder}`}
                   >
-                    <h5 className="mb-3">
-                      {/* {translate("payment.coin_3", language)} */}
-                      SILVER
-                    </h5>
+                    <h5 className="mb-3">SILVER</h5>
                     <h1
                       className={`${styles.circle_background}`}
                       style={{
@@ -239,7 +221,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handlePrizeClick("price_1NdZPiAom1IgIvKKW9YdtmZQ")
+                        handlePrizeClickSub("price_1NdZOtAom1IgIvKK5pWX5HLN")
                       }
                     >
                       {translate("subscription.buy", language)}
@@ -248,10 +230,7 @@ export default function Subscription() {
                   <Col
                     className={`d-flex flex-column align-items-center position-relative ${styles.custom_border} ${styles.goldBorder}`}
                   >
-                    <h5 className="mb-3">
-                      {/* {translate("payment.coin_4", language)} */}
-                      GOLD
-                    </h5>
+                    <h5 className="mb-3">GOLD</h5>
                     <h1
                       className={`${styles.circle_background}`}
                       style={{
@@ -301,34 +280,12 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handlePrizeClick("price_1NdZQTAom1IgIvKK0LMh6cgS")
+                        handlePrizeClickSub("price_1NdZPiAom1IgIvKKW9YdtmZQ")
                       }
                     >
                       {translate("subscription.buy", language)}
                     </button>
                   </Col>
-                  {/* <Col
-                    className={`d-flex flex-column align-items-center ${styles.custom_border}`}
-                  >
-                    <h5 className="mb-3">subscription</h5>
-                    <h1
-                      className={`${styles.circle_background}`}
-                      style={{
-                        background:
-                          "linear-gradient(270deg, #00FFAB -14.04%, #00AA95 100%)",
-                      }}
-                    >
-                      200฿
-                    </h1>
-                    <button
-                      className={`${styles.btn} btn mt-3`}
-                      onClick={() =>
-                        handlePrizeClickSub("price_1O4Mh1Aom1IgIvKKt3Ul6HnJ")
-                      }
-                    >
-                      subscription
-                    </button>
-                  </Col> */}
                   <p className={`${styles.select}`}>
                     {translate("subscription.selectSub", language)}
                   </p>
