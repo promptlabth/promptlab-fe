@@ -78,7 +78,11 @@
         "subscription.chat":"บริการสนับสนุนผ่านแชท",
         "subscription.support":"การสนับสนุนตลอด 24/7",
         "subscription.selectSub":"กรุณาเลือกการสมัครสมาชิกที่ท่านต้องการ",
-        "subscription.buy":"เลือกซื้อ"
+        "subscription.buy":"เลือกซื้อ",
+        "subscription.successText":"จ่ายเงินสำเร็จ!",
+        "subscription.successtitle":"สำเร็จ",
+        "subscription.errorText":"คุณได้ทำการยกเลิก!",
+        "subscription.errortitle":"ยกเลิกสำเร็จ"
     },
     "eng": {
         "language": "Language",
@@ -158,7 +162,11 @@
         "subscription.community":"Community Support",
         "subscription.chat":"Chat Support",
         "subscription.support":"24/7 Support",
-        "subscription.buy":"BUY NOW"
+        "subscription.buy":"BUY NOW",
+        "subscription.successText":"Transaction complete!",
+        "subscription.successtitle":"Success",
+        "subscription.errorText":"You have successfully canceled your subscription!",
+        "subscription.errortitle":"Cancelled"
 
     },
     "id": {

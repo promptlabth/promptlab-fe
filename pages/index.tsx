@@ -20,16 +20,16 @@ export default function Home() {
 
    const submit = () => {
       Swal.fire({
-        title: "Success!",
-        text: "Transaction complete",
         icon: "success",
+        title: translate("subscription.successtitle", language),
+        text: translate("subscription.successText", language),
       });
    };
     const error = () => {
       Swal.fire({
         icon: "error",
-        title: "Cancelled",
-        text: "You have successfully canceled your subscription!",
+        title: translate("subscription.errortitle", language),
+        text: translate("subscription.errorText", language),
       });
     };
    const search = searchParams.get("session_id");
