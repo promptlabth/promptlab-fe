@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 import signInWithFacebook from '@/api/auth/auth_facebook';
 import signInWithGmail from '@/api/auth/auth_gmail';
 import { authFirebase } from '@/api/auth';
+import { jwtDecode } from "jwt-decode";
+
 interface UserContextInterface {
    user: LoginUser | null;
    setUser: (user: LoginUser) => void;
@@ -13,6 +15,16 @@ interface UserContextInterface {
    handleLogout: () => Promise<void>;
 }
 
+function isAccessTokenExpired(accessToken: string): boolean {
+   const decoded = jwtDecode(accessToken);
+   const accessTokenExpirationTime = decoded.exp; // Get token expiration date
+
+   const currentTimeInSeconds = Math.floor(new Date().getTime() / 1000); // Convert current time to seconds
+
+   // Check if token is expired
+   // If exp time is less than current time it means token is expired
+   return accessTokenExpirationTime! < currentTimeInSeconds;
+ }
 // Create user context
 const UserContext = createContext<UserContextInterface | undefined>(undefined);
 
@@ -32,19 +44,37 @@ export function UserContextProvider({ children }: Props) {
    const delay = (ms : number) => new Promise(
       resolve => setTimeout(resolve, ms)
    );
-
+   
+   // Function for login user
    const UserLogin = async (token: string, loginFunction : () => any) => {
+      // Parameters
+      // tokem : access token
+      // loginFunction : function for login
       try {
 
-         const loginResult = await Login(token);
+         // Check that access token is expired or not
+         const isExpired = isAccessTokenExpired(token);
 
+         // If token is not expired
+         if (!isExpired) {
+
+         }
+         // Login with access token
+         const loginResult = await Login(token);
+         
+
+         // If login fail (Status code is not 200)
          if (loginResult?.status !== 200) {
+
+            // Remove access token and refresh token from local storage
             localStorage.removeItem("at");
             localStorage.removeItem("rt");
+
+            // Call login function for user credentials
             const result = await loginFunction();
             if (result) {
 
-               // Retrieve the access token from the user data
+               // Retrieve the access token and refresh token from the user data
                const accessToken = await result.user.getIdToken()
                const refreshToken = result.user.refreshToken
                localStorage.setItem("at", accessToken);
@@ -130,7 +160,9 @@ export function UserContextProvider({ children }: Props) {
     * If the token exists, it logs in the user using the retrieved access token.
     **/
    useEffect(() => {
-      const token = localStorage.getItem("at")
+
+      // Get access token and refresh token from local storage
+      const accessToken = localStorage.getItem("at")
       const refToken = localStorage.getItem("rt")
 
       // TODO Check that access token is expired or not
@@ -149,8 +181,9 @@ export function UserContextProvider({ children }: Props) {
          return;
       }
       
-      if (token) {
-         UserLogin(token, loginFunction);
+      // Automically login to ger user data when user refresh page
+      if (accessToken) {
+         UserLogin(accessToken, loginFunction);
       } 
    }, [])
 
