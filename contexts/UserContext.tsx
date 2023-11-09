@@ -5,7 +5,6 @@ import { Login } from '@/api/LoginAPI';
 import { useRouter } from 'next/router';
 import signInWithFacebook from '@/api/auth/auth_facebook';
 import signInWithGmail from '@/api/auth/auth_gmail';
-import { authFirebase } from '@/api/auth';
 import { jwtDecode } from "jwt-decode";
 
 interface UserContextInterface {
@@ -41,6 +40,7 @@ export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
    const router = useRouter()
 
+   // A promise function for delay 
    const delay = (ms : number) => new Promise(
       resolve => setTimeout(resolve, ms)
    );
@@ -57,39 +57,68 @@ export function UserContextProvider({ children }: Props) {
 
          // If token is not expired
          if (!isExpired) {
-
+            // Login with access token, a result will be user data
+            const loginResult = await Login(token);
+            
+            // If login fail (Status code is not 200)
+            if (loginResult?.status !== 200) {
+   
+               // Remove access token and refresh token from local storage
+               localStorage.removeItem("at");
+               localStorage.removeItem("rt");
+   
+               // Call login function for user credentials
+               const result = await loginFunction();
+               if (result) {
+   
+                  // Retrieve the access token and refresh token from the user data
+                  const accessToken = await result.user.getIdToken()
+                  const refreshToken = result.user.refreshToken
+                  localStorage.setItem("at", accessToken);
+                  localStorage.setItem("rt", refreshToken);
+                  const loginResult = await Login(accessToken);
+                  if (loginResult) {
+                     setUser(loginResult?.data)
+                     console.log("relogin-user", loginResult?.data)
+                  }
+               }
+            } 
+            else {
+               setUser(loginResult?.data)
+               console.log("user", loginResult?.data)
+               
+            }
          }
-         // Login with access token
-         const loginResult = await Login(token);
          
+         // If token is not expired
+         else {
 
-         // If login fail (Status code is not 200)
-         if (loginResult?.status !== 200) {
-
-            // Remove access token and refresh token from local storage
+            // If token is expired, get a new access token with refresh token
             localStorage.removeItem("at");
             localStorage.removeItem("rt");
-
-            // Call login function for user credentials
             const result = await loginFunction();
-            if (result) {
 
-               // Retrieve the access token and refresh token from the user data
+            if (result) {
+               
+               // Retrieve the access token from the user data
                const accessToken = await result.user.getIdToken()
+
                const refreshToken = result.user.refreshToken
                localStorage.setItem("at", accessToken);
                localStorage.setItem("rt", refreshToken);
-               const loginResult = await Login(accessToken);
-               if (loginResult) {
+
+               const loginResult = await Login(token);
+               if (loginResult?.status === 200) {
                   setUser(loginResult?.data)
-                  console.log("relogin-user", loginResult?.data)
+                  console.log("user", loginResult?.data)
                }
             }
-         } else {
-            setUser(loginResult?.data)
-            console.log("user", loginResult?.data)
          }
+
+      // If there's error during login, try to login again
       } catch (error) {
+
+         // Call loginFunction for user credentials
          const result = await loginFunction();
          console.log("FACEBOOK", result)
 
@@ -110,6 +139,8 @@ export function UserContextProvider({ children }: Props) {
       }
    }
 
+   // Function for user logout. When user is log out, remove access token and refresh token from local storage
+   // and navigate user to home page
    const handleLogout = async () => {
       localStorage.removeItem("at");
       localStorage.removeItem("rt");
@@ -121,17 +152,21 @@ export function UserContextProvider({ children }: Props) {
       // Sign in with Facebook to obtain a token
       let result;
       let loginFunction;
+
+      // If typeLoginInput is facebook, login with facebook
       if(typeLoginInput === "facebook"){
-         // Login with facebook
          loginFunction = signInWithFacebook
          result = await loginFunction();
          localStorage.setItem("typeLogin", "facebook");
-
-      }else if(typeLoginInput === "gmail"){
+      
+      // If typeLoginInput is gmail, login with gmail
+      } else if(typeLoginInput === "gmail"){
          loginFunction = signInWithGmail;
          result = await loginFunction();
          localStorage.setItem("typeLogin", "gmail");
-      }else{
+
+      // If typeLoginInput is not facebook or gmail, return error
+      } else{
          console.log("error: You have a some bug 1")
          return;
       }
@@ -140,15 +175,20 @@ export function UserContextProvider({ children }: Props) {
       // Proceed if the sign-in with Facebook is successful
       if (result) {
 
-         // Retrieve the access token from the user data
+         // Retrieve the access token and refresh token from the user data
          const accessToken = await result.user.getIdToken()
-
          const refreshToken = result.user.refreshToken
+
+         // Store the access token and refresh token in local storage
          localStorage.setItem("at", accessToken);
          localStorage.setItem("rt", refreshToken);
 
+         // Login with access token, a result will be user data
+         // Delay for 200ms to wait for the access token to be stored in local storage
          UserLogin(accessToken, loginFunction)
          await delay(200);
+
+         // Refresh page
          router.reload()
       }
    }
@@ -171,6 +211,7 @@ export function UserContextProvider({ children }: Props) {
       // If token is expire then get a new access token
 
       let loginFunction;
+      console.log("Trying to get user data.....")
       if(localStorage.getItem("typeLogin") === "facebook"){
          // Login with facebook
          loginFunction = signInWithFacebook
