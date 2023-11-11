@@ -1,5 +1,5 @@
 const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SCECRET_KEY);
-
+import axios from "axios";
 
 type PaymentStripe = {
   prize: string;
@@ -42,4 +42,24 @@ export async function checkoutSub(paymentDetails: PaymentStripe) {
   });
 
   return session.url
+}
+
+export async function createPaymentIntent(foo : any) {
+  try {
+
+    // Api url
+    const apiUrl = `https://url.com/payment-subscription`
+
+    const data = {
+      // TODO use the correct data
+    }
+
+    // POST request
+    const response = await axios.post(apiUrl, {});
+
+    return response.data
+    
+  } catch (e) { 
+
+  }
 }
