@@ -25,7 +25,7 @@
     "eslint-config-next": "13.2.4",
     "firebase": "^9.20.0",
     "i": "^0.3.7",
-    "jwt-decode": "^4.0.0",
+    "jwt-decode": "^3.1.2",
     "next": "13.2.4",
     "npm": "^9.6.7",
     "openai": "^3.2.1",

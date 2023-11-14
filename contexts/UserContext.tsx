@@ -5,9 +5,9 @@ import { Login } from '@/api/LoginAPI';
 import { useRouter } from 'next/router';
 import signInWithFacebook from '@/api/auth/auth_facebook';
 import signInWithGmail from '@/api/auth/auth_gmail';
-import { authFirebase } from '@/api/auth';
+
+
 // import jwt
-import { jwtDecode } from "jwt-decode";
 
 interface UserContextInterface {
    user: LoginUser | null;
@@ -27,11 +27,6 @@ export function useUserContext() {
    return useContext(UserContext)
 }
 
-function verifyTokenExpiration(accessToken : string): boolean{
-   const decoded = jwtDecode(accessToken);
-   const currentTimeInSeconds = Math.floor(new Date().getTime() / 1000); // Convert current time to seconds
-   return decoded.exp! < currentTimeInSeconds;
-}
 
 
 export function UserContextProvider({ children }: Props) {
@@ -46,12 +41,6 @@ export function UserContextProvider({ children }: Props) {
       try {
 
          // If token is expired then get a new access token
-         if(verifyTokenExpiration(token)){
-            const result = await loginFunction();
-            if(result){
-               token = result;
-            }
-         }
 
          const loginResult = await Login(token);
 
