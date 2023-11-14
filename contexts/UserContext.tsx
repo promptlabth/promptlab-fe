@@ -6,6 +6,9 @@ import { useRouter } from 'next/router';
 import signInWithFacebook from '@/api/auth/auth_facebook';
 import signInWithGmail from '@/api/auth/auth_gmail';
 import { authFirebase } from '@/api/auth';
+// import jwt
+import { jwtDecode } from "jwt-decode";
+
 interface UserContextInterface {
    user: LoginUser | null;
    setUser: (user: LoginUser) => void;
@@ -24,6 +27,12 @@ export function useUserContext() {
    return useContext(UserContext)
 }
 
+function verifyTokenExpiration(accessToken : string): boolean{
+   const decoded = jwtDecode(accessToken);
+   const currentTimeInSeconds = Math.floor(new Date().getTime() / 1000); // Convert current time to seconds
+   return decoded.exp! < currentTimeInSeconds;
+}
+
 
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
@@ -35,6 +44,14 @@ export function UserContextProvider({ children }: Props) {
 
    const UserLogin = async (token: string, loginFunction : () => any) => {
       try {
+
+         // If token is expired then get a new access token
+         if(verifyTokenExpiration(token)){
+            const result = await loginFunction();
+            if(result){
+               token = result;
+            }
+         }
 
          const loginResult = await Login(token);
 
@@ -130,7 +147,7 @@ export function UserContextProvider({ children }: Props) {
     * If the token exists, it logs in the user using the retrieved access token.
     **/
    useEffect(() => {
-      const token = localStorage.getItem("at")
+      const accessToken = localStorage.getItem("at")
       const refToken = localStorage.getItem("rt")
 
       // TODO Check that access token is expired or not
@@ -149,8 +166,8 @@ export function UserContextProvider({ children }: Props) {
          return;
       }
       
-      if (token) {
-         UserLogin(token, loginFunction);
+      if (accessToken) {
+         UserLogin(accessToken, loginFunction);
       } 
    }, [])
 
