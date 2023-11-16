@@ -1,4 +1,4 @@
-import { checkout, checkoutSub } from '@/api/payments';
+import { checkout, checkoutSub } from '@/api/Payments';
 import { loadStripe } from '@stripe/stripe-js';
 import { useRouter } from 'next/navigation';
 // import router from 'next/router';
@@ -18,22 +18,22 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { MaintainPage } from '@/components/maintain';
 import { CheckoutSessionRequest } from '@/models/dto/requests/PaymentRequest';
-import { getCheckoutSessionUrl } from '@/api/payments';
+import { getCheckoutSessionUrl } from '@/api/Payments';
 // loadStripe(
 //   process.env.NEXT_PUBLIC_STRIPE_API_KEY
 // );
 
 export default function Payment() {
   const router = useRouter();
-  const [selectedPrize, setSelectedPrize] = useState("");
+  // const [selectedPrize, setSelectedPrize] = useState("");
   const { language } = useLanguage();
 
   // ! This function is will be deprecated soon
   const handlePrizeClick = async (prize: string) => {
-    setSelectedPrize(prize);
+    // setSelectedPrize(prize);
 
     // Calling the checkout function and awaiting the returned URL
-    const url = await checkout({ prize: prize, quantity: 1 });
+    const url= await checkout({ prize: prize, quantity: 1 });
     // Redirecting to the URL
     router.push(url);
 
@@ -41,7 +41,7 @@ export default function Payment() {
 
   // ! This function is will be deprecated soon
   const handlePrizeClickSub = async (prize: string) => {
-    setSelectedPrize(prize);
+    // setSelectedPrize(prize);
 
     // Calling the checkout function and awaiting the returned URL
     const url = await checkoutSub({ prize: prize, quantity: 1 });
@@ -58,11 +58,11 @@ export default function Payment() {
     }
 
     // Calling the checkout function and awaiting the returned Stripe checkout session URL
-    const result = await getCheckoutSessionUrl(data);
+    const checkout_session_url = await getCheckoutSessionUrl(data);
 
     // TODO logic to store plan_id in website
     // Redirect to stripe payment page
-    router.push(result.url); 
+    router.push(checkout_session_url); 
   }
 
   return (
@@ -174,11 +174,11 @@ export default function Payment() {
                       {translate("payment.selectCoin", language)}
                     </p>
                   </Row>
-                  {selectedPrize && (
+                  {/* {selectedPrize && (
                     <div className="text-white mt-4">
                       <h3>Selected Prize: {selectedPrize}</h3>
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
             </Container>

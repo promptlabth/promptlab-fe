@@ -1,4 +1,4 @@
-import { checkout, checkoutSub } from "@/api/payments";
+import { checkout, checkoutSub } from "@/api/Payments";
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
 // import router from 'next/router';

@@ -51,7 +51,10 @@ export async function checkoutSub(paymentDetails: PaymentStripe) {
 //* ------------------ These functions will use instead ------------------ *//
 export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSessionRequest) {
 
-   const apiUrl = "https://ms-payment-uu4qhhj35a-as.a.run.app/get-checkout-session-url"
+   // For test
+   const apiUrl = "https://ms-payment-uu4qhhj35a-as.a.run.app/get-url"
+   
+   // const apiUrl = "https://ms-payment-uu4qhhj35a-as.a.run.app/get-url"
 
    try {
       const requestOption = {
@@ -74,7 +77,7 @@ export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSess
          // Some code..
          // Some code..
       } else {
-         return response.data.checkoutSessionUrl;
+         return response.data.url;
       }
 
    } catch (error) {
