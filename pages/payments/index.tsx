@@ -17,6 +17,8 @@ import { RiCoinFill } from "react-icons/ri";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { MaintainPage } from '@/components/maintain';
+import { CheckoutSessionRequest } from '@/models/dto/requests/PaymentRequest';
+import { getCheckoutSessionUrl } from '@/api/payments';
 // loadStripe(
 //   process.env.NEXT_PUBLIC_STRIPE_API_KEY
 // );
@@ -25,6 +27,8 @@ export default function Payment() {
   const router = useRouter();
   const [selectedPrize, setSelectedPrize] = useState("");
   const { language } = useLanguage();
+
+  // ! This function is will be deprecated soon
   const handlePrizeClick = async (prize: string) => {
     setSelectedPrize(prize);
 
@@ -35,6 +39,7 @@ export default function Payment() {
 
   };
 
+  // ! This function is will be deprecated soon
   const handlePrizeClickSub = async (prize: string) => {
     setSelectedPrize(prize);
 
@@ -45,12 +50,27 @@ export default function Payment() {
 
   };
 
+  // This function is soonly used to handle the checkout session 
+  const handleCheckoutSession = async (prize_id: string) => {
+    const data : CheckoutSessionRequest = {
+      prize_id: prize_id,
+      web_url: window.location.hostname,
+    }
+
+    // Calling the checkout function and awaiting the returned Stripe checkout session URL
+    const result = await getCheckoutSessionUrl(data);
+
+    // TODO logic to store plan_id in website
+    // Redirect to stripe payment page
+    router.push(result.url); 
+  }
+
   return (
     <>
       <div className={noto_sans_thai.className}>
-        <Container fluid={true} 
-          className="p-0 bg-dark pt-5 pb-5" 
-          // className={`${styles.payment_hide}`}
+        <Container fluid={true}
+          className="p-0 bg-dark pt-5 pb-5"
+        // className={`${styles.payment_hide}`}
         >
           <Container className={`${styles.container}`}>
             <figure className="text-center pt-4 pb-4 text-light">
