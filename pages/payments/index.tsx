@@ -1,5 +1,4 @@
 import { checkout, checkoutSub } from '@/api/Payments';
-import { loadStripe } from '@stripe/stripe-js';
 import { useRouter } from 'next/navigation';
 // import router from 'next/router';
 import React, { useState } from 'react';
@@ -29,41 +28,41 @@ export default function Payment() {
   const { language } = useLanguage();
 
   // ! This function is will be deprecated soon
-  const handlePrizeClick = async (prize: string) => {
-    // setSelectedPrize(prize);
+  // const handlePrizeClick = async (prize: string) => {
+  //   // setSelectedPrize(prize);
 
-    // Calling the checkout function and awaiting the returned URL
-    const url= await checkout({ prize: prize, quantity: 1 });
-    // Redirecting to the URL
-    router.push(url);
+  //   // Calling the checkout function and awaiting the returned URL
+  //   const url= await checkout({ prize: prize, quantity: 1 });
+  //   // Redirecting to the URL
+  //   router.push(url);
 
-  };
+  // };
 
   // ! This function is will be deprecated soon
-  const handlePrizeClickSub = async (prize: string) => {
-    // setSelectedPrize(prize);
+  // const handlePrizeClickSub = async (prize: string) => {
+  //   // setSelectedPrize(prize);
 
-    // Calling the checkout function and awaiting the returned URL
-    const url = await checkoutSub({ prize: prize, quantity: 1 });
-    // Redirecting to the URL
-    router.push(url);
+  //   // Calling the checkout function and awaiting the returned URL
+  //   const url = await checkoutSub({ prize: prize, quantity: 1 });
+  //   // Redirecting to the URL
+  //   router.push(url);
 
-  };
+  // };
 
-  // This function is soonly used to handle the checkout session 
-  const handleCheckoutSession = async (prize_id: string) => {
-    const data : CheckoutSessionRequest = {
-      prize_id: prize_id,
-      web_url: window.location.hostname,
-    }
+  // // This function is soonly used to handle the checkout session 
+  // const handleCheckoutSession = async (prize_id: string) => {
+  //   const data : CheckoutSessionRequest = {
+  //     prize_id: prize_id,
+  //     web_url: window.location.hostname,
+  //   }
 
-    // Calling the checkout function and awaiting the returned Stripe checkout session URL
-    const checkout_session_url = await getCheckoutSessionUrl(data);
+  //   // Calling the checkout function and awaiting the returned Stripe checkout session URL
+  //   const checkout_session_url = await getCheckoutSessionUrl(data);
 
-    // TODO logic to store plan_id in website
-    // Redirect to stripe payment page
-    router.push(checkout_session_url); 
-  }
+  //   // TODO logic to store plan_id in website
+  //   // Redirect to stripe payment page
+  //   router.push(checkout_session_url); 
+  // }
 
   return (
     <>
@@ -99,8 +98,8 @@ export default function Payment() {
                       <RiCoinFill fontSize={70} color={"yellow"}></RiCoinFill>
                       <button
                         className={`${styles.btn} btn mt-3`}
-                        onClick={() =>
-                          handlePrizeClick("price_1NdUDIAom1IgIvKKmDRjzFiC")
+                        onClick={() => {}
+                          // handlePrizeClick("price_1NdUDIAom1IgIvKKmDRjzFiC")
                         }
                       >
                         50
@@ -115,8 +114,8 @@ export default function Payment() {
                       <GiTwoCoins fontSize={70} color={"yellow"}></GiTwoCoins>
                       <button
                         className={`${styles.btn} btn mt-3`}
-                        onClick={() =>
-                          handlePrizeClick("price_1NdZOtAom1IgIvKK5pWX5HLN")
+                        onClick={() => {}
+                          // handlePrizeClick("price_1NdZOtAom1IgIvKK5pWX5HLN")
                         }
                       >
                         100
@@ -131,8 +130,8 @@ export default function Payment() {
                       <FaCoins fontSize={70} color={"yellow"}></FaCoins>
                       <button
                         className={`${styles.btn} btn mt-3`}
-                        onClick={() =>
-                          handlePrizeClick("price_1NdZPiAom1IgIvKKW9YdtmZQ")
+                        onClick={() => {}
+                          // handlePrizeClick("price_1NdZPiAom1IgIvKKW9YdtmZQ")
                         }
                       >
                         200
@@ -147,8 +146,8 @@ export default function Payment() {
                       <GiCoins fontSize={70} color={"yellow"}></GiCoins>
                       <button
                         className={`${styles.btn} btn mt-3`}
-                        onClick={() =>
-                          handlePrizeClick("price_1NdZQTAom1IgIvKK0LMh6cgS")
+                        onClick={() => {}
+                          // handlePrizeClick("price_1NdZQTAom1IgIvKK0LMh6cgS")
                         }
                       >
                         300
@@ -163,8 +162,8 @@ export default function Payment() {
                       <GiCoins fontSize={70} color={"yellow"}></GiCoins>
                       <button
                         className={`${styles.btn} btn mt-3`}
-                        onClick={() =>
-                          handlePrizeClickSub("price_1O4Mh1Aom1IgIvKKt3Ul6HnJ")
+                        onClick={() => {}
+                          // handlePrizeClickSub("price_1O4Mh1Aom1IgIvKKt3Ul6HnJ")
                         }
                       >
                         subscription
