@@ -60,7 +60,6 @@ export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSess
       const requestOption = {
          headers: {
             "Authorization": `Bearer ${localStorage.getItem("at")}`,
-            "RefreshToken": `Bearer ${localStorage.getItem("rt")}`
          },
       }
 
@@ -98,7 +97,6 @@ export async function userPremiumSubscribe(userPremiumSubscribeRequest: UserPrem
       const requestOption = {
          headers: {
             "Authorization": `Bearer ${localStorage.getItem("at")}`,
-            "RefreshToken": `Bearer ${localStorage.getItem("rt")}`
          },
       }
 
