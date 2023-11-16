@@ -1,4 +1,4 @@
-import { getCheckoutSessionUrl } from "@/api/Payments";
+import { getCheckoutSessionUrl } from ".../../../api/Payments";
 // import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
 // import router from 'next/router';
