@@ -34,7 +34,7 @@ export default function Subscription() {
   const handleCheckoutSession = async (prize_id: string, plan_id: number) => {
     const data : CheckoutSessionRequest = {
       PrizeID: prize_id,
-      WebUrl: window.location.hostname,
+      WebUrl: window.location.origin,
       PlanID: plan_id
     }
 
