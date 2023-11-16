@@ -1,4 +1,4 @@
-import { checkout, checkoutSub } from "@/api/Payments";
+import { checkout, checkoutSub, getCheckoutSessionUrl } from "@/api/Payments";
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
 // import router from 'next/router';
@@ -21,28 +21,30 @@ import { MaintainPage } from "@/components/maintain";
 //   process.env.NEXT_PUBLIC_STRIPE_API_KEY
 // );
 import { BsCheckCircle } from "react-icons/bs";
+import { CheckoutSessionRequest } from "@/models/dto/requests/PaymentRequest";
 export default function Subscription() {
   const router = useRouter();
-  const [selectedPrize, setSelectedPrize] = useState("");
   const { language } = useLanguage();
-  const handlePrizeClick = async (prize: string) => {
-    setSelectedPrize(prize);
+  const prize_id_bronze = "price_1O9N1cAom1IgIvKKvbttMHdx";
+  const prize_id_silver = "price_1O9RapAom1IgIvKKJSSbT8jL";
+  const prize_id_gold = "price_1OCiCbAom1IgIvKK13OebsIL";
 
-    // Calling the checkout function and awaiting the returned URL
-    const url = await checkout({ prize: prize, quantity: 1 });
-    // Redirecting to the URL
-    router.push(url);
-  };
+  
+  // This function is soonly used to handle the checkout session 
+  const handleCheckoutSession = async (prize_id: string) => {
+    const data : CheckoutSessionRequest = {
+      prize_id: prize_id,
+      web_url: window.location.hostname,
+    }
 
-  const handlePrizeClickSub = async (prize: string) => {
-    setSelectedPrize(prize);
+    // Calling the checkout function and awaiting the returned Stripe checkout session URL
+    const checkout_session_url = await getCheckoutSessionUrl(data);
 
-    // Calling the checkout function and awaiting the returned URL
-    const url = await checkoutSub({ prize: prize, quantity: 1 });
-    // Redirecting to the URL
-    router.push(url);
-  };
-
+    // TODO logic to store plan_id in website
+    // Redirect to stripe payment page
+    router.push(checkout_session_url); 
+  }
+  
   return (
     <>
       <div className={noto_sans_thai.className}>
@@ -162,7 +164,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handlePrizeClickSub("price_1O9N1cAom1IgIvKKvbttMHdx")
+                        handleCheckoutSession(prize_id_bronze)
                       }
                     >
                       {translate("subscription.buy", language)}
@@ -221,7 +223,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handlePrizeClickSub("price_1NdZOtAom1IgIvKK5pWX5HLN")
+                        handleCheckoutSession(prize_id_silver)
                       }
                     >
                       {translate("subscription.buy", language)}
@@ -280,7 +282,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handlePrizeClickSub("price_1NdZPiAom1IgIvKKW9YdtmZQ")
+                        handleCheckoutSession(prize_id_gold)
                       }
                     >
                       {translate("subscription.buy", language)}
@@ -290,11 +292,6 @@ export default function Subscription() {
                     {translate("subscription.selectSub", language)}
                   </p>
                 </Row>
-                {selectedPrize && (
-                  <div className="text-white mt-4">
-                    <h3>Selected Prize: {selectedPrize}</h3>
-                  </div>
-                )}
               </div>
             </div>
           </Container>
