@@ -1,7 +1,7 @@
 // import { checkout, checkoutSub } from '@/api/Payments';
 import { useRouter } from 'next/navigation';
 // import router from 'next/router';
-import React, { useState } from 'react';
+import React from 'react';
 import { Container } from "react-bootstrap";
 import { Noto_Sans_Thai } from "next/font/google";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
@@ -15,9 +15,10 @@ import { GiTwoCoins } from "react-icons/gi";
 import { RiCoinFill } from "react-icons/ri";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { MaintainPage } from '@/components/maintain';
-import { CheckoutSessionRequest } from '@/models/dto/requests/PaymentRequest';
-import { getCheckoutSessionUrl } from '@/api/Payments';
+// import { MaintainPage } from '@/components/maintain';
+// import { CheckoutSessionRequest } from '@/models/dto/requests/PaymentRequest';
+// import { getCheckoutSessionUrl } from '@/api/Payments';
+// import { getCheckoutSessionUrl } from '@/api/Payments';
 // loadStripe(
 //   process.env.NEXT_PUBLIC_STRIPE_API_KEY
 // );

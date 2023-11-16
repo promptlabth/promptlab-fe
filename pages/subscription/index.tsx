@@ -9,14 +9,14 @@ const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 import styles from "./styles.module.css";
 import { translate } from "@/languages/language";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { BsCoin } from "react-icons/bs";
-import { FaCoins } from "react-icons/fa";
-import { GiCoins } from "react-icons/gi";
-import { GiTwoCoins } from "react-icons/gi";
-import { RiCoinFill } from "react-icons/ri";
+// import { BsCoin } from "react-icons/bs";
+// import { FaCoins } from "react-icons/fa";
+// import { GiCoins } from "react-icons/gi";
+// import { GiTwoCoins } from "react-icons/gi";
+// import { RiCoinFill } from "react-icons/ri";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { MaintainPage } from "@/components/maintain";
+// import { MaintainPage } from "@/components/maintain";
 // loadStripe(
 //   process.env.NEXT_PUBLIC_STRIPE_API_KEY
 // );
