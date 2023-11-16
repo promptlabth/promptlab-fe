@@ -15,8 +15,6 @@ import { GiTwoCoins } from "react-icons/gi";
 import { RiCoinFill } from "react-icons/ri";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { MaintainPage } from '@/components/maintain';
-import { CheckoutSessionRequest } from '@/models/dto/requests/PaymentRequest';
 // import { getCheckoutSessionUrl } from '@/api/Payments';
 // loadStripe(
 //   process.env.NEXT_PUBLIC_STRIPE_API_KEY
