@@ -52,7 +52,7 @@ export async function checkoutSub(paymentDetails: PaymentStripe) {
 export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSessionRequest) {
 
    // For test
-   const apiUrl = "https://ms-payment-uu4qhhj35a-as.a.run.app/get-url"
+   const apiUrl = "https://ms-payment-test-uu4qhhj35a-as.a.run.app/get-url"
    
    // const apiUrl = "https://ms-payment-uu4qhhj35a-as.a.run.app/get-url"
 
