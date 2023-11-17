@@ -1,6 +1,7 @@
 export type CheckoutSessionRequest = {
-    prize_id: string;
-    web_url: string;
+    PrizeID: string;
+    WebUrl: string;
+    PlanID: number
  }
  
 export type UserPremiumSubscribeRequest = {

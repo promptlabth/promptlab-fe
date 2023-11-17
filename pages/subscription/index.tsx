@@ -31,10 +31,11 @@ export default function Subscription() {
 
   
   // This function is soonly used to handle the checkout session 
-  const handleCheckoutSession = async (prize_id: string) => {
+  const handleCheckoutSession = async (prize_id: string, plan_id: number) => {
     const data : CheckoutSessionRequest = {
-      prize_id: prize_id,
-      web_url: window.location.hostname,
+      PrizeID: prize_id,
+      WebUrl: window.location.origin,
+      PlanID: plan_id
     }
 
     // Calling the checkout function and awaiting the returned Stripe checkout session URL
@@ -164,7 +165,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handleCheckoutSession(prize_id_bronze)
+                        handleCheckoutSession(prize_id_bronze, 2)
                       }
                     >
                       {translate("subscription.buy", language)}
@@ -223,7 +224,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handleCheckoutSession(prize_id_silver)
+                        handleCheckoutSession(prize_id_silver, 3)
                       }
                     >
                       {translate("subscription.buy", language)}
@@ -282,7 +283,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handleCheckoutSession(prize_id_gold)
+                        handleCheckoutSession(prize_id_gold, 4)
                       }
                     >
                       {translate("subscription.buy", language)}
