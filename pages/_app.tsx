@@ -13,6 +13,8 @@ import Script from 'next/script';
 import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { UserContextProvider } from '@/contexts/UserContext';
 import { MaintainPage } from '@/components/maintain';
+import { onAuthStateChanged } from 'firebase/auth';
+import { authFirebase } from '@/api/auth';
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
@@ -30,9 +32,19 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const [token, setToken] = useState<string>("")
   useEffect(() => {
     const accessToken = localStorage.getItem("at")
-    if (accessToken) {
-      setToken(accessToken)
-    }
+
+    onAuthStateChanged(authFirebase, (user) => {
+      if(user){
+        // console.log(user.displayName)
+        user.getIdToken(true).then((accessToken) => {
+          setToken(accessToken)
+          console.log(accessToken)
+        })
+      }else{
+        localStorage.removeItem("at");
+        localStorage.removeItem("rt");
+      }
+    })
   }, [])
   return getLayout(
     <main className={noto_sans_thai.className}>

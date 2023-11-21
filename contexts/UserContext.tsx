@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import signInWithFacebook from '@/api/auth/auth_facebook';
 import signInWithGmail from '@/api/auth/auth_gmail';
 import { authFirebase } from '@/api/auth';
+import { signOut } from 'firebase/auth';
 interface UserContextInterface {
    user: LoginUser | null;
    setUser: (user: LoginUser) => void;
@@ -81,8 +82,11 @@ export function UserContextProvider({ children }: Props) {
    }
 
    const handleLogout = async () => {
-      localStorage.removeItem("at");
-      localStorage.removeItem("rt");
+
+      signOut(authFirebase).then((value) => {
+         localStorage.removeItem("at");
+         localStorage.removeItem("rt");
+      })
       await router.push("/")
       router.reload()
    }
