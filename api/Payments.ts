@@ -1,6 +1,7 @@
 const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SCECRET_KEY);
 import axios from "axios";
 import { CheckoutSessionRequest, UserPremiumSubscribeRequest } from "../models/dto/requests/PaymentRequest";
+import { paymentApiUrl } from "@/constant";
 
 type PaymentStripe = {
    prize: string;
@@ -52,9 +53,8 @@ export async function checkoutSub(paymentDetails: PaymentStripe) {
 export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSessionRequest) {
 
    // For test
-   const apiUrl = "https://ms-payment-test-uu4qhhj35a-as.a.run.app/subsctiption/get-url"
+   const apiUrl = `${paymentApiUrl}/subsctiption/get-url`
    
-   // const apiUrl = "https://ms-payment-uu4qhhj35a-as.a.run.app/get-url"
 
    try {
       const requestOption = {
@@ -92,7 +92,7 @@ export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSess
 }
 
 export async function userPremiumSubscribe(userPremiumSubscribeRequest: UserPremiumSubscribeRequest) {
-   const apiUrl = "https://ms-payment-uu4qhhj35a-as.a.run.app/payment-subscription"
+   const apiUrl = `${paymentApiUrl}/payment-subscription`
    try {
       const requestOption = {
          headers: {
@@ -106,12 +106,13 @@ export async function userPremiumSubscribe(userPremiumSubscribeRequest: UserPrem
          requestOption
       );
 
-      if (response.status == 400) {
+      if (response.status != 201) {
 
          // TODO maybe return cancel subscription url
          // return response.data.cancel_url;
+         console.log(response)
       }
-
+      
          // TODO maybe return success subscription url
          // return response.data.success_url;
 

@@ -5,6 +5,7 @@ export type CheckoutSessionRequest = {
  }
  
 export type UserPremiumSubscribeRequest = {
-    checkout_session_id: string;
+    subscription_id : string
+    user_id: string
     plan_id: string
 }

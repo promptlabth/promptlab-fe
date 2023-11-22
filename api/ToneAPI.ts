@@ -1,9 +1,9 @@
 import axios from "axios";
 import { Language } from "@/contexts/LanguageContext";
+import { serverApiUrl } from "@/constant";
 
 export async function ListTones(language : Language) {
-   const apiUrl = `https://prompt-lab-be-uu4qhhj35a-as.a.run.app/tones/${language}`
-   // const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}tones/${language}`
+   const apiUrl = `${serverApiUrl}/tones/${language}`
    
    try {
       const requestOption = { headers: { "Content-Type": "application/json" },}
@@ -16,8 +16,7 @@ export async function ListTones(language : Language) {
 }
 
 export async function GetTonesByID(id : number) {
-   const apiUrl = `https://prompt-lab-be-uu4qhhj35a-as.a.run.app/tone/${id}`
-   // const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}tones/${language}`
+   const apiUrl = `${serverApiUrl}/tone/${id}`
    
    try {
       const requestOption = { headers: { "Content-Type": "application/json" },}

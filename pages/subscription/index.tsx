@@ -40,9 +40,11 @@ export default function Subscription() {
 
     // Calling the checkout function and awaiting the returned Stripe checkout session URL
     const checkout_session_url = await getCheckoutSessionUrl(data);
-
+    console.log(checkout_session_url)
     // TODO logic to store plan_id in website
     // Redirect to stripe payment page
+    console.log("redirecting to stripe payment page")
+    console.log(checkout_session_url)
     router.push(checkout_session_url); 
   }
   

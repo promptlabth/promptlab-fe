@@ -1,7 +1,8 @@
+import { serverApiUrl } from '@/constant';
 import axios from 'axios';
 
 async function getMessageHistoryWithUserId() {
-    const apiUrl = `https://prompt-lab-be-uu4qhhj35a-as.a.run.app/get-caption`
+    const apiUrl = `${serverApiUrl}/get-caption`
     try {
 
         const requestOption = { 

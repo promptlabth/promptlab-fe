@@ -11,7 +11,7 @@ import { FaClosedCaptioning } from 'react-icons/fa';
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "../../languages/language";
 import { Col, Container, Row } from "react-bootstrap";
-import { generateMessage, generateMessageWithUser, oldGenerateMessage, oldGenerateMessageWithUser } from "@/api/GenerateMessageAPI";
+import { generateMessage, generateMessageWithUser } from "@/api/GenerateMessageAPI";
 import { ImCross } from 'react-icons/im';
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
