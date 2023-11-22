@@ -39,7 +39,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         user.getIdToken(true).then((accessToken) => {
           setToken(accessToken)
           console.log(accessToken)
+          localStorage.setItem("at", accessToken)
         })
+        localStorage.setItem("rt", user.refreshToken)
       }else{
         localStorage.removeItem("at");
         localStorage.removeItem("rt");
