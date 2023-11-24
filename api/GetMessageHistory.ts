@@ -1,13 +1,15 @@
 import { serverApiUrl } from '@/constant';
 import axios from 'axios';
+import { GetAccessToken } from './auth/auth_get_token';
 
 async function getMessageHistoryWithUserId() {
     const apiUrl = `${serverApiUrl}/get-caption`
     try {
 
+        const accessToken = await GetAccessToken()
         const requestOption = { 
             headers: { 
-                "Authorization": `Bearer ${localStorage.getItem("at")}`,
+                "Authorization": `Bearer ${accessToken}`,
                 "RefreshToken": `Bearer ${localStorage.getItem("rt")}`
             },
         }

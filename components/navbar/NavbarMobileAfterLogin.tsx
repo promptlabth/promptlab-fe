@@ -22,7 +22,7 @@ import { useUserContext } from "@/contexts/UserContext";
 export const NavbarMobileAfterLogin: React.FC = () => {
   const { language, setLanguage } = useLanguage();
   const userContext = useUserContext()
-  const rank: string = "Free"
+  const rank: string = "Bronze"
   const [windowWidth, setWindowWidth] = useState(0);
 
 

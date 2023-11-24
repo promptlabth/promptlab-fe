@@ -1,14 +1,16 @@
 import axios from 'axios';
 import { UserGenerateMessage , GenerateMessage, OldGenerateMessage, OldUserGenerateMessage} from '@/models';
 import { serverApiUrl } from '@/constant';
+import { GetAccessToken } from './auth/auth_get_token';
 
 async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage) {
     const apiUrl = `${serverApiUrl}/generate-random`
     try {
 
+        const accessToken = await GetAccessToken()
         const requestOption = { 
             headers: { 
-                "Authorization": `Bearer ${localStorage.getItem("at")}`,
+                "Authorization": `Bearer ${accessToken}`,
                 "RefreshToken": `Bearer ${localStorage.getItem("rt")}`
             },
         }

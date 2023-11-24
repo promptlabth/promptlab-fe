@@ -1,19 +1,11 @@
-// Define an interface for User data
-// @Properties
-// - id: An optional field representing the user's ID. It is of type number.
-// - uid: An optional field representing the user's UID (unique identifier). It is of type string.
-// - name: An optional field representing the user's name. It is of type string.
-// - email: A required field representing the user's email. It is of type string.
-
-import { Tones } from "./tones";
-
-// - profilepic: A required field representing the URL of the user's profile picture. It is of type string.
 export type LoginUser = {
-   id?: number;
    firebase_id?: string;
    name?: string;
    email: string;
    profilepic: string;
+   subscription_status?: string;
+   plan_id?: number;
+   plan_name?: string;
 }
 
 export type OldGenerateMessage = {

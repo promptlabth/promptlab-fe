@@ -9,47 +9,6 @@ type PaymentStripe = {
    quantity: number;
 };
 
-
-// ! This function is will not used, gonna remove it
-export async function checkout(paymentDetails: PaymentStripe) {
-
-   const session = await stripe.checkout.sessions.create({
-      line_items: [
-         {
-            // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: paymentDetails.prize,
-            quantity: paymentDetails.quantity,
-         },
-      ],
-      mode: 'payment',
-      payment_method_types: ['card', 'promptpay'],
-      success_url: `${window.location.origin}?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: window.location.origin
-   });
-
-   return session.url
-}
-
-// ! This function is will not used, gonna remove it
-export async function checkoutSub(paymentDetails: PaymentStripe) {
-
-   const session = await stripe.checkout.sessions.create({
-      line_items: [
-         {
-            // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: paymentDetails.prize,
-            quantity: paymentDetails.quantity,
-         },
-      ],
-      mode: 'subscription',
-      payment_method_types: ['card'],
-      success_url: `${window.location.origin}?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${window.location.origin}?cancle={cancle}`
-   });
-
-   return session.url
-}
-
 //* ------------------ These functions will use instead ------------------ *//
 export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSessionRequest) {
 
