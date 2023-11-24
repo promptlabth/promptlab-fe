@@ -41,9 +41,7 @@ export default function SubscriptionSuccessPage() {
         console.log(session_id, plan_id, user_id)
 
         handleSuccessPayment(session_id, plan_id)
-
-        
-    })
+    }, [])
     
 
   return (
