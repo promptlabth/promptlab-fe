@@ -36,6 +36,7 @@ export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSess
          // Some code..
          // Some code..
          // Some code..
+         return 
       } else {
          return response.data.url;
       }

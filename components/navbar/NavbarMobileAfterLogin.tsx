@@ -1,5 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
-import Image from "next/image";
+import React, { useState, useEffect,} from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
@@ -19,7 +18,9 @@ import { BsFillCircleFill } from "react-icons/bs"
 import { BiLogOut } from "react-icons/bi"
 import { AiFillPlusCircle } from "react-icons/ai"
 import { useUserContext } from "@/contexts/UserContext";
+import { LoginUser } from "@/models";
 export const NavbarMobileAfterLogin: React.FC = () => {
+  const [user, setUser] = useState<LoginUser | null>(null);
   const { language, setLanguage } = useLanguage();
   const userContext = useUserContext()
   const rank: string = "Bronze"
@@ -53,7 +54,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
     >
       <div className={`container d-flex mt-auto`}>
         <div className={styles.navbar_header}>
-          <h3>Prompt Lab</h3>
+          <h3>Prompt Lab AI</h3>
         </div>
         <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0">
         </ul>

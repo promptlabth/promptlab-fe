@@ -62,7 +62,6 @@ export function UserContextProvider({ children }: Props) {
             }
          } else {
             setUser(loginResult?.data)
-            console.log("user", loginResult?.data)
          }
       } catch (error) {
          const result = await loginFunction();
@@ -132,38 +131,36 @@ export function UserContextProvider({ children }: Props) {
    }
 
 
-   /**
-    * This useEffect function retrieves the access token from local storage.
-    * It then checks whether the access token has a value or not.
-    * If the token exists, it logs in the user using the retrieved access token.
-    **/
-   const updateAccessToken = async() => {
-      const token = await GetAccessToken()
-      const refToken = localStorage.getItem("rt")
+   const updateAccessToken = async () => {
+      try {
+         const token = await GetAccessToken();
+         let loginFunction;
+         if (localStorage.getItem("typeLogin") === "facebook") {
+            loginFunction = signInWithFacebook;
+         } else if (localStorage.getItem("typeLogin") === "gmail") {
+            loginFunction = signInWithGmail;
+         } else {
+            throw new Error("error: You are not logged in at this time");
+         }
 
-      // TODO Check that access token is expired or not
-      // Pseudo code
-      // Encode access token(which is JWT token) and get `iat` and `exp`
-      // If token is expire then get a new access token
-
-      let loginFunction;
-      if(localStorage.getItem("typeLogin") === "facebook"){
-         // Login with facebook
-         loginFunction = signInWithFacebook
-      }else if(localStorage.getItem("typeLogin") === "gmail"){
-         loginFunction = signInWithGmail;
-      }else{
-         console.log("error: You not login in this time")
-         return;
+         if (token) {
+            console.log("token", token)
+            await UserLogin(token, loginFunction);
+         }
+      } catch (error) {
+         console.error("Error updating access token:", error);
+         // Handle error, maybe redirect to login page or show an error message
       }
-      
-      if (token) {
-         UserLogin(token, loginFunction);
-      } 
-   }
+   };
+
    useEffect(() => {
-      updateAccessToken()
-   }, [])
+      const fetchData = async () => {
+         await updateAccessToken();
+         console.log("Current User:", User);
+      };
+
+      fetchData();
+   }, []);
 
    const current_context: UserContextInterface = {
       user: User || null,

@@ -16,11 +16,10 @@ import { ImCross } from 'react-icons/im';
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
 import { Tones } from "@/models/tones";
-import { GenerateMessage, UserGenerateMessage, OldGenerateMessage, OldUserGenerateMessage } from "@/models";
+import { GenerateMessage, } from "@/models";
 import { useUserContext } from "@/contexts/UserContext";
 import { features } from "@/constant";
 import { usePathname } from 'next/navigation'
-import { GetTonesByID } from "@/api/ToneAPI";
 import { FcGoogle } from "react-icons/fc";
 import { IoMdInformationCircle } from 'react-icons/io'
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
@@ -324,7 +323,7 @@ const TableComponents = (config: pageConfig) => {
                </figure>
 
                <Container fluid={true} className={styles.page_prompt_area}>
-                  {false &&
+                  {true &&
                      <div className={`pb-2 d-flex justify-content-end`}>
                         <div className={`d-flex ${styles.generate_count_layout}`}>
                            <AiOutlineSend className="text-white me-2" size={20} />

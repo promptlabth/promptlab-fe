@@ -13,7 +13,6 @@ import { VscTriangleLeft } from "react-icons/vsc";
 import { VscTriangleRight } from "react-icons/vsc";
 import { PromptMessage } from "@/models";
 import { getMessageHistoryWithUserId } from "@/api/GetMessageHistory";
-import { GetTonesByID } from "@/api/ToneAPI";
 import Head from 'next/head';
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 
