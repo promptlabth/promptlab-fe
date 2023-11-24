@@ -1,11 +1,9 @@
 export type LoginUser = {
+   id?: number;
    firebase_id?: string;
    name?: string;
    email: string;
    profilepic: string;
-   subscription_status?: string;
-   plan_id?: number;
-   plan_name?: string;
 }
 
 export type OldGenerateMessage = {

@@ -30,7 +30,14 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
    const getLayout = Component.getLayout ?? ((page) => page)
    const [token, setToken] = useState<string>("")
 
+   const checkToken = async () => {
+      const token = await GetAccessToken();
+      if (token) {
+         setToken(token);
+      }
+   }
    useEffect( () => {
+      checkToken()
    }, [])
    return getLayout(
       <main className={noto_sans_thai.className}>
@@ -88,7 +95,4 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
          </LanguageProvider>
       </main>
    );
-
-   // return getLayout(<Component {...pageProps} />)
-
 }

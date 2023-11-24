@@ -31,6 +31,8 @@ export function useUserContext() {
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
 
+   const [accessToken, setAccessToken] = useState<string>("")
+
    const router = useRouter()
    const generateCount : number = 79;
 
@@ -126,7 +128,7 @@ export function UserContextProvider({ children }: Props) {
 
          UserLogin(accessToken, loginFunction)
          await delay(200);
-         // router.reload()
+         router.reload()
       }
    }
 
@@ -145,7 +147,7 @@ export function UserContextProvider({ children }: Props) {
 
          if (token) {
             console.log("token", token)
-            await UserLogin(token, loginFunction);
+            UserLogin(token, loginFunction);
          }
       } catch (error) {
          console.error("Error updating access token:", error);
@@ -154,12 +156,9 @@ export function UserContextProvider({ children }: Props) {
    };
 
    useEffect(() => {
-      const fetchData = async () => {
-         await updateAccessToken();
-         console.log("Current User:", User);
-      };
-
-      fetchData();
+      updateAccessToken();
+      console.log("user", User)
+      
    }, []);
 
    const current_context: UserContextInterface = {
