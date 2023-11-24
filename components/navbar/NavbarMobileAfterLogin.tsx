@@ -1,4 +1,4 @@
-import React, { useState, useEffect,} from "react";
+import React, { useState, useEffect, } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
@@ -21,9 +21,8 @@ import { useUserContext } from "@/contexts/UserContext";
 export const NavbarMobileAfterLogin: React.FC = () => {
   const { language, setLanguage } = useLanguage();
   const userContext = useUserContext()
-  const rank: string = "Bronze"
+  const rank: string = "Free"
   const [windowWidth, setWindowWidth] = useState(0);
-
 
   // Add key to rankColor
   const rankColor: { [key: string]: string } = {
@@ -32,6 +31,14 @@ export const NavbarMobileAfterLogin: React.FC = () => {
     "Bronze": "linear-gradient(180deg, #33393F 0%, #CD7F32 0.01%, #563C23 18.75%, #33393F 44.79%)",
     "Free": "#33393F"
   }
+
+  const rankColorForMobile: { [key: string]: string } = {
+    "Gold": "linear-gradient(180deg, #FFB800 0%, rgba(33, 37, 41, 0.85) 100%)",
+    "Silver": "linear-gradient(180deg,  #A8A8A8 0%, rgba(33, 37, 41, 0.85) 100%)",
+    "Bronze": "linear-gradient(180deg, rgba(205, 127, 50, 0.85) 0%, rgba(33, 37, 41, 0.85) 100%)",
+    "Free": "#33393F"
+  }
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -118,12 +125,29 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         >
           {windowWidth < 992 ? (
             <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0 ">
-              <li className={`${styles.profile} nav-item text-center `}>
+              <li 
+                className={`${styles.profile} nav-item text-center`} 
+                style={{ 
+                  background: rankColorForMobile[rank]
+                }}
+              >
                 <div className="pt-4">
-                  {/* <Image className={`${styles.user_profile_pic}`} src={userContext?.user?.profilepic || ""} alt="profic-pic"/> */}
-                  <img className={`${styles.user_profile_pic}`} src={userContext?.user?.profilepic} alt="profic-pic" />
+                  <img 
+                    className={`${styles.user_profile_pic}`} 
+                    src={userContext?.user?.profilepic} 
+                    alt="profic-pic"
+                    style={{
+                      border: 
+                        rank === "Gold" ? "3.25px solid #FFB800" :
+                        rank === "Silver" ? "3.25px solid #A8A8A8" :
+                        rank === "Bronze" ? "3.25px solid #CD7F32" : "none",
+                      borderRadius: "50%",
+                      width: "60px",
+                      height: "60px"
+                    }} 
+                  />
                   <b>
-                    <p className="fs-4 fw-bold pt-2"> {userContext?.user?.name} </p>
+                    <p className="fs-4 fw-bold pt-2 text-white"> {userContext?.user?.name} </p>
                   </b>
                 </div>
               </li>
@@ -341,13 +365,25 @@ export const NavbarMobileAfterLogin: React.FC = () => {
               </li>
               <li className={`nav-item dropdown ${noto_sans_thai.className}`}>
                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img className={`${styles.user_profile_pic_desktop}`} src={userContext?.user?.profilepic} alt="profic-pic" />
+                  <img 
+                    className={`${styles.user_profile_pic_desktop}`} 
+                    src={userContext?.user?.profilepic} 
+                    alt="profic-pic"
+                    style={{
+                      border: 
+                        rank === "Gold" ? "3.25px solid #FFB800" :
+                        rank === "Silver" ? "3.25px solid #A8A8A8" :
+                        rank === "Bronze" ? "3.25px solid #CD7F32" : "none",
+                      borderRadius: "50%",
+                      width: "42px",
+                      height: "42px"
+                    }} 
+                  />
                 </a>
                 <ul
                   className={`${styles.login_dropdown_menu} border dropdown-menu px-1`}
                   style={{
                     marginLeft: "-8rem",
-                    // Silver 
                     background: rankColor[rank],
                   }}
                 >

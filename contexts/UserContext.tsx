@@ -30,9 +30,6 @@ export function useUserContext() {
 
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
-
-   const [accessToken, setAccessToken] = useState<string>("")
-
    const router = useRouter()
    const generateCount : number = 79;
 
@@ -59,7 +56,6 @@ export function UserContextProvider({ children }: Props) {
                const loginResult = await Login(accessToken);
                if (loginResult) {
                   setUser(loginResult?.data)
-                  console.log("relogin-user", loginResult?.data)
                }
             }
          } else {
@@ -67,7 +63,6 @@ export function UserContextProvider({ children }: Props) {
          }
       } catch (error) {
          const result = await loginFunction();
-         console.log("FACEBOOK", result)
 
          // Proceed if the sign-in with Facebook is successful
          if (result) {
@@ -146,7 +141,6 @@ export function UserContextProvider({ children }: Props) {
          }
 
          if (token) {
-            console.log("token", token)
             UserLogin(token, loginFunction);
          }
       } catch (error) {
