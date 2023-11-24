@@ -7,6 +7,7 @@ import signInWithFacebook from '@/api/auth/auth_facebook';
 import signInWithGmail from '@/api/auth/auth_gmail';
 import { authFirebase } from '@/api/auth';
 import { signOut } from 'firebase/auth';
+import { GetAccessToken } from '@/api/auth/auth_get_token';
 interface UserContextInterface {
    user: LoginUser | null;
    setUser: (user: LoginUser) => void;
@@ -133,8 +134,8 @@ export function UserContextProvider({ children }: Props) {
     * It then checks whether the access token has a value or not.
     * If the token exists, it logs in the user using the retrieved access token.
     **/
-   useEffect(() => {
-      const token = localStorage.getItem("at")
+   const updateAccessToken = async() => {
+      const token = await GetAccessToken()
       const refToken = localStorage.getItem("rt")
 
       // TODO Check that access token is expired or not
@@ -156,6 +157,9 @@ export function UserContextProvider({ children }: Props) {
       if (token) {
          UserLogin(token, loginFunction);
       } 
+   }
+   useEffect(() => {
+      updateAccessToken()
    }, [])
 
    const current_context: UserContextInterface = {
