@@ -92,7 +92,7 @@ export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSess
 }
 
 export async function userPremiumSubscribe(userPremiumSubscribeRequest: UserPremiumSubscribeRequest) {
-   const apiUrl = `${paymentApiUrl}/payment-subscription`
+   const apiUrl = `${paymentApiUrl}/subscription/success`
    try {
       const requestOption = {
          headers: {
