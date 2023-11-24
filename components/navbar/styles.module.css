@@ -330,6 +330,23 @@
     margin-left: -2rem;
 }
 
+.subscription_manage_btn {
+    border-radius: 204px;
+    border: 1.5px solid #FFF;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    color: white;
+    background: none;
+    transition: 0.3s ease;
+}
+
+.subscription_manage_btn:hover {
+    background: white;
+    color: black;
+    border: 1.5px solid #000000;
+}
 .login_dropdown_history_menu {
     color: #ffffff;
     /* opacity: 0.4; */
@@ -341,7 +358,7 @@
 .login_dropdown_history_menu:hover {
     color: #00FFAB;
 
-    
+
 }
 
 .btn {

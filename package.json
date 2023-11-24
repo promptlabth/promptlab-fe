@@ -44,6 +44,7 @@
     "typescript": "5.0.2"
   },
   "devDependencies": {
+    "@types/jquery": "^3.5.25",
     "@types/react-copy-to-clipboard": "^5.0.4"
   }
 }

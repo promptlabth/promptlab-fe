@@ -22,9 +22,17 @@ import { useUserContext } from "@/contexts/UserContext";
 export const NavbarMobileAfterLogin: React.FC = () => {
   const { language, setLanguage } = useLanguage();
   const userContext = useUserContext()
+  const rank: string = "Free"
   const [windowWidth, setWindowWidth] = useState(0);
 
 
+  // Add key to rankColor
+  const rankColor: { [key: string]: string } = {
+    "Gold": "linear-gradient(180deg, #FFB800 0%, #564A2B 26.66%, #33393F 54.26%)",
+    "Silver": "linear-gradient(180deg, #A8A8A8 0%, #33393F 42.8%)",
+    "Bronze": "linear-gradient(180deg, #33393F 0%, #CD7F32 0.01%, #563C23 18.75%, #33393F 44.79%)",
+    "Free": "#33393F"
+  }
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -248,7 +256,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
               <li className="nav-item text-center mt-2 mb-2">
                 <div className="nav-link ">
                   <button
-                    
+
                     className={`${styles.navbar_logout_button}`}
                     onClick={() => {
                       userContext?.handleLogout();
@@ -332,15 +340,34 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                   </button>
                 </div>
               </li>
-              <li className={`nav-item dropdown`}>
+              <li className={`nav-item dropdown ${noto_sans_thai.className}`}>
                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <img className={`${styles.user_profile_pic_desktop}`} src={userContext?.user?.profilepic} alt="profic-pic" />
                 </a>
                 <ul
                   className={`${styles.login_dropdown_menu} border dropdown-menu px-1`}
-                  style={{ marginLeft: "-8rem", background: "#33393F" }}
+                  style={{
+                    marginLeft: "-8rem",
+                    // Silver 
+                    background: rankColor[rank],
+                  }}
                 >
                   <li><div className="text-white text-center fs-5 fw-semibold text">{userContext?.user?.name}</div></li>
+
+
+                  {rank !== "Free" &&
+                    <>
+                      <li className="d-flex justify-content-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 28 28" fill="none">
+                          {rank === "Gold" && <circle cx="14" cy="14" r="14" fill="#FFB800" />}
+                          {rank === "Silver" && <circle cx="14" cy="14" r="14" fill="#A3A3A3" />}
+                          {rank === "Bronze" && <circle cx="14" cy="14" r="14" fill="#CD7F32" />}
+                        </svg>
+                        <div className="ps-2 fw-bold text-white"> {rank} </div>
+                      </li>
+                      <li className="pt-2 d-flex justify-content-center"> <button className={`${styles.subscription_manage_btn}`}> จัดการการสมัครสมาชิก </button></li>
+                    </>
+                  }
                   <li><hr className="dropdown-divider bg-white" /></li>
                   <li className="text-center py-1">
                     <a className={`${styles.login_dropdown_history_menu} `}>
@@ -367,7 +394,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                   <li className="py-1 ">
                     <Link
                       href="/"
-                      
+
                       className={`${styles.login_dropdown_history_menu} d-flex align-items-center`}
                       onClick={() => {
                         userContext?.handleLogout();

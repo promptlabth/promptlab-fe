@@ -9,6 +9,7 @@ import { authFirebase } from '@/api/auth';
 import { signOut } from 'firebase/auth';
 interface UserContextInterface {
    user: LoginUser | null;
+   generateCount : number;
    setUser: (user: LoginUser) => void;
    handleLogin: (typeLogin: string) => Promise<void>;
    handleLogout: () => Promise<void>;
@@ -28,7 +29,9 @@ export function useUserContext() {
 
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
+
    const router = useRouter()
+   const generateCount : number = 79;
 
    const delay = (ms : number) => new Promise(
       resolve => setTimeout(resolve, ms)
@@ -160,6 +163,7 @@ export function UserContextProvider({ children }: Props) {
 
    const current_context: UserContextInterface = {
       user: User || null,
+      generateCount,
       setUser: setUser,
       handleLogin: handleLogin,
       handleLogout: handleLogout

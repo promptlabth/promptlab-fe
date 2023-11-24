@@ -22,6 +22,7 @@ import { features } from "@/constant";
 import { usePathname } from 'next/navigation'
 import { GetTonesByID } from "@/api/ToneAPI";
 import { FcGoogle } from "react-icons/fc";
+import { IoMdInformationCircle } from 'react-icons/io'
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 type Prompt = {
@@ -306,6 +307,7 @@ const TableComponents = (config: pageConfig) => {
       }
    }, [prompts]);
 
+
    return (
       <div className={noto_sans_thai.className}>
          <Container fluid={true} className="p-0 bg-dark bg-lighten-xs pt-5">
@@ -322,6 +324,33 @@ const TableComponents = (config: pageConfig) => {
                </figure>
 
                <Container fluid={true} className={styles.page_prompt_area}>
+                  {false &&
+                     <div className={`pb-2 d-flex justify-content-end`}>
+                        <div className={`d-flex ${styles.generate_count_layout}`}>
+                           <AiOutlineSend className="text-white me-2" size={20} />
+                           <div className="text-white"> 79/100 </div>
+
+                           <OverlayTrigger
+                              placement={'top'}
+                              delay={{ show: 150, hide: 250 }}
+                              trigger={['hover', 'focus']}
+                              overlay={
+                                 <Tooltip className={`${noto_sans_thai.className}`} id="generate-count-tooltip" >
+                                    {/* <div className={`${styles.generate_count_tooltip}`}> */}
+                                    เดือนนี้คุณสามารถสร้างข้อความได้ 79 ครั้ง!
+                                    {/* </div> */}
+                                 </Tooltip>
+                              }
+                           >
+                              <a href="" onClick={(e) => e.preventDefault()}>
+                                 <IoMdInformationCircle className="text-white ms-2" size={22} />
+                              </a>
+                           </OverlayTrigger>
+
+
+                        </div>
+                     </div>
+                  }
                   {prompts.map(({ input, tone_id, message, generate_status }, index) => (
                      <Row key={index} className={styles.page_prompt_area_row}>
                         <div className="pt-1 pe-1 justify-content-end d-flex">
