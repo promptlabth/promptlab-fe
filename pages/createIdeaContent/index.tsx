@@ -1,6 +1,6 @@
 import { translate } from "@/languages/language";
 import TableComponents from "@/components/tableComponnets/TableComponents";
-import { Language, useLanguage } from "@/contexts/LanguageContext";
+import {  useLanguage } from "@/contexts/LanguageContext";
 import Head from "next/head";
 const CreateContent = () => {
    const { language } = useLanguage();

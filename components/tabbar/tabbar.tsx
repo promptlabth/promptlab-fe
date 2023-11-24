@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "../../languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
-import { Nav } from "react-bootstrap";
 import { urlLinks } from "../../constant";
 import { useRouter } from "next/router";
 import { useDraggable } from "react-use-draggable-scroll";

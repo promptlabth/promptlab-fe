@@ -2,7 +2,7 @@ import { getCheckoutSessionUrl } from "@/api/Payments";
 // import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
 // import router from 'next/router';
-import React, { useState } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
 import { Noto_Sans_Thai } from "next/font/google";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
