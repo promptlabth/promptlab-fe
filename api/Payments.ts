@@ -53,7 +53,7 @@ export async function checkoutSub(paymentDetails: PaymentStripe) {
 export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSessionRequest) {
 
    // For test
-   const apiUrl = `${paymentApiUrl}/subsctiption/get-url`
+   const apiUrl = `${paymentApiUrl}/subscription/get-url`
    
 
    try {
@@ -115,6 +115,7 @@ export async function userPremiumSubscribe(userPremiumSubscribeRequest: UserPrem
       
          // TODO maybe return success subscription url
          // return response.data.success_url;
+         return response.data
 
    } catch (error) {
       // TODO : Handle error
