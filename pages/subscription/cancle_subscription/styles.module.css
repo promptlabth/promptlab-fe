@@ -1,0 +1,10 @@
+.subscription_cancle_bg {
+    background-color: rgba(217, 217, 217, 0.10);
+}
+
+.cancle_btn {
+    width: 80%;
+    flex-shrink: 0;
+    border-radius: 50px;
+    background: #B60000;
+}

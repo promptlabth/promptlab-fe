@@ -90,7 +90,14 @@
         "subscription.errorText": "คุณได้ทำการยกเลิก!",
         "subscription.errortitle": "ยกเลิกสำเร็จ",
         "button.back":"ย้อนกลับ",
-        "profile.title": "โปรไฟล์"
+        "profile.title": "โปรไฟล์",
+        "subscription.errorText1": "ขอบคุณสำหรับการเป็นสมาชิกกับเรามาก่อน",
+        "subscription.errorText2": "ดำเนินการสำเร็จ",
+        "subscription.errorText3": "หากคุณต้องการร่วมงานกับเราอีกครั้ง",
+        "subscription.errorText4": "สามารถกดสมัครสมาชิกได้ที่นี่",
+        "subscription.errorText5": "คลิก!"
+
+
     },
     "eng": {
         "language": "Language",
@@ -182,8 +189,12 @@
         "subscription.errorText": "You have successfully canceled your subscription!",
         "subscription.errortitle": "Cancelled",
         "button.back":"Back",
-        "profile.title": "Profile"
-
+        "profile.title": "Profile",
+        "subscription.errorText1": "Thank you for your previous association with us",
+        "subscription.errorText2": "Transaction completed successfully",
+        "subscription.errorText3": "If you wish to collaborate with us again,",
+        "subscription.errorText4": "you can reapply for membership here.",
+        "subscription.errorText5": "Click!"
 
     },
     "id": {
