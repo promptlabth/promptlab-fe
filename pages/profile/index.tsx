@@ -19,8 +19,6 @@ const Profile = () => {
    const [endDate, setEndDate] = React.useState<Date | null>(null);
    const { language } = useLanguage();
    useEffect(() => {
-      setStartDate(dayjs(userContext?.user?.start_date!).toDate())
-      setEndDate(dayjs(userContext?.user?.end_date!).toDate())
    }, [])
    return (
       <div>
@@ -115,7 +113,7 @@ const Profile = () => {
                      <hr className="text-white"></hr>
                      <h4 className="fw-bold text-white"> {translate("profile.subscription.title", language)} </h4>
                      <Row className={`${styles.profile_text}`}>
-                        <Col md={7} className='ps-3 text-white'>
+                        <Col md={7} className="ps-3 text-white">
                            <div className="d-flex align-items-center">
                               <div className="pe-2"> {translate("profile.subscription.planTitle", language)}: </div>
                               <svg className="mb-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 28 28" fill="none">
@@ -134,11 +132,13 @@ const Profile = () => {
                         <Col md={5} className='ps-3 text-white'>
                            <Col className="d-flex justify-content-between">
                               <div> {translate("subscription.detail.startDate", language)} </div>
-                              {dayjs(starDate).format("DD MMMM YYYY HH:mm:ss")}
+                              {userContext?.user?.start_date?.toString()}
+                              {/* {dayjs(starDate).format("DD MMMM YYYY HH:mm:ss")} */}
                            </Col>
                            <Col className="d-flex justify-content-between">
                               <div> {translate("subscription.detail.endDate", language)} </div>
-                              {dayjs(endDate).format("DD MMMM YYYY HH:mm:ss")}
+                              {userContext?.user?.end_date?.toString()}
+                              {/* {dayjs(endDate).format("DD MMMM YYYY HH:mm:ss")} */}
                            </Col>
                         </Col>
                      </Row>

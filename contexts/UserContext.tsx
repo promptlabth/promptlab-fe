@@ -10,7 +10,7 @@ import { signOut } from 'firebase/auth';
 import { GetAccessToken } from '@/api/auth/auth_get_token';
 interface UserContextInterface {
    user: LoginUser | null;
-   generateCount : number;
+   generateCount: number;
    setUser: (user: LoginUser) => void;
    handleLogin: (typeLogin: string) => Promise<void>;
    handleLogout: () => Promise<void>;
@@ -31,13 +31,13 @@ export function useUserContext() {
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
    const router = useRouter()
-   const generateCount : number = 79;
+   const generateCount: number = 79;
 
-   const delay = (ms : number) => new Promise(
+   const delay = (ms: number) => new Promise(
       resolve => setTimeout(resolve, ms)
    );
 
-   const UserLogin = async (token: string, loginFunction : () => any) => {
+   const UserLogin = async (token: string, loginFunction: () => any) => {
       try {
 
          const loginResult = await Login(token);
@@ -50,21 +50,23 @@ export function UserContextProvider({ children }: Props) {
                const accessToken = await result.user.getIdToken()
                const loginResult = await Login(accessToken);
                if (loginResult) {
-                  const userData : LoginUser = {
+                  const userData: LoginUser = {
                      ...loginResult?.data.user,
                      ...loginResult?.data.plan,
+                     plan_id: loginResult?.data.plan.id,
                      start_date: loginResult?.data.start_date,
-                       end_date: loginResult?.data.end_date,
-                    }
-        
+                     end_date: loginResult?.data.end_date,
+                  }
+
                   setUser(userData)
                }
             }
          } else {
-            const userData : LoginUser = {
-             ...loginResult?.data.user,
-             ...loginResult?.data.plan,
-             start_date: loginResult?.data.start_date,
+            const userData: LoginUser = {
+               ...loginResult?.data.user,
+               ...loginResult?.data.plan,
+               plan_id: loginResult?.data.plan.id,
+               start_date: loginResult?.data.start_date,
                end_date: loginResult?.data.end_date,
             }
 
@@ -100,17 +102,17 @@ export function UserContextProvider({ children }: Props) {
       // Sign in with Facebook to obtain a token
       let result;
       let loginFunction;
-      if(typeLoginInput === "facebook"){
+      if (typeLoginInput === "facebook") {
          // Login with facebook
          loginFunction = signInWithFacebook
          result = await loginFunction();
          localStorage.setItem("typeLogin", "facebook");
 
-      }else if(typeLoginInput === "gmail"){
+      } else if (typeLoginInput === "gmail") {
          loginFunction = signInWithGmail;
          result = await loginFunction();
          localStorage.setItem("typeLogin", "gmail");
-      }else{
+      } else {
          console.log("error: You have a some bug 1")
          return;
       }

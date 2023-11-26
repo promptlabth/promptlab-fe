@@ -3,6 +3,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./styles.module.css";
 import { RiMenu4Fill } from "react-icons/ri";
 import Flag from "react-flagkit";
@@ -14,6 +15,7 @@ import { AiFillVideoCamera } from "react-icons/ai";
 import { MdSell, MdOutlineArticle } from "react-icons/md";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaClosedCaptioning } from "react-icons/fa";
+import { IoPersonCircle } from "react-icons/io5";
 import { BsFillCircleFill } from "react-icons/bs"
 import { BiLogOut } from "react-icons/bi"
 import { AiFillPlusCircle } from "react-icons/ai"
@@ -29,12 +31,14 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       "Gold": "linear-gradient(180deg, #FFB800 0%, #564A2B 26.66%, #33393F 54.26%)",
       "Silver": "linear-gradient(180deg, #A8A8A8 0%, #33393F 42.8%)",
       "Bronze": "linear-gradient(180deg, #33393F 0%, #CD7F32 0.01%, #563C23 18.75%, #33393F 44.79%)",
+      "Free": "#33393F"
    }
 
    const rankColorForMobile: { [key: string]: string } = {
       "Gold": "linear-gradient(180deg, #FFB800 0%, rgba(33, 37, 41, 0.85) 100%)",
       "Silver": "linear-gradient(180deg,  #A8A8A8 0%, rgba(33, 37, 41, 0.85) 100%)",
       "Bronze": "linear-gradient(180deg, rgba(205, 127, 50, 0.85) 0%, rgba(33, 37, 41, 0.85) 100%)",
+      "Free": "#33393F"
    }
 
    useEffect(() => {
@@ -126,13 +130,13 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                      <li
                         className={`${styles.profile} nav-item text-center`}
                         style={{
-                           background: userContext?.user?.planType! ? rankColorForMobile[userContext?.user?.planType!] : "#33393F",
+                           background: userContext?.user?.plan_id ? rankColorForMobile[userContext?.user?.planType!] : "#33393F",
                         }}
                      >
                         <div className="pt-4">
                            <img
                               className={`${styles.user_profile_pic}`}
-                              src={userContext?.user?.profilepic}
+                              src={userContext?.user?.profilepic!}
                               alt="profic-pic"
                               style={{
                                  border:
@@ -144,9 +148,12 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                                  height: "60px"
                               }}
                            />
-                           <b>
-                              <p className="fs-4 fw-bold pt-2 text-white"> {userContext?.user?.name} </p>
-                           </b>
+                           <div className="pt-2 pb-2">
+                              <b className="fs-4 fw-bold text-white"> {userContext?.user?.name} </b>
+                           </div>
+                           <li className="d-flex justify-content-center">
+                              <Link href="/profile" className={`${styles.subscription_manage_btn}`}> {translate("profile.title", language)} </Link>
+                           </li>
                         </div>
                      </li>
                      {/* <div className="pt-3 d-flex justify-content-between p-2 align-items-center">
@@ -378,13 +385,13 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                            className={`${styles.login_dropdown_menu} border dropdown-menu px-1`}
                            style={{
                               marginLeft: "-8rem",
-                              background: userContext?.user?.planType! ? rankColor[userContext?.user?.planType!] : "#33393F",
+                              background: userContext?.user?.plan_id ? rankColor[userContext?.user?.planType!] : "#33393F",
                            }}
                         >
                            <li><div className="text-white text-center fs-5 fw-semibold text">{userContext?.user?.name}</div></li>
 
 
-                           {userContext?.user?.planType! &&
+                           {userContext?.user?.plan_id &&
                               <>
                                  <li className="d-flex justify-content-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 28 28" fill="none">
@@ -395,7 +402,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                                     <div className="ps-2 fw-bold text-white"> {userContext?.user?.planType!} </div>
                                  </li>
                                  <li className="pt-2 d-flex justify-content-center">
-                                    <Link href="/profile" className={`${styles.subscription_manage_btn}`}> {translate("profile.title",language)} </Link>
+                                    <Link href="/profile" className={`${styles.subscription_manage_btn}`}> {translate("profile.title", language)} </Link>
                                  </li>
                               </>
                            }

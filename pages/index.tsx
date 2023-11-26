@@ -16,11 +16,9 @@ import { useUserContext } from '@/contexts/UserContext';
 
 export default function Home() {
    const { language } = useLanguage();
-   const userContext = useUserContext();
    const featureLinks: string[] = ["/createSellingPost", "/createIdeaContent", "/createArticle", "/createShortVideoScripts", "/createClickBaitWord"]
    const randomIndex = Math.floor(Math.random() * featureLinks.length);
    const searchParams = useSearchParams();
-   const [session_id, setSessionId] = useState<string | null>(null);
 
    const submit = () => {
       Swal.fire({
@@ -49,7 +47,6 @@ export default function Home() {
          console.log("error");
          error();
       }
-      setSessionId(search);
    }, []);
 
 
@@ -73,7 +70,7 @@ export default function Home() {
                      <h6> {translate("home.description", language)} </h6>
                   </figcaption>
 
-                  <Link href={featureLinks[randomIndex]}>
+                  <Link href="/subscription">
                      <button className={`${styles.btn} mt-3`}>JOIN NOW</button>
                   </Link>
                </figure>
