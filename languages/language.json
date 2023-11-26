@@ -89,7 +89,8 @@
         "subscription.successtitle": "สำเร็จ",
         "subscription.errorText": "คุณได้ทำการยกเลิก!",
         "subscription.errortitle": "ยกเลิกสำเร็จ",
-        "button.back":"ย้อนกลับ"
+        "button.back":"ย้อนกลับ",
+        "profile.title": "โปรไฟล์"
     },
     "eng": {
         "language": "Language",
@@ -180,7 +181,9 @@
         "subscription.detail.message":"Message per day",
         "subscription.errorText": "You have successfully canceled your subscription!",
         "subscription.errortitle": "Cancelled",
-        "button.back":"Back"
+        "button.back":"Back",
+        "profile.title": "Profile"
+
 
     },
     "id": {
@@ -265,7 +268,9 @@
         "subscription.detail.message":"Pesan per hari",
         "subscription.errorText": "Anda berhasil membatalkan langganan Anda!",
         "subscription.errortitle": "Dibatalkan",
-        "button.back":"Kembali"
+        "button.back":"Kembali",
+        "profile.title": "Profile"
+
 
     }
 }

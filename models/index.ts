@@ -6,7 +6,7 @@ export type LoginUser = {
    profilepic: string;
    plan_id?: number;
    planType: string;
-   manMessage?: number;
+   maxMessages?: number;
    start_date?: Date;
    end_date?: Date;
 }

@@ -61,8 +61,8 @@ export default function SubscriptionSuccessPage() {
          console.log(session_id, plan_id, user_id)
          handleSuccessPayment(session_id)
 
-         setStartDate(dayjs(userContext?.user?.start_date).utcOffset(7).toDate())
-         setEndDate(dayjs(userContext?.user?.end_date).utcOffset(7).toDate())
+         setStartDate(dayjs(userContext?.user?.start_date).toDate())
+         setEndDate(dayjs(userContext?.user?.end_date).toDate())
 
       }
 

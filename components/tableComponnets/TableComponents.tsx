@@ -323,33 +323,30 @@ const TableComponents = (config: pageConfig) => {
                </figure>
 
                <Container fluid={true} className={styles.page_prompt_area}>
-                  {true &&
-                     <div className={`pb-2 d-flex justify-content-end`}>
-                        <div className={`d-flex ${styles.generate_count_layout}`}>
-                           <AiOutlineSend className="text-white me-2" size={20} />
-                           <div className="text-white"> 79/100 </div>
+                  <div className={`pb-2 d-flex justify-content-end`}>
+                     <div className={`d-flex ${styles.generate_count_layout}`}>
+                        <AiOutlineSend className="text-white me-2" size={20} />
+                        <div className="text-white"> ??&#47;{userContext?.user?.maxMessages}  </div>
 
-                           <OverlayTrigger
-                              placement={'top'}
-                              delay={{ show: 150, hide: 250 }}
-                              trigger={['hover', 'focus']}
-                              overlay={
-                                 <Tooltip className={`${noto_sans_thai.className}`} id="generate-count-tooltip" >
-                                    {/* <div className={`${styles.generate_count_tooltip}`}> */}
-                                    เดือนนี้คุณสามารถสร้างข้อความได้ 79 ครั้ง!
-                                    {/* </div> */}
-                                 </Tooltip>
-                              }
-                           >
-                              <a href="" onClick={(e) => e.preventDefault()}>
-                                 <IoMdInformationCircle className="text-white ms-2" size={22} />
-                              </a>
-                           </OverlayTrigger>
-
-
-                        </div>
+                        <OverlayTrigger
+                           placement={'top'}
+                           delay={{ show: 150, hide: 250 }}
+                           trigger={['hover', 'focus']}
+                           overlay={
+                              <Tooltip className={`${noto_sans_thai.className}`} id="generate-count-tooltip" >
+                                 {/* <div className={`${styles.generate_count_tooltip}`}> */}
+                                 เดือนนี้คุณสามารถสร้างข้อความได้ {userContext?.user?.maxMessages} ครั้ง!
+                                 {/* </div> */}
+                              </Tooltip>
+                           }
+                        >
+                           <a href="" onClick={(e) => e.preventDefault()}>
+                              <IoMdInformationCircle className="text-white ms-2" size={22} />
+                           </a>
+                        </OverlayTrigger>
                      </div>
-                  }
+                  </div>
+
                   {prompts.map(({ input, tone_id, message, generate_status }, index) => (
                      <Row key={index} className={styles.page_prompt_area_row}>
                         <div className="pt-1 pe-1 justify-content-end d-flex">

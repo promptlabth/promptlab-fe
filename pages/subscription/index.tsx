@@ -53,6 +53,8 @@ export default function Subscription() {
       <div className={noto_sans_thai.className}>
         <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">
           <Container className={`${styles.container}`}>
+
+
             <figure className="text-center  text-light">
               <blockquote className="blockquote">
                 <p className="display-4 fw-bold">
@@ -61,6 +63,7 @@ export default function Subscription() {
               </blockquote>
               <figcaption className="blockquote-footer"></figcaption>
             </figure>
+
             <div className={`row ${styles.page_payment_row}`}>
               <div className="container text-center">
                 <Row className="">
