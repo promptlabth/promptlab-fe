@@ -14,7 +14,7 @@ export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSess
 
    // For test
    const apiUrl = `${paymentApiUrl}/subscription/get-url`
-   
+
 
    try {
       let accessToken = await GetAccessToken()
@@ -36,7 +36,7 @@ export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSess
          // Some code..
          // Some code..
          // Some code..
-         return 
+         return
       } else {
          return response.data.url;
       }
@@ -75,10 +75,9 @@ export async function userPremiumSubscribe(userPremiumSubscribeRequest: UserPrem
          // return response.data.cancel_url;
          console.log(response)
       }
-      
-         // TODO maybe return success subscription url
-         // return response.data.success_url;
-         return response.data
+
+      console.log(response.data)
+      return response.data
 
    } catch (error) {
       // TODO : Handle error

@@ -146,7 +146,7 @@ export default function Subscription() {
                             size={16}
                             className="me-3"
                           ></BsCheckCircle>
-                          {translate("subscription.chat", language)}
+                          {translate("subscription.chat", language)} &#40;Coming Soon&#41;
                         </small>
                       </Row>
                       <Row>
@@ -205,7 +205,7 @@ export default function Subscription() {
                             size={16}
                             className="me-3"
                           ></BsCheckCircle>
-                          {translate("subscription.chat", language)}
+                          {translate("subscription.chat", language)} &#40;Coming Soon&#41;
                         </small>
                       </Row>
                       <Row>
@@ -264,7 +264,7 @@ export default function Subscription() {
                             size={16}
                             className="me-3"
                           ></BsCheckCircle>
-                          {translate("subscription.chat", language)}
+                          {translate("subscription.chat", language)} &#40;Coming Soon&#41;
                         </small>
                       </Row>
                       <Row>

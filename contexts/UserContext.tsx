@@ -43,23 +43,32 @@ export function UserContextProvider({ children }: Props) {
          const loginResult = await Login(token);
 
          if (loginResult?.status !== 200) {
-            localStorage.removeItem("at");
-            localStorage.removeItem("rt");
             const result = await loginFunction();
             if (result) {
 
                // Retrieve the access token from the user data
                const accessToken = await result.user.getIdToken()
-               const refreshToken = result.user.refreshToken
-               localStorage.setItem("at", accessToken);
-               localStorage.setItem("rt", refreshToken);
                const loginResult = await Login(accessToken);
                if (loginResult) {
-                  setUser(loginResult?.data)
+                  const userData : LoginUser = {
+                     ...loginResult?.data.user,
+                     ...loginResult?.data.plan,
+                     start_date: loginResult?.data.start_date,
+                       end_date: loginResult?.data.end_date,
+                    }
+        
+                  setUser(userData)
                }
             }
          } else {
-            setUser(loginResult?.data)
+            const userData : LoginUser = {
+             ...loginResult?.data.user,
+             ...loginResult?.data.plan,
+             start_date: loginResult?.data.start_date,
+               end_date: loginResult?.data.end_date,
+            }
+
+            setUser(userData)
          }
       } catch (error) {
          const result = await loginFunction();
@@ -69,10 +78,6 @@ export function UserContextProvider({ children }: Props) {
 
             // Retrieve the access token from the user data
             const accessToken = await result.user.getIdToken()
-
-            const refreshToken = result.user.refreshToken
-            localStorage.setItem("at", accessToken);
-            localStorage.setItem("rt", refreshToken);
 
             UserLogin(accessToken, loginFunction)
             await delay(200);
@@ -109,7 +114,6 @@ export function UserContextProvider({ children }: Props) {
          console.log("error: You have a some bug 1")
          return;
       }
-      console.log("Login", result)
 
       // Proceed if the sign-in with Facebook is successful
       if (result) {
@@ -118,8 +122,6 @@ export function UserContextProvider({ children }: Props) {
          const accessToken = await result.user.getIdToken()
 
          const refreshToken = result.user.refreshToken
-         localStorage.setItem("at", accessToken);
-         localStorage.setItem("rt", refreshToken);
 
          UserLogin(accessToken, loginFunction)
          await delay(200);
@@ -151,8 +153,7 @@ export function UserContextProvider({ children }: Props) {
 
    useEffect(() => {
       updateAccessToken();
-      console.log("user", User)
-      
+      console.log(User)
    }, []);
 
    const current_context: UserContextInterface = {

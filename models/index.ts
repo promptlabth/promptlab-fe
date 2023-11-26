@@ -4,15 +4,13 @@ export type LoginUser = {
    name?: string;
    email: string;
    profilepic: string;
+   plan_id?: number;
+   planType: string;
+   manMessage?: number;
+   start_date?: Date;
+   end_date?: Date;
 }
 
-export type OldGenerateMessage = {
-   prompt: string;
-   model: string;
-   input_message: string;
-   tone_id: number;
-   feature_id: number;
-}
 
 
 export type GenerateMessage = {
@@ -21,15 +19,6 @@ export type GenerateMessage = {
    feature_id: number;
 }
 
-
-export type OldUserGenerateMessage = {
-   user_id?: string;
-   prompt: string;
-   model: string;
-   input_message: string;
-   tone_id: number;
-   feature_id: number;
-}
 
 
 export type UserGenerateMessage = {

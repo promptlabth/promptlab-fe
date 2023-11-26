@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserGenerateMessage , GenerateMessage, OldGenerateMessage, OldUserGenerateMessage} from '@/models';
+import { UserGenerateMessage , GenerateMessage } from '@/models';
 import { serverApiUrl } from '@/constant';
 import { GetAccessToken } from './auth/auth_get_token';
 
