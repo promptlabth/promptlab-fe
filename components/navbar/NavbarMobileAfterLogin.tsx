@@ -394,7 +394,9 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                                     </svg>
                                     <div className="ps-2 fw-bold text-white"> {userContext?.user?.planType!} </div>
                                  </li>
-                                 <li className="pt-2 d-flex justify-content-center"> <button className={`${styles.subscription_manage_btn}`}> จัดการการสมัครสมาชิก </button></li>
+                                 <li className="pt-2 d-flex justify-content-center">
+                                    <Link href="/profile" className={`${styles.subscription_manage_btn}`}> {translate("profile.title",language)} </Link>
+                                 </li>
                               </>
                            }
                            <li><hr className="dropdown-divider bg-white" /></li>

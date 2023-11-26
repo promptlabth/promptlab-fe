@@ -91,11 +91,17 @@
         "subscription.errortitle": "ยกเลิกสำเร็จ",
         "button.back":"ย้อนกลับ",
         "profile.title": "โปรไฟล์",
+        "profile.subscription.title": "แพลนสมาชิกของคุณ",
+        "profile.subscription.planTitle": "แพลนสมาชิก",
+        "profile.subsciption.planDetail": "รายละเอียดแพลน",
         "subscription.errorText1": "ขอบคุณสำหรับการเป็นสมาชิกกับเรามาก่อน",
         "subscription.errorText2": "ดำเนินการสำเร็จ",
         "subscription.errorText3": "หากคุณต้องการร่วมงานกับเราอีกครั้ง",
         "subscription.errorText4": "สามารถกดสมัครสมาชิกได้ที่นี่",
-        "subscription.errorText5": "คลิก!"
+        "subscription.errorText5": "คลิก!",
+        "subscription.canclesubscription":"ยกเลิกแพลนสมาชิก",
+        "subscription.canclesubscription.ask":"คุณแน่ใจหรือไม่? หากคุณกด 'ยกเลิกแพลนสมาชิก' แพลนสมาชิกของคุณจะถูกยกเลิก",
+        "subscription.cancle.sure":"หากคุณแน่ใจแล้ว กด 'ยกเลิกแพลนสมาชิก' ด้านล่าง"
 
 
     },
@@ -190,12 +196,17 @@
         "subscription.errortitle": "Cancelled",
         "button.back":"Back",
         "profile.title": "Profile",
+        "profile.subscription.title": "Your subscription",
+        "profile.subscription.planTitle": "Subscription plan",
+        "profile.subsciption.planDetail": "Plan detail",
         "subscription.errorText1": "Thank you for your previous association with us",
         "subscription.errorText2": "Transaction completed successfully",
         "subscription.errorText3": "If you wish to collaborate with us again,",
         "subscription.errorText4": "you can reapply for membership here.",
-        "subscription.errorText5": "Click!"
-
+        "subscription.errorText5": "Click!",
+        "subscription.canclesubscription":"Cancel subscription",
+        "subscription.canclesubscription.ask":"Are you sure? If you press 'Cancel Subscription', your subscription will be ended.",
+        "subscription.cancle.sure":"If you sure, please press 'Cancel Subscription' button below"
     },
     "id": {
         "language": "Bahasa",
@@ -280,7 +291,13 @@
         "subscription.errorText": "Anda berhasil membatalkan langganan Anda!",
         "subscription.errortitle": "Dibatalkan",
         "button.back":"Kembali",
-        "profile.title": "Profile"
+        "profile.title": "Profile",
+        "profile.subscription.title": "Langganan Anda",
+        "profile.subscription.planTitle": "Rencana langganan",
+        "profile.subsciption.planDetail": "Detail rencana",
+        "subscription.canclesubscription":"Membatalkan langganan",
+        "subscription.canclesubscription.ask":"Apakah Anda yakin? Jika Anda menekan 'Batalkan Langganan', langganan Anda akan berakhir.",
+        "subscription.cancle.sure":"Jika Anda yakin, silakan tekan tombol 'Batalkan Langganan' di bawah"
 
 
     }

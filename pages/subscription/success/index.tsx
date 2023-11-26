@@ -14,11 +14,12 @@ import { Row } from 'react-bootstrap';
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'; // import plugin
 dayjs.extend(utc); // Extend dayjs with the utc plugin
+import { FaSmileBeam } from "react-icons/fa";
 
 
 export default function SubscriptionSuccessPage() {
    const userContext = useUserContext();
-   const [starDate, setStartDate] = React.useState<Date | null>(null);
+   const [startDate, setStartDate] = React.useState<Date | null>(null);
    const [endDate, setEndDate] = React.useState<Date | null>(null);
    const { language } = useLanguage();
    const searchParams = useSearchParams()
@@ -30,7 +31,7 @@ export default function SubscriptionSuccessPage() {
    const planCostMap: { [key: string]: number } = {
       'Bronze': 50,
       'Silver': 100,
-      'Gold': 100,
+      'Gold': 200,
    };
 
    // todo function handle success payment
@@ -60,7 +61,6 @@ export default function SubscriptionSuccessPage() {
          const user_id = userContext?.user?.firebase_id
          console.log(session_id, plan_id, user_id)
          handleSuccessPayment(session_id)
-
          setStartDate(dayjs(userContext?.user?.start_date).toDate())
          setEndDate(dayjs(userContext?.user?.end_date).toDate())
 
@@ -72,7 +72,8 @@ export default function SubscriptionSuccessPage() {
    return (
       <div className="d-flex justify-content-center bg-dark h-full w-full">
          <div className={`text-white text-center ${styles.subscription_success_container}`}>
-            <FaCheckCircle className="text-success mb-4" size={120} />
+            {/* <FaCheckCircle className="text-success mb-4" size={120} /> */}
+            <FaSmileBeam className="text-success mb-4" size={120} />
             <h1 className="fw-bold text-success">{translate("subscription.successText", language)}</h1>
             <h5>{translate("subscription.success.description", language)}</h5>
             <h5>{translate("subscription.detail.header", language)}</h5>
@@ -93,7 +94,7 @@ export default function SubscriptionSuccessPage() {
                </div>
                <div className="ps-3 d-flex justify-content-evenly">
                   <div> วันที่เริ่ม: </div>
-                  {dayjs(starDate).format("DD MMMM YYYY HH:mm:ss")}
+                  {dayjs(startDate).format("DD MMMM YYYY HH:mm:ss")}
                </div>
                <div className="d-flex justify-content-evenly">
                   <div> วันที่สิ้นสุด: </div>
@@ -109,7 +110,7 @@ export default function SubscriptionSuccessPage() {
                            size={16}
                            className="me-3"
                         ></BsCheckCircle>
-                        25 {translate("subscription.message", language)}
+                        {userContext?.user?.maxMessages} {translate("subscription.message", language)}
                      </small>
                   </Row>
                   <Row>

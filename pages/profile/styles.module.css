@@ -34,7 +34,29 @@
 }
 
 .profile_text {
-    font-size: 20px;
+    font-size: 17.5px;
+}
+.cancle_subscription_button_container{
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1rem;
+}
+.cancle_subscription_button_container .cancle_subscription_button {
+    background-color: #FF0000;
+    border: none;
+    border-radius: 20px;
+    color: #FFFFFF;
+    padding: 0.5rem;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+}
+
+.cancle_subscription_button:hover {
+    color: #FFFFFF;
+    transform: scale(1.05);
+    background-color: #fa3636;
 }
 
 
@@ -53,7 +75,7 @@
         height: 75px;
         border-radius: 50%;
     }
-    .user_profile_detail_container {
+    .user_profile_detail_container, .cancle_subscription_button_container {
         display: flex;
         justify-content: center;
         text-align: center;

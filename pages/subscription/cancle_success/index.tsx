@@ -1,4 +1,3 @@
-import { getCheckoutSessionUrl } from "@/api/Payments";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Container } from "react-bootstrap";
@@ -7,14 +6,9 @@ const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 import styles from "./styles.module.css";
 import { translate } from "@/languages/language";
 import { useLanguage } from "@/contexts/LanguageContext";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { BsCheckCircle } from "react-icons/bs";
-import { CheckoutSessionRequest } from "@/models/dto/requests/PaymentRequest";
 import { ImSad2 } from "react-icons/im";
 import { FaCheckCircle } from "react-icons/fa";
-export default function Subscription() {
-  const router = useRouter();
+export default function CancelSubscriptionSuccess() {
   const { language } = useLanguage();
 
   return (
