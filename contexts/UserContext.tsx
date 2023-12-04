@@ -8,12 +8,14 @@ import signInWithGmail from '@/api/auth/auth_gmail';
 import { authFirebase } from '@/api/auth';
 import { signOut } from 'firebase/auth';
 import { GetAccessToken } from '@/api/auth/auth_get_token';
+import { getRemainingMessage } from '@/api/GenerateMessageAPI';
 interface UserContextInterface {
    user: LoginUser | null;
-   generateCount: number;
+   remainingMessage: number;
    setUser: (user: LoginUser) => void;
    handleLogin: (typeLogin: string) => Promise<void>;
    handleLogout: () => Promise<void>;
+   updateRemainingMessage: () => Promise<void>;
 }
 
 // Create user context
@@ -31,7 +33,7 @@ export function useUserContext() {
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
    const router = useRouter()
-   const generateCount: number = 79;
+   const [remainingMessage, setRemainingMessage] = useState<number>(0);
 
    const delay = (ms: number) => new Promise(
       resolve => setTimeout(resolve, ms)
@@ -50,6 +52,7 @@ export function UserContextProvider({ children }: Props) {
                const accessToken = await result.user.getIdToken()
                const loginResult = await Login(accessToken);
                if (loginResult) {
+                  const remainingMessage = await getRemainingMessage();
                   const userData: LoginUser = {
                      ...loginResult?.data.user,
                      ...loginResult?.data.plan,
@@ -57,11 +60,14 @@ export function UserContextProvider({ children }: Props) {
                      start_date: loginResult?.data.start_date,
                      end_date: loginResult?.data.end_date,
                   }
-
+                  
+                  setRemainingMessage(remainingMessage);
                   setUser(userData)
                }
             }
          } else {
+            const remainingMessage = await getRemainingMessage();
+
             const userData: LoginUser = {
                ...loginResult?.data.user,
                ...loginResult?.data.plan,
@@ -69,7 +75,7 @@ export function UserContextProvider({ children }: Props) {
                start_date: loginResult?.data.start_date,
                end_date: loginResult?.data.end_date,
             }
-
+            setRemainingMessage(remainingMessage);
             setUser(userData)
          }
       } catch (error) {
@@ -90,7 +96,7 @@ export function UserContextProvider({ children }: Props) {
 
    const handleLogout = async () => {
 
-      signOut(authFirebase).then((value) => {
+      signOut(authFirebase).then(() => {
          localStorage.removeItem("at");
          localStorage.removeItem("rt");
       })
@@ -122,17 +128,23 @@ export function UserContextProvider({ children }: Props) {
 
          // Retrieve the access token from the user data
          const accessToken = await result.user.getIdToken()
-
-         const refreshToken = result.user.refreshToken
-
          UserLogin(accessToken, loginFunction)
          await delay(200);
          router.reload()
       }
    }
 
+   const updateRemainingMessage = async () => {
+      try {
+         const remainingMessage = await getRemainingMessage();
+         setRemainingMessage(remainingMessage);
+      } catch (error) {
+         console.error("Error updating remaining message:", error);
+         // Handle error, maybe redirect to login page or show an error message
+      }
+   }
 
-   const updateAccessToken = async () => {
+   const getUserData = async () => {
       try {
          const token = await GetAccessToken();
          let loginFunction;
@@ -147,6 +159,7 @@ export function UserContextProvider({ children }: Props) {
          if (token) {
             UserLogin(token, loginFunction);
          }
+
       } catch (error) {
          console.error("Error updating access token:", error);
          // Handle error, maybe redirect to login page or show an error message
@@ -154,16 +167,16 @@ export function UserContextProvider({ children }: Props) {
    };
 
    useEffect(() => {
-      updateAccessToken();
-      console.log(User)
+      getUserData();
    }, []);
 
    const current_context: UserContextInterface = {
       user: User || null,
-      generateCount,
+      remainingMessage: remainingMessage,
       setUser: setUser,
       handleLogin: handleLogin,
-      handleLogout: handleLogout
+      handleLogout: handleLogout,
+      updateRemainingMessage: updateRemainingMessage,
    }
    return (
       <UserContext.Provider value={current_context}> {children} </UserContext.Provider>

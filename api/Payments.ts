@@ -4,11 +4,6 @@ import { CheckoutSessionRequest, UserPremiumSubscribeRequest } from "../models/d
 import { paymentApiUrl } from "@/constant";
 import { GetAccessToken } from "./auth/auth_get_token";
 
-type PaymentStripe = {
-   prize: string;
-   quantity: number;
-};
-
 //* ------------------ These functions will use instead ------------------ *//
 export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSessionRequest) {
 

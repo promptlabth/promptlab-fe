@@ -1,4 +1,4 @@
-import { useState, useEffect, } from "react";
+import { useState, useEffect, use, } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill, BsFacebook } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from "react-icons/io";
@@ -22,6 +22,7 @@ import { features } from "@/constant";
 import { usePathname } from 'next/navigation'
 import { FcGoogle } from "react-icons/fc";
 import { IoMdInformationCircle } from 'react-icons/io'
+import { FaInfoCircle } from "react-icons/fa";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 type Prompt = {
@@ -123,10 +124,8 @@ const TableComponents = (config: pageConfig) => {
 
    const GenerateButton = ({ index, generate_status }: { index: number, generate_status: boolean }) => {
       const handleClick = () => {
-         /* 
-         
-         */
-         if (userContext?.user != null) {
+
+         if (userContext?.user != null && userContext?.remainingMessage > 0) {
             setPrompts((prevComponents) => {
                const updatedComponents = [...prevComponents];
                updatedComponents[index] = {
@@ -143,11 +142,12 @@ const TableComponents = (config: pageConfig) => {
          <>
             <div
                className={`modal fade ${noto_sans_thai.className} `}
-               id="loginModal"
+               id="Modal"
                tabIndex={-1}
                aria-labelledby="loginModallLabel"
                aria-hidden="true"
             >
+
                <div className={`modal-dialog modal-dialog-centered`}>
                   <div className={`modal-content`}>
                      <div className={`modal-body text-center mb-4`}>
@@ -159,27 +159,66 @@ const TableComponents = (config: pageConfig) => {
                               aria-label="Close"
                            ></button>
                         </div>
-                        <h4 className="mb-4">กรุณาเข้าสู่ระบบก่อนกด Generate</h4>
-                        <Row className="row">
-                           <Col className="d-flex flex-column align-items-center">
-                              <button className={` mb-3 ${styles.btn}`} onClick={() => { userContext?.handleLogin("facebook") }}>
-                                 <BsFacebook
-                                    className="me-3 align-items-start"
-                                    fontSize={20}
-                                 ></BsFacebook>
-                                 Sign in with facebook
-                              </button>
-                              <p style={{ color: "#c2c2c2" }}>- or -</p>
-                              <button className={`${styles.btn_google}`} onClick={() => { userContext?.handleLogin("gmail") }}>
-                                 <FcGoogle className="me-3" fontSize={20}></FcGoogle>
-                                 Sign in with google
-                              </button>
-                           </Col>
-                        </Row>
+                        {userContext?.user == null &&
+                           <>
+                              <h4 className="mb-4">กรุณาเข้าสู่ระบบก่อนกด Generate</h4>
+                              <Row className="row">
+                                 <Col className="d-flex flex-column align-items-center">
+                                    <button className={` mb-3 ${styles.btn}`} onClick={() => { userContext?.handleLogin("facebook") }}>
+                                       <BsFacebook
+                                          className="me-3 align-items-start"
+                                          fontSize={20}
+                                       ></BsFacebook>
+                                       Sign in with facebook
+                                    </button>
+                                    <p style={{ color: "#c2c2c2" }}>- or -</p>
+                                    <button className={`${styles.btn_google}`} onClick={() => { userContext?.handleLogin("gmail") }}>
+                                       <FcGoogle className="me-3" fontSize={20}></FcGoogle>
+                                       Sign in with google
+                                    </button>
+                                 </Col>
+                              </Row>
+                           </>
+                        }
+                        {userContext?.remainingMessage == 0 &&
+                           <>
+                              <div className="p-2 pb-4">
+                                 <FaInfoCircle size={110} />
+                              </div>
+                              <h4 className="mb-4"> {translate("modal.noRemainingMessage.title", language)} </h4>
+                              <Row className="row">
+                                 <h5 className="text-black-50"> {translate("modal.noRemainingMessage.description", language)} </h5>
+                                 <div className="d-flex justify-content-center pt-2">
+                                    <button
+                                       type="button"
+                                       className={`${styles.no_remaining_message_close_button}`}
+                                       data-bs-dismiss="modal"
+                                       aria-label="Close"
+                                    > OK </button>
+                                 </div>
+                                 {/* <Col className="d-flex flex-column align-items-center">
+                                    <button className={` mb-3 ${styles.btn}`} onClick={() => { userContext?.handleLogin("facebook") }}>
+                                       <BsFacebook
+                                          className="me-3 align-items-start"
+                                          fontSize={20}
+                                       ></BsFacebook>
+                                       Sign in with facebook
+                                    </button>
+                                    <p style={{ color: "#c2c2c2" }}>- or -</p>
+                                    <button className={`${styles.btn_google}`} onClick={() => { userContext?.handleLogin("gmail") }}>
+                                       <FcGoogle className="me-3" fontSize={20}></FcGoogle>
+                                       Sign in with google
+                                    </button>
+                                 </Col> */}
+                              </Row>
+                           </>
+                        }
                      </div>
                   </div>
                </div>
             </div>
+
+
             {generate_status ?
                <button
                   className={styles.page_prompt_loading_generate_btn}
@@ -197,10 +236,8 @@ const TableComponents = (config: pageConfig) => {
                </button>
                :
                <button
-                  data-bs-toggle={`${userContext?.user == null ? "modal" : ""}`}
-
-                  // data-bs-target="#loginModal"
-                  data-bs-target={`${userContext?.user == null ? "#loginModal" : ""}`}
+                  data-bs-toggle={`${userContext?.user == null || userContext.remainingMessage == 0 ? "modal" : ""}`}
+                  data-bs-target={`${userContext?.user == null || userContext.remainingMessage == 0 ? "#Modal" : ""}`}
                   className={styles.page_prompt_generate_btn}
                   type="button"
                   onClick={handleClick}
@@ -222,26 +259,30 @@ const TableComponents = (config: pageConfig) => {
       const { input, tone_id } = prompts[index];
       try {
 
-         const data: GenerateMessage = {
-            input_message: input,
-            tone_id: tone_id,
-            feature_id: features[config.titlePage],
-         }
+         if (userContext?.remainingMessage == 0) {
+            console.log("No remaining message")
+         } else {
+            const data: GenerateMessage = {
+               input_message: input,
+               tone_id: tone_id,
+               feature_id: features[config.titlePage],
+            }
 
-         const result = userContext?.user == null ?
-            await generateMessage(data) :
-            await generateMessageWithUser(data)
-         // const result = await generateMessage(data)
-         console.log(result)
-         const message = result.reply
-         if (result) {
-            setPrompts((prevComponents) => {
-               const updatedComponents = [...prevComponents];
-               updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
-               return updatedComponents;
-            });
+            const result = userContext?.user == null ?
+               await generateMessage(data) :
+               await generateMessageWithUser(data)
+            // const result = await generateMessage(data)
+            console.log(result)
+            const message = result.reply
+            if (result) {
+               setPrompts((prevComponents) => {
+                  const updatedComponents = [...prevComponents];
+                  updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
+                  return updatedComponents;
+               });
+               userContext?.updateRemainingMessage()
+            }
          }
-
 
       } catch {
          setPrompts((prevComponents) => {
@@ -326,7 +367,7 @@ const TableComponents = (config: pageConfig) => {
                   <div className={`pb-2 d-flex justify-content-end`}>
                      <div className={`d-flex ${styles.generate_count_layout}`}>
                         <AiOutlineSend className="text-white me-2" size={20} />
-                        <div className="text-white"> ??&#47;{userContext?.user?.maxMessages}  </div>
+                        <div className="text-white"> {userContext?.remainingMessage}&#47;{userContext?.user?.maxMessages}  </div>
 
                         <OverlayTrigger
                            placement={'top'}

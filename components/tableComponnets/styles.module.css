@@ -153,14 +153,37 @@
     background: #212529;
 }
 
-.generate_count_tooltip{
-    background-color: white !important; /* Set your desired background color */
-    color: black; /* Change text color for better visibility */
+.generate_count_tooltip {
+    background-color: white !important;
+    /* Set your desired background color */
+    color: black;
+    /* Change text color for better visibility */
 }
 
 /* Customize the arrow tail */
 .generate_count_tooltip::before,
 .generate_count_tooltip::after {
-  border-bottom-color: #FF5733 !important; /* Set your desired arrow color */
-  border-top-color: #FF5733 !important; /* Set your desired arrow color */
+    border-bottom-color: #FF5733 !important;
+    /* Set your desired arrow color */
+    border-top-color: #FF5733 !important;
+    /* Set your desired arrow color */
+}
+
+.no_remaining_message_close_button{
+    background-color: #00FFAB;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 28px;
+    display: inline-block;
+    cursor: pointer;
+    color: black;
+    font-size: 17px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.no_remaining_message_close_button:hover {
+    transform: scale(1.05);
 }
