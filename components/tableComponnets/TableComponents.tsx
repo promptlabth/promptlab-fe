@@ -23,6 +23,7 @@ import { usePathname } from 'next/navigation'
 import { FcGoogle } from "react-icons/fc";
 import { IoMdInformationCircle } from 'react-icons/io'
 import { FaInfoCircle } from "react-icons/fa";
+import Link from "next/link";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 type Prompt = {
@@ -185,16 +186,36 @@ const TableComponents = (config: pageConfig) => {
                               <div className="p-2 pb-4">
                                  <FaInfoCircle size={110} />
                               </div>
-                              <h4 className="mb-4"> {translate("modal.noRemainingMessage.title", language)} </h4>
+                              <h4 className="mb-4 fw-bold"> {translate("modal.noRemainingMessage.title", language)} </h4>
                               <Row className="row">
                                  <h5 className="text-black-50"> {translate("modal.noRemainingMessage.description", language)} </h5>
-                                 <div className="d-flex justify-content-center pt-2">
-                                    <button
-                                       type="button"
-                                       className={`${styles.no_remaining_message_close_button}`}
-                                       data-bs-dismiss="modal"
-                                       aria-label="Close"
-                                    > OK </button>
+                                 <h5 className="text-black-50"> {translate("modal.noRemainingMessage.subscription", language)} </h5>
+
+                                 <div className="ps-4 pe-4">
+                                    <Row>
+                                       <Col className="m-1" sm>
+                                          <button
+                                             className={`${styles.no_remaining_message_subscription_button}`}
+                                             data-bs-dismiss="modal"
+                                             aria-label="Close"
+                                          >
+                                             <Link href="/subscription" style={{ textDecoration: "none", color: "black" }}>
+                                                {translate("modal.noRemainingMessage.subscriptionButton", language)}
+                                             </Link>
+                                          </button>
+                                       </Col>
+                                       <Col className="m-1" sm>
+                                          <button
+                                             type="button"
+                                             className={`${styles.no_remaining_message_close_button}`}
+                                             data-bs-dismiss="modal"
+                                             aria-label="Close"
+                                          > Back </button>
+                                       </Col>
+
+
+                                    </Row>
+
                                  </div>
                                  {/* <Col className="d-flex flex-column align-items-center">
                                     <button className={` mb-3 ${styles.btn}`} onClick={() => { userContext?.handleLogin("facebook") }}>
