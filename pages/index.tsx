@@ -7,50 +7,25 @@ import Head from "next/head";
 import styles from "./styles.module.css";
 import Link from 'next/link';
 import { TikTokEmbed } from 'react-social-media-embed';
-import Swal from "sweetalert2";
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SubscriptionModal from '@/components/subscription';
-// import { useUserContext } from '@/contexts/UserContext';
-
+import { useUserContext } from '@/contexts/UserContext';
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 export default function Home() {
+   const userContext = useUserContext();
    const { language } = useLanguage();
-   const featureLinks: string[] = ["/createSellingPost", "/createIdeaContent", "/createArticle", "/createShortVideoScripts", "/createClickBaitWord"]
-   const randomIndex = Math.floor(Math.random() * featureLinks.length);
-   const searchParams = useSearchParams();
-
-   const submit = () => {
-      Swal.fire({
-         icon: "success",
-         title: translate("subscription.successtitle", language),
-         text: translate("subscription.successText", language),
-      });
-   };
-   const error = () => {
-      Swal.fire({
-         icon: "error",
-         title: translate("subscription.errortitle", language),
-         text: translate("subscription.errorText", language),
-      });
-   };
-   const search = searchParams.get("session_id");
-   const search_cancle = searchParams.get("cancle");
+   const [showModal, setShowModal] = useState(false);
 
    useEffect(() => {
-
-      if (search !== null) {
-         console.log("success");
-         submit();
-      }
-      if (search_cancle !== null) {
-         console.log("error");
-         error();
+      // Check if the user has already seen the modal
+      const modalShown = Cookies.get('modalShown');
+      if (modalShown === undefined) {
+         // If not, show the modal
+         setShowModal(true);
       }
    }, []);
-
 
    return (
       <>
@@ -62,8 +37,7 @@ export default function Home() {
             />
          </Head>
          <div className={noto_sans_thai.className}>
-         <SubscriptionModal/>
-
+            {(userContext?.user?.plan_id === null && showModal) && <SubscriptionModal show={showModal} />}
             <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">
                <figure className="text-center pt-4 pb-4 text-light">
                   <blockquote className="blockquote">

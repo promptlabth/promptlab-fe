@@ -60,7 +60,7 @@ export function UserContextProvider({ children }: Props) {
                      start_date: loginResult?.data.start_date,
                      end_date: loginResult?.data.end_date,
                   }
-                  
+                  console.log(userData)
                   setRemainingMessage(remainingMessage);
                   setUser(userData)
                }
@@ -75,6 +75,7 @@ export function UserContextProvider({ children }: Props) {
                start_date: loginResult?.data.start_date,
                end_date: loginResult?.data.end_date,
             }
+            console.log(userData)
             setRemainingMessage(remainingMessage);
             setUser(userData)
          }

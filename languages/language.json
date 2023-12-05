@@ -105,9 +105,10 @@
         "subscription.errorText5": "คลิก!",
         "subscription.canclesubscription":"ยกเลิกแพลนสมาชิก",
         "subscription.canclesubscription.ask":"คุณแน่ใจหรือไม่? หากคุณกด 'ยกเลิกแพลนสมาชิก' แพลนสมาชิกของคุณจะถูกยกเลิก",
-        "subscription.cancle.sure":"หากคุณแน่ใจแล้ว กด 'ยกเลิกแพลนสมาชิก' ด้านล่าง"
-
-
+        "subscription.cancle.sure":"หากคุณแน่ใจแล้ว กด 'ยกเลิกแพลนสมาชิก' ด้านล่าง",
+        "subscription.cancle.sure_contact":"หากคุณแน่ใจแล้ว ให้ติดต่ออีเมล",
+        "modal.subsciption.description":"🚀 มาแล้ว!! กับแพลนสมัครสมาชิกที่ทำให้คุณเป็นส่วนหนึ่งของ Prompt Lab AI ได้ง่ายๆ อย่ารอช้า! เริ่มต้นสมัครแพลนสมาชิก Prompt Lab AI วันนี้เลย!",      
+        "modal.subscription.price":"เริ่มต้นที่ 50 ฿/เดือน"
     },
     "eng": {
         "language": "Language",
@@ -214,7 +215,10 @@
         "subscription.errorText5": "Click!",
         "subscription.canclesubscription":"Cancel subscription",
         "subscription.canclesubscription.ask":"Are you sure? If you press 'Cancel Subscription', your subscription will be ended.",
-        "subscription.cancle.sure":"If you sure, please press 'Cancel Subscription' button below"
+        "subscription.cancle.sure":"If you sure, please press 'Cancel Subscription' button below",
+        "subscription.cancle.sure_contact":"If you sure, please contact email",
+        "modal.subsciption.description":"🚀 It's here! With the brand new subscription plan that makes you become a part of Prompt Lab AI easily! You can start subscribing to Prompt Lab AI now!",      
+        "modal.subscription.price":"Start at 50฿/month"
     },
     "id": {
         "language": "Bahasa",
@@ -309,8 +313,9 @@
         "profile.subsciption.planDetail": "Detail rencana",
         "subscription.canclesubscription":"Membatalkan langganan",
         "subscription.canclesubscription.ask":"Apakah Anda yakin? Jika Anda menekan 'Batalkan Langganan', langganan Anda akan berakhir.",
-        "subscription.cancle.sure":"Jika Anda yakin, silakan tekan tombol 'Batalkan Langganan' di bawah"
-
-
+        "subscription.cancle.sure":"Jika Anda yakin, silakan tekan tombol 'Batalkan Langganan' di bawah",
+        "subscription.cancle.sure_contact":"Jika Anda yakin, silakan hubungi email",
+        "modal.subsciption.description":"🚀 Ini dia! Dengan rencana langganan baru yang membuat Anda menjadi bagian dari Prompt Lab AI dengan mudah! Anda dapat mulai berlangganan Prompt Lab AI sekarang!",
+        "modal.subscription.price":"Mulai dari 50฿/bulan"
     }
 }

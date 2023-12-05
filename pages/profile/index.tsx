@@ -45,7 +45,7 @@ const Profile = () => {
                      </div>
                      <div className="text-center">
                         <FaInfoCircle
-                           size={60}
+                           size={85}
                            className="mb-3"
                            style={{ color: "red" }} />
                         <h4 className="mb-4">
@@ -54,10 +54,11 @@ const Profile = () => {
                         <p className="mb-3">
                            {translate("subscription.canclesubscription.ask", language)}
                         </p>
-                        <p className="mb-5" style={{ color: "red" }}>
-                           {translate("subscription.cancle.sure", language)}{" "}
-                        </p>
-                        <button
+                        <p className="mb-1" style={{ color: "red" }}>
+                           {translate("subscription.cancle.sure_contact", language)} {" "}
+                           <b><u>isaman@promptlabai.com</u></b>
+                        </p>   
+                        {/* <button
                            type="button"
                            className={`btn btn-danger mb-2 ${styles.cancle_btn}`}
                         >
@@ -70,7 +71,7 @@ const Profile = () => {
                            style={{ color: "red", textDecoration: "underline" }}
                         >
                            <small>ไม่ ฉันเปลี่ยนใจแล้ว</small>
-                        </a>
+                        </a> */}
                      </div>
                   </div>
                </div>

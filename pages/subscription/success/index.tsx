@@ -94,11 +94,13 @@ export default function SubscriptionSuccessPage() {
                </div>
                <div className="ps-3 d-flex justify-content-evenly">
                   <div> วันที่เริ่ม: </div>
-                  {dayjs(startDate).format("DD MMMM YYYY HH:mm:ss")}
+                  {startDate?.toLocaleString()}
+                  {/* {dayjs(startDate).format("DD MMMM YYYY HH:mm:ss")} */}
                </div>
                <div className="d-flex justify-content-evenly">
                   <div> วันที่สิ้นสุด: </div>
-                  {dayjs(endDate).format("DD MMMM YYYY HH:mm:ss")}
+                  {endDate?.toLocaleString()}
+                  {/* {dayjs(endDate).format("DD MMMM YYYY HH:mm:ss")} */}
 
                </div>
                <hr></hr>

@@ -181,7 +181,7 @@ const TableComponents = (config: pageConfig) => {
                               </Row>
                            </>
                         }
-                        {userContext?.remainingMessage == 0 &&
+                        {userContext?.remainingMessage! <= 0 &&
                            <>
                               <div className="p-2 pb-4">
                                  <FaInfoCircle size={110} />
@@ -214,20 +214,6 @@ const TableComponents = (config: pageConfig) => {
                                        </Col>
                                     </Row>
                                  </div>
-                                 {/* <Col className="d-flex flex-column align-items-center">
-                                    <button className={` mb-3 ${styles.btn}`} onClick={() => { userContext?.handleLogin("facebook") }}>
-                                       <BsFacebook
-                                          className="me-3 align-items-start"
-                                          fontSize={20}
-                                       ></BsFacebook>
-                                       Sign in with facebook
-                                    </button>
-                                    <p style={{ color: "#c2c2c2" }}>- or -</p>
-                                    <button className={`${styles.btn_google}`} onClick={() => { userContext?.handleLogin("gmail") }}>
-                                       <FcGoogle className="me-3" fontSize={20}></FcGoogle>
-                                       Sign in with google
-                                    </button>
-                                 </Col> */}
                               </Row>
                            </>
                         }
@@ -254,8 +240,8 @@ const TableComponents = (config: pageConfig) => {
                </button>
                :
                <button
-                  data-bs-toggle={`${userContext?.user == null || userContext.remainingMessage == 0 ? "modal" : ""}`}
-                  data-bs-target={`${userContext?.user == null || userContext.remainingMessage == 0 ? "#Modal" : ""}`}
+                  data-bs-toggle={`${userContext?.user == null || userContext.remainingMessage <= 0 ? "modal" : ""}`}
+                  data-bs-target={`${userContext?.user == null || userContext.remainingMessage <= 0 ? "#Modal" : ""}`}
                   className={styles.page_prompt_generate_btn}
                   type="button"
                   onClick={handleClick}
@@ -385,7 +371,9 @@ const TableComponents = (config: pageConfig) => {
                   <div className={`pb-2 d-flex justify-content-end`}>
                      <div className={`d-flex ${styles.generate_count_layout}`}>
                         <AiOutlineSend className="text-white me-2" size={20} />
-                        <div className="text-white"> {userContext?.remainingMessage}&#47;{userContext?.user?.maxMessages}  </div>
+                        <div className="text-white"> 
+                           {userContext?.remainingMessage! < 0 ? 0 : userContext?.remainingMessage}&#47;{userContext?.user?.maxMessages}  
+                        </div>
 
                         <OverlayTrigger
                            placement={'top'}
