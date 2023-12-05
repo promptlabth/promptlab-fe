@@ -28,3 +28,18 @@
         margin-right: 100px;
     }
 }
+
+.contact_us_btn {
+    background-color: #00FFAB !important;
+    color: black !important;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    width: 10rem;
+    height:2rem;
+    transition: 0.3s;
+}
+
+.contact_us_btn:hover {
+    transform: scale(1.03);
+}

@@ -12,7 +12,9 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useUserContext } from '@/contexts/UserContext';
+import SubscriptionModal from '@/components/subscription';
+// import { useUserContext } from '@/contexts/UserContext';
+
 
 export default function Home() {
    const { language } = useLanguage();
@@ -60,7 +62,8 @@ export default function Home() {
             />
          </Head>
          <div className={noto_sans_thai.className}>
-            <ToastContainer />
+         <SubscriptionModal/>
+
             <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">
                <figure className="text-center pt-4 pb-4 text-light">
                   <blockquote className="blockquote">

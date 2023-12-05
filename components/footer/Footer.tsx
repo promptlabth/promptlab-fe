@@ -89,6 +89,7 @@ const Footer = () => {
                                     <text className="ps-2">
                                         {language === "th" && "สนใจติดต่อเรา"}
                                         {language === "eng" && "Contact us"}
+                                        {language === "id" && "Hubungi kami"}
                                     </text>
                                 </button>
                             </div>

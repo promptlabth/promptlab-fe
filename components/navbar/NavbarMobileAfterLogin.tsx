@@ -16,6 +16,8 @@ import { MdSell, MdOutlineArticle } from "react-icons/md";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaClosedCaptioning } from "react-icons/fa";
 import { IoPersonCircle } from "react-icons/io5";
+import { MdNewReleases } from "react-icons/md";
+
 import { BsFillCircleFill } from "react-icons/bs"
 import { BiLogOut } from "react-icons/bi"
 import { AiFillPlusCircle } from "react-icons/ai"
@@ -62,9 +64,9 @@ export const NavbarMobileAfterLogin: React.FC = () => {
          className={`${noto_sans_thai.className}  navbar navbar-expand-lg navbar-dark bg-dark fixed-top`}
       >
          <div className={`container d-flex mt-auto`}>
-            <div className={styles.navbar_header}>
+            <Link href={"/"} className={styles.navbar_header} style={{textDecoration:"none"}}>
                <h3>Prompt Lab AI</h3>
-            </div>
+            </Link>
             <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0">
             </ul>
             {windowWidth < 992 &&
@@ -180,7 +182,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                                  href={"/subscription"}
                                  className={`${styles.remove_underline} ms-2`}
                               >
-                                 {translate("subscription", language)}
+
                               </Link>
                            </button>
                         </div>
@@ -361,10 +363,14 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                               <button className={styles.navbar_help_button}>
                                  <Link
                                     href={"/subscription"}
-                                    className={`${styles.remove_underline}`}
+                                    className={`${styles.remove_underline} d-flex`}
+                                    style={{ fontSize: 18 }}
                                  >
-
                                     {translate("subscription", language)}
+                                    <div style={{ marginTop:"-0.5rem" }}>
+                                       <MdNewReleases color="orange" />
+
+                                    </div>
                                  </Link>
                               </button>
                            </div>
@@ -376,6 +382,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                               <Link
                                  href={"/help"}
                                  className={`${styles.remove_underline}`}
+                                 style={{ fontSize: 18 }}
                               >
                                  {translate("footer.help", language)}
                               </Link>

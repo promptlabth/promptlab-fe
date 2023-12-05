@@ -26,6 +26,10 @@
     padding-left: 2.5rem;
 }
 
+.navbar_header:hover {
+    color: #00FFAB; /* Keep the same color on hover */
+  }
+
 .navbar_container {
     width: 75%;
     /* opacity: 40%; */
