@@ -90,7 +90,7 @@ export default function Subscription() {
                             size={16}
                             className="me-3"
                           ></BsCheckCircle>
-                          5 {translate("subscription.message", language)}
+                          3 {translate("subscription.message", language)}
                         </small>
                       </Row>
                       <Row>
@@ -199,7 +199,7 @@ export default function Subscription() {
                             size={16}
                             className="me-3"
                           ></BsCheckCircle>
-                          100 {translate("subscription.message", language)}
+                          50 {translate("subscription.message", language)}
                         </small>
                       </Row>
                       <Row>
@@ -258,7 +258,7 @@ export default function Subscription() {
                             size={16}
                             className="me-3"
                           ></BsCheckCircle>
-                          500 {translate("subscription.message", language)}
+                          100 {translate("subscription.message", language)}
                         </small>
                       </Row>
                       <Row>

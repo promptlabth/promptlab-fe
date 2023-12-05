@@ -20,6 +20,8 @@ import { BsFillCircleFill } from "react-icons/bs"
 import { BiLogOut } from "react-icons/bi"
 import { AiFillPlusCircle } from "react-icons/ai"
 import { useUserContext } from "@/contexts/UserContext";
+import { MdWorkspacePremium } from "react-icons/md";
+
 export const NavbarMobileAfterLogin: React.FC = () => {
    const { language, setLanguage } = useLanguage();
    const userContext = useUserContext()
@@ -133,7 +135,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                            background: userContext?.user?.plan_id ? rankColorForMobile[userContext?.user?.planType!] : "#33393F",
                         }}
                      >
-                        <div className="pt-4">
+                        <div className="pt-4 pb-3">
                            <img
                               className={`${styles.user_profile_pic}`}
                               src={userContext?.user?.profilepic!}
@@ -156,18 +158,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                            </li>
                         </div>
                      </li>
-                     {/* <div className="pt-3 d-flex justify-content-between p-2 align-items-center">
-                        <div className="ms-4 d-flex align-items-center">
-                           <BsFillCircleFill size={20} className={`${styles.coin}`} />
-                           <div className="px-2 text-white user-select-none fs-5">-</div>
-                        </div>
-                        <div className={`${styles.add_coin_button} opacity-50 user-select-none me-4 fs-5`}>
-                           เติมเหรียญ
-                        </div>
-                     </div> */}
-                     <li>
-                        <hr style={{ color: "white" }}></hr>
-                     </li>
+                     <li> <hr style={{ color: "white" }}></hr> </li>
                      <li className="nav-item">
                         <div className="nav-link">
                            <button className={styles.navbar_help_button}>
@@ -177,6 +168,19 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                                  className={`${styles.remove_underline} ms-2`}
                               >
                                  {translate("home.title", language)}
+                              </Link>
+                           </button>
+                        </div>
+                     </li>
+                     <li className="nav-item">
+                        <div className="nav-link">
+                           <button className={`${styles.navbar_help_button}`}>
+                              <MdWorkspacePremium />
+                              <Link
+                                 href={"/subscription"}
+                                 className={`${styles.remove_underline} ms-2`}
+                              >
+                                 {translate("subscription", language)}
                               </Link>
                            </button>
                         </div>
@@ -206,6 +210,8 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                               </Link>
                            </button>
                         </div>
+
+
                      </li>
                      <li>
                         <hr style={{ color: "white" }}></hr>
@@ -301,9 +307,6 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                            <div className="user-select-none opacity-50 ">
                               <AiFillPlusCircle className={`${styles.add_coin}`} size={34} />
                            </div>
-                           {/* <Link href={"/payments"} className="user-select-none">
-                    <AiFillPlusCircle className={`${styles.add_coin}`} size={34} />
-                  </Link> */}
                         </div>
                      </li>
 
@@ -352,6 +355,21 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                            </li>
                         </ul>
                      </li>
+                     {userContext?.user?.planType! === "free" && (
+                        <li className="nav-item">
+                           <div className="nav-link">
+                              <button className={styles.navbar_help_button}>
+                                 <Link
+                                    href={"/subscription"}
+                                    className={`${styles.remove_underline}`}
+                                 >
+
+                                    {translate("subscription", language)}
+                                 </Link>
+                              </button>
+                           </div>
+                        </li>
+                     )}
                      <li className="nav-item">
                         <div className="nav-link">
                            <button className={styles.navbar_help_button}>

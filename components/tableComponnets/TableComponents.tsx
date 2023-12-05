@@ -212,10 +212,7 @@ const TableComponents = (config: pageConfig) => {
                                              aria-label="Close"
                                           > Back </button>
                                        </Col>
-
-
                                     </Row>
-
                                  </div>
                                  {/* <Col className="d-flex flex-column align-items-center">
                                     <button className={` mb-3 ${styles.btn}`} onClick={() => { userContext?.handleLogin("facebook") }}>

@@ -124,7 +124,7 @@ const Profile = () => {
                               <div
                                  className="fw-bold ps-2"
                                  style={{
-                                    color: userContext?.user?.planType! === "Gold" ? "#FFB800" : userContext?.user?.planType! === "Silver" ? "#A3A3A3" : "#CD7F32"
+                                    color: userContext?.user?.planType! === "Gold" ? "#FFB800" : userContext?.user?.planType! === "Silver" ? "#A3A3A3" : userContext?.user?.planType! === "Bronze" ? "#CD7F32" : "white",
                                  }}
                               > {userContext?.user?.planType} </div>
                            </div>
@@ -132,12 +132,12 @@ const Profile = () => {
                         <Col md={5} className='ps-3 text-white'>
                            <Col className="d-flex justify-content-between">
                               <div> {translate("subscription.detail.startDate", language)} </div>
-                              {userContext?.user?.start_date?.toString()}
+                              {userContext?.user?.planType! === "free" ? "-" : userContext?.user?.start_date?.toString()}
                               {/* {dayjs(starDate).format("DD MMMM YYYY HH:mm:ss")} */}
                            </Col>
                            <Col className="d-flex justify-content-between">
                               <div> {translate("subscription.detail.endDate", language)} </div>
-                              {userContext?.user?.end_date?.toString()}
+                              {userContext?.user?.planType! === "free" ? "-" : userContext?.user?.end_date?.toString()}
                               {/* {dayjs(endDate).format("DD MMMM YYYY HH:mm:ss")} */}
                            </Col>
                         </Col>
@@ -147,28 +147,19 @@ const Profile = () => {
                         <div className="text-start">
                            <Row>
                               <div>
-                                 <BsCheckCircle
-                                    size={16}
-                                    className="me-3"
-                                 ></BsCheckCircle>
+                                 <BsCheckCircle size={16} className="me-3"/>
                                  {userContext?.user?.maxMessages} {translate("subscription.message", language)}
                               </div>
                            </Row>
                            <Row>
                               <div>
-                                 <BsCheckCircle
-                                    size={16}
-                                    className="me-3"
-                                 ></BsCheckCircle>
+                                 <BsCheckCircle size={16} className="me-3"/>
                                  {translate("subscription.chat", language)} &#40;Coming Soon&#41;
                               </div>
                            </Row>
                            <Row>
                               <div>
-                                 <BsCheckCircle
-                                    size={16}
-                                    className="me-3"
-                                 ></BsCheckCircle>
+                                 <BsCheckCircle size={16} className="me-3"/>
                                  {translate("subscription.support", language)}
                               </div>
                            </Row>
