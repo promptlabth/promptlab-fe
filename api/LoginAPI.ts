@@ -8,7 +8,7 @@ export async function Login(accessToken : string, platform : string, platformTok
       const requestOption = { headers: { "Authorization": `Bearer ${accessToken}` },}
       const response = await axios.post(apiUrl, {
          platform,
-         accessToken: platformToken
+         access_token: platformToken
       }, requestOption);
       return response
 
