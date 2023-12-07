@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import signInWithFacebook from '@/api/auth/auth_facebook';
 import signInWithGmail from '@/api/auth/auth_gmail';
 import { authFirebase } from '@/api/auth';
+import { platform } from 'os';
 interface UserContextInterface {
    user: LoginUser | null;
    setUser: (user: LoginUser) => void;
@@ -33,14 +34,15 @@ export function UserContextProvider({ children }: Props) {
       resolve => setTimeout(resolve, ms)
    );
 
-   const UserLogin = async (token: string, loginFunction : () => any) => {
+   const UserLogin = async (token: string, loginFunction : () => any, platform:string, platformToken:string) => {
       try {
 
-         const loginResult = await Login(token);
+         const loginResult = await Login(token, platform, platformToken);
 
          if (loginResult?.status !== 200) {
             localStorage.removeItem("at");
             localStorage.removeItem("rt");
+            localStorage.removeItem("pat");
             const result = await loginFunction();
             if (result) {
 
@@ -49,7 +51,8 @@ export function UserContextProvider({ children }: Props) {
                const refreshToken = result.user.refreshToken
                localStorage.setItem("at", accessToken);
                localStorage.setItem("rt", refreshToken);
-               const loginResult = await Login(accessToken);
+               localStorage.setItem("pat", platformToken);
+               const loginResult = await Login(accessToken, platform, platformToken);
                if (loginResult) {
                   setUser(loginResult?.data)
                   console.log("relogin-user", loginResult?.data)
@@ -72,8 +75,9 @@ export function UserContextProvider({ children }: Props) {
             const refreshToken = result.user.refreshToken
             localStorage.setItem("at", accessToken);
             localStorage.setItem("rt", refreshToken);
+            localStorage.setItem("pat", platformToken);
 
-            UserLogin(accessToken, loginFunction)
+            UserLogin(accessToken, loginFunction, result.accessToken ?? '', platform)
             await delay(200);
             router.reload()
          }
@@ -116,8 +120,9 @@ export function UserContextProvider({ children }: Props) {
          const refreshToken = result.user.refreshToken
          localStorage.setItem("at", accessToken);
          localStorage.setItem("rt", refreshToken);
+         localStorage.setItem("pat", result.accessToken ?? '');
 
-         UserLogin(accessToken, loginFunction)
+         UserLogin(accessToken, loginFunction, typeLoginInput, result.accessToken ?? '')
          await delay(200);
          router.reload()
       }
@@ -150,7 +155,7 @@ export function UserContextProvider({ children }: Props) {
       }
       
       if (token) {
-         UserLogin(token, loginFunction);
+         UserLogin(token, loginFunction, localStorage.getItem("typeLogin") ?? '', localStorage.getItem("pat") ?? '');
       } 
    }, [])
 
