@@ -114,7 +114,19 @@
         "subscription.cancle.sure":"หากคุณแน่ใจแล้ว กด 'ยกเลิกแพลนสมาชิก' ด้านล่าง",
         "subscription.cancle.sure_contact":"หากคุณแน่ใจแล้ว ให้ติดต่ออีเมล",
         "modal.subsciption.description":"🚀 มาแล้ว!! กับแพลนสมัครสมาชิกที่ทำให้คุณเป็นส่วนหนึ่งของ Prompt Lab AI ได้ง่ายๆ อย่ารอช้า! เริ่มต้นสมัครแพลนสมาชิก Prompt Lab AI วันนี้เลย!",      
-        "modal.subscription.price":"เริ่มต้นที่ 50 ฿/เดือน"
+        "modal.subscription.price":"เริ่มต้นที่ 50 ฿/เดือน",
+        "help.title": "มีอะไรให้ช่วยไหม",
+        "help.contact.description":"หากมีปัญหาอะไรในการใช้ Prompt lab AI เช่น สมัครสมาชิกไม่ผ่าน สามารถติดต่อมาได้เลย",
+        "help.howto.title": "วิธีใช้ Prompt Lab AI",
+        "help.howto.input.title":"ใส่ข้อความ",
+        "help.howto.input.description": "ใส่ชื่อ, ข้อความหรือสิ่งที่ต้องการให้ Prompt Lab สร้างให้ เช่น",
+        "help.howto.input.example1": "แคปชั่นขายของ ใส่ชื่อสินค้า, ผลิตภัณฑ์",
+        "help.howto.input.example2": "เขียนบทความ ใส่ชื่อหัวข้อที่สนใจ",
+        "help.howto.input.example3": "ช่วยคิดคอนเทนต์ ใส่หัวข้อคอนเทนต์ของผู้ใช้",
+        "help.howto.select.title":"เลือกสไตล์ของข้อความ",
+        "help.howto.select.description":"เลือกสไสล์ของข้อความที่ต้องการให้ Prompt Lab สร้าง ได้แก่ สนุกสนาน, หรูหรา, มืออาชีพ, มีการศึกษา, มั่นใจ, หรูหรา และย้อนยุค",
+        "help.howto.generate.title":"กด Generate และสนุกได้เลย!!"
+
     },
     "eng": {
         "language": "Language",
@@ -230,7 +242,20 @@
         "subscription.cancle.sure":"If you sure, please press 'Cancel Subscription' button below",
         "subscription.cancle.sure_contact":"If you sure, please contact email",
         "modal.subsciption.description":"🚀 It's here! With the brand new subscription plan that makes you become a part of Prompt Lab AI easily! You can start subscribing to Prompt Lab AI now!",      
-        "modal.subscription.price":"Start at 50฿/month"
+        "modal.subscription.price":"Start at 50฿/month",
+        "help.title": "How can we help you?",
+        "help.contact.description":"If you have any problems using Prompt lab AI, such as failed to subscribe, you can contact us.",
+        "help.howto.title": "How to use Prompt Lab AI",
+        "help.howto.input.title":"Input your message",
+        "help.howto.input.description": "Input name, message or anything you want Prompt Lab to generate. e.g.",
+        "help.howto.input.example1": "Create selling post caption. Input name of product, item",
+        "help.howto.input.example2": "Create article. Input topic you are interested in",
+        "help.howto.input.example3": "Create content. Input topic of user's content",
+        "help.howto.select.title":"Select type of message",
+        "help.howto.select.description":"Select the type of message you want Prompt Lab to generate. e.g. funny, luxury, professional, educational, confident, luxury and retro",
+        "help.howto.generate.title":"Click Generate and have fun!!"
+
+
     },
     "id": {
         "language": "Bahasa",
@@ -334,6 +359,18 @@
         "subscription.cancle.sure":"Jika Anda yakin, silakan tekan tombol 'Batalkan Langganan' di bawah",
         "subscription.cancle.sure_contact":"Jika Anda yakin, silakan hubungi email",
         "modal.subsciption.description":"🚀 Ini dia! Dengan rencana langganan baru yang membuat Anda menjadi bagian dari Prompt Lab AI dengan mudah! Anda dapat mulai berlangganan Prompt Lab AI sekarang!",
-        "modal.subscription.price":"Mulai dari 50฿/bulan"
+        "modal.subscription.price":"Mulai dari 50฿/bulan",
+        "help.title": "Bagaimana kami bisa membantu Anda?",
+        "help.contact.description":"Jika Anda memiliki masalah menggunakan Prompt lab AI, seperti gagal berlangganan, Anda dapat menghubungi kami.",
+        "help.howto.title": "Cara menggunakan Prompt Lab AI",
+        "help.howto.input.title":"Masukkan pesan Anda",
+        "help.howto.input.description": "Masukkan nama, pesan, atau apa pun yang Anda inginkan Prompt Lab untuk menghasilkan. mis.",
+        "help.howto.input.example1": "Buat judul postingan penjualan. Masukkan nama produk, item",
+        "help.howto.input.example2": "Buat artikel. Masukkan topik yang Anda minati",
+        "help.howto.input.example3": "Buat konten. Masukkan topik konten pengguna",
+        "help.howto.select.title":"Pilih jenis pesan",
+        "help.howto.select.description":"Pilih jenis pesan yang Anda inginkan Prompt Lab untuk menghasilkan. mis. lucu, mewah, profesional, edukatif, percaya diri, mewah, dan retro",
+        "help.howto.generate.title":"Klik Hasilkan dan bersenang-senang!!"
+        
     }
 }
