@@ -37,7 +37,7 @@ export default function Home() {
             />
          </Head>
          <div className={noto_sans_thai.className}>
-            {(userContext?.user?.plan_id === null && showModal) && <SubscriptionModal show={showModal} />}
+            {( showModal) && <SubscriptionModal show={showModal} />}
             <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">
                <figure className="text-center pt-4 pb-4 text-light">
                   <blockquote className="blockquote">
