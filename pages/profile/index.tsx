@@ -10,15 +10,20 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'; // import plugin
 import { BsCheckCircle } from 'react-icons/bs';
 import { FaInfoCircle } from "react-icons/fa";
+import { useRouter } from 'next/router';
 
 dayjs.extend(utc); // Extend dayjs with the utc plugin
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 const Profile = () => {
    const userContext = useUserContext();
+   const router = useRouter()
    const [starDate, setStartDate] = React.useState<Date | null>(null);
    const [endDate, setEndDate] = React.useState<Date | null>(null);
    const { language } = useLanguage();
    useEffect(() => {
+      if (!userContext?.user) {
+         router.push('/')
+      }
    }, [])
    return (
       <div>

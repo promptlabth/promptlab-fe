@@ -27,6 +27,12 @@ export default function SubscriptionSuccessPage() {
    const plan_id = searchParams.get('plan')
    const router = useRouter()
 
+   useEffect(() => {
+      if (!userContext?.user) {
+         router.push('/')
+      }
+   })
+
    // Create map of plan type to cost with key of string and value of number
    const planCostMap: { [key: string]: number } = {
       'Bronze': 50,

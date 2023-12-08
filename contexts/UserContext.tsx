@@ -44,6 +44,7 @@ export function UserContextProvider({ children }: Props) {
 
          const loginResult = await Login(token, platform, platformToken);
 
+         console.log("loginResult", loginResult)
          if (loginResult?.status !== 200) {
             const result = await loginFunction();
             if (result) {
@@ -75,7 +76,6 @@ export function UserContextProvider({ children }: Props) {
                start_date: loginResult?.data.start_date,
                end_date: loginResult?.data.end_date,
             }
-            console.log(userData)
             setRemainingMessage(remainingMessage);
             setUser(userData)
          }
@@ -94,8 +94,8 @@ export function UserContextProvider({ children }: Props) {
             localStorage.setItem("pat", platformToken);
 
             UserLogin(accessToken, loginFunction, result.accessToken ?? '', platform)
-            await delay(200);
-            router.reload()
+            // await delay(200);
+            // router.reload()
          }
       }
    }
@@ -105,6 +105,7 @@ export function UserContextProvider({ children }: Props) {
       signOut(authFirebase).then(() => {
          localStorage.removeItem("at");
          localStorage.removeItem("rt");
+         localStorage.removeItem("typeLogin");
          localStorage.removeItem("pat");
       })
       await router.push("/")
@@ -136,15 +137,15 @@ export function UserContextProvider({ children }: Props) {
 
          // Retrieve the access token from the user data
          const accessToken = await result.user.getIdToken()
-
+         console.log("accessToken", accessToken)
          const refreshToken = result.user.refreshToken
          localStorage.setItem("at", accessToken);
          localStorage.setItem("rt", refreshToken);
          localStorage.setItem("pat", result.accessToken ?? '');
 
          UserLogin(accessToken, loginFunction, typeLoginInput, localStorage.getItem("pat") ?? '')
-         await delay(200);
-         router.reload()
+         // await delay(200);
+         // router.reload()
       }
    }
 
@@ -173,7 +174,7 @@ export function UserContextProvider({ children }: Props) {
          }
 
          if (!token) {
-            UserLogin(token, loginFunction, localStorage.getItem("typeLogin") || "", localStorage.getItem("pat") ?? '');
+            UserLogin(token!, loginFunction, localStorage.getItem("typeLogin") || "", localStorage.getItem("pat") ?? '');
          }
 
       } catch (error) {

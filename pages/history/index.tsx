@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from "react-icons/bs";
 
@@ -14,6 +14,8 @@ import { VscTriangleRight } from "react-icons/vsc";
 import { PromptMessage } from "@/models";
 import { getMessageHistoryWithUserId } from "@/api/GetMessageHistory";
 import Head from 'next/head';
+import { useRouter } from "next/router";
+import { useUserContext } from "@/contexts/UserContext";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 
 function formatDate(date_time: string): string {
@@ -27,6 +29,14 @@ const History = () => {
    const [currentPage, setCurrentPage] = useState(1);
    const promptsPerPage = 5; // Number of prompts to display per page 
    const { language } = useLanguage();
+   const router = useRouter();
+   const userContext = useUserContext();
+   useEffect(() => {
+      if (!userContext?.user) {
+         router.push("/");
+      }
+
+   })
 
    const getMessage = async () => {
       const result = await getMessageHistoryWithUserId();

@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { Noto_Sans_Thai } from "next/font/google";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
@@ -8,8 +8,16 @@ import { translate } from "@/languages/language";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ImSad2 } from "react-icons/im";
 import { FaCheckCircle } from "react-icons/fa";
+import { useUserContext } from "@/contexts/UserContext";
 export default function CancelSubscriptionSuccess() {
+  const userContext = useUserContext();
   const { language } = useLanguage();
+  const router = useRouter();
+  useEffect(() => {
+    if (!userContext?.user) {
+      router.push("/");
+    }
+  })
 
   return (
     <>

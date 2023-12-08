@@ -1,35 +1,31 @@
 import { getCheckoutSessionUrl } from "@/api/Payments";
-// import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
-// import router from 'next/router';
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { Noto_Sans_Thai } from "next/font/google";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 import styles from "./styles.module.css";
 import { translate } from "@/languages/language";
 import { useLanguage } from "@/contexts/LanguageContext";
-// import { BsCoin } from "react-icons/bs";
-// import { FaCoins } from "react-icons/fa";
-// import { GiCoins } from "react-icons/gi";
-// import { GiTwoCoins } from "react-icons/gi";
-// import { RiCoinFill } from "react-icons/ri";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-// import { MaintainPage } from "@/components/maintain";
-// loadStripe(
-//   process.env.NEXT_PUBLIC_STRIPE_API_KEY
-// );
 import { BsCheckCircle } from "react-icons/bs";
 import { CheckoutSessionRequest } from "@/models/dto/requests/PaymentRequest";
+import { useUserContext } from "@/contexts/UserContext";
 export default function Subscription() {
+  const userContext = useUserContext();
   const router = useRouter();
   const { language } = useLanguage();
-  const prize_id_bronze = "price_1O9N1cAom1IgIvKKvbttMHdx";
-  const prize_id_silver = "price_1O9RapAom1IgIvKKJSSbT8jL";
-  const prize_id_gold = "price_1OCiCbAom1IgIvKK13OebsIL";
+  const prize_id_bronze = "price_1OL65UAom1IgIvKKzJK7unnC";
+  const prize_id_silver = "price_1OL63sAom1IgIvKKgmy5sZRC";
+  const prize_id_gold = "price_1OL65sAom1IgIvKKvqxaLRZu";
 
-  
+  useEffect(() => {
+    if (!userContext?.user) {
+      router.push("/");
+    }
+  })
+
   // This function is soonly used to handle the checkout session 
   const handleCheckoutSession = async (prize_id: string, plan_id: number) => {
     const data : CheckoutSessionRequest = {
@@ -128,7 +124,7 @@ export default function Subscription() {
                           "linear-gradient(180deg, #C06B16 -18.83%, #D99C71 100%)",
                       }}
                     >
-                      50
+                      59
                       <span style={{ fontWeight: "normal", fontSize: "26px" }}>
                         ฿
                       </span>
@@ -187,7 +183,7 @@ export default function Subscription() {
                           "linear-gradient(0deg, #CACACA 0%, #676767 100%)",
                       }}
                     >
-                      100
+                      199
                       <span style={{ fontWeight: "normal", fontSize: "26px" }}>
                         ฿
                       </span>
@@ -246,7 +242,7 @@ export default function Subscription() {
                           "linear-gradient(180deg, #EE8F00 0%, #FFCA43 57.92%)",
                       }}
                     >
-                      200
+                      299
                       <span style={{ fontWeight: "normal", fontSize: "26px" }}>
                         ฿
                       </span>
