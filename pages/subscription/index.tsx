@@ -12,6 +12,10 @@ import Col from "react-bootstrap/Col";
 import { BsCheckCircle } from "react-icons/bs";
 import { CheckoutSessionRequest } from "@/models/dto/requests/PaymentRequest";
 import { useUserContext } from "@/contexts/UserContext";
+import { subscriptionPlanColorMap } from "@/constant";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function Subscription() {
   const userContext = useUserContext();
   const router = useRouter();
@@ -20,10 +24,33 @@ export default function Subscription() {
   const prize_id_silver = "price_1OL63sAom1IgIvKKgmy5sZRC";
   const prize_id_gold = "price_1OL65sAom1IgIvKKvqxaLRZu";
 
+  const subscriptionPriorityMap: { [key: string]: number } = {
+    "Free": 1,
+    "Bronze": 2,
+    "Silver": 3,
+    "Gold": 4,
+  };
+
+
+  const handleSubscriptionPriority = (plan_id: number): boolean => {
+    if (subscriptionPriorityMap[userContext?.user?.planType!] == plan_id) {
+
+      toast.warn(translate("subscription.failed.clickCurrentPlan", language));
+      return false
+    } else if (subscriptionPriorityMap[userContext?.user?.planType!] > plan_id) {
+      toast.error(translate("subscription.failed.clickLowerPlan", language));
+      return false
+    }
+    return true;
+  }
 
   // This function is soonly used to handle the checkout session 
   const handleCheckoutSession = async (prize_id: string, plan_id: number) => {
-    const data : CheckoutSessionRequest = {
+    const isValidtoSubscribe = handleSubscriptionPriority(plan_id);
+    if (!isValidtoSubscribe) {
+      return
+    }
+    const data: CheckoutSessionRequest = {
       PrizeID: prize_id,
       WebUrl: window.location.origin,
       PlanID: plan_id
@@ -36,12 +63,16 @@ export default function Subscription() {
     // Redirect to stripe payment page
     console.log("redirecting to stripe payment page")
     console.log(checkout_session_url)
-    router.push(checkout_session_url); 
+    router.push(checkout_session_url);
   }
-  
+
+
   return (
     <>
       <div className={noto_sans_thai.className}>
+        <ToastContainer style={{
+          fontFamily: "Noto Sans Thai",
+        }}/>
         <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">
           <Container className={`${styles.container}`}>
 
@@ -54,6 +85,20 @@ export default function Subscription() {
               </blockquote>
               <figcaption className="blockquote-footer"></figcaption>
             </figure>
+            {userContext?.user?.planType !== "Free" &&
+              <div className="text-white text-center">
+                <div className="fs-5"> ตอนนี้แพลนสมาชิกของคุณคือ{" "}
+                  <div style={{
+                    color: subscriptionPlanColorMap[userContext?.user?.planType!],
+                    display: "inline",
+                    fontWeight: "bold"
+                  }}>
+                    {userContext?.user?.planType}
+                  </div>
+                </div>
+                <div className="fs-5"> ถ้าอยากอัพเกรดแพลน สามารถเลือกแพลนที่ระดับสูงกว่าได้เลย</div>
+              </div>
+            }
 
             <div className={`row ${styles.page_payment_row}`}>
               <div className="container text-center">
@@ -156,8 +201,7 @@ export default function Subscription() {
                     <button
                       className={`${styles.btn} ${styles.bronze} btn position-absolute`}
                       style={{
-                        background:
-                          "linear-gradient(180deg, #C06B16 -18.83%, #D99C71 100%)",
+                        background: "linear-gradient(180deg, #C06B16 -18.83%, #D99C71 100%)",
                         bottom: -30,
                       }}
                       onClick={() =>

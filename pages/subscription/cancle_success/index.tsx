@@ -10,15 +10,7 @@ import { ImSad2 } from "react-icons/im";
 import { FaCheckCircle } from "react-icons/fa";
 import { useUserContext } from "@/contexts/UserContext";
 export default function CancelSubscriptionSuccess() {
-  const userContext = useUserContext();
   const { language } = useLanguage();
-  const router = useRouter();
-  useEffect(() => {
-    if (!userContext?.user) {
-      router.push("/");
-    }
-  })
-
   return (
     <>
       <div className={noto_sans_thai.className}>

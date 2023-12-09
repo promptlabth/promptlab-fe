@@ -101,6 +101,8 @@
         "subscription.successtitle": "สำเร็จ",
         "subscription.errorText": "คุณได้ทำการยกเลิก!",
         "subscription.errortitle": "ยกเลิกสำเร็จ",
+        "subscription.failed.clickLowerPlan":"ไม่สามารถสมัครแพลนสมาชิกที่ระดับต่ำกว่าได้",
+        "subscription.failed.clickCurrentPlan":"คุณสมัครแพลนสมาชิกนี้อยู่แล้ว",
         "button.back":"ย้อนกลับ",
         "profile.title": "โปรไฟล์",
         "profile.subscription.title": "แพลนสมาชิกของคุณ",
@@ -231,6 +233,8 @@
         "subscription.detail.message":"Message per month",
         "subscription.errorText": "You have successfully canceled your subscription!",
         "subscription.errortitle": "Cancelled",
+        "subscription.failed.clickLowerPlan":"You're not allowed to subscription lower plan.",
+        "subscription.failed.clickCurrentPlan":"You currently subscribe to this plan.",
         "button.back":"Back",
         "profile.title": "Profile",
         "profile.subscription.title": "Your subscription",
@@ -258,8 +262,6 @@
         "help.howto.select.title":"Select type of message",
         "help.howto.select.description":"Select the type of message you want Prompt Lab to generate. e.g. funny, luxury, professional, educational, confident, luxury and retro",
         "help.howto.generate.title":"Click Generate and have fun!!"
-
-
     },
     "id": {
         "language": "Bahasa",
@@ -355,6 +357,8 @@
         "subscription.detail.message":"Pesan per hari",
         "subscription.errorText": "Anda berhasil membatalkan langganan Anda!",
         "subscription.errortitle": "Dibatalkan",
+        "subscription.failed.clickLowerPlan":"Anda tidak dapat menurunkan rencana langganan Anda.",
+        "subscription.failed.clickCurrentPlan":"Anda saat ini berlangganan rencana ini.",
         "button.back":"Kembali",
         "profile.title": "Profile",
         "profile.subscription.title": "Langganan Anda",
