@@ -5,15 +5,11 @@ import { UserPremiumSubscribeRequest } from '@/models/dto/requests/PaymentReques
 import { useUserContext } from '@/contexts/UserContext';
 import { userPremiumSubscribe } from '@/api/Payments';
 import { useRouter } from 'next/router';
-import { FaCheckCircle } from "react-icons/fa";
 import styles from "./styles.module.css";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { translate } from "@/languages/language";
 import { BsCheckCircle } from 'react-icons/bs';
 import { Row } from 'react-bootstrap';
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'; // import plugin
-dayjs.extend(utc); // Extend dayjs with the utc plugin
 import { FaSmileBeam } from "react-icons/fa";
 import Head from 'next/head';
 
@@ -94,14 +90,10 @@ export default function SubscriptionSuccessPage() {
                   <div className="px-4 d-flex justify-content-evenly">
                      <div> {translate("subscription.detail.startDate", language)}: </div>
                      {startDate?.toString()}
-                     {/* {startDate?.toLocaleString()} */}
-                     {/* {dayjs(startDate).format("DD MMMM YYYY HH:mm:ss")} */}
                   </div>
                   <div className="px-4 d-flex justify-content-evenly">
                      <div> {translate("subscription.detail.endDate", language)}: </div>
                      {endDate?.toString()}
-                     {/* {endDate?.toLocaleString()} */}
-                     {/* {dayjs(endDate).format("DD MMMM YYYY HH:mm:ss")} */}
 
                   </div>
                   <hr></hr>

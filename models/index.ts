@@ -4,6 +4,7 @@ export type LoginUser = {
    name?: string;
    email: string;
    profilepic: string;
+   subscriptionId?: number;
    plan_id?: number;
    planType: string;
    maxMessages?: number;

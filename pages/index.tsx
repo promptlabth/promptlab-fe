@@ -11,9 +11,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import SubscriptionModal from '@/components/subscription';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import { useUserContext } from '@/contexts/UserContext';
 
 export default function Home() {
    const { language } = useLanguage();
+   const userContext = useUserContext()
    const [showModal, setShowModal] = useState(false);
 
    useEffect(() => {
@@ -35,7 +37,7 @@ export default function Home() {
             />
          </Head>
          <div className={noto_sans_thai.className}>
-            {( showModal) && <SubscriptionModal show={showModal} />}
+            {userContext?.user?.planType === "Free" && showModal && <SubscriptionModal show={showModal} />}
             <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">
                <figure className="text-center pt-4 pb-4 text-light">
                   <blockquote className="blockquote">

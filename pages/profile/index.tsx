@@ -11,14 +11,23 @@ import utc from 'dayjs/plugin/utc'; // import plugin
 import { BsCheckCircle } from 'react-icons/bs';
 import { FaInfoCircle } from "react-icons/fa";
 import { useRouter } from 'next/router';
+import { cancelUserSubscribe } from '@/api/Payments';
 
 dayjs.extend(utc); // Extend dayjs with the utc plugin
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 const Profile = () => {
    const userContext = useUserContext();
+   const router = useRouter();
    const [starDate, setStartDate] = React.useState<Date | null>(null);
    const [endDate, setEndDate] = React.useState<Date | null>(null);
    const { language } = useLanguage();
+
+   const handleCancelSubscription = async () => { 
+      const result = await cancelUserSubscribe()
+      if (result) { 
+         router.push('/subscription/cancle_success')
+      }
+   }
 
    return (
       <div>
@@ -55,24 +64,21 @@ const Profile = () => {
                         <p className="mb-3">
                            {translate("subscription.canclesubscription.ask", language)}
                         </p>
-                        <p className="mb-1" style={{ color: "red" }}>
-                           {translate("subscription.cancle.sure_contact", language)} {" "}
-                           <b><u>isaman@promptlabai.com</u></b>
-                        </p>
-                        {/* <button
+                        <button
                            type="button"
+                           onClick={handleCancelSubscription}
                            className={`btn btn-danger mb-2 ${styles.cancle_btn}`}
+                           data-bs-dismiss="modal"
                         >
-                           ยกเลิกสมาชิก
+                           {translate( "subscription.canclesubscription", language)}
                         </button>
                         <br />
                         <a
-                           href="#"
-                           data-bs-dismiss="modal"
+                           data-bs-dismiss="canclepage"
                            style={{ color: "red", textDecoration: "underline" }}
                         >
-                           <small>ไม่ ฉันเปลี่ยนใจแล้ว</small>
-                        </a> */}
+                           <small> {translate("subscription.canclesubscription.cancel",language)} </small>
+                        </a>
                      </div>
                   </div>
                </div>

@@ -213,7 +213,7 @@ const History = () => {
                                              <Col className="fs-5 text-light d-flex justify-content-between align-items-center">
                                                 <b> {translate("createAt", language)}</b>
                                              </Col>
-                                             <div className="text-light"> {formatDate(date_time.toString())}</div>
+                                             <div className="text-light"> {formatDate(date_time)}</div>
                                           </Col>
                                        </Row>
                                     ))

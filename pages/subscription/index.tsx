@@ -1,7 +1,7 @@
 import { getCheckoutSessionUrl } from "@/api/Payments";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Container, Modal } from "react-bootstrap";
 import { Noto_Sans_Thai } from "next/font/google";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 import styles from "./styles.module.css";
@@ -13,10 +13,13 @@ import { BsCheckCircle } from "react-icons/bs";
 import { CheckoutSessionRequest } from "@/models/dto/requests/PaymentRequest";
 import { useUserContext } from "@/contexts/UserContext";
 import { subscriptionPlanColorMap } from "@/constant";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Head from "next/head";
+import SubscriptionFailedModal from "@/components/modals/SubscriptionFailed";
 
 export default function Subscription() {
+  const [showFailedSubscribeModal, setShowFailedSubscribeModal] = React.useState(false);
   const userContext = useUserContext();
   const router = useRouter();
   const { language } = useLanguage();
@@ -24,32 +27,16 @@ export default function Subscription() {
   const prizeSilverId = "price_1OL63sAom1IgIvKKgmy5sZRC";
   const prizeGoldId = "price_1OL65sAom1IgIvKKvqxaLRZu";
 
-  const subscriptionPriorityMap: { [key: string]: number } = {
-    "Free": 1,
-    "Bronze": 2,
-    "Silver": 3,
-    "Gold": 4,
-  };
-
-
-  const handleSubscriptionPriority = (planId: number): boolean => {
-    if (subscriptionPriorityMap[userContext?.user?.planType!] == planId) {
-
-      toast.warn(translate("subscription.failed.clickCurrentPlan", language));
-      return false
-    } else if (subscriptionPriorityMap[userContext?.user?.planType!] > planId) {
-      toast.error(translate("subscription.failed.clickLowerPlan", language));
-      return false
-    }
-    return true;
-  }
+  // const subscriptionPriorityMap: { [key: string]: number } = {
+  //   "Free": 1,
+  //   "Bronze": 2,
+  //   "Silver": 3,
+  //   "Gold": 4,
+  // };
 
   // This function is soonly used to handle the checkout session 
   const handleCheckoutSession = async (prizeId: string, planId: number) => {
-    const isValidtoSubscribe = handleSubscriptionPriority(planId);
-    if (!isValidtoSubscribe) {
-      return
-    }
+
     const data: CheckoutSessionRequest = {
       PrizeID: prizeId,
       WebUrl: window.location.origin,
@@ -58,19 +45,24 @@ export default function Subscription() {
 
     // Calling the checkout function and awaiting the returned Stripe checkout session URL
     const checkoutSessionUrl = await getCheckoutSessionUrl(data);
+    if (!checkoutSessionUrl) {
+      setShowFailedSubscribeModal(true);
+      return
+    }
     router.push(checkoutSessionUrl);
   }
 
 
   return (
     <>
+      <Head>
+        <title>{translate("subscription", language)}</title>
+        <meta name="description" content="A generated messages history" />
+      </Head>
       <div className={noto_sans_thai.className}>
-        <ToastContainer style={{
-          fontFamily: "Noto Sans Thai",
-        }}/>
+        <SubscriptionFailedModal show={showFailedSubscribeModal} hideModal={setShowFailedSubscribeModal}/>
         <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">
           <Container className={`${styles.container}`}>
-
 
             <figure className="text-center  text-light">
               <blockquote className="blockquote">
@@ -80,10 +72,9 @@ export default function Subscription() {
               </blockquote>
               <figcaption className="blockquote-footer"></figcaption>
             </figure>
-            {/*  */}
             {userContext?.user?.planType !== "Free" &&
               <div className="text-white text-center">
-                <div className="fs-5"> ตอนนี้แพลนสมาชิกของคุณคือ{" "}
+                <div className="fs-5"> {translate("subscription.whatIsYourPlan", language)}{" "}
                   <div style={{
                     color: subscriptionPlanColorMap[userContext?.user?.planType!],
                     display: "inline",
@@ -92,7 +83,7 @@ export default function Subscription() {
                     {userContext?.user?.planType}
                   </div>
                 </div>
-                <div className="fs-5"> ถ้าอยากอัพเกรดแพลน สามารถเลือกแพลนที่ระดับสูงกว่าได้เลย</div>
+                <div className="fs-5"> {translate("subscription.wantToChangePlan", language)}{" "}<u>isaman@promptlabai.com</u></div>
               </div>
             }
 
