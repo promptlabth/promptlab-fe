@@ -134,12 +134,12 @@ const Profile = () => {
                         <Col md={5} className='ps-3 text-white'>
                            <Col className="d-flex justify-content-between">
                               <div> {translate("subscription.detail.startDate", language)} </div>
-                              {userContext?.user?.planType! === "free" ? "-" : userContext?.user?.start_date?.toString()}
+                              {userContext?.user?.planType! === "Free" ? "-" : userContext?.user?.start_date?.toString()}
                               {/* {dayjs(starDate).format("DD MMMM YYYY HH:mm:ss")} */}
                            </Col>
                            <Col className="d-flex justify-content-between">
                               <div> {translate("subscription.detail.endDate", language)} </div>
-                              {userContext?.user?.planType! === "free" ? "-" : userContext?.user?.end_date?.toString()}
+                              {userContext?.user?.planType! === "Free" ? "-" : userContext?.user?.end_date?.toString()}
                               {/* {dayjs(endDate).format("DD MMMM YYYY HH:mm:ss")} */}
                            </Col>
                         </Col>
@@ -167,15 +167,17 @@ const Profile = () => {
                            </Row>
                         </div>
                      </Row>
-                     <div className={`pt-4 ${styles.cancle_subscription_button_container}`}>
-                        <button
-                           className={`${styles.cancle_subscription_button}`}
-                           data-bs-toggle="modal"
-                           data-bs-target="#canclepage"
-                        >
-                           {translate("subscription.canclesubscription", language)}
-                        </button>
-                     </div>
+                     {userContext?.user?.planType! !== "Free" &&
+                        <div className={`pt-4 ${styles.cancle_subscription_button_container}`}>
+                           <button
+                              className={`${styles.cancle_subscription_button}`}
+                              data-bs-toggle="modal"
+                              data-bs-target="#canclepage"
+                           >
+                              {translate("subscription.canclesubscription", language)}
+                           </button>
+                        </div>
+                     }
                   </Container>
                </Container>
             </Container>

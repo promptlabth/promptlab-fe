@@ -7,10 +7,15 @@ import { translate } from "@/languages/language";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ImSad2 } from "react-icons/im";
 import { FaCheckCircle } from "react-icons/fa";
+import Head from "next/head";
 export default function CancelSubscriptionSuccess() {
   const { language } = useLanguage();
   return (
     <>
+      <Head>
+        <title>{translate("subscription.failed.header", language)}</title>
+        <meta name="description" content="A generated messages history" />
+      </Head>
       <div className={noto_sans_thai.className}>
         <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">
           <Container className={`${styles.container} text-center`}>

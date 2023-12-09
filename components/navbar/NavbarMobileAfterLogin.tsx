@@ -32,14 +32,14 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       "Gold": "linear-gradient(180deg, #FFB800 0%, #564A2B 26.66%, #33393F 54.26%)",
       "Silver": "linear-gradient(180deg, #A8A8A8 0%, #33393F 42.8%)",
       "Bronze": "linear-gradient(180deg, #33393F 0%, #CD7F32 0.01%, #563C23 18.75%, #33393F 44.79%)",
-      "Free": "#33393F"
+      // "Free": "#33393F"
    }
 
    const rankColorForMobile: { [key: string]: string } = {
       "Gold": "linear-gradient(180deg, #FFB800 0%, rgba(33, 37, 41, 0.85) 100%)",
       "Silver": "linear-gradient(180deg,  #A8A8A8 0%, rgba(33, 37, 41, 0.85) 100%)",
       "Bronze": "linear-gradient(180deg, rgba(205, 127, 50, 0.85) 0%, rgba(33, 37, 41, 0.85) 100%)",
-      "Free": "#33393F"
+      // "Free": "#33393F"
    }
 
    useEffect(() => {
@@ -134,7 +134,8 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                      <li
                         className={`${styles.profile} nav-item text-center`}
                         style={{
-                           background: userContext?.user?.plan_id ? rankColorForMobile[userContext?.user?.planType!] : "#33393F",
+                           // background:"#33393F",
+                           background: userContext?.user?.plan_id !== 4  ? rankColorForMobile[userContext?.user?.planType!] : "#33393F",
                         }}
                      >
                         <div className="pt-4 pb-3">
@@ -363,7 +364,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                            </li>
                         </ul>
                      </li>
-                     {userContext?.user?.planType! === "Free" && (
+                     {userContext?.user?.plan_id === 4 && (
                         <li className="nav-item">
                            <div className="nav-link">
                               <button className={styles.navbar_help_button}>
@@ -415,13 +416,13 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                            className={`${styles.login_dropdown_menu} border dropdown-menu px-1`}
                            style={{
                               marginLeft: "-8rem",
-                              background: userContext?.user?.plan_id ? rankColor[userContext?.user?.planType!] : "#33393F",
+                              background: userContext?.user?.plan_id !== 4 ? rankColor[userContext?.user?.planType!] : "#33393F",
                            }}
                         >
                            <li><div className="text-white text-center fs-5 fw-semibold text">{userContext?.user?.name}</div></li>
 
 
-                           {userContext?.user?.planType !== "Free" &&
+                           {userContext?.user?.plan_id !== 4 &&
                               <>
                                  <li className="d-flex justify-content-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 28 28" fill="none">
@@ -431,11 +432,11 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                                     </svg>
                                     <div className="ps-2 fw-bold text-white"> {userContext?.user?.planType!} </div>
                                  </li>
-                                 <li className="pt-2 d-flex justify-content-center">
-                                    <Link href="/profile" className={`${styles.subscription_manage_btn}`}> {translate("profile.title", language)} </Link>
-                                 </li>
                               </>
                            }
+                             <li className="pt-2 d-flex justify-content-center">
+                                    <Link href="/profile" className={`${styles.subscription_manage_btn}`}> {translate("profile.title", language)} </Link>
+                                 </li>
                            <li><hr className="dropdown-divider bg-white" /></li>
                            <li className="text-center py-1">
                               <a className={`${styles.login_dropdown_history_menu} `}>

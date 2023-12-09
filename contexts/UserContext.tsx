@@ -43,17 +43,24 @@ export function UserContextProvider({ children }: Props) {
    }
 
    const setUserData = async (loginResult : any) => {
+      let userData: LoginUser;
       const remainingMessage = await getRemainingMessage();
 
-      console.log("Login result", loginResult)
-      const userData: LoginUser = {
-         ...loginResult?.data.user,
-         ...loginResult?.data.plan,
-         plan_id: loginResult?.data.plan.id,
-         start_date: loginResult?.data.start_date,
-         end_date: loginResult?.data.end_date,
+      console.log("Login result is", loginResult)
+      console.log("Remaining message is", remainingMessage)
+
+      if (!loginResult?.data.plan) {
+         userData = { ...loginResult?.data.user,}
+      } else {
+         userData = {
+            ...loginResult?.data.user,
+            plan_id: loginResult?.data.plan.product.id,
+            planType: loginResult?.data.plan.product.planType,
+            maxMessages: loginResult?.data.plan.product.maxMessages,
+            start_date: loginResult?.data.plan.start_date,
+            end_date: loginResult?.data.plan.end_date,
+         }
       }
-      console.log("userData", userData)
       setRemainingMessage(remainingMessage);
       setUser(userData)
    }

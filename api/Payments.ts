@@ -65,10 +65,9 @@ export async function userPremiumSubscribe(userPremiumSubscribeRequest: UserPrem
 
          // TODO maybe return cancel subscription url
          // return response.data.cancel_url;
-         console.log(response)
       }
 
-      console.log(response.data)
+      console.log("Response of subscription is", response)
       return response.data
 
    } catch (error) {

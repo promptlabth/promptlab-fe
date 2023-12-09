@@ -80,6 +80,7 @@ export default function Subscription() {
               </blockquote>
               <figcaption className="blockquote-footer"></figcaption>
             </figure>
+            {/*  */}
             {userContext?.user?.planType !== "Free" &&
               <div className="text-white text-center">
                 <div className="fs-5"> ตอนนี้แพลนสมาชิกของคุณคือ{" "}

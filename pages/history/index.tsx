@@ -17,13 +17,11 @@ import Head from 'next/head';
 import { useRouter } from "next/router";
 import { useUserContext } from "@/contexts/UserContext";
 import Spinner from 'react-bootstrap/Spinner';
+import { formatDate } from "@/utils/date";
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 
-function formatDate(date_time: string): string {
-   const date = new Date(date_time);
-   return date.toUTCString()
-}
+
 
 
 const History = () => {
