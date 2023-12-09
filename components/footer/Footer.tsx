@@ -43,13 +43,6 @@ const Footer = () => {
         return (
             <>
                 <Carousel style={{ cursor: "pointer" }} >
-                    {/* <Carousel.Item onClick={handleClickPermlikejj} interval={5000}>
-                        <img
-                            className="d-block w-100 h-100"
-                            src="/images/promote_permlikejj.jpg"
-                            alt="Third slide"
-                        />
-                    </Carousel.Item> */}
                     <Carousel.Item onClick={handleClickPMost} interval={4000}>
                         <img
                             className="d-block w-100"

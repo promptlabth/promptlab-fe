@@ -9,12 +9,10 @@ import Link from 'next/link';
 import { TikTokEmbed } from 'react-social-media-embed';
 import 'react-toastify/dist/ReactToastify.css';
 import SubscriptionModal from '@/components/subscription';
-import { useUserContext } from '@/contexts/UserContext';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
 export default function Home() {
-   const userContext = useUserContext();
    const { language } = useLanguage();
    const [showModal, setShowModal] = useState(false);
 

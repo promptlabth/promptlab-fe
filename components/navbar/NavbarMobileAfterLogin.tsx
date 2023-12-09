@@ -3,7 +3,6 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
 import Link from "next/link";
-import Image from "next/image";
 import styles from "./styles.module.css";
 import { RiMenu4Fill } from "react-icons/ri";
 import Flag from "react-flagkit";
@@ -15,9 +14,7 @@ import { AiFillVideoCamera } from "react-icons/ai";
 import { MdSell, MdOutlineArticle } from "react-icons/md";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaClosedCaptioning } from "react-icons/fa";
-import { IoPersonCircle } from "react-icons/io5";
 import { MdNewReleases } from "react-icons/md";
-
 import { BsFillCircleFill } from "react-icons/bs"
 import { BiLogOut } from "react-icons/bi"
 import { AiFillPlusCircle } from "react-icons/ai"
@@ -125,10 +122,13 @@ export const NavbarMobileAfterLogin: React.FC = () => {
             >
                <RiMenu4Fill className={styles.offcanvas_menu} />
             </button>
+
             <div
                className={`${styles.navcollapse} collapse navbar-collapse`}
                id="navbarSupportedContent"
             >
+               <div className="bg-secondary h-full">
+               </div>
                {windowWidth < 992 ? (
                   <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0 ">
                      <li
@@ -163,7 +163,8 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                      <li> <hr style={{ color: "white" }}></hr> </li>
                      <li className="nav-item">
                         <div className="nav-link">
-                           <button className={styles.navbar_help_button}>
+                           <button
+                              className={styles.navbar_help_button}>
                               <AiFillHome />
                               <Link
                                  href={"/"}
@@ -177,7 +178,8 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                      {userContext?.user?.planType === "Free" &&
                         <li className="nav-item">
                            <div className="nav-link">
-                              <button className={`${styles.navbar_help_button}`}>
+                              <button
+                                 className={`${styles.navbar_help_button}`}>
                                  <MdWorkspacePremium />
                                  <Link
                                     href={"/subscription"}
@@ -192,7 +194,8 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                      }
                      <li className="nav-item">
                         <div className="nav-link">
-                           <button className={styles.navbar_help_button}>
+                           <button
+                              className={styles.navbar_help_button}>
                               <BiHelpCircle />
                               <Link
                                  href={"/help"}

@@ -1,6 +1,6 @@
 import { getCheckoutSessionUrl } from "@/api/Payments";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
 import { Noto_Sans_Thai } from "next/font/google";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
@@ -20,9 +20,9 @@ export default function Subscription() {
   const userContext = useUserContext();
   const router = useRouter();
   const { language } = useLanguage();
-  const prize_id_bronze = "price_1OL65UAom1IgIvKKzJK7unnC";
-  const prize_id_silver = "price_1OL63sAom1IgIvKKgmy5sZRC";
-  const prize_id_gold = "price_1OL65sAom1IgIvKKvqxaLRZu";
+  const prizeBronzeId = "price_1OL65UAom1IgIvKKzJK7unnC";
+  const prizeSilverId = "price_1OL63sAom1IgIvKKgmy5sZRC";
+  const prizeGoldId = "price_1OL65sAom1IgIvKKvqxaLRZu";
 
   const subscriptionPriorityMap: { [key: string]: number } = {
     "Free": 1,
@@ -32,12 +32,12 @@ export default function Subscription() {
   };
 
 
-  const handleSubscriptionPriority = (plan_id: number): boolean => {
-    if (subscriptionPriorityMap[userContext?.user?.planType!] == plan_id) {
+  const handleSubscriptionPriority = (planId: number): boolean => {
+    if (subscriptionPriorityMap[userContext?.user?.planType!] == planId) {
 
       toast.warn(translate("subscription.failed.clickCurrentPlan", language));
       return false
-    } else if (subscriptionPriorityMap[userContext?.user?.planType!] > plan_id) {
+    } else if (subscriptionPriorityMap[userContext?.user?.planType!] > planId) {
       toast.error(translate("subscription.failed.clickLowerPlan", language));
       return false
     }
@@ -45,25 +45,20 @@ export default function Subscription() {
   }
 
   // This function is soonly used to handle the checkout session 
-  const handleCheckoutSession = async (prize_id: string, plan_id: number) => {
-    const isValidtoSubscribe = handleSubscriptionPriority(plan_id);
+  const handleCheckoutSession = async (prizeId: string, planId: number) => {
+    const isValidtoSubscribe = handleSubscriptionPriority(planId);
     if (!isValidtoSubscribe) {
       return
     }
     const data: CheckoutSessionRequest = {
-      PrizeID: prize_id,
+      PrizeID: prizeId,
       WebUrl: window.location.origin,
-      PlanID: plan_id
+      PlanID: planId
     }
 
     // Calling the checkout function and awaiting the returned Stripe checkout session URL
-    const checkout_session_url = await getCheckoutSessionUrl(data);
-    console.log(checkout_session_url)
-    // TODO logic to store plan_id in website
-    // Redirect to stripe payment page
-    console.log("redirecting to stripe payment page")
-    console.log(checkout_session_url)
-    router.push(checkout_session_url);
+    const checkoutSessionUrl = await getCheckoutSessionUrl(data);
+    router.push(checkoutSessionUrl);
   }
 
 
@@ -205,7 +200,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handleCheckoutSession(prize_id_bronze, 2)
+                        handleCheckoutSession(prizeBronzeId, 2)
                       }
                     >
                       {translate("subscription.buy", language)}
@@ -264,7 +259,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handleCheckoutSession(prize_id_silver, 3)
+                        handleCheckoutSession(prizeSilverId, 3)
                       }
                     >
                       {translate("subscription.buy", language)}
@@ -323,7 +318,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handleCheckoutSession(prize_id_gold, 4)
+                        handleCheckoutSession(prizeGoldId, 4)
                       }
                     >
                       {translate("subscription.buy", language)}

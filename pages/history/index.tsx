@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill } from "react-icons/bs";
 
@@ -16,6 +16,8 @@ import { getMessageHistoryWithUserId } from "@/api/GetMessageHistory";
 import Head from 'next/head';
 import { useRouter } from "next/router";
 import { useUserContext } from "@/contexts/UserContext";
+import Spinner from 'react-bootstrap/Spinner';
+
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 
 function formatDate(date_time: string): string {
@@ -25,23 +27,19 @@ function formatDate(date_time: string): string {
 
 
 const History = () => {
+   const [loading, setLoading] = useState(true); // Set loading to true on component mount
    const [prompts, setPrompts] = useState<PromptMessage[]>([]);
    const [currentPage, setCurrentPage] = useState(1);
    const promptsPerPage = 5; // Number of prompts to display per page 
    const { language } = useLanguage();
    const router = useRouter();
    const userContext = useUserContext();
-   useEffect(() => {
-      if (!userContext?.user) {
-         router.push("/");
-      }
-
-   })
-
    const getMessage = async () => {
       const result = await getMessageHistoryWithUserId();
+      console.log(result)
       if (result) {
          setPrompts(result);
+         setLoading(false);
       }
    }
 
@@ -102,42 +100,42 @@ const History = () => {
    const Pagination = () => {
       const pagesToShow = 5; // Number of pages to show around the current page
       const halfPagesToShow = Math.floor(pagesToShow / 2);
-      
+
       const getVisiblePageNumbers = () => {
-        const startPage = Math.max(1, currentPage - halfPagesToShow);
-        const endPage = Math.min(totalPages, startPage + pagesToShow - 1);
-        return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+         const startPage = Math.max(1, currentPage - halfPagesToShow);
+         const endPage = Math.min(totalPages, startPage + pagesToShow - 1);
+         return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
       };
-    
+
       return (
-        <div className={`${styles.pagination} -flex justify-content-end pb-2`}>
-          <button
-            className={`${currentPage === 1 ? styles.pagination_item_disable : styles.pagination_item}`}
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(currentPage - 1)}
-          >
-            <VscTriangleLeft />
-          </button>
-          {getVisiblePageNumbers().map((pageNumber) => (
+         <div className={`${styles.pagination} -flex justify-content-end pb-2`}>
             <button
-              key={pageNumber}
-              className={`${currentPage === pageNumber ? styles.selected_pagination_page_number : styles.pagination_page_number}`}
-              onClick={() => setCurrentPage(pageNumber)}
+               className={`${currentPage === 1 ? styles.pagination_item_disable : styles.pagination_item}`}
+               disabled={currentPage === 1}
+               onClick={() => setCurrentPage(currentPage - 1)}
             >
-              {pageNumber}
+               <VscTriangleLeft />
             </button>
-          ))}
-          <button
-            className={`${currentPage === totalPages ? styles.pagination_item_disable : styles.pagination_item}`}
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage(currentPage + 1)}
-          >
-            <VscTriangleRight />
-          </button>
-        </div>
+            {getVisiblePageNumbers().map((pageNumber) => (
+               <button
+                  key={pageNumber}
+                  className={`${currentPage === pageNumber ? styles.selected_pagination_page_number : styles.pagination_page_number}`}
+                  onClick={() => setCurrentPage(pageNumber)}
+               >
+                  {pageNumber}
+               </button>
+            ))}
+            <button
+               className={`${currentPage === totalPages ? styles.pagination_item_disable : styles.pagination_item}`}
+               disabled={currentPage === totalPages}
+               onClick={() => setCurrentPage(currentPage + 1)}
+            >
+               <VscTriangleRight />
+            </button>
+         </div>
       );
-    };
-    
+   };
+
 
    useEffect(() => {
       getMessage();
@@ -159,70 +157,80 @@ const History = () => {
                   </figure>
 
                   <Container fluid={true} className={styles.page_prompt_area}>
-                     {prompts.length > 0 ?
-                        <>
-                           <Pagination />
-                           {currentPrompts.map(
-                              ({ input_message, result_message, tone, date_time, }, index) => (
-                                 <Row key={index} className={styles.page_prompt_area_row}>
-                                    <Col className="text-light">
-                                       <div className="fs-5 text-light"> {index + 1}</div>
-                                    </Col>
-                                    <Col xs={12} md={2} lg={2} className="pb-2 ">
-                                       <Col className="fs-5 text-light" xs={12} md={12}>
-                                          <b> {translate("table.input.title", language)}</b>
-                                       </Col>
-                                       <div className={styles.page_prompt_area_textfield}>
-                                          {input_message}
-                                       </div>
-                                    </Col>
-                                    <Col xs={12} md={2} lg={2} className="pb-2 ">
-                                       <Col className="fs-5 text-light" xs={12} md={6} lg={12}>
-                                          <b> {translate("table.type.title", language)}</b>
-                                       </Col>
-                                       <Col sm className="pt-2">
-                                          <div className={styles.page_prompt_area_combobox}> {tone}</div>
-                                       </Col>
-                                    </Col>
-                                    <Col xs={12} md={4} lg={5} xl={5} className="pb-2">
-                                       <Col className="fs-5 text-light" xs={12} md={6} lg={12}>
-                                          <b> {translate("table.massage.title", language)}</b>
-                                       </Col>
-                                       <div className="pt-1 text-light">
-                                          <Container fluid={true} className="">
-                                             <Row>
-                                                <Col className="d-flex p-0 justify-content-end">
-                                                   <CopyToClipboardButton message={result_message} />
-                                                </Col>
-                                                <Col xs={12} className=" text-light p-0 mb-3"
-                                                   style={{
-                                                      whiteSpace: 'pre-wrap',
-                                                      overflow: 'hidden',
-                                                      textOverflow: 'none'
-                                                   }}
-                                                >
-                                                   {result_message}
-                                                </Col>
-                                             </Row>
-                                          </Container>
-                                       </div>
-                                    </Col>
-                                    <Col xs={12} md={3} lg={2} xl={2} className="pb-2">
-                                       <Col className="fs-5 text-light d-flex justify-content-between align-items-center">
-                                          <b> {translate("createAt", language)}</b>
-                                       </Col>
-                                       <div className="text-light"> {formatDate(date_time.toString())}</div>
-                                    </Col>
-                                 </Row>
-                              ))
-                           }
-                           <Pagination />
-                        </>
+                     {loading ?
+                        <div className="d-flex justify-content-center py-4">
+                           <Spinner animation="border" variant="light" role="status"/>
+                        </div>
                         :
-                        <Col xs={12} className="pb-2 d-flex justify-content-center">
-                           <div className="fs-4 text-light p-4 opacity-50">{translate("noPrompts", language)}</div>
-                        </Col>
+                        <>
+                           {prompts.length > 0 ?
+                              <>
+                                 <Pagination />
+                                 {currentPrompts.map(
+                                    ({ input_message, result_message, tone, date_time, }, index) => (
+                                       <Row key={index} className={styles.page_prompt_area_row}>
+                                          <Col className="text-light">
+                                             <div className="fs-5 text-light"> {index + 1}</div>
+                                          </Col>
+                                          <Col xs={12} md={2} lg={2} className="pb-2 ">
+                                             <Col className="fs-5 text-light" xs={12} md={12}>
+                                                <b> {translate("table.input.title", language)}</b>
+                                             </Col>
+                                             <div className={styles.page_prompt_area_textfield}>
+                                                {input_message}
+                                             </div>
+                                          </Col>
+                                          <Col xs={12} md={2} lg={2} className="pb-2 ">
+                                             <Col className="fs-5 text-light" xs={12} md={6} lg={12}>
+                                                <b> {translate("table.type.title", language)}</b>
+                                             </Col>
+                                             <Col sm className="pt-2">
+                                                <div className={styles.page_prompt_area_combobox}> {tone}</div>
+                                             </Col>
+                                          </Col>
+                                          <Col xs={12} md={4} lg={5} xl={5} className="pb-2">
+                                             <Col className="fs-5 text-light" xs={12} md={6} lg={12}>
+                                                <b> {translate("table.massage.title", language)}</b>
+                                             </Col>
+                                             <div className="pt-1 text-light">
+                                                <Container fluid={true} className="">
+                                                   <Row>
+                                                      <Col className="d-flex p-0 justify-content-end">
+                                                         <CopyToClipboardButton message={result_message} />
+                                                      </Col>
+                                                      <Col xs={12} className=" text-light p-0 mb-3"
+                                                         style={{
+                                                            whiteSpace: 'pre-wrap',
+                                                            overflow: 'hidden',
+                                                            textOverflow: 'none'
+                                                         }}
+                                                      >
+                                                         {result_message}
+                                                      </Col>
+                                                   </Row>
+                                                </Container>
+                                             </div>
+                                          </Col>
+                                          <Col xs={12} md={3} lg={2} xl={2} className="pb-2">
+                                             <Col className="fs-5 text-light d-flex justify-content-between align-items-center">
+                                                <b> {translate("createAt", language)}</b>
+                                             </Col>
+                                             <div className="text-light"> {formatDate(date_time.toString())}</div>
+                                          </Col>
+                                       </Row>
+                                    ))
+                                 }
+                                 <Pagination />
+                              </>
+                              :
+                              <Col xs={12} className="pb-2 d-flex justify-content-center">
+                                 <div className="fs-4 text-light p-4 opacity-50">{translate("noPrompts", language)}</div>
+                              </Col>
+                           }
+                        </>
+
                      }
+
 
                   </Container>
                </Container>

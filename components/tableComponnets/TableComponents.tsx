@@ -1,4 +1,4 @@
-import { useState, useEffect, use, } from "react";
+import { useState, useEffect} from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill, BsFacebook } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from "react-icons/io";
@@ -11,12 +11,11 @@ import { FaClosedCaptioning } from 'react-icons/fa';
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "../../languages/language";
 import { Col, Container, Row } from "react-bootstrap";
-import { generateMessage, generateMessageWithUser } from "@/api/GenerateMessageAPI";
+import { generateMessageWithUser } from "@/api/GenerateMessageAPI";
 import { ImCross } from 'react-icons/im';
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
 import { Tones } from "@/models/tones";
-import { GenerateMessage, } from "@/models";
 import { useUserContext } from "@/contexts/UserContext";
 import { features } from "@/constant";
 import { usePathname } from 'next/navigation'
@@ -24,39 +23,19 @@ import { FcGoogle } from "react-icons/fc";
 import { IoMdInformationCircle } from 'react-icons/io'
 import { FaInfoCircle } from "react-icons/fa";
 import Link from "next/link";
+import { GenerateMessage, Prompt } from "@/models/promptMessages";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
-type Prompt = {
-   input: string;
-   tone_id: number;
-   message: string;
-   generate_status: boolean;
-};
-
-// Define an OpenAI configuration data type
-// @Attribute
-// modelConfig: Represents the configuration data for OpenAI.
-// It is an object with the following properties:
-// - model: A string representing the model to be used. e.g. "gpt-3.5-turbo", "gpt-4.0"
-// - temperature: A number representing the temperature value for generating text.
-// - maxToken: A number representing the maximum number of tokens allowed in the generated text.
-export type modelCofig = {
-   model: string;
-   temperature: number;
-   maxToken: number;
-}
 
 // Define a Page configuration data type
 // @Attribute
 // -  titilePage : A string representing title of page
 // -  titleDescription : A string representing page description, which describe what a page is.
-// -  modelConfig: A configuration object for the page, specifying the OpenAI model and its settings.
 // -  getPrompt: A function that takes an input string and a type string as parameters, and 
 //    returns a generated message based on the provided prompt and language.
 type pageConfig = {
    titlePage: string;
    titleDescription: string;
-   modelConfig: modelCofig;
    prompt: (input: string, type: string) => string;
 }
 
@@ -272,11 +251,7 @@ const TableComponents = (config: pageConfig) => {
                feature_id: features[config.titlePage],
             }
 
-            const result = userContext?.user == null ?
-               await generateMessage(data) :
-               await generateMessageWithUser(data)
-            // const result = await generateMessage(data)
-            console.log(result)
+            const result = await generateMessageWithUser(data)
             const message = result.reply
             if (result) {
                setPrompts((prevComponents) => {

@@ -1,4 +1,3 @@
-const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SCECRET_KEY);
 import axios from "axios";
 import { CheckoutSessionRequest, UserPremiumSubscribeRequest } from "../models/dto/requests/PaymentRequest";
 import { paymentApiUrl } from "@/constant";
@@ -7,12 +6,10 @@ import { GetAccessToken } from "./auth/auth_get_token";
 //* ------------------ These functions will use instead ------------------ *//
 export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSessionRequest) {
 
-   // For test
    const apiUrl = `${paymentApiUrl}/subscription/get-url`
 
-
    try {
-      let accessToken = await GetAccessToken()
+      const accessToken = await GetAccessToken()
       const requestOption = {
          headers: {
             "Authorization": `Bearer ${accessToken}`,
@@ -51,7 +48,7 @@ export async function getCheckoutSessionUrl(checkoutSessionRequest: CheckoutSess
 export async function userPremiumSubscribe(userPremiumSubscribeRequest: UserPremiumSubscribeRequest) {
    const apiUrl = `${paymentApiUrl}/subscription/success`
    try {
-      let accessToken = await GetAccessToken()
+      const accessToken = await GetAccessToken()
       const requestOption = {
          headers: {
             "Authorization": `Bearer ${accessToken}`,

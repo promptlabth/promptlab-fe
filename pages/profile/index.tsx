@@ -16,8 +16,6 @@ dayjs.extend(utc); // Extend dayjs with the utc plugin
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 const Profile = () => {
    const userContext = useUserContext();
-   const [user, setUser] = React.useState<any>(null)
-   const router = useRouter()
    const [starDate, setStartDate] = React.useState<Date | null>(null);
    const [endDate, setEndDate] = React.useState<Date | null>(null);
    const { language } = useLanguage();
@@ -25,7 +23,8 @@ const Profile = () => {
    return (
       <div>
          <Head>
-            <meta name="description" content="A profile page" />
+            <title>{translate("profile.title", language)}</title>
+            <meta name="description" content="A generated messages history" />
          </Head>
          <div
             className="modal fade"

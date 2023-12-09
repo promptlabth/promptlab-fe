@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserGenerateMessage, GenerateMessage } from '@/models';
+import { UserGenerateMessage } from '@/models/promptMessages';
 import { serverApiUrl } from '@/constant';
 import { GetAccessToken } from './auth/auth_get_token';
 
@@ -28,31 +28,9 @@ async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage)
     }
 }
 
-
-async function generateMessage(GenerateMessage: GenerateMessage) {
-    const apiUrl = `${serverApiUrl}/generate-random-free`
-    try {
-
-        const requestOption = {
-            headers: { "Content-Type": "application/json" },
-        }
-        const response = await axios.post(
-            apiUrl,
-            GenerateMessage,
-            requestOption
-        );
-        console.log(response.data)
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        return { reply: 'Error Please try again' }
-    }
-
-}
-
 async function getMaxMessage() {
+    const apiUrl = `${serverApiUrl}/max-message`
     try {
-        const apiUrl = "https://prompt-lab-be-dev-uu4qhhj35a-as.a.run.app/max-message"
         const accessToken = await GetAccessToken()
         const requestOption = {
             headers: {
@@ -74,8 +52,8 @@ async function getMaxMessage() {
 }
 
 async function getCountMessages() {
+    const apiUrl = `${serverApiUrl}/get-count-message`
     try {
-        const apiUrl = "https://prompt-lab-be-dev-uu4qhhj35a-as.a.run.app/get-count-message"
         const accessToken = await GetAccessToken()
 
         const requestOption = {
@@ -99,8 +77,8 @@ async function getCountMessages() {
 }
 
 async function getRemainingMessage() {
+    const apiUrl = `${serverApiUrl}/remaining-message`
     try {
-        const apiUrl = "https://prompt-lab-be-dev-uu4qhhj35a-as.a.run.app/remaining-message"
         const accessToken = await GetAccessToken()
 
         const requestOption = {
@@ -121,4 +99,4 @@ async function getRemainingMessage() {
     }
 }
 
-export { generateMessageWithUser, generateMessage, getMaxMessage, getCountMessages, getRemainingMessage }
+export { generateMessageWithUser, getMaxMessage, getCountMessages, getRemainingMessage }

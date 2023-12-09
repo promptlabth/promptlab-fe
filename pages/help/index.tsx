@@ -67,14 +67,6 @@ const Help = () => {
                                     </div>
                                     <h4 className="fw-bold text-center"> EMAIL </h4>
                                     <div> isaman@promptlabai.com</div>
-                                    {/* <button className={styles.contact_us_btn} >
-                                       <AiOutlineMessage className="fs-5" />
-                                       <text className="ps-2">
-                                          {language === "th" && "สนใจติดต่อเรา"}
-                                          {language === "eng" && "Contact us"}
-                                          {language === "id" && "Hubungi kami"}
-                                       </text>
-                                    </button> */}
                                  </div>
                               </Col>
                            </Row>

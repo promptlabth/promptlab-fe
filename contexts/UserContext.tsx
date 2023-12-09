@@ -37,15 +37,45 @@ export function UserContextProvider({ children }: Props) {
    const router = useRouter()
    const [remainingMessage, setRemainingMessage] = useState<number>(0);
 
-
-   // TODO update remaining message function, called by other component
    const updateRemainingMessage = async () => {
       const remainingMessage = await getRemainingMessage();
       setRemainingMessage(remainingMessage);
    }
 
+   const setUserData = async (loginResult : any) => {
+      const remainingMessage = await getRemainingMessage();
 
-   // TODO handlw login function, called by other component
+      console.log("Login result", loginResult)
+      const userData: LoginUser = {
+         ...loginResult?.data.user,
+         ...loginResult?.data.plan,
+         plan_id: loginResult?.data.plan.id,
+         start_date: loginResult?.data.start_date,
+         end_date: loginResult?.data.end_date,
+      }
+      console.log("userData", userData)
+      setRemainingMessage(remainingMessage);
+      setUser(userData)
+   }
+
+   const UserLogin = async (token: string, loginFunction: () => any, platform: string, platformToken: string) => {
+      try {
+         const loginResult = await Login(token, platform, platformToken);
+         console.log("loginResult", loginResult)
+
+         // If login failed, try to login again
+         if (loginResult?.status != 200) {
+            console.error("Login failed, try again!")
+         } else {
+            console.log("Login success!")
+            setUserData(loginResult)
+         }
+
+      } catch (error) {
+         console.error("Error login:", error);
+      }
+   }
+
    const handleLogin = async (typeLogin: string) => {
       let result;
       let loginFunction;
@@ -86,7 +116,6 @@ export function UserContextProvider({ children }: Props) {
 
    }
 
-   // TODO handle logout function, called by other component
    const handleLogout = async () => {
       signOut(authFirebase).then(() => {
          localStorage.removeItem("at");
@@ -98,35 +127,6 @@ export function UserContextProvider({ children }: Props) {
       router.reload()
    }
 
-   // TODO user login function, called in this context.
-   const UserLogin = async (token: string, loginFunction: () => any, platform: string, platformToken: string) => {
-      try {
-         const loginResult = await Login(token, platform, platformToken);
-         console.log("loginResult", loginResult)
-
-         if (loginResult?.status != 200) {
-            console.error("Login failed, try again!")
-         } else {
-            console.log("Login success!")
-            const remainingMessage = await getRemainingMessage();
-            console.log("Remaining message", remainingMessage)
-
-            const userData: LoginUser = {
-               ...loginResult?.data.user,
-               ...loginResult?.data.plan,
-               plan_id: loginResult?.data.plan.id,
-               start_date: loginResult?.data.start_date,
-               end_date: loginResult?.data.end_date,
-            }
-            setRemainingMessage(remainingMessage);
-            setUser(userData)
-         }
-
-
-      } catch (error) {
-         console.error("Error login:", error);
-      }
-   }
 
    const getUserData = async () => {
       try {
@@ -147,13 +147,13 @@ export function UserContextProvider({ children }: Props) {
          }
          const accessToken = await GetAccessToken();
          const platformToken = localStorage.getItem("pat") ?? '';
-
-
          UserLogin(accessToken, loginFunction, typeLogin, platformToken)
       } catch (error) {
          console.error("Error get user data:", error);
       }
    }
+
+   
 
    useEffect(() => {
       // todo get user data
