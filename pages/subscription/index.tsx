@@ -20,11 +20,6 @@ export default function Subscription() {
   const prize_id_silver = "price_1OL63sAom1IgIvKKgmy5sZRC";
   const prize_id_gold = "price_1OL65sAom1IgIvKKvqxaLRZu";
 
-  useEffect(() => {
-    if (!userContext?.user) {
-      router.push("/");
-    }
-  })
 
   // This function is soonly used to handle the checkout session 
   const handleCheckoutSession = async (prize_id: string, plan_id: number) => {
@@ -84,16 +79,16 @@ export default function Subscription() {
                         <small>
                           <BsCheckCircle
                             size={16}
-                            className="me-3"
+                            className="me-2"
                           ></BsCheckCircle>
-                          3 {translate("subscription.message", language)}
+                          60 {translate("subscription.message", language)}
                         </small>
                       </Row>
                       <Row>
                         <small>
                           <BsCheckCircle
                             size={16}
-                            className="me-3"
+                            className="me-2"
                           ></BsCheckCircle>
                           {translate("subscription.community", language)}
                         </small>
@@ -134,16 +129,16 @@ export default function Subscription() {
                         <small>
                           <BsCheckCircle
                             size={16}
-                            className="me-3"
+                            className="me-2"
                           ></BsCheckCircle>
-                          25 {translate("subscription.message", language)}
+                          300 {translate("subscription.message", language)}
                         </small>
                       </Row>
                       <Row>
                         <small>
                           <BsCheckCircle
                             size={16}
-                            className="me-3"
+                            className="me-2"
                           ></BsCheckCircle>
                           {translate("subscription.chat", language)} &#40;Coming Soon&#41;
                         </small>
@@ -152,7 +147,7 @@ export default function Subscription() {
                         <small>
                           <BsCheckCircle
                             size={16}
-                            className="me-3"
+                            className="me-2"
                           ></BsCheckCircle>
                           {translate("subscription.support", language)}
                         </small>
@@ -193,16 +188,16 @@ export default function Subscription() {
                         <small>
                           <BsCheckCircle
                             size={16}
-                            className="me-3"
+                            className="me-2"
                           ></BsCheckCircle>
-                          50 {translate("subscription.message", language)}
+                          1500 {translate("subscription.message", language)}
                         </small>
                       </Row>
                       <Row>
                         <small>
                           <BsCheckCircle
                             size={16}
-                            className="me-3"
+                            className="me-2"
                           ></BsCheckCircle>
                           {translate("subscription.chat", language)} &#40;Coming Soon&#41;
                         </small>
@@ -211,7 +206,7 @@ export default function Subscription() {
                         <small>
                           <BsCheckCircle
                             size={16}
-                            className="me-3"
+                            className="me-2"
                           ></BsCheckCircle>
                           {translate("subscription.support", language)}
                         </small>
@@ -252,16 +247,16 @@ export default function Subscription() {
                         <small>
                           <BsCheckCircle
                             size={16}
-                            className="me-3"
+                            className="me-2"
                           ></BsCheckCircle>
-                          100 {translate("subscription.message", language)}
+                          3000 {translate("subscription.message", language)}
                         </small>
                       </Row>
                       <Row>
                         <small>
                           <BsCheckCircle
                             size={16}
-                            className="me-3"
+                            className="me-2"
                           ></BsCheckCircle>
                           {translate("subscription.chat", language)} &#40;Coming Soon&#41;
                         </small>
@@ -270,7 +265,7 @@ export default function Subscription() {
                         <small>
                           <BsCheckCircle
                             size={16}
-                            className="me-3"
+                            className="me-2"
                           ></BsCheckCircle>
                           {translate("subscription.support", language)}
                         </small>

@@ -382,7 +382,7 @@ const TableComponents = (config: pageConfig) => {
                            overlay={
                               <Tooltip className={`${noto_sans_thai.className}`} id="generate-count-tooltip" >
                                  {/* <div className={`${styles.generate_count_tooltip}`}> */}
-                                 เดือนนี้คุณสามารถสร้างข้อความได้ {userContext?.user?.maxMessages} ครั้ง!
+                                 {translate("table.messageInMonth1", language)} {userContext?.user?.maxMessages} {translate("table.messageInMonthUnit", language)}!
                                  {/* </div> */}
                               </Tooltip>
                            }

@@ -64,7 +64,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
          className={`${noto_sans_thai.className}  navbar navbar-expand-lg navbar-dark bg-dark fixed-top`}
       >
          <div className={`container d-flex mt-auto`}>
-            <Link href={"/"} className={styles.navbar_header} style={{textDecoration:"none"}}>
+            <Link href={"/"} className={styles.navbar_header} style={{ textDecoration: "none" }}>
                <h3>Prompt Lab AI</h3>
             </Link>
             <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0">
@@ -174,19 +174,22 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                            </button>
                         </div>
                      </li>
-                     <li className="nav-item">
-                        <div className="nav-link">
-                           <button className={`${styles.navbar_help_button}`}>
-                              <MdWorkspacePremium />
-                              <Link
-                                 href={"/subscription"}
-                                 className={`${styles.remove_underline} ms-2`}
-                              >
+                     {userContext?.user?.planType === "Free" &&
+                        <li className="nav-item">
+                           <div className="nav-link">
+                              <button className={`${styles.navbar_help_button}`}>
+                                 <MdWorkspacePremium />
+                                 <Link
+                                    href={"/subscription"}
+                                    className={`${styles.remove_underline} ms-2`}
+                                 >
+                                    {translate("subscription", language)}
+                                 </Link>
+                              </button>
+                           </div>
+                        </li>
 
-                              </Link>
-                           </button>
-                        </div>
-                     </li>
+                     }
                      <li className="nav-item">
                         <div className="nav-link">
                            <button className={styles.navbar_help_button}>
@@ -357,7 +360,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                            </li>
                         </ul>
                      </li>
-                     {userContext?.user?.planType! === "free" && (
+                     {userContext?.user?.planType! === "Free" && (
                         <li className="nav-item">
                            <div className="nav-link">
                               <button className={styles.navbar_help_button}>
@@ -367,9 +370,8 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                                     style={{ fontSize: 18 }}
                                  >
                                     {translate("subscription", language)}
-                                    <div style={{ marginTop:"-0.5rem" }}>
+                                    <div style={{ marginTop: "-0.5rem" }}>
                                        <MdNewReleases color="orange" />
-
                                     </div>
                                  </Link>
                               </button>
@@ -416,7 +418,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                            <li><div className="text-white text-center fs-5 fw-semibold text">{userContext?.user?.name}</div></li>
 
 
-                           {userContext?.user?.plan_id &&
+                           {userContext?.user?.planType !== "Free" &&
                               <>
                                  <li className="d-flex justify-content-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 28 28" fill="none">

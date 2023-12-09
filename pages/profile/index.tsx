@@ -16,15 +16,12 @@ dayjs.extend(utc); // Extend dayjs with the utc plugin
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 const Profile = () => {
    const userContext = useUserContext();
+   const [user, setUser] = React.useState<any>(null)
    const router = useRouter()
    const [starDate, setStartDate] = React.useState<Date | null>(null);
    const [endDate, setEndDate] = React.useState<Date | null>(null);
    const { language } = useLanguage();
-   useEffect(() => {
-      if (!userContext?.user) {
-         router.push('/')
-      }
-   }, [])
+
    return (
       <div>
          <Head>
@@ -62,7 +59,7 @@ const Profile = () => {
                         <p className="mb-1" style={{ color: "red" }}>
                            {translate("subscription.cancle.sure_contact", language)} {" "}
                            <b><u>isaman@promptlabai.com</u></b>
-                        </p>   
+                        </p>
                         {/* <button
                            type="button"
                            className={`btn btn-danger mb-2 ${styles.cancle_btn}`}
@@ -153,19 +150,19 @@ const Profile = () => {
                         <div className="text-start">
                            <Row>
                               <div>
-                                 <BsCheckCircle size={16} className="me-3"/>
+                                 <BsCheckCircle size={16} className="me-3" />
                                  {userContext?.user?.maxMessages} {translate("subscription.message", language)}
                               </div>
                            </Row>
                            <Row>
                               <div>
-                                 <BsCheckCircle size={16} className="me-3"/>
+                                 <BsCheckCircle size={16} className="me-3" />
                                  {translate("subscription.chat", language)} &#40;Coming Soon&#41;
                               </div>
                            </Row>
                            <Row>
                               <div>
-                                 <BsCheckCircle size={16} className="me-3"/>
+                                 <BsCheckCircle size={16} className="me-3" />
                                  {translate("subscription.support", language)}
                               </div>
                            </Row>
