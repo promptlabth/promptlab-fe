@@ -13,7 +13,7 @@ import { BsCheckCircle } from "react-icons/bs";
 import { CheckoutSessionRequest } from "@/models/dto/requests/PaymentRequest";
 import { useUserContext } from "@/contexts/UserContext";
 import { subscriptionPlanColorMap } from "@/constant";
-import { toast } from 'react-toastify';
+import { prizeIdBronze, prizeIdSilver, prizeIdGold } from "@/constant";
 import 'react-toastify/dist/ReactToastify.css';
 import Head from "next/head";
 import SubscriptionFailedModal from "@/components/modals/SubscriptionFailed";
@@ -23,9 +23,6 @@ export default function Subscription() {
   const userContext = useUserContext();
   const router = useRouter();
   const { language } = useLanguage();
-  const prizeBronzeId = "price_1OL65UAom1IgIvKKzJK7unnC";
-  const prizeSilverId = "price_1OL63sAom1IgIvKKgmy5sZRC";
-  const prizeGoldId = "price_1OL65sAom1IgIvKKvqxaLRZu";
 
   // const subscriptionPriorityMap: { [key: string]: number } = {
   //   "Free": 1,
@@ -192,7 +189,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handleCheckoutSession(prizeBronzeId, 2)
+                        handleCheckoutSession(prizeIdBronze, 2)
                       }
                     >
                       {translate("subscription.buy", language)}
@@ -251,7 +248,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handleCheckoutSession(prizeSilverId, 3)
+                        handleCheckoutSession(prizeIdSilver, 3)
                       }
                     >
                       {translate("subscription.buy", language)}
@@ -310,7 +307,7 @@ export default function Subscription() {
                         bottom: -30,
                       }}
                       onClick={() =>
-                        handleCheckoutSession(prizeGoldId, 4)
+                        handleCheckoutSession(prizeIdGold, 4)
                       }
                     >
                       {translate("subscription.buy", language)}
