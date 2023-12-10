@@ -73,12 +73,12 @@ const Profile = () => {
                            {translate( "subscription.canclesubscription", language)}
                         </button>
                         <br />
-                        <a
+                        <button
                            data-bs-dismiss="canclepage"
                            style={{ color: "red", textDecoration: "underline" }}
                         >
                            <small> {translate("subscription.canclesubscription.cancel",language)} </small>
-                        </a>
+                        </button>
                      </div>
                   </div>
                </div>
