@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "../../languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
-import { Nav } from "react-bootstrap";
 import { urlLinks } from "../../constant";
 import { useRouter } from "next/router";
 import { useDraggable } from "react-use-draggable-scroll";
@@ -25,7 +24,7 @@ export const AppTabbar: React.FC = () => {
 
 
   return (
-    <div className={`${noto_sans_thai.className}   bg-dark`} >
+    <div className={`${noto_sans_thai.className} bg-dark`} >
       <div className={`${styles.container}`}>
         <div className={`${styles.scroll} `} {...events} ref={ref}>
           <div className="">
@@ -43,23 +42,6 @@ export const AppTabbar: React.FC = () => {
               </Link>
             ))}
           </div>
-          {/* 
-          <li className="">
-            {urlLinks.map(({ href }, index) => (
-              <Link 
-                className={styles.btn} 
-                href={href} 
-                key={index}
-                style={{ 
-                  background: href === router.pathname ? "none" : "rgb(0, 255, 171,0.8)",
-                  color: href === router.pathname ? "white" : ""
-                }}
-              >
-                {titles[index]}
-              </Link>
-            ))}
-          </li> 
-          */}
         </div>
       </div>
     </div>

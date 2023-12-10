@@ -1,13 +1,16 @@
 import axios from 'axios';
-import { UserGenerateMessage , GenerateMessage, OldGenerateMessage, OldUserGenerateMessage} from '@/models';
+import { UserGenerateMessage } from '@/models/promptMessages';
+import { serverApiUrl } from '@/constant';
+import { GetAccessToken } from './auth/auth_get_token';
 
 async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage) {
-    const apiUrl = "https://prompt-lab-be-uu4qhhj35a-as.a.run.app/generate-random"
+    const apiUrl = `${serverApiUrl}/generate-random`
     try {
 
-        const requestOption = { 
-            headers: { 
-                "Authorization": `Bearer ${localStorage.getItem("at")}`,
+        const accessToken = await GetAccessToken()
+        const requestOption = {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
                 "RefreshToken": `Bearer ${localStorage.getItem("rt")}`
             },
         }
@@ -16,83 +19,84 @@ async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage)
             UserGenerateMessage,
             requestOption
         );
-        
+
         console.log(response.data)
         return response.data;
     } catch (error) {
         console.error(error);
-        return { reply: 'Error Please try again'}
+        return { reply: 'Error Please try again' }
     }
 }
 
-async function oldGenerateMessageWithUser(UserGenerateMessage: OldUserGenerateMessage) {
-    const apiUrl = "https://prompt-lab-be-uu4qhhj35a-as.a.run.app/generate-random"
+async function getMaxMessage() {
+    const apiUrl = `${serverApiUrl}/max-message`
     try {
-
-        const requestOption = { 
-            headers: { 
-                "Authorization": `Bearer ${localStorage.getItem("at")}`,
-                "RefreshToken": `Bearer ${localStorage.getItem("rt")}`
+        const accessToken = await GetAccessToken()
+        const requestOption = {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
             },
         }
-        const response = await axios.post(
+        const response = await axios.get(
             apiUrl,
-            UserGenerateMessage,
             requestOption
         );
-        
+
         console.log(response.data)
-        return response.data;
+
+
     } catch (error) {
         console.error(error);
-        return { reply: 'Error Please try again'}
+        return { reply: 'Error Please try again' }
     }
 }
 
-async function generateMessage(GenerateMessage: GenerateMessage) {
-    const apiUrl = "https://prompt-lab-be-uu4qhhj35a-as.a.run.app/generate-random-free"
+async function getCountMessages() {
+    const apiUrl = `${serverApiUrl}/get-count-message`
     try {
+        const accessToken = await GetAccessToken()
 
-        const requestOption = { 
-            headers: { "Content-Type": "application/json" },
+        const requestOption = {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
+            },
         }
-        const response = await axios.post(
+        const response = await axios.get(
             apiUrl,
-            GenerateMessage,
             requestOption
         );
+
         console.log(response.data)
-        return response.data;
+
+
     } catch (error) {
         console.error(error);
-        return { reply: 'Error Please try again'}
+        return { reply: 'Error Please try again' }
     }
 
 }
 
-async function oldGenerateMessage(GenerateMessage: OldGenerateMessage) {
-    const apiUrl = "https://prompt-lab-be-uu4qhhj35a-as.a.run.app/generate"
+async function getRemainingMessage() {
+    const apiUrl = `${serverApiUrl}/remaining-message`
     try {
-        console.log(GenerateMessage)
-        const requestOption = { 
-            headers: { "Content-Type": "application/json" },
+        const accessToken = await GetAccessToken()
+
+        const requestOption = {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
+            },
         }
-        const response = await axios.post(
+
+        const response = await axios.get(
             apiUrl,
-            GenerateMessage,
             requestOption
         );
-        console.log(response.data)
-        return response.data;
+
+        return response.data
     } catch (error) {
         console.error(error);
-        return { reply: 'Error Please try again'}
+        return { reply: 'Error Please try again' }
     }
-
 }
 
-
-
-
-
-export { generateMessageWithUser, generateMessage, oldGenerateMessage, oldGenerateMessageWithUser }
+export { generateMessageWithUser, getMaxMessage, getCountMessages, getRemainingMessage }

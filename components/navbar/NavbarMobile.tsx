@@ -15,25 +15,14 @@ import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaClosedCaptioning } from "react-icons/fa";
 import { useUserContext } from "@/contexts/UserContext";
 import { FcGoogle } from "react-icons/fc"
-import { BsFacebook, BsFillCircleFill } from "react-icons/bs"
-import { RxAvatar } from "react-icons/rx"
+import { BsFacebook, } from "react-icons/bs"
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
-const btn_google = {
-  width: "80%",
-  fontSize: "16px",
-  color: "rgba(0, 0, 0, 0.56)",
-  backgroundColor: "#fff",
-  border: ":1px solid #000",
-  transition: "background-color 0.3s, color 0.3s"
-}
 
 
 export const NavbarMobile: React.FC = () => {
    const userContext = useUserContext()
    const { language, setLanguage } = useLanguage();
-   const [isHovering, setIsHovering] = useState(false);
    const [windowWidth, setWindowWidth] = useState(0);
 
    useEffect(() => {
@@ -94,7 +83,7 @@ export const NavbarMobile: React.FC = () => {
          <nav className={`${noto_sans_thai.className} navbar navbar-expand-lg navbar-dark bg-dark fixed-top`}>
             <div className={`container ${styles.navbar_container} d-flex mt-auto`}>
                <div className={styles.navbar_header}>
-                  <h3>Prompt Lab</h3>
+                  <h3>Prompt Lab AI</h3>
                </div>
                <ul className="navbar-nav mt-auto mb-auto ms-auto mb-lg-0">
 
@@ -180,7 +169,7 @@ export const NavbarMobile: React.FC = () => {
                                     {language === "id" && <Flag country="ID" className={`${styles.flag_size}`} />}
                                  </a>
                                  <ul
-                                    className="dropdown-menu dropdown-menu-dark"
+                                    className="dropdown-menu dropdown-menu-dark "
                                     aria-labelledby="navbarDropdown"
                                  >
                                     <li>

@@ -1,4 +1,4 @@
-import { useState, useEffect, } from "react";
+import { useState, useEffect} from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill, BsFacebook } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from "react-icons/io";
@@ -11,50 +11,31 @@ import { FaClosedCaptioning } from 'react-icons/fa';
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "../../languages/language";
 import { Col, Container, Row } from "react-bootstrap";
-import { generateMessage, generateMessageWithUser, oldGenerateMessage, oldGenerateMessageWithUser } from "@/api/GenerateMessageAPI";
+import { generateMessageWithUser } from "@/api/GenerateMessageAPI";
 import { ImCross } from 'react-icons/im';
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
 import { Tones } from "@/models/tones";
-import { GenerateMessage, UserGenerateMessage, OldGenerateMessage, OldUserGenerateMessage } from "@/models";
 import { useUserContext } from "@/contexts/UserContext";
 import { features } from "@/constant";
 import { usePathname } from 'next/navigation'
-import { GetTonesByID } from "@/api/ToneAPI";
 import { FcGoogle } from "react-icons/fc";
+import { IoMdInformationCircle } from 'react-icons/io'
+import { FaInfoCircle } from "react-icons/fa";
+import Link from "next/link";
+import { GenerateMessage, Prompt } from "@/models/promptMessages";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
-type Prompt = {
-   input: string;
-   tone_id: number;
-   message: string;
-   generate_status: boolean;
-};
-
-// Define an OpenAI configuration data type
-// @Attribute
-// modelConfig: Represents the configuration data for OpenAI.
-// It is an object with the following properties:
-// - model: A string representing the model to be used. e.g. "gpt-3.5-turbo", "gpt-4.0"
-// - temperature: A number representing the temperature value for generating text.
-// - maxToken: A number representing the maximum number of tokens allowed in the generated text.
-export type modelCofig = {
-   model: string;
-   temperature: number;
-   maxToken: number;
-}
 
 // Define a Page configuration data type
 // @Attribute
 // -  titilePage : A string representing title of page
 // -  titleDescription : A string representing page description, which describe what a page is.
-// -  modelConfig: A configuration object for the page, specifying the OpenAI model and its settings.
 // -  getPrompt: A function that takes an input string and a type string as parameters, and 
 //    returns a generated message based on the provided prompt and language.
 type pageConfig = {
    titlePage: string;
    titleDescription: string;
-   modelConfig: modelCofig;
    prompt: (input: string, type: string) => string;
 }
 
@@ -123,10 +104,8 @@ const TableComponents = (config: pageConfig) => {
 
    const GenerateButton = ({ index, generate_status }: { index: number, generate_status: boolean }) => {
       const handleClick = () => {
-         /* 
-         
-         */
-         if (userContext?.user != null) {
+
+         if (userContext?.user != null && userContext?.remainingMessage > 0) {
             setPrompts((prevComponents) => {
                const updatedComponents = [...prevComponents];
                updatedComponents[index] = {
@@ -143,11 +122,12 @@ const TableComponents = (config: pageConfig) => {
          <>
             <div
                className={`modal fade ${noto_sans_thai.className} `}
-               id="loginModal"
+               id="Modal"
                tabIndex={-1}
                aria-labelledby="loginModallLabel"
                aria-hidden="true"
             >
+
                <div className={`modal-dialog modal-dialog-centered`}>
                   <div className={`modal-content`}>
                      <div className={`modal-body text-center mb-4`}>
@@ -159,27 +139,69 @@ const TableComponents = (config: pageConfig) => {
                               aria-label="Close"
                            ></button>
                         </div>
-                        <h4 className="mb-4">กรุณาเข้าสู่ระบบก่อนกด Generate</h4>
-                        <Row className="row">
-                           <Col className="d-flex flex-column align-items-center">
-                              <button className={` mb-3 ${styles.btn}`} onClick={() => { userContext?.handleLogin("facebook") }}>
-                                 <BsFacebook
-                                    className="me-3 align-items-start"
-                                    fontSize={20}
-                                 ></BsFacebook>
-                                 Sign in with facebook
-                              </button>
-                              <p style={{ color: "#c2c2c2" }}>- or -</p>
-                              <button className={`${styles.btn_google}`} onClick={() => { userContext?.handleLogin("gmail") }}>
-                                 <FcGoogle className="me-3" fontSize={20}></FcGoogle>
-                                 Sign in with google
-                              </button>
-                           </Col>
-                        </Row>
+                        {userContext?.user == null &&
+                           <>
+                              <h4 className="mb-4">กรุณาเข้าสู่ระบบก่อนกด Generate</h4>
+                              <Row className="row">
+                                 <Col className="d-flex flex-column align-items-center">
+                                    <button className={` mb-3 ${styles.btn}`} onClick={() => { userContext?.handleLogin("facebook") }}>
+                                       <BsFacebook
+                                          className="me-3 align-items-start"
+                                          fontSize={20}
+                                       ></BsFacebook>
+                                       Sign in with facebook
+                                    </button>
+                                    <p style={{ color: "#c2c2c2" }}>- or -</p>
+                                    <button className={`${styles.btn_google}`} onClick={() => { userContext?.handleLogin("gmail") }}>
+                                       <FcGoogle className="me-3" fontSize={20}></FcGoogle>
+                                       Sign in with google
+                                    </button>
+                                 </Col>
+                              </Row>
+                           </>
+                        }
+                        {userContext?.remainingMessage! <= 0 &&
+                           <>
+                              <div className="p-2 pb-4">
+                                 <FaInfoCircle size={110} />
+                              </div>
+                              <h4 className="mb-4 fw-bold"> {translate("modal.noRemainingMessage.title", language)} </h4>
+                              <Row className="row">
+                                 <h5 className="text-black-50"> {translate("modal.noRemainingMessage.description", language)} </h5>
+                                 <h5 className="text-black-50"> {translate("modal.noRemainingMessage.subscription", language)} </h5>
+
+                                 <div className="ps-4 pe-4">
+                                    <Row>
+                                       <Col className="m-1" sm>
+                                          <button
+                                             className={`${styles.no_remaining_message_subscription_button}`}
+                                             data-bs-dismiss="modal"
+                                             aria-label="Close"
+                                          >
+                                             <Link href="/subscription" style={{ textDecoration: "none", color: "black" }}>
+                                                {translate("modal.noRemainingMessage.subscriptionButton", language)}
+                                             </Link>
+                                          </button>
+                                       </Col>
+                                       <Col className="m-1" sm>
+                                          <button
+                                             type="button"
+                                             className={`${styles.no_remaining_message_close_button}`}
+                                             data-bs-dismiss="modal"
+                                             aria-label="Close"
+                                          > Back </button>
+                                       </Col>
+                                    </Row>
+                                 </div>
+                              </Row>
+                           </>
+                        }
                      </div>
                   </div>
                </div>
             </div>
+
+
             {generate_status ?
                <button
                   className={styles.page_prompt_loading_generate_btn}
@@ -197,10 +219,8 @@ const TableComponents = (config: pageConfig) => {
                </button>
                :
                <button
-                  data-bs-toggle={`${userContext?.user == null ? "modal" : ""}`}
-
-                  // data-bs-target="#loginModal"
-                  data-bs-target={`${userContext?.user == null ? "#loginModal" : ""}`}
+                  data-bs-toggle={`${userContext?.user == null || userContext.remainingMessage <= 0 ? "modal" : ""}`}
+                  data-bs-target={`${userContext?.user == null || userContext.remainingMessage <= 0 ? "#Modal" : ""}`}
                   className={styles.page_prompt_generate_btn}
                   type="button"
                   onClick={handleClick}
@@ -222,26 +242,26 @@ const TableComponents = (config: pageConfig) => {
       const { input, tone_id } = prompts[index];
       try {
 
-         const data: GenerateMessage = {
-            input_message: input,
-            tone_id: tone_id,
-            feature_id: features[config.titlePage],
-         }
+         if (userContext?.remainingMessage == 0) {
+            console.log("No remaining message")
+         } else {
+            const data: GenerateMessage = {
+               input_message: input,
+               tone_id: tone_id,
+               feature_id: features[config.titlePage],
+            }
 
-         const result = userContext?.user == null ?
-            await generateMessage(data) :
-            await generateMessageWithUser(data)
-         // const result = await generateMessage(data)
-         console.log(result)
-         const message = result.reply
-         if (result) {
-            setPrompts((prevComponents) => {
-               const updatedComponents = [...prevComponents];
-               updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
-               return updatedComponents;
-            });
+            const result = await generateMessageWithUser(data)
+            const message = result.reply
+            if (result) {
+               setPrompts((prevComponents) => {
+                  const updatedComponents = [...prevComponents];
+                  updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
+                  return updatedComponents;
+               });
+               userContext?.updateRemainingMessage()
+            }
          }
-
 
       } catch {
          setPrompts((prevComponents) => {
@@ -306,6 +326,7 @@ const TableComponents = (config: pageConfig) => {
       }
    }, [prompts]);
 
+
    return (
       <div className={noto_sans_thai.className}>
          <Container fluid={true} className="p-0 bg-dark bg-lighten-xs pt-5">
@@ -322,6 +343,32 @@ const TableComponents = (config: pageConfig) => {
                </figure>
 
                <Container fluid={true} className={styles.page_prompt_area}>
+                  <div className={`pb-2 d-flex justify-content-end`}>
+                     <div className={`d-flex ${styles.generate_count_layout}`}>
+                        <AiOutlineSend className="text-white me-2" size={20} />
+                        <div className="text-white"> 
+                           {userContext?.remainingMessage! < 0 ? 0 : userContext?.remainingMessage}&#47;{userContext?.user?.maxMessages}  
+                        </div>
+
+                        <OverlayTrigger
+                           placement={'top'}
+                           delay={{ show: 150, hide: 250 }}
+                           trigger={['hover', 'focus']}
+                           overlay={
+                              <Tooltip className={`${noto_sans_thai.className}`} id="generate-count-tooltip" >
+                                 {/* <div className={`${styles.generate_count_tooltip}`}> */}
+                                 {translate("table.messageInMonth1", language)} {userContext?.user?.maxMessages} {translate("table.messageInMonthUnit", language)}!
+                                 {/* </div> */}
+                              </Tooltip>
+                           }
+                        >
+                           <a href="" onClick={(e) => e.preventDefault()}>
+                              <IoMdInformationCircle className="text-white ms-2" size={22} />
+                           </a>
+                        </OverlayTrigger>
+                     </div>
+                  </div>
+
                   {prompts.map(({ input, tone_id, message, generate_status }, index) => (
                      <Row key={index} className={styles.page_prompt_area_row}>
                         <div className="pt-1 pe-1 justify-content-end d-flex">

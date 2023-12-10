@@ -1,0 +1,48 @@
+.back_button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 60%;
+    height: 40px;
+    background-color: #44AA4E;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    align-items: center;
+    border: none;
+    text-decoration: none;
+    outline: none;
+    border-radius: 20px;
+  }
+  
+  .back_button:hover {
+    background-color: #56D263;
+    transform: scale(1.02);
+  }
+  
+  .back_button:active {
+    background-color: #44AA4E;
+  }
+  
+  .back_button:focus {
+    background-color: #44AA4E;
+}
+
+.subscription_success_container {
+    margin-top: 50px;
+}
+
+.subscription_success_bg {
+    border-radius: 20px;
+    background-color: rgba(217, 217, 217, 0.10);
+}
+
+/* If screen width < 500, make static width */
+@media only screen and (max-width: 500px) {
+    .subscription_success_container {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+}

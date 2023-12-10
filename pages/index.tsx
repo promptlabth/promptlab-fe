@@ -7,12 +7,26 @@ import Head from "next/head";
 import styles from "./styles.module.css";
 import Link from 'next/link';
 import { TikTokEmbed } from 'react-social-media-embed';
+import 'react-toastify/dist/ReactToastify.css';
+import SubscriptionModal from '@/components/subscription';
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import { useUserContext } from '@/contexts/UserContext';
+
 export default function Home() {
    const { language } = useLanguage();
-   const featureLinks: string[] = ["/createSellingPost", "/createIdeaContent", "/createArticle", "/createShortVideoScripts", "/createClickBaitWord"]
-   const randomIndex = Math.floor(Math.random() * featureLinks.length);
+   const userContext = useUserContext()
+   const [showModal, setShowModal] = useState(false);
 
-   
+   useEffect(() => {
+      // Check if the user has already seen the modal
+      const modalShown = Cookies.get('modalShown');
+      if (modalShown === undefined) {
+         // If not, show the modal
+         setShowModal(true);
+      }
+   }, []);
+
    return (
       <>
          <Head>
@@ -23,6 +37,7 @@ export default function Home() {
             />
          </Head>
          <div className={noto_sans_thai.className}>
+            {userContext?.user?.planType === "Free" && showModal && <SubscriptionModal show={showModal} />}
             <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">
                <figure className="text-center pt-4 pb-4 text-light">
                   <blockquote className="blockquote">
@@ -32,7 +47,7 @@ export default function Home() {
                      <h6> {translate("home.description", language)} </h6>
                   </figcaption>
 
-                  <Link href={featureLinks[randomIndex]}>
+                  <Link href="/subscription">
                      <button className={`${styles.btn} mt-3`}>JOIN NOW</button>
                   </Link>
                </figure>
@@ -40,18 +55,22 @@ export default function Home() {
                   <Container className={`${styles.gray} ${styles.container}`}>
                      <figure className="text-center pt-4 pb-1 text-light">
                         <h3>
-                           <b> {translate("home.what_promptlab_look_like", language)}</b>
+                           <b>
+                              {" "}
+                              {translate("home.what_promptlab_look_like", language)}
+                           </b>
                         </h3>
                      </figure>
 
                      <div className="d-flex justify-content-center pb-4 mb-4">
-                        <TikTokEmbed url="https://www.tiktok.com/@coderbizz/video/7218015296366431514" width={325} />
+                        <TikTokEmbed
+                           url="https://www.tiktok.com/@coderbizz/video/7218015296366431514"
+                           width={325}
+                        />
                      </div>
-                    
+
                      <div className={`row mb-2`}>
-                        <div
-                           className={`col-sm-4 mb-3 col-lg-5 ${styles.marginleft}`}
-                        >
+                        <div className={`col-sm-4 mb-3 col-lg-5 ${styles.marginleft}`}>
                            <img
                               className={`${styles.rounded} float-start img-fluid`}
                               src="/images/prompt_lab_logo.png"
@@ -59,15 +78,23 @@ export default function Home() {
                               height={300}
                               alt="PromptLabLogo"
                            ></img>
-                           
                         </div>
 
                         <div className="col-sm-8 col-lg-5">
                            <figure className="text-start pt-2 pb-2 text-light">
                               <h4 className="mb-4">
-                                 <b> {translate("home.what_is_promptlab.title", language)}</b>
+                                 <b>
+                                    {" "}
+                                    {translate("home.what_is_promptlab.title", language)}
+                                 </b>
                               </h4>
-                              <p> {translate("home.what_is_promptlab.description", language)} </p>
+                              <p>
+                                 {" "}
+                                 {translate(
+                                    "home.what_is_promptlab.description",
+                                    language
+                                 )}{" "}
+                              </p>
                            </figure>
                         </div>
                      </div>
@@ -84,9 +111,21 @@ export default function Home() {
                         >
                            <figure className="text-start text-light">
                               <h4 className="mb-4">
-                                 <b> {translate("home.unlock_your_cretivity.title", language)} </b>
+                                 <b>
+                                    {" "}
+                                    {translate(
+                                       "home.unlock_your_cretivity.title",
+                                       language
+                                    )}{" "}
+                                 </b>
                               </h4>
-                              <p> {translate("home.unlock_your_cretivity.description", language)}</p>
+                              <p>
+                                 {" "}
+                                 {translate(
+                                    "home.unlock_your_cretivity.description",
+                                    language
+                                 )}
+                              </p>
                            </figure>
                         </div>
                      </div>

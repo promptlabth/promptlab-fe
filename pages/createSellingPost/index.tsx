@@ -1,11 +1,8 @@
 import { translate } from "@/languages/language";
 import TableComponents from "@/components/tableComponnets/TableComponents";
-import { Language, useLanguage } from "@/contexts/LanguageContext";
+import {  Language, useLanguage } from "@/contexts/LanguageContext";
 import Head from "next/head";
 const CreateSellingPost = () => {
-   /* 
-   ใช้ idToken ในการ authen และ extract ข้อมูล
-   */
    const { language } = useLanguage();
    return (
       <div>
@@ -16,11 +13,6 @@ const CreateSellingPost = () => {
          <TableComponents
             titlePage="createSellingPost.title"
             titleDescription="createSellingPost.description"
-            modelConfig={{
-               model: "gpt-3.5-turbo",
-               temperature: 0.7,
-               maxToken: 4000
-            }}
             prompt={(input: string, type: string) => getPrompt(input, type, language)}
          />
       </div>
@@ -28,16 +20,17 @@ const CreateSellingPost = () => {
 
 }
 
-const getPrompt = (input: string, type: string, language: 'eng' | 'th' | 'id'): string => {
-   if (language === 'eng') {
-      return `Write a social media announcement about [${input}] and the feeling of message is [${type}]:`
-   } else if (language === 'th') {
-       return `Write a social media announcement about [${input}] and the feeling of message is [${type}] [เป็นภาษาไทยเท่านั้น]:`
-   } else if (language === 'id') {
-      return `Write a social media announcement about [${input}] and the feeling of message is [${type}] [in Bahasa Indonesia Only]:`
+const getPrompt = (input: string, type: string, language: Language): string => {
+   switch (language) {
+      case 'eng':
+         return `Write a social media announcement about [${input}] and the feeling of message is [${type}]:`;
+      case 'th':
+         return `Write a social media announcement about [${input}] and the feeling of message is [${type}] [เป็นภาษาไทยเท่านั้น]:`;
+      case 'id':
+         return `Write a social media announcement about [${input}] and the feeling of message is [${type}] [in Bahasa Indonesia Only]:`;
+      default:
+         return `Write a social media announcement about [${input}] and the feeling of message is [${type}]:`;
    }
-
-   return `Write a social media announcement about [${input}] and the feeling of message is [${type}]:`
 };
 
 

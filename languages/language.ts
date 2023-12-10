@@ -1,7 +1,7 @@
 // translations.ts
 import translationsJson from "./language.json";
 
-type Language = 'eng' | 'th' | 'id';
+type Language = "eng" | "th" | "id";
 type Translations = {[key in Language]: { [key: string]: string };};
 
 // Read datas from language.json
@@ -28,5 +28,5 @@ export function translate(key: string, language?: Language): string {
 }
 
 export const isTh = (): boolean => {
-   return currentLanguage === 'th';
+   return currentLanguage === "th";
 };

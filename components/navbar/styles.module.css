@@ -26,6 +26,10 @@
     padding-left: 2.5rem;
 }
 
+.navbar_header:hover {
+    color: #00FFAB; /* Keep the same color on hover */
+  }
+
 .navbar_container {
     width: 75%;
     /* opacity: 40%; */
@@ -315,8 +319,8 @@
     border-radius: 50%;
 }
 
-.user_profile_pic_desktop {
 
+.user_profile_pic_desktop {
     width: 40px;
 }
 
@@ -330,6 +334,24 @@
     margin-left: -2rem;
 }
 
+.subscription_manage_btn {
+    border-radius: 204px;
+    border: 1.5px solid #FFF;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.25rem;
+    text-decoration: none;
+    padding-bottom: 0.25rem;
+    color: white;
+    background: none;
+    transition: 0.3s ease;
+}
+
+.subscription_manage_btn:hover {
+    background: white;
+    color: black;
+    border: 1.5px solid #000000;
+}
 .login_dropdown_history_menu {
     color: #ffffff;
     /* opacity: 0.4; */
@@ -341,7 +363,7 @@
 .login_dropdown_history_menu:hover {
     color: #00FFAB;
 
-    
+
 }
 
 .btn {
