@@ -17,6 +17,8 @@ import { prizeIdBronze, prizeIdSilver, prizeIdGold } from "@/constant";
 import 'react-toastify/dist/ReactToastify.css';
 import Head from "next/head";
 import SubscriptionFailedModal from "@/components/modals/SubscriptionFailed";
+import { MdOutlineRecommend } from "react-icons/md";
+
 
 export default function Subscription() {
   const [showFailedSubscribeModal, setShowFailedSubscribeModal] = React.useState(false);
@@ -57,7 +59,7 @@ export default function Subscription() {
         <meta name="description" content="A generated messages history" />
       </Head>
       <div className={noto_sans_thai.className}>
-        <SubscriptionFailedModal show={showFailedSubscribeModal} hideModal={setShowFailedSubscribeModal}/>
+        <SubscriptionFailedModal show={showFailedSubscribeModal} hideModal={setShowFailedSubscribeModal} />
         <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">
           <Container className={`${styles.container}`}>
 
@@ -155,6 +157,7 @@ export default function Subscription() {
                     </h1>
                     <div className="mt-4 mb-4 text-start">
                       <Row>
+                        <s className="text-end fs-5 text-danger" style={{ marginTop: "-2rem", }}> 69฿</s>
                         <small>
                           <BsCheckCircle
                             size={16}
@@ -196,8 +199,15 @@ export default function Subscription() {
                     </button>
                   </Col>
                   <Col
-                    className={`d-flex flex-column align-items-center position-relative ${styles.custom_border} ${styles.silverBorder}`}
+                    className={`d-flex flex-column align-items-center position-relative ${styles.recommended_plan_border} ${styles.recommendedPlan}`}
                   >
+                    <div className="w-100 d-flex justify-content-end" >
+                      <div className="user-select-none text-white fs-5 ps-2 pe-2" style={{ position: "absolute", right: "-1.25rem", top: "-1.25rem", backgroundColor: "red", borderRadius: "8px" }}>
+                        <MdOutlineRecommend size={25} /> Recommend
+                      </div>
+                      {/* <MdOutlineRecommend color="red" size={50} style={{position:"absolute",right:"-1.75rem", top:"-1.3rem"}}  /> */}
+                    </div>
+
                     <h5 className="mb-3">SILVER</h5>
                     <h1
                       className={`${styles.circle_background}`}
@@ -213,6 +223,8 @@ export default function Subscription() {
                     </h1>
                     <div className="mt-4 mb-4 text-start">
                       <Row>
+                        <s className="text-end fs-5 text-danger" style={{ marginTop: "-2rem", }}> 219฿</s>
+
                         <small>
                           <BsCheckCircle
                             size={16}
@@ -272,6 +284,7 @@ export default function Subscription() {
                     </h1>
                     <div className="mt-4 mb-4 text-start">
                       <Row>
+                        <s className="text-end fs-5 text-danger" style={{ marginTop: "-2rem", }}> 319฿</s>
                         <small>
                           <BsCheckCircle
                             size={16}
