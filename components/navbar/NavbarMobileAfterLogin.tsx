@@ -20,6 +20,7 @@ import { BiLogOut } from "react-icons/bi"
 import { AiFillPlusCircle } from "react-icons/ai"
 import { useUserContext } from "@/contexts/UserContext";
 import { MdWorkspacePremium } from "react-icons/md";
+import { Spinner } from "react-bootstrap";
 
 export const NavbarMobileAfterLogin: React.FC = () => {
    const { language, setLanguage } = useLanguage();
@@ -32,14 +33,14 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       "Gold": "linear-gradient(180deg, #FFB800 0%, #564A2B 26.66%, #33393F 54.26%)",
       "Silver": "linear-gradient(180deg, #A8A8A8 0%, #33393F 42.8%)",
       "Bronze": "linear-gradient(180deg, #33393F 0%, #CD7F32 0.01%, #563C23 18.75%, #33393F 44.79%)",
-      // "Free": "#33393F"
+      "Free": "#33393F"
    }
 
    const rankColorForMobile: { [key: string]: string } = {
       "Gold": "linear-gradient(180deg, #FFB800 0%, rgba(33, 37, 41, 0.85) 100%)",
       "Silver": "linear-gradient(180deg,  #A8A8A8 0%, rgba(33, 37, 41, 0.85) 100%)",
       "Bronze": "linear-gradient(180deg, rgba(205, 127, 50, 0.85) 0%, rgba(33, 37, 41, 0.85) 100%)",
-      // "Free": "#33393F"
+      "Free": "#33393F"
    }
 
    useEffect(() => {
@@ -134,31 +135,35 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                      <li
                         className={`${styles.profile} nav-item text-center`}
                         style={{
-                           // background:"#33393F",
-                           background: userContext?.user?.plan_id !== 4  ? rankColorForMobile[userContext?.user?.planType!] : "#33393F",
+                           // backgroundColor: "#33393F",
+                           backgroundColor: !userContext?.user?.planType ? "#33393F" : rankColorForMobile[userContext?.user?.planType!],
                         }}
                      >
                         <div className="pt-4 pb-3">
-                           <img
-                              className={`${styles.user_profile_pic}`}
-                              src={userContext?.user?.profilepic!}
-                              alt="profic-pic"
-                              style={{
-                                 border:
-                                    userContext?.user?.planType! === "Gold" ? "3.25px solid #FFB800" :
-                                       userContext?.user?.planType! === "Silver" ? "3.25px solid #A8A8A8" :
-                                          userContext?.user?.planType! === "Bronze" ? "3.25px solid #CD7F32" : "none",
-                                 borderRadius: "50%",
-                                 width: "60px",
-                                 height: "60px"
-                              }}
-                           />
-                           <div className="pt-2 pb-2">
-                              <b className="fs-4 fw-bold text-white"> {userContext?.user?.name} </b>
-                           </div>
-                           <li className="d-flex justify-content-center">
-                              <Link href="/profile" className={`${styles.subscription_manage_btn}`}> {translate("profile.title", language)} </Link>
-                           </li>
+                           {userContext?.user === null ? <Spinner className="text-white m-4" animation="border"  style={{ width: '3rem', height: '3rem' }}/> :
+                              <>
+                                 <img
+                                    className={`${styles.user_profile_pic}`}
+                                    src={userContext?.user?.profilepic!}
+                                    alt="profic-pic"
+                                    style={{
+                                       border:
+                                          userContext?.user?.planType! === "Gold" ? "3.25px solid #FFB800" :
+                                             userContext?.user?.planType! === "Silver" ? "3.25px solid #A8A8A8" :
+                                                userContext?.user?.planType! === "Bronze" ? "3.25px solid #CD7F32" : "none",
+                                       borderRadius: "50%",
+                                       width: "60px",
+                                       height: "60px"
+                                    }}
+                                 />
+                                 <div className="pt-2 pb-2">
+                                    <b className="fs-4 fw-bold text-white"> {userContext?.user?.name} </b>
+                                 </div>
+                                 <li className="d-flex justify-content-center">
+                                    <Link href="/profile" className={`${styles.subscription_manage_btn}`}> {translate("profile.title", language)} </Link>
+                                 </li>
+                              </>
+                           }
                         </div>
                      </li>
                      <li> <hr style={{ color: "white" }}></hr> </li>
@@ -395,87 +400,89 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                            </button>
                         </div>
                      </li>
-                     <li className={`nav-item dropdown ${noto_sans_thai.className}`}>
-                        <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                           <img
-                              className={`${styles.user_profile_pic_desktop}`}
-                              src={userContext?.user?.profilepic}
-                              alt="profic-pic"
-                              style={{
-                                 border:
-                                    userContext?.user?.planType! === "Gold" ? "3.25px solid #FFB800" :
-                                       userContext?.user?.planType! === "Silver" ? "3.25px solid #A8A8A8" :
-                                          userContext?.user?.planType! === "Bronze" ? "3.25px solid #CD7F32" : "none",
-                                 borderRadius: "50%",
-                                 width: "42px",
-                                 height: "42px"
-                              }}
-                           />
-                        </a>
-                        <ul
-                           className={`${styles.login_dropdown_menu} border dropdown-menu px-1`}
-                           style={{
-                              marginLeft: "-8rem",
-                              background: userContext?.user?.plan_id !== 4 ? rankColor[userContext?.user?.planType!] : "#33393F",
-                           }}
-                        >
-                           <li><div className="text-white text-center fs-5 fw-semibold text">{userContext?.user?.name}</div></li>
-
-
-                           {userContext?.user?.plan_id !== 4 &&
-                              <>
-                                 <li className="d-flex justify-content-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 28 28" fill="none">
-                                       {userContext?.user?.planType! === "Gold" && <circle cx="14" cy="14" r="14" fill="#FFB800" />}
-                                       {userContext?.user?.planType! === "Silver" && <circle cx="14" cy="14" r="14" fill="#A3A3A3" />}
-                                       {userContext?.user?.planType! === "Bronze" && <circle cx="14" cy="14" r="14" fill="#CD7F32" />}
-                                    </svg>
-                                    <div className="ps-2 fw-bold text-white"> {userContext?.user?.planType!} </div>
-                                 </li>
-                              </>
-                           }
-                             <li className="pt-2 d-flex justify-content-center">
-                                    <Link href="/profile" className={`${styles.subscription_manage_btn}`}> {translate("profile.title", language)} </Link>
-                                 </li>
-                           <li><hr className="dropdown-divider bg-white" /></li>
-                           <li className="text-center py-1">
-                              <a className={`${styles.login_dropdown_history_menu} `}>
-                                 <Link
-                                    href={"/"}
-                                    className={`${styles.remove_underline} d-flex align-items-center`}
-                                 >
-                                    <AiFillHome className="m-1 ms-2" size={22} />
-                                    <div className="ps-2 pt-1">{translate("home.title", language)}</div>
-                                 </Link>
-                              </a>
-                           </li>
-                           <li className=" py-1 ">
-                              <a className={`${styles.login_dropdown_history_menu} `}>
-                                 <Link
-                                    href={"/history"}
-                                    className={`${styles.remove_underline} d-flex align-items-center`}
-                                 >
-                                    <AiOutlineHistory className="m-1 ms-2" size={22} />
-                                    <div className="ps-2 pt-1"> {translate("history", language)}</div>
-                                 </Link>
-                              </a>
-                           </li>
-                           <li className="py-1 ">
-                              <Link
-                                 href="/"
-
-                                 className={`${styles.login_dropdown_history_menu} d-flex align-items-center`}
-                                 onClick={() => {
-                                    userContext?.handleLogout();
+                     {userContext?.user === null ?
+                        <Spinner className="text-white ms-2" animation="border" style={{width:"2.5rem",height:"2.5rem"}} /> :
+                        <li className={`nav-item dropdown ${noto_sans_thai.className}`}>
+                           <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <img
+                                 className={`${styles.user_profile_pic_desktop}`}
+                                 src={userContext?.user?.profilepic}
+                                 alt="profic-pic"
+                                 style={{
+                                    border:
+                                       userContext?.user?.planType! === "Gold" ? "3.25px solid #FFB800" :
+                                          userContext?.user?.planType! === "Silver" ? "3.25px solid #A8A8A8" :
+                                             userContext?.user?.planType! === "Bronze" ? "3.25px solid #CD7F32" : "none",
+                                    borderRadius: "50%",
+                                    width: "42px",
+                                    height: "42px"
                                  }}
-                              >
-                                 <BiLogOut className="m-1 ms-2" size={20} />
-                                 <div className="ps-2 pt-1"> {translate("logout", language)}</div>
-                              </Link>
-                           </li>
-                        </ul>
-                     </li>
+                              />
+                           </a>
+                           <ul
+                              className={`${styles.login_dropdown_menu} border dropdown-menu px-1`}
+                              style={{
+                                 marginLeft: "-8rem",
+                                 background: userContext?.user?.plan_id !== 4 ? rankColor[userContext?.user?.planType!] : "#33393F",
+                              }}
+                           >
+                              <li><div className="text-white text-center fs-5 fw-semibold text">{userContext?.user?.name}</div></li>
 
+
+                              {userContext?.user?.plan_id !== 4 &&
+                                 <>
+                                    <li className="d-flex justify-content-center">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 28 28" fill="none">
+                                          {userContext?.user?.planType! === "Gold" && <circle cx="14" cy="14" r="14" fill="#FFB800" />}
+                                          {userContext?.user?.planType! === "Silver" && <circle cx="14" cy="14" r="14" fill="#A3A3A3" />}
+                                          {userContext?.user?.planType! === "Bronze" && <circle cx="14" cy="14" r="14" fill="#CD7F32" />}
+                                       </svg>
+                                       <div className="ps-2 fw-bold text-white"> {userContext?.user?.planType!} </div>
+                                    </li>
+                                 </>
+                              }
+                              <li className="pt-2 d-flex justify-content-center">
+                                 <Link href="/profile" className={`${styles.subscription_manage_btn}`}> {translate("profile.title", language)} </Link>
+                              </li>
+                              <li><hr className="dropdown-divider bg-white" /></li>
+                              <li className="text-center py-1">
+                                 <a className={`${styles.login_dropdown_history_menu} `}>
+                                    <Link
+                                       href={"/"}
+                                       className={`${styles.remove_underline} d-flex align-items-center`}
+                                    >
+                                       <AiFillHome className="m-1 ms-2" size={22} />
+                                       <div className="ps-2 pt-1">{translate("home.title", language)}</div>
+                                    </Link>
+                                 </a>
+                              </li>
+                              <li className=" py-1 ">
+                                 <a className={`${styles.login_dropdown_history_menu} `}>
+                                    <Link
+                                       href={"/history"}
+                                       className={`${styles.remove_underline} d-flex align-items-center`}
+                                    >
+                                       <AiOutlineHistory className="m-1 ms-2" size={22} />
+                                       <div className="ps-2 pt-1"> {translate("history", language)}</div>
+                                    </Link>
+                                 </a>
+                              </li>
+                              <li className="py-1 ">
+                                 <Link
+                                    href="/"
+
+                                    className={`${styles.login_dropdown_history_menu} d-flex align-items-center`}
+                                    onClick={() => {
+                                       userContext?.handleLogout();
+                                    }}
+                                 >
+                                    <BiLogOut className="m-1 ms-2" size={20} />
+                                    <div className="ps-2 pt-1"> {translate("logout", language)}</div>
+                                 </Link>
+                              </li>
+                           </ul>
+                        </li>
+                     }
                   </ul>
                )}
             </div>
