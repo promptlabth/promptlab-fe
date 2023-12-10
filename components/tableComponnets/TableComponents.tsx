@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill, BsFacebook } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from "react-icons/io";
@@ -160,7 +160,7 @@ const TableComponents = (config: pageConfig) => {
                               </Row>
                            </>
                         }
-                        {userContext?.remainingMessage! <= 0 &&
+                        {userContext?.remainingMessage! <= 0 && userContext?.user &&
                            <>
                               <div className="p-2 pb-4">
                                  <FaInfoCircle size={110} />
@@ -343,31 +343,32 @@ const TableComponents = (config: pageConfig) => {
                </figure>
 
                <Container fluid={true} className={styles.page_prompt_area}>
-                  <div className={`pb-2 d-flex justify-content-end`}>
-                     <div className={`d-flex ${styles.generate_count_layout}`}>
-                        <AiOutlineSend className="text-white me-2" size={20} />
-                        <div className="text-white"> 
-                           {userContext?.remainingMessage! < 0 ? 0 : userContext?.remainingMessage}&#47;{userContext?.user?.maxMessages}  
-                        </div>
+                  {userContext?.user &&
 
-                        <OverlayTrigger
-                           placement={'top'}
-                           delay={{ show: 150, hide: 250 }}
-                           trigger={['hover', 'focus']}
-                           overlay={
-                              <Tooltip className={`${noto_sans_thai.className}`} id="generate-count-tooltip" >
-                                 {/* <div className={`${styles.generate_count_tooltip}`}> */}
-                                 {translate("table.messageInMonth1", language)} {userContext?.user?.maxMessages} {translate("table.messageInMonthUnit", language)}!
-                                 {/* </div> */}
-                              </Tooltip>
-                           }
-                        >
-                           <a href="" onClick={(e) => e.preventDefault()}>
-                              <IoMdInformationCircle className="text-white ms-2" size={22} />
-                           </a>
-                        </OverlayTrigger>
+                     <div className={`pb-2 d-flex justify-content-end`}>
+                        <div className={`d-flex ${styles.generate_count_layout}`}>
+                           <AiOutlineSend className="text-white me-2" size={20} />
+                           <div className="text-white">
+                              {userContext?.remainingMessage! < 0 ? 0 : userContext?.remainingMessage}&#47;{userContext?.user?.maxMessages}
+                           </div>
+
+                           <OverlayTrigger
+                              placement={'top'}
+                              delay={{ show: 150, hide: 250 }}
+                              trigger={['hover', 'focus']}
+                              overlay={
+                                 <Tooltip className={`${noto_sans_thai.className}`} id="generate-count-tooltip" >
+                                    {translate("table.messageInMonth1", language)} {userContext?.user?.maxMessages} {translate("table.messageInMonthUnit", language)}!
+                                 </Tooltip>
+                              }
+                           >
+                              <a href="" onClick={(e) => e.preventDefault()}>
+                                 <IoMdInformationCircle className="text-white ms-2" size={22} />
+                              </a>
+                           </OverlayTrigger>
+                        </div>
                      </div>
-                  </div>
+                  }
 
                   {prompts.map(({ input, tone_id, message, generate_status }, index) => (
                      <Row key={index} className={styles.page_prompt_area_row}>
