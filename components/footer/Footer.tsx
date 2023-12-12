@@ -39,14 +39,18 @@ const Footer = () => {
         router.push('https://xn--12c9dcjit1d.com/register?invite=s15ec')
     }
 
+    const handleClickJJ = () => {
+        router.push('https://shop.line.me/@permlikejj')
+    }
+
     const SponsorCarousel = () => {
         return (
             <>
                 <Carousel style={{ cursor: "pointer" }} >
-                    <Carousel.Item onClick={handleClickPMost} interval={4000}>
+                    <Carousel.Item onClick={handleClickJJ} interval={4000}>
                         <img
                             className="d-block w-100"
-                            src="/images/promote_mostV2.png"
+                            src="/images/promote_jj_shop.jpg"
                             alt="Second slide"
                         />
 
