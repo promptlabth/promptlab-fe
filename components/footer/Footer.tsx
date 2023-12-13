@@ -40,7 +40,7 @@ const Footer = () => {
     }
 
     const handleClickJJ = () => {
-        router.push('https://shop.line.me/@permlikejj')
+        router.push('https://lin.ee/htsNQqk')
     }
 
     const SponsorCarousel = () => {
