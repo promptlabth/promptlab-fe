@@ -82,6 +82,7 @@ export const NavbarMobile: React.FC = () => {
          </div>
          <nav className={`${noto_sans_thai.className} navbar navbar-expand-lg navbar-dark bg-dark fixed-top`}>
             <div className={`container ${styles.navbar_container} d-flex mt-auto`}>
+               
                <div className={styles.navbar_header}>
                   <h3>Prompt Lab AI</h3>
                </div>

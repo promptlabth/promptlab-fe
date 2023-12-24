@@ -1,8 +1,4 @@
-import Footer from '@/components/footer/Footer';
-import { NavbarMobileAfterLogin } from "@/components/navbar/NavbarMobileAfterLogin";
-import { AppTabbar } from "@/components/tabbar/tabbar";
 import { LanguageProvider } from '@/contexts/LanguageContext';
-import { NavbarMobile } from "@/components/navbar/NavbarMobile";
 import '@/styles/globals.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NextPage } from 'next';
@@ -10,10 +6,9 @@ import type { AppProps } from 'next/app'
 import { Noto_Sans_Thai } from 'next/font/google'
 import Head from 'next/head';
 import Script from 'next/script';
-import { ReactElement, ReactNode, useEffect, useState } from 'react';
+import { ReactElement, ReactNode, } from 'react';
 import { UserContextProvider } from '@/contexts/UserContext';
-import { MaintainPage } from '@/components/maintain';
-import { GetAccessToken } from '@/api/auth/auth_get_token';
+import PromptLabApp from './app';
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
@@ -26,19 +21,7 @@ type AppPropsWithLayout = AppProps & {
 }
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-   const isMaintain: boolean = false
    const getLayout = Component.getLayout ?? ((page) => page)
-   const [token, setToken] = useState<string>("")
-
-   const checkToken = async () => {
-      const token = await GetAccessToken();
-      if (token) {
-         setToken(token);
-      }
-   }
-   useEffect( () => {
-      checkToken()
-   }, [])
    return getLayout(
       <main className={noto_sans_thai.className}>
          <Script
@@ -83,14 +66,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
          <LanguageProvider>
             <UserContextProvider>
-               {isMaintain && <MaintainPage />}
-               {token ?
-                  <NavbarMobileAfterLogin /> :
-                  <NavbarMobile />
-               }
-               <AppTabbar />
-               <Component {...pageProps} />
-               <Footer />
+               <PromptLabApp Component={Component} pageProps = {pageProps}/>
             </UserContextProvider>
          </LanguageProvider>
       </main>

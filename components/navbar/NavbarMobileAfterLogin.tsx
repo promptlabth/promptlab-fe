@@ -140,7 +140,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                         }}
                      >
                         <div className="pt-4 pb-3">
-                           {userContext?.user === null ? <Spinner className="text-white m-4" animation="border"  style={{ width: '3rem', height: '3rem' }}/> :
+                           {userContext?.user === null ? <Spinner className="text-white m-4" animation="border" style={{ width: '3rem', height: '3rem' }} /> :
                               <>
                                  <img
                                     className={`${styles.user_profile_pic}`}
@@ -401,7 +401,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                         </div>
                      </li>
                      {userContext?.user === null ?
-                        <Spinner className="text-white ms-2" animation="border" style={{width:"2.5rem",height:"2.5rem"}} /> :
+                        <Spinner className="text-white ms-2" animation="border" style={{ width: "2.5rem", height: "2.5rem" }} /> :
                         <li className={`nav-item dropdown ${noto_sans_thai.className}`}>
                            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                               <img
