@@ -105,6 +105,7 @@ const GenerateComponent = (config: pageConfig) => {
    };
 
    const GenerateButton = ({ index, isGenerating }: { index: number, isGenerating: boolean }) => {
+      // TODO : Add a function to handle generate message
       const handleClick = () => {
 
          if (userContext?.user != null && userContext?.remainingMessage > 0) {
@@ -244,72 +245,65 @@ const GenerateComponent = (config: pageConfig) => {
 
 
    const handleGenerateMessage = async (index: number) => {
-      const { input, tone_id } = prompts[index];
+      const prompt = prompts[index];
       try {
-
          if (userContext?.remainingMessage == 0) {
-            console.log("No remaining message")
-         } else {
-            const data: GenerateMessage = {
-               input_message: input,
-               tone_id: tone_id,
-               feature_id: features[config.titlePage],
-            }
-
-            const result = await generateMessageWithUser(data)
-            const message = result.reply
-            if (result) {
-               setPrompts((prevComponents) => {
-                  const updatedComponents = [...prevComponents];
-                  updatedComponents[index] = { ...updatedComponents[index], message, isGenerating: false };
-                  return updatedComponents;
-               });
-               userContext?.updateRemainingMessage()
-            }
+            return
+         }
+         const { input, tone_id } = prompt;
+         const data: GenerateMessage = {
+            input_message: input,
+            tone_id: tone_id,
+            feature_id: features[config.titlePage],
          }
 
+         const result = await generateMessageWithUser(data)
+         if (result) {
+            const message = result.reply
+            const updatedPrompts = [...prompts];
+            updatedPrompts[index] = { ...prompt, message: message, isGenerating: false };
+            setPrompts(updatedPrompts);
+            userContext?.updateRemainingMessage();
+         }
       } catch {
-         setPrompts((prevComponents) => {
-            const updatedComponents = [...prevComponents];
-            updatedComponents[index] = { ...updatedComponents[index], message: "Error Please try again", isGenerating: false };
-            return updatedComponents;
-         });
+         const updatedPrompts = [...prompts];
+         updatedPrompts[index] = { ...prompts[index], message: "Error. Please try again", isGenerating: false };
+         setPrompts(updatedPrompts);
       }
-   };
+   }
 
-   const handleInputTextChange = (index: number, event: React.ChangeEvent<HTMLTextAreaElement>) => {
+   const handleInputTextChange = (index: number, event: React.ChangeEvent<HTMLTextAreaElement>): void => {
       const newInput = event.target.value;
-
-      setPrompts((prevComponents) => {
-         const updatedComponents = [...prevComponents];
-         updatedComponents[index] = {
-            ...updatedComponents[index],
+      setPrompts((prevPrompts) => {
+         const updatedPrompts = [...prevPrompts];
+         updatedPrompts[index] = {
+            ...updatedPrompts[index],
             input: newInput,
          };
-         return updatedComponents;
+         return updatedPrompts;
       });
    };
 
-   const handleTypeChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>) => {
-      const newType = event.target.value;
-      setPrompts((prevComponents) => {
-         const updatedComponents = [...prevComponents];
-         updatedComponents[index] = {
-            ...updatedComponents[index],
-            tone_id: parseInt(newType),
+   const handleTypeChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>): void => {
+      const newTypeValue = parseInt(event.target.value, 10);
+         setPrompts((prevPrompts) => {
+         const updatedPrompts = [...prevPrompts];
+         updatedPrompts[index] = {
+            ...updatedPrompts[index],
+            tone_id: newTypeValue,
          };
-         return updatedComponents;
+         return updatedPrompts;
       });
-      console.log(newType)
    };
 
    const handleAddNewRow = () => {
-      setPrompts([...prompts, {
+      const newPrompt : Prompt = {
          input: "",
          tone_id: language === "th" ? 1 : 9,
          message: "",
          isGenerating: false
-      }]);
+      } 
+      setPrompts([...prompts, newPrompt]);
    };
 
    const handleDeleteRow = (index: number) => {

@@ -16,7 +16,6 @@ export type Language = 'eng' | 'th' | 'id';
 interface LanguageContextType {
    language: Language;
    setLanguage: (language: Language) => void;
-   isTh: boolean;
    tones: Tones[];
 }
 
@@ -36,7 +35,6 @@ interface LanguageProviderProps {
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
    const [language, setLanguage] = useState<Language>('th');
-   const [isTh, setIsTh] = useState(true);
    const [tones, setTones] = useState<Tones[]>([]);
 
    const getTones = async () => {
@@ -48,44 +46,28 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
    }
 
    useEffect(() => {
-      // Update the language in translations.ts when the context changes
-      setCurrentLanguage(language);
-      getTones();
-      tones.sort((a, b) => a.id - b.id);
-      
-      if (language !== 'th') {
-         setIsTh(false)
-      }
+      const fetchLocationAndSetLanguage = async () => {
+         try {
+            const locationLanguage = await getLocation();
+            //   setLanguage(locationLanguage);
+            setCurrentLanguage(locationLanguage);
+            getTones();
+
+         } catch (error) {
+            // Set a default language when error occurs
+            setLanguage('eng');
+            console.log(error);
+         }
+      };
+
+      fetchLocationAndSetLanguage();
    }, [language]);
 
-   useEffect(() => {
-      const fetchLocationAndSetLanguage = async () => {
-          try {
-              const locationLanguage = await getLocation();
-            //   setLanguage(locationLanguage);
-              setCurrentLanguage(language);
-              getTones();
-              tones.sort((a, b) => a.id - b.id);
-  
-              if (locationLanguage === 'th') {
-                  setIsTh(true);
-              }
-          } catch (error) {
-              // Set a default language when error occurs
-              setLanguage('eng');
-              console.log(error);
-          }
-      };
-  
-      fetchLocationAndSetLanguage();
-  }, [language]);
-  
 
    // Create a value object to be passed to the LanguageContext.Provider
    const value = {
       language,
       setLanguage,
-      isTh,
       tones
    };
 
