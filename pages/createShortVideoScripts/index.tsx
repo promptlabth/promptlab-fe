@@ -1,5 +1,5 @@
 import { translate } from "@/languages/language";
-import TableComponents from "@/components/tableComponnets/TableComponents";
+import TableComponents from "@/components/GenerateComponnet";
 import {  Language, useLanguage } from "@/contexts/LanguageContext";
 import Head from "next/head";
 const CreateShortVideoScripts = () => {

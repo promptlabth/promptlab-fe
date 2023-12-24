@@ -2,7 +2,7 @@ export type Prompt = {
     input: string;
     tone_id: number;
     message: string;
-    generate_status: boolean;
+    isGenerating: boolean;
 };
 
 export type GenerateMessage = {
