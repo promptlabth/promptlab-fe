@@ -69,7 +69,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i"
             crossOrigin="anonymous"
          ></Script>
-         <Script defer src="https://app.embed.im/snow.js">
+         <Script id="snow" defer src="https://app.embed.im/snow.js">
          </Script>
          {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
