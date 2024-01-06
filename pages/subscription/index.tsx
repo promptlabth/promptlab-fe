@@ -157,7 +157,7 @@ export default function Subscription() {
                     </h1>
                     <div className="mt-4 mb-4 text-start">
                       <Row>
-                        <s className="text-end fs-5 text-danger" style={{ marginTop: "-2rem", }}> 69฿</s>
+                        <s className="text-end fs-5 text-danger" style={{ marginTop: "-2rem", }}> 99฿</s>
                         <small>
                           <BsCheckCircle
                             size={16}
@@ -223,7 +223,7 @@ export default function Subscription() {
                     </h1>
                     <div className="mt-4 mb-4 text-start">
                       <Row>
-                        <s className="text-end fs-5 text-danger" style={{ marginTop: "-2rem", }}> 219฿</s>
+                        <s className="text-end fs-5 text-danger" style={{ marginTop: "-2rem", }}> 259฿</s>
 
                         <small>
                           <BsCheckCircle
@@ -284,7 +284,7 @@ export default function Subscription() {
                     </h1>
                     <div className="mt-4 mb-4 text-start">
                       <Row>
-                        <s className="text-end fs-5 text-danger" style={{ marginTop: "-2rem", }}> 319฿</s>
+                        <s className="text-end fs-5 text-danger" style={{ marginTop: "-2rem", }}> 399฿</s>
                         <small>
                           <BsCheckCircle
                             size={16}
