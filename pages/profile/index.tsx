@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styles from './styles.module.css'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Noto_Sans_Thai } from 'next/font/google';
@@ -6,25 +6,20 @@ import Head from 'next/head';
 import { translate } from '@/languages/language';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useUserContext } from '@/contexts/UserContext';
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'; // import plugin
 import { BsCheckCircle } from 'react-icons/bs';
 import { FaInfoCircle } from "react-icons/fa";
 import { useRouter } from 'next/router';
 import { cancelUserSubscribe } from '@/api/Payments';
-
-dayjs.extend(utc); // Extend dayjs with the utc plugin
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
+
 const Profile = () => {
    const userContext = useUserContext();
    const router = useRouter();
-   const [starDate, setStartDate] = React.useState<Date | null>(null);
-   const [endDate, setEndDate] = React.useState<Date | null>(null);
    const { language } = useLanguage();
 
-   const handleCancelSubscription = async () => { 
+   const handleCancelSubscription = async () => {
       const result = await cancelUserSubscribe()
-      if (result) { 
+      if (result) {
          router.push('/subscription/cancle_success')
       }
    }
@@ -70,14 +65,14 @@ const Profile = () => {
                            className={`btn btn-danger mb-2 ${styles.cancle_btn}`}
                            data-bs-dismiss="modal"
                         >
-                           {translate( "subscription.canclesubscription", language)}
+                           {translate("subscription.canclesubscription", language)}
                         </button>
                         <br />
                         <button
                            data-bs-dismiss="canclepage"
                            style={{ color: "red", textDecoration: "underline" }}
                         >
-                           <small> {translate("subscription.canclesubscription.cancel",language)} </small>
+                           <small> {translate("subscription.canclesubscription.cancel", language)} </small>
                         </button>
                      </div>
                   </div>

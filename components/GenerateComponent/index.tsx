@@ -59,25 +59,22 @@ const CopyToClipboardButton = ({ message }: { message: string }) => {
          overlay={renderTooltip}
       >
          <CopyToClipboard text={message} onCopy={() => { setIsCopied(true) }}>
-            <div className="">
-               {!isCopied ?
-                  <button type="button" className="btn btn-secondary btn-sm">
-                     <BsFillClipboardFill />
-                  </button> :
-                  <button
-                     type="button"
-                     className="btn btn-secondary btn-sm"
-                     style={{ background: "#16942C" }}
-                     onMouseLeave={() => {
-                        setTimeout(() => {
-                           setIsCopied(false);
-                        }, 1000);
-                     }}>
-                     <BsFillClipboardCheckFill />
-                  </button>
-               }
-            </div>
-
+            {!isCopied ?
+               <button type="button" className="btn btn-secondary btn-sm">
+                  <BsFillClipboardFill />
+               </button> :
+               <button
+                  type="button"
+                  className="btn btn-secondary btn-sm"
+                  style={{ background: "#16942C" }}
+                  onMouseLeave={() => {
+                     setTimeout(() => {
+                        setIsCopied(false);
+                     }, 1000);
+                  }}>
+                  <BsFillClipboardCheckFill />
+               </button>
+            }
          </CopyToClipboard>
       </OverlayTrigger>
    );
@@ -105,17 +102,15 @@ const GenerateComponent = (config: pageConfig) => {
    };
 
    const GenerateButton = ({ index, isGenerating }: { index: number, isGenerating: boolean }) => {
-      // TODO : Add a function to handle generate message
       const handleClick = () => {
-
          if (userContext?.user != null && userContext?.remainingMessage > 0) {
-            setPrompts((prevComponents) => {
-               const updatedComponents = [...prevComponents];
-               updatedComponents[index] = {
-                  ...updatedComponents[index],
+            setPrompts((prevPrompts) => {
+               const updatedPrompts = [...prevPrompts];
+               updatedPrompts[index] = {
+                  ...updatedPrompts[index],
                   isGenerating: true,
                };
-               return updatedComponents;
+               return updatedPrompts;
             });
             handleGenerateMessage(index);
          }
@@ -242,8 +237,6 @@ const GenerateComponent = (config: pageConfig) => {
    };
 
 
-
-
    const handleGenerateMessage = async (index: number) => {
       const prompt = prompts[index];
       try {
@@ -286,7 +279,7 @@ const GenerateComponent = (config: pageConfig) => {
 
    const handleTypeChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>): void => {
       const newTypeValue = parseInt(event.target.value, 10);
-         setPrompts((prevPrompts) => {
+      setPrompts((prevPrompts) => {
          const updatedPrompts = [...prevPrompts];
          updatedPrompts[index] = {
             ...updatedPrompts[index],
@@ -297,12 +290,12 @@ const GenerateComponent = (config: pageConfig) => {
    };
 
    const handleAddNewRow = () => {
-      const newPrompt : Prompt = {
+      const newPrompt: Prompt = {
          input: "",
          tone_id: language === "th" ? 1 : 9,
          message: "",
          isGenerating: false
-      } 
+      }
       setPrompts([...prompts, newPrompt]);
    };
 
@@ -314,7 +307,7 @@ const GenerateComponent = (config: pageConfig) => {
    }
 
    useEffect(() => {
-      if (prompts.length == 0) {
+      if (prompts.length === 0) {
          handleAddNewRow();
       }
    }, [prompts]);
@@ -423,7 +416,7 @@ const GenerateComponent = (config: pageConfig) => {
 
                               {/* If there is a message */}
                               {message.length > 0 && (
-                                 <Container fluid={true} className="">
+                                 <Container fluid={true}>
                                     <Row>
                                        <Col className="d-flex p-0 justify-content-end">
                                           {/* Copy to Clipboard component */}
