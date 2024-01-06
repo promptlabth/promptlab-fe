@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
@@ -19,7 +19,7 @@ export const NavbarMobile: React.FC = () => {
   const userContext = useUserContext();
   const { language, setLanguage } = useLanguage();
   const [windowWidth, setWindowWidth] = useState(0);
-  useLayoutEffect(() => {
+  useEffect(() => {
     const handleResize = () => {
       console.log("Resizing...", window.innerWidth);
       setWindowWidth(window.innerWidth);
