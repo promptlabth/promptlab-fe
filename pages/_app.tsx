@@ -14,6 +14,7 @@ import NavbarMobile from '@/components/navbar/NavbarMobile';
 import AppTabbar from '@/components/tabbar/tabbar';
 import Footer from '@/components/footer/Footer';
 import { GetAccessToken } from '@/api/auth/auth_get_token';
+import GeneratedCompomentDrawer from '@/components/GeneratedComponentDrawer';
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
@@ -91,6 +92,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                   <NavbarMobile />
                }
                <AppTabbar />
+               <GeneratedCompomentDrawer/>
                <Component {...pageProps} />
                <Footer />
             </UserContextProvider>
