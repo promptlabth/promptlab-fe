@@ -19,8 +19,6 @@ async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage)
             UserGenerateMessage,
             requestOption
         );
-
-        console.log(response.data)
         return response.data;
     } catch (error) {
         console.error(error);
@@ -41,10 +39,6 @@ async function getMaxMessage() {
             apiUrl,
             requestOption
         );
-
-        console.log(response.data)
-
-
     } catch (error) {
         console.error(error);
         return { reply: 'Error Please try again' }
@@ -65,9 +59,6 @@ async function getCountMessages() {
             apiUrl,
             requestOption
         );
-
-        console.log(response.data)
-
 
     } catch (error) {
         console.error(error);

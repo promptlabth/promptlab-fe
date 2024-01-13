@@ -1,3 +1,5 @@
+
+
 .offcanvas_btn_box,
 .offcanvas_btn_box_active {
     transition: transform .3s ease-in-out;
@@ -57,4 +59,21 @@
 
 .page_prompt_generate_btn:hover {
     transform: scale(1.05);
+}
+
+.page_prompt_loading_generate_btn {
+    background-color: #00FFAB;
+    border: none;
+    color: black;
+    font-weight: bold;
+    border-radius: 28px;
+    opacity: 0.5;
+    transition: all 0.2s;
+    transform: scale(1.05);
+
+}
+
+.page_prompt_loading_generate_btn:active{
+    transform: scale(1);
+    
 }
