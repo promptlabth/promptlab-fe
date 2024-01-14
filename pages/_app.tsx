@@ -14,7 +14,7 @@ import NavbarMobile from '@/components/navbar/NavbarMobile';
 import AppTabbar from '@/components/tabbar/tabbar';
 import Footer from '@/components/footer/Footer';
 import { GetAccessToken } from '@/api/auth/auth_get_token';
-import GeneratedCompomentDrawer from '@/components/GeneratedComponentDrawer';
+import FbPostGeneratedComponent from '@/components/FbPostGeneratedComponent';
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
@@ -49,7 +49,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
          />
 
          <Script id="gtag-id-engine" strategy="lazyOnload">
-         {`	
+            {`	
             window.dataLayer = window.dataLayer || [];
             function gtag(){
                dataLayer.push(arguments);
@@ -92,7 +92,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                   <NavbarMobile />
                }
                <AppTabbar />
-               <GeneratedCompomentDrawer/>
+               <FbPostGeneratedComponent />
                <Component {...pageProps} />
                <Footer />
             </UserContextProvider>
