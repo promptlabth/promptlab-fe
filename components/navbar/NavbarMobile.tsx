@@ -14,6 +14,7 @@ import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaClosedCaptioning } from "react-icons/fa";
 import { useUserContext } from "@/contexts/UserContext";
 import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
 
 export const NavbarMobile: React.FC = () => {
   const userContext = useUserContext();
@@ -103,14 +104,20 @@ export const NavbarMobile: React.FC = () => {
               userContext?.handleLogin("facebook");
             }}
           >
-            <AiFillFacebook className={`me-1 ${styles.social_media_icon}`} />
+            <FaFacebook
+              className={`me-2 ${styles.social_media_icon}`}
+            />
             <div>{translate("login", language)}&nbsp;Facebook</div>
           </button>
         </div>
       </div>
       <div
         className={`d-flex justify-content-center`}
-        style={{ color: windowWidth < 992 ? "white" : "black" }}
+        style={{
+          color: windowWidth < 992 ? "white" : "gray",
+          marginTop: windowWidth < 992 ? 0 : 15,
+          marginBottom: windowWidth < 992 ? 0 : 15,
+        }}
       >
         - or -
       </div>
@@ -121,7 +128,7 @@ export const NavbarMobile: React.FC = () => {
             userContext?.handleLogin("gmail");
           }}
         >
-          <FcGoogle className={`me-1 ${styles.social_media_icon}`} />
+          <FcGoogle className={`me-2 ${styles.social_media_icon}`} />
           <div className="">{translate("login", language)}&nbsp;Gmail</div>
         </button>
       </div>

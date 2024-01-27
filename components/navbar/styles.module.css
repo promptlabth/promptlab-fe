@@ -109,35 +109,42 @@
 }
 
 .facebook_login_button {
-    width: 50vw;
+    width: 25vw;
     height: 40px;
     padding-left: 20px;
     padding-right: 20px;
     background-color: #149FF9;
     color: #000000;
     border-radius: 10px;
-    border: none;
+    border:none;
     /* width: 200px; */
     /* border: 1px solid #00FFAB; */
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
 }
 
 .gmail_login_button {
-    width: 50vw;
+    width: 25vw;
     height: 40px;
     padding-left: 20px;
     padding-right: 20px;
     background-color: #ffffff;
     color: #000000;
     border-radius: 10px;
-    border: none;
+    border: 1px solid #000000;
     /* border: 1px solid #00FFAB; */
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s;
 }
 
+@media screen and (max-width: 767px) {
+    .facebook_login_button,
+    .gmail_login_button {
+        width: 50vw;
+    }
+}
+
 .social_media_icon {
-    height: 30px;
-    width: 30px;
+    height: 20px;
+    width: 20px;
 }
 
 .coin_mobile_container {
