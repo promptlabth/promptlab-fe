@@ -306,7 +306,7 @@ export const NavbarMobile: React.FC = () => {
       <nav
         className={`${noto_sans_thai.className} navbar navbar-expand-lg navbar-dark bg-dark fixed-top`}
       >
-        <div className={`container ${styles.navbar_container} d-flex mt-auto`}>
+        <div className={`container d-flex mt-auto`}>
           {renderNavbarHeader()}
 
           <div className="d-flex align-items-center ms-auto">

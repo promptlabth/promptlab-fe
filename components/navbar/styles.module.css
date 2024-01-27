@@ -3,6 +3,20 @@
     /* opacity: 0.5; */
 }
 
+/* ในหน้าจอที่มีความกว้างไม่เกิน 767px (จอโทรศัพท์) */
+@media screen and (max-width: 767px) {
+    .navbar_help_icon {
+        display: inline;
+        margin-right: 0.5rem;
+    }
+}
+
+/* ในหน้าจอที่มีความกว้างมากกว่า 767px (เดสทอป) */
+@media screen and (min-width: 768px) {
+    .navbar_help_icon {
+        display: none;
+    }
+}
 .offcanvas_toggler {
     border: none;
     background-color: transparent;
