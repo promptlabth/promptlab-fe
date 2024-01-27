@@ -18,4 +18,8 @@ export type GenerateMessage = {
     tone_id: number;
     feature_id: number;
  }
- 
+
+ export type ImproveCaptionsRequest = {
+    input_message: string;
+    language_id: number;
+ }

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Offcanvas, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Col, Modal, Offcanvas, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
 import styles from './styles.module.css';
-import { FaFacebookF } from "react-icons/fa";
+import { FaFacebookF, FaInfoCircle } from "react-icons/fa";
 import { IoIosArrowForward, IoMdInformationCircle } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
-import { GenerateMessage, Prompt } from '@/models/promptMessages';
-import { AiOutlineSend } from 'react-icons/ai';
+import { GenerateMessage, ImproveCaptionsRequest, Prompt } from '@/models/promptMessages';
+import { AiFillFacebook, AiOutlineSend } from 'react-icons/ai';
 import { RxAvatar } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 import { IoIosArrowUp } from "react-icons/io";
@@ -14,12 +14,16 @@ import { translate } from '@/languages/language';
 import { Language, useLanguage } from '@/contexts/LanguageContext';
 import { Noto_Sans_Thai } from 'next/font/google';
 import { useUserContext } from '@/contexts/UserContext';
-import { generateMessageWithUser } from '@/api/GenerateMessageAPI';
+import { generateImproveCaption } from '@/api/GenerateMessageAPI';
+import { FcGoogle } from 'react-icons/fc';
+import Link from 'next/link';
+import { BsFacebook } from 'react-icons/bs';
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 const GenerateButton = ({ prompt, setPrompt }: { prompt: Prompt, setPrompt: any }) => {
    const userContext = useUserContext();
+   const { language } = useLanguage();
    const handleGenerateMessage = async () => {
       try {
          if (userContext?.remainingMessage == 0 || userContext?.user === null) {
@@ -27,13 +31,15 @@ const GenerateButton = ({ prompt, setPrompt }: { prompt: Prompt, setPrompt: any 
          }
 
          setPrompt({ ...prompt, isGenerating: true })
-         const { input, tone_id } = prompt;
-         const data: GenerateMessage = {
+         const { input, } = prompt;
+         const data: ImproveCaptionsRequest = {
             input_message: input,
-            tone_id: tone_id,
-            feature_id: 1,
+            language_id:
+               language === "th" ? 1 :
+                  language === "eng" ? 2 :
+                     language === "id" ? 3 : 2
          }
-         const result = await generateMessageWithUser(data)
+         const result = await generateImproveCaption(data)
          if (result) {
             const message = result.reply
             userContext?.updateRemainingMessage();
@@ -48,6 +54,8 @@ const GenerateButton = ({ prompt, setPrompt }: { prompt: Prompt, setPrompt: any 
       <>
          {prompt.isGenerating ?
             <button
+               data-bs-toggle={`${userContext?.user == null || userContext.remainingMessage <= 0 ? "modal" : ""}`}
+               data-bs-target={`${userContext?.user == null || userContext.remainingMessage <= 0 ? "#Modal" : ""}`}
                className={styles.page_prompt_loading_generate_btn}
                type="button"
                disabled={true}
@@ -71,7 +79,7 @@ const GenerateButton = ({ prompt, setPrompt }: { prompt: Prompt, setPrompt: any 
                   <div className="pe-2">
                      <AiOutlineSend size={20} />
                   </div>
-                  <div> สร้างข้อความ </div>
+                  <div> {translate("button.genarate", language)} </div>
                </div>
             </button>
          }
@@ -107,15 +115,12 @@ const GenerateCountBox = ({ language }: { language: Language }) => {
 
 const FbPostGeneratedComponent = () => {
    const { language } = useLanguage();
+   const userContext = useUserContext();
    const [prompt, setPrompt] = useState<Prompt>();
    const [showDrawer, setShowDrawer] = useState(false);
    const [windowWidth, setWindowWidth] = useState(0);
    const mockMessage = `
-      ยาสีฟัน AAA: รอยยิ้มสดใส สุขภาพเหงือกแข็งแรง
-      ยาสีฟัน AAA เป็นยาสีฟันสูตรพิเศษที่ช่วยให้ฟันขาวสะอาด ลมหายใจสดชื่น และเหงือกแข็งแรง ด้วยส่วนผสมของฟลูออไรด์ที่ช่วยป้องกันฟันผุ และสารสกัดจากธรรมชาติที่ช่วยลดการสะสมของแบคทีเรียในช่องปาก
-      ยาสีฟัน AAA ช่วยให้คุณมีสุขภาพเหงือกที่แข็งแรง ลดปัญหาเลือดออกและการอักเสบของเหงือก ช่วยให้ฟันของคุณแข็งแรงและสุขภาพดี พร้อมทั้งรอยยิ้มที่สดใส เปล่งประกาย
-      ใช้ยาสีฟัน AAA เป็นประจำทุกเช้าและเย็น เพื่อให้คุณมีสุขภาพช่องปากที่ดี แถมยังมีรอยยิ้มที่สวยงามสดใสอีกด้วย ลองเลย แล้วคุณจะรู้ว่ายาสีฟัน AAA ดีจริง! ซื้อยาสีฟัน AAA ได้แล้ววันนี้ที่ร้านค้าชั้นนำทั่วไป
-      #ยาสีฟันAAA #ฟันขาว #ลมหายใจสดชื่น #เหงือกแข็งแรง #สุขภาพช่องปากดี #รอยยิ้มสวย #มั่นใจเต็มร้อย
+   คลิปล่าสุดของ พี่จอง-คัลแลน ได้ปล่อยออกมาเมื่อ 2 วันก่อน โดยคลิปนี้เป็นทริปที่ทั้งสองไปเที่ยว จ.ตาก ในคลิปทั้งสองต้องนั่งรถสองแถวจากตัวเมืองตากไป อ.อุ้มผาง และก็มีเพื่อนร่วมทางด้วยอีกคนหนึ่งเป็นหญิงสาวที่ชื่อจีด้วยการที่การไปอุ้มผางกินเวลาถึง 4 ชั่วโมง แล้วถนนก็เป็นบนเขามีโค้งเยอะ ทําพี่จองเมารถจนหน้าซีดเลย ก่อนที่สาวจีจะยื่นยาแก้เมารถให้พี่จอง ทําพี่จอง-คัลแลน ขอบคุณกันยกใหญ่หลังคลิปปล่อยออกมา แฟนคลับ คัลแลน-พี่จอง ได้รู้สึกถึงความมีน้ําใจ ความน่ารัก ความอ่อนโยนมีมารยาทของจี จนออกมาชื่นชมกันอย่างล้นหลามเลยและล่าสุดทางแฟนคลับก็ได้เจอบัญชีติ๊กต็อกของจีมาชื่อว่า jiranan.06 พบว่าจีเป็นสาวเชื้อสายม้งที่บ้านอยู่ อ.อุ้มผาง ทําให้ตอนนี้บัญชีติ๊กต็อกของเจ้าตัวไวรัลขึ้นมาอย่างแรงนอกจากนี้เจ้าตัวยังบอกว่า ก่อนหน้านี้ไม่รู้จักกับ พี่จอง-คัลแลน แต่ตอนที่ได้นั่งรถด้วยกัน 4 ชั่วโมงก็รู้สึกว่าเป็นคนที่ตล#เหมียวเฟนเดอร์จนกระทั่งคลิปออกมาแล้วเพื่อนส่งมาให้ดูถึงรู้ว่าเป็น คัลแลน-พี่จอง ที่กําลังดังตอนนี้
    `
 
    const toggleDrawer = () => {
@@ -123,9 +128,9 @@ const FbPostGeneratedComponent = () => {
    };
 
    const FbPostGeneratedDrawer = () => {
+
       return (
          <div className={`${noto_sans_thai.className} d-flex  justify-content-end position-relative`}>
-
             <button
                className={showDrawer ? styles.offcanvas_btn_box_active : styles.offcanvas_btn_box}
                onClick={toggleDrawer}
@@ -135,13 +140,21 @@ const FbPostGeneratedComponent = () => {
                <FaFacebookF size={30} style={{ rotate: "-90deg" }} />
             </button>
 
-
             <Offcanvas show={showDrawer} placement={"end"} onHide={toggleDrawer} style={{
                width: "700px",
                background: "rgba(255, 255, 255, 0.85)"
             }}>
-               <Offcanvas.Body className={`pt-1 px-5 ${noto_sans_thai.className}`}>
+               {userContext?.user === null &&
 
+                  <div
+                     className='d-flex align-items-center justify-content-center'
+                     style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, pointerEvents: "auto", background: "rgba(0, 0, 0, 0.8)" }}> /
+                     <h2 className='text-white fw-bold'>
+                        กรุณาเข้าสู่ระบบก่อนใช้ Feature นี้
+                     </h2>
+                  </div>
+               }
+               <Offcanvas.Body className={`pt-1 px-5 ${noto_sans_thai.className}`}>
                   <div className={styles.facebook_post_container}>
                      <div className='d-flex px-3 pt-2'>
                         <RxAvatar size={40} className='text-white' />
@@ -158,9 +171,11 @@ const FbPostGeneratedComponent = () => {
                         setPrompt={setPrompt}
                      />
                   </div>
-                  <div className='d-flex justify-content-end'>
-                     <GenerateCountBox language={language} />
-                  </div>
+                  {userContext?.user &&
+                     <div className='d-flex justify-content-end'>
+                        <GenerateCountBox language={language} />
+                     </div>
+                  }
                   <div className={styles.prompt_result_area}>
                      <div className='d-flex px-3 pt-2'>
                         <img
@@ -209,7 +224,7 @@ const FbPostGeneratedComponent = () => {
                   >
                      <FaFacebookF />
                      <b className='text-white'>  สร้างข้อความจากโพส </b>
-                     <IoIosArrowUp  className='mb-2 mt-2 text-white' />
+                     <IoIosArrowUp className='mb-2 mt-2 text-white' />
                   </button>
                </div>
                <Modal.Body className={noto_sans_thai.className}  >
@@ -232,9 +247,11 @@ const FbPostGeneratedComponent = () => {
                         setPrompt={setPrompt}
                      />
                   </div>
-                  <div className='d-flex justify-content-end'>
-                     <GenerateCountBox language={language} />
-                  </div>
+                  {userContext?.user &&
+                     <div className='pt-3 d-flex justify-content-end'>
+                        <GenerateCountBox language={language} />
+                     </div>
+                  }
                   <div className={styles.prompt_result_area}>
                      <div className='d-flex px-3 pt-2'>
                         <img

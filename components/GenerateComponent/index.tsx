@@ -228,7 +228,7 @@ const GenerateComponent = (config: pageConfig) => {
                      <div className="pe-2">
                         <AiOutlineSend size={20} />
                      </div>
-                     <div className=""> Generate </div>
+                     <div className=""> {translate("button.genarate", language)} </div>
                   </div>
                </button>
             }

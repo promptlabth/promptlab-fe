@@ -138,7 +138,8 @@
         "help.howto.input.example3": "ช่วยคิดคอนเทนต์ ใส่หัวข้อคอนเทนต์ของผู้ใช้",
         "help.howto.select.title":"เลือกสไตล์ของข้อความ",
         "help.howto.select.description":"เลือกสไสล์ของข้อความที่ต้องการให้ Prompt Lab สร้าง ได้แก่ สนุกสนาน, หรูหรา, มืออาชีพ, มีการศึกษา, มั่นใจ, หรูหรา และย้อนยุค",
-        "help.howto.generate.title":"กด Generate และสนุกได้เลย!!"
+        "help.howto.generate.title":"กด Generate และสนุกได้เลย!!",
+        "button.genarate":"สร้างข้อความ"
 
     },
     "eng": {
@@ -280,7 +281,8 @@
         "help.howto.input.example3": "Create content. Input topic of user's content",
         "help.howto.select.title":"Select type of message",
         "help.howto.select.description":"Select the type of message you want Prompt Lab to generate. e.g. funny, luxury, professional, educational, confident, luxury and retro",
-        "help.howto.generate.title":"Click Generate and have fun!!"
+        "help.howto.generate.title":"Click Generate and have fun!!",
+        "button.genarate": "Generate"
     },
     "id": {
         "language": "Bahasa",
@@ -411,7 +413,7 @@
         "help.howto.input.example3": "Buat konten. Masukkan topik konten pengguna",
         "help.howto.select.title":"Pilih jenis pesan",
         "help.howto.select.description":"Pilih jenis pesan yang Anda inginkan Prompt Lab untuk menghasilkan. mis. lucu, mewah, profesional, edukatif, percaya diri, mewah, dan retro",
-        "help.howto.generate.title":"Klik Hasilkan dan bersenang-senang!!"
-        
+        "help.howto.generate.title":"Klik Hasilkan dan bersenang-senang!!",
+        "button.genarate": "Hasilkan"
     }
 }
