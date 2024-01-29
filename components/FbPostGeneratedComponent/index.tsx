@@ -217,6 +217,8 @@ const FbPostGeneratedComponent = () => {
             }
 
             <Modal style={{ paddingTop: "3rem" }} className="" size='lg' contentClassName={styles.fb_post_generated_modal} show={showDrawer} onHide={toggleDrawer}>
+
+
                <div>
                   <button
                      className={`${styles.modal_toggle_btn_active}`}
@@ -228,6 +230,16 @@ const FbPostGeneratedComponent = () => {
                   </button>
                </div>
                <Modal.Body className={noto_sans_thai.className}  >
+                  {userContext?.user === null &&
+
+                     <div
+                        className='d-flex align-items-center justify-content-center'
+                        style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, pointerEvents: "auto", background: "rgba(0, 0, 0, 0.8)" }}> /
+                        <h2 className='text-white fw-bold'>
+                           กรุณาเข้าสู่ระบบก่อนใช้ Feature นี้
+                        </h2>
+                     </div>
+                  }
                   <div className="d-flex justify-content-end">
                      <IoClose onClick={toggleDrawer} size={30} />
                   </div>
