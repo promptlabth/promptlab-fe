@@ -39,7 +39,49 @@ type pageConfig = {
    prompt: (input: string, type: string) => string;
 }
 
-const TableComponents = (config: pageConfig) => {
+
+
+
+const CopyToClipboardButton = ({ message }: { message: string }) => {
+   const [isCopied, setIsCopied] = useState(false);
+
+   const renderTooltip = (props: any) => (
+      <Tooltip id="button-tooltip" {...props}>
+         {isCopied ? <span className="fs-6"> Copied </span> : <span className="fs-6"> Copy to Clipboard </span>}
+      </Tooltip>
+   );
+
+
+   return (
+      <OverlayTrigger
+         placement="top"
+         delay={{ show: 50, hide: 50 }}
+         overlay={renderTooltip}
+      >
+         <CopyToClipboard text={message} onCopy={() => { setIsCopied(true) }}>
+            {!isCopied ?
+               <button type="button" className="btn btn-secondary btn-sm">
+                  <BsFillClipboardFill />
+               </button> :
+               <button
+                  type="button"
+                  className="btn btn-secondary btn-sm"
+                  style={{ background: "#16942C" }}
+                  onMouseLeave={() => {
+                     setTimeout(() => {
+                        setIsCopied(false);
+                     }, 1000);
+                  }}>
+                  <BsFillClipboardCheckFill />
+               </button>
+            }
+         </CopyToClipboard>
+      </OverlayTrigger>
+   );
+}
+
+
+const GenerateComponent = (config: pageConfig) => {
    const [prompts, setPrompts] = useState<Prompt[]>([]);
    const userContext = useUserContext()
    const { language, tones } = useLanguage();
@@ -59,60 +101,16 @@ const TableComponents = (config: pageConfig) => {
       "/createClickBaitWord": <FaClosedCaptioning fontSize={96} />
    };
 
-
-   const CopyToClipboardButton = ({ message }: { message: string }) => {
-      const [isCopied, setIsCopied] = useState(false);
-
-      const renderTooltip = (props: any) => (
-         <Tooltip id="button-tooltip" {...props}>
-            {isCopied ? <span className="fs-6"> Copied </span> : <span className="fs-6"> Copy to Clipboard </span>}
-         </Tooltip>
-      );
-
-      const handleCopy = () => { setIsCopied(true); }
-
-      return (
-         <OverlayTrigger
-            placement="top"
-            delay={{ show: 50, hide: 50 }}
-            overlay={renderTooltip}
-         >
-            <CopyToClipboard text={message} onCopy={handleCopy}>
-               <div className="">
-                  {!isCopied ?
-                     <button type="button" className="btn btn-secondary btn-sm">
-                        <BsFillClipboardFill />
-                     </button> :
-                     <button
-                        type="button"
-                        className="btn btn-secondary btn-sm"
-                        style={{ background: "#16942C" }}
-                        onMouseLeave={() => {
-                           setTimeout(() => {
-                              setIsCopied(false);
-                           }, 1000);
-                        }}>
-                        <BsFillClipboardCheckFill />
-                     </button>
-                  }
-               </div>
-
-            </CopyToClipboard>
-         </OverlayTrigger>
-      );
-   }
-
-   const GenerateButton = ({ index, generate_status }: { index: number, generate_status: boolean }) => {
+   const GenerateButton = ({ index, isGenerating }: { index: number, isGenerating: boolean }) => {
       const handleClick = () => {
-
          if (userContext?.user != null && userContext?.remainingMessage > 0) {
-            setPrompts((prevComponents) => {
-               const updatedComponents = [...prevComponents];
-               updatedComponents[index] = {
-                  ...updatedComponents[index],
-                  generate_status: true,
+            setPrompts((prevPrompts) => {
+               const updatedPrompts = [...prevPrompts];
+               updatedPrompts[index] = {
+                  ...updatedPrompts[index],
+                  isGenerating: true,
                };
-               return updatedComponents;
+               return updatedPrompts;
             });
             handleGenerateMessage(index);
          }
@@ -202,7 +200,7 @@ const TableComponents = (config: pageConfig) => {
             </div>
 
 
-            {generate_status ?
+            {isGenerating ?
                <button
                   className={styles.page_prompt_loading_generate_btn}
                   type="button"
@@ -230,7 +228,7 @@ const TableComponents = (config: pageConfig) => {
                      <div className="pe-2">
                         <AiOutlineSend size={20} />
                      </div>
-                     <div className=""> Generate </div>
+                     <div className=""> {translate("button.genarate", language)} </div>
                   </div>
                </button>
             }
@@ -238,79 +236,67 @@ const TableComponents = (config: pageConfig) => {
       );
    };
 
+
    const handleGenerateMessage = async (index: number) => {
-      const { input, tone_id } = prompts[index];
+      const prompt = prompts[index];
       try {
-
          if (userContext?.remainingMessage == 0) {
-            console.log("No remaining message")
-         } else {
-            const data: GenerateMessage = {
-               input_message: input,
-               tone_id: tone_id,
-               feature_id: features[config.titlePage],
-            }
-
-            const result = await generateMessageWithUser(data)
-            const message = result.reply
-            if (result) {
-               setPrompts((prevComponents) => {
-                  const updatedComponents = [...prevComponents];
-                  updatedComponents[index] = { ...updatedComponents[index], message, generate_status: false };
-                  return updatedComponents;
-               });
-               userContext?.updateRemainingMessage()
-            }
+            return
+         }
+         const { input, tone_id } = prompt;
+         const data: GenerateMessage = {
+            input_message: input,
+            tone_id: tone_id,
+            feature_id: features[config.titlePage],
          }
 
+         const result = await generateMessageWithUser(data)
+         if (result) {
+            const message = result.reply
+            const updatedPrompts = [...prompts];
+            updatedPrompts[index] = { ...prompt, message: message, isGenerating: false };
+            setPrompts(updatedPrompts);
+            userContext?.updateRemainingMessage();
+         }
       } catch {
-         setPrompts((prevComponents) => {
-            const updatedComponents = [...prevComponents];
-            updatedComponents[index] = { ...updatedComponents[index], message: "Error Please try again", generate_status: false };
-            return updatedComponents;
-         });
+         const updatedPrompts = [...prompts];
+         updatedPrompts[index] = { ...prompts[index], message: "Error. Please try again", isGenerating: false };
+         setPrompts(updatedPrompts);
       }
-   };
+   }
 
-   const handleInputTextChange = (
-      index: number,
-      event: React.ChangeEvent<HTMLTextAreaElement>
-   ) => {
+   const handleInputTextChange = (index: number, event: React.ChangeEvent<HTMLTextAreaElement>): void => {
       const newInput = event.target.value;
-
-      setPrompts((prevComponents) => {
-         const updatedComponents = [...prevComponents];
-         updatedComponents[index] = {
-            ...updatedComponents[index],
+      setPrompts((prevPrompts) => {
+         const updatedPrompts = [...prevPrompts];
+         updatedPrompts[index] = {
+            ...updatedPrompts[index],
             input: newInput,
          };
-         return updatedComponents;
+         return updatedPrompts;
       });
    };
 
-   const handleTypeChange = (
-      index: number,
-      event: React.ChangeEvent<HTMLSelectElement>
-   ) => {
-      const newType = event.target.value;
-      setPrompts((prevComponents) => {
-         const updatedComponents = [...prevComponents];
-         updatedComponents[index] = {
-            ...updatedComponents[index],
-            tone_id: parseInt(newType),
+   const handleTypeChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>): void => {
+      const newTypeValue = parseInt(event.target.value, 10);
+      setPrompts((prevPrompts) => {
+         const updatedPrompts = [...prevPrompts];
+         updatedPrompts[index] = {
+            ...updatedPrompts[index],
+            tone_id: newTypeValue,
          };
-         return updatedComponents;
+         return updatedPrompts;
       });
-      console.log(newType)
    };
 
    const handleAddNewRow = () => {
-      setPrompts([...prompts, {
+      const newPrompt: Prompt = {
          input: "",
          tone_id: language === "th" ? 1 : 9,
          message: "",
-         generate_status: false
-      }]);
+         isGenerating: false
+      }
+      setPrompts([...prompts, newPrompt]);
    };
 
    const handleDeleteRow = (index: number) => {
@@ -321,7 +307,7 @@ const TableComponents = (config: pageConfig) => {
    }
 
    useEffect(() => {
-      if (prompts.length == 0) {
+      if (prompts.length === 0) {
          handleAddNewRow();
       }
    }, [prompts]);
@@ -370,12 +356,12 @@ const TableComponents = (config: pageConfig) => {
                      </div>
                   }
 
-                  {prompts.map(({ input, tone_id, message, generate_status }, index) => (
+                  {prompts.map(({ input, tone_id, message, isGenerating }, index) => (
                      <Row key={index} className={styles.page_prompt_area_row}>
                         <div className="pt-1 pe-1 justify-content-end d-flex">
                            {prompts.length > 1 ?
                               <>
-                                 {generate_status ?
+                                 {isGenerating ?
                                     <ImCross className={styles.disable_delete_row_btn} fontSize={20} />
                                     :
                                     <ImCross className={styles.delete_row_btn} fontSize={20} onClick={() => handleDeleteRow(index)} />
@@ -430,7 +416,7 @@ const TableComponents = (config: pageConfig) => {
 
                               {/* If there is a message */}
                               {message.length > 0 && (
-                                 <Container fluid={true} className="">
+                                 <Container fluid={true}>
                                     <Row>
                                        <Col className="d-flex p-0 justify-content-end">
                                           {/* Copy to Clipboard component */}
@@ -448,7 +434,7 @@ const TableComponents = (config: pageConfig) => {
                         {/* Generate Button */}
                         <div className="col p-0" >
                            <div className="pt-3 d-flex justify-content-center">
-                              <GenerateButton index={index} generate_status={generate_status} />
+                              <GenerateButton index={index} isGenerating={isGenerating} />
                            </div>
                         </div>
                      </Row>
@@ -471,4 +457,4 @@ const TableComponents = (config: pageConfig) => {
    );
 };
 
-export default TableComponents
+export default GenerateComponent

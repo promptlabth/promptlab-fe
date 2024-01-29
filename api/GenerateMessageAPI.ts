@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserGenerateMessage } from '@/models/promptMessages';
+import { ImproveCaptionsRequest, UserGenerateMessage } from '@/models/promptMessages';
 import { serverApiUrl } from '@/constant';
 import { GetAccessToken } from './auth/auth_get_token';
 
@@ -19,8 +19,6 @@ async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage)
             UserGenerateMessage,
             requestOption
         );
-
-        console.log(response.data)
         return response.data;
     } catch (error) {
         console.error(error);
@@ -41,10 +39,6 @@ async function getMaxMessage() {
             apiUrl,
             requestOption
         );
-
-        console.log(response.data)
-
-
     } catch (error) {
         console.error(error);
         return { reply: 'Error Please try again' }
@@ -65,9 +59,6 @@ async function getCountMessages() {
             apiUrl,
             requestOption
         );
-
-        console.log(response.data)
-
 
     } catch (error) {
         console.error(error);
@@ -99,4 +90,31 @@ async function getRemainingMessage() {
     }
 }
 
-export { generateMessageWithUser, getMaxMessage, getCountMessages, getRemainingMessage }
+
+async function generateImproveCaption(improveCaptionsRequest: ImproveCaptionsRequest) {
+
+    // const apiUrl = `${serverApiUrl}/generate-improve-caption`
+    const apiUrl = "https://staging---prompt-lab-be-uu4qhhj35a-as.a.run.app/generate-improve-caption"
+    try {
+        const accessToken = await GetAccessToken()
+
+        const requestOption = {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
+                "RefreshToken": `Bearer ${localStorage.getItem("rt")}`
+            },
+        }
+        const response = await axios.post(
+            apiUrl,
+            improveCaptionsRequest,
+            requestOption
+        );
+
+        return response.data
+    } catch (error) {
+        console.error(error);
+        return { reply: 'Error Please try again' }
+    }
+
+}
+export { generateMessageWithUser, getMaxMessage, getCountMessages, getRemainingMessage, generateImproveCaption }
