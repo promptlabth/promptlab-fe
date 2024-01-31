@@ -81,6 +81,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                content="Prompt Lab is an AI-powered content generation tool that helps you create engaging social media posts, emails, and more in English and Thai. Boost your content creation with Prompt Lab today! - เป็นเครื่องมือสร้างเนื้อหาที่ขับเคลื่อนด้วย AI ซึ่งช่วยคุณสร้างโพสต์สื่อสังคม, อีเมล, และอื่น ๆ ที่น่าสนใจในภาษาอังกฤษและภาษาไทย ปรับปรุงการสร้างเนื้อหาของคุณด้วย Prompt Lab ในวันนี้!"
             />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta name="facebook-domain-verification" content="d4husgwxjchsi7s2b1ib9p64xavzn6" />
             <link rel='icon' href='/images/prompt_lab_logo.png' />
          </Head>
 
