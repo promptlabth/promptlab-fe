@@ -28,12 +28,12 @@ interface MockPageData {
 const mockPagedate: MockPageData[] = [
    {
       pageName: "Prompt Lab",
-      imageUrl: "https://scontent.fnak3-1.fna.fbcdn.net/v/t39.30808-6/365389074_188343804240037_4562066473151931163_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeHybvSSIsYwCb_gVI4qDA0-YtUcsGg5U-di1RywaDlT50NxcJ4-HWxUuzYLcTXCI2ZWLKP-kq5RqpUs5O2MEH_K&_nc_ohc=IJe_Kf2fkasAX_ud_7Z&_nc_ht=scontent.fnak3-1.fna&oh=00_AfDMfhossMcVcyOfjFFHr7YLsRstDug5xFjIu73BhwdE5g&oe=65BCB6FE",
+      imageUrl: "images/facebook_temp/prompt_lab_logo.png",
       "postMessage": "เป็นเว็บไซต์ที่พัฒนาขึ้นโดยคนไทย ทำขึ้นมาเพื่อช่วยคิดแคปชันขายของ ออกไอเดียทำคอนเทนต์ คิดบทพูดเปิดคลิป ช่วยเขียนร่างบทความ หรือเขียนร่างสคริปต์สั้น ๆ"
    },
    {
       pageName: "Metanet Corporation",
-      imageUrl: "https://scontent.fnak3-1.fna.fbcdn.net/v/t39.30808-6/334372853_101727972861347_5880736532289895007_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeEmR3vuUr4tx50xmEss-zGbgLiPmujrqYaAuI-a6Oupho24hPK8TjZIhvvxGuvfOvevdcUfdQLlKZwIOTM4CPFV&_nc_ohc=uMMrFKjOOxMAX8H8iu7&_nc_ht=scontent.fnak3-1.fna&oh=00_AfCtuQUBYamcGsxWQK1fzdbgqdQi5epAdUH6deQhqwvxeA&oe=65BCFDB5",
+      imageUrl: "images/facebook_temp/metanet_logo.jpg",
       postMessage: `สวัสดีค่ะทุกท่าน👋 วันนี้มีข้อมูลดีๆ ที่อยากจะแชร์ให้ทุกคนรู้กันค่ะ นั่นคือ Consensus AI ซึ่งเป็นแพลตฟอร์มการวิจัย AI ที่จะช่วยทุกคนค้นหาและเข้าใจงานวิจัยได้อย่างง่ายดาย ด้วยเทคโนโลยี AI ที่สามารถวิเคราะห์งานวิจัยจำนวนมากและสรุปผลลัพธ์ที่เป็นประโยชน์ ให้ทุกคนได้รับรู้ค่ะ🧠📚
       Consensus AI มีฟีเจอร์อะไรบ้างนะคะ? มาดูกันค่ะ🔍
       📍การค้นหาที่มีประสิทธิภาพ: ทำให้คุณค้นหางานวิจัยได้อย่างรวดเร็วและง่ายดาย
@@ -46,7 +46,7 @@ const mockPagedate: MockPageData[] = [
    },
    {
       pageName: "Hoshimura Himawari CH",
-      imageUrl: "https://scontent.fnak3-1.fna.fbcdn.net/v/t39.30808-6/280025257_162949762850216_5657307016804382337_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeEQyW5KwA7Ul5ClKAPrHfD7yXTKbtAgYU7JdMpu0CBhTlVQZQVGlm3WlyapQTHLl3jubK-y5_TmzKzGqidIRwG9&_nc_ohc=gPo3QjA9pekAX9gnJeR&_nc_ht=scontent.fnak3-1.fna&oh=00_AfBHegJLj1hOCzmYbyh-YhVO0ohb0iDX9ho3HHIqA-Llyw&oe=65BDFE54",
+      imageUrl: "images/facebook_temp/Hoshimura_logo.jpg",
       postMessage: `ไปแอบแก้บัคมาทั้งบ่าย ในที่สุดก็ได้เวลา Deploy แล้ววว
       อันนี้น่าจะบรรเทิงกว่า Coding แน่ๆเลยค่า
       น่าจะต้องทำ Pipeline เผื่อไว้ด้วยสินะ
@@ -55,7 +55,7 @@ const mockPagedate: MockPageData[] = [
    },
    {
       pageName: "FMTH Community",
-      imageUrl: "https://scontent.fnak3-1.fna.fbcdn.net/v/t39.30808-6/351306604_264506272750805_5305383211025831334_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeF03ee9a8P7m-3NqRSJslDVWX1iABzBvyVZfWIAHMG_JWE5d9b8i8M180bcxe2Tv3v9RZ9V8YlOcOLNomYvqkF4&_nc_ohc=SIRrMcVnl88AX8pQGb_&_nc_ht=scontent.fnak3-1.fna&oh=00_AfCZ7s-o9cBCMpZUf5DlWimfuRlo6n-MdukXvOn70Y0qEA&oe=65BDF320",
+      imageUrl: "images/facebook_temp/FM_TH_logo.jpg",
       postMessage: `📝 [Tactics] #JoshDaly Mourinho's INSANE 4-3-3 Wins The QUADRUPLE! #FM24 [24.2.1] แผน 433 สุดเทพของจ่ามู 💙🇵🇹
       .
       ดาวน์โหลด 📤 : https://www.fmscout.com/c-fm24-tactics.html?id=10733
@@ -68,7 +68,7 @@ const mockPagedate: MockPageData[] = [
    },
    {
       pageName: "THE STANDARD",
-      imageUrl: "https://scontent.fnak3-1.fna.fbcdn.net/v/t39.30808-6/357120746_600094418916572_1657859934535396219_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeH9rdQJp0XgcMgRQOU8X3QDOnwD9vlPWWk6fAP2-U9ZaXFh4KjqhsyA31P0NQLhUmKxo9G-c1j1ZcVOSb1tx2ub&_nc_ohc=9jCB-ChRRRMAX_LC0pv&_nc_ht=scontent.fnak3-1.fna&oh=00_AfAk2getEXGddfgKek2mEvhTQxbLGlT0MhTxMSAtEU-6RQ&oe=65BE2D2F",
+      imageUrl: "images/facebook_temp/THE_STANDARD_logo.jpg",
       postMessage: `เดวิด เบ็คแฮม เยือนเมืองไทย!
       .
       วันนี้ (30 มกราคม) เดวิด เบ็คแฮม ตำนานนักฟุตบอลชื่อดัง และประธานสโมสรอินเตอร์ ไมอามี ในศึกเมเจอร์ลีกซอกเกอร์ สหรัฐอเมริกา เดินทางมายังประเทศไทย เพื่อร่วมงาน THE LEGEND OF PREDATOR ณ อาดิดาสแบรนด์เซ็นเตอร์ ชั้น 3 เซ็นทรัลเวิลด์ ท่ามกลางแฟนๆ ชาวไทยที่มารอให้การต้อนรับอย่างเนืองแน่น
