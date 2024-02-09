@@ -39,36 +39,20 @@ export default function Home() {
          <div className={noto_sans_thai.className}>
             {userContext?.user?.planType === "Free" && showModal && <SubscriptionModal show={showModal} />}
             <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">
-               <figure className="text-center pt-4 pb-4 text-light">
-                  <blockquote className="blockquote">
-                     <p className="display-4"> Prompt Lab</p>
-                  </blockquote>
-                  <figcaption className="blockquote-footer">
-                     <h6> {translate("home.description", language)} </h6>
-                  </figcaption>
-
-                  <Link href="/subscription">
-                     <button className={`${styles.btn} mt-3`}>JOIN NOW</button>
-                  </Link>
-               </figure>
                <Container className={`bg-dark ${styles.container}`}>
                   <Container className={`${styles.gray} ${styles.container}`}>
-                     <figure className="text-center pt-4 pb-1 text-light">
-                        <h3>
-                           <b>
-                              {" "}
-                              {translate("home.what_promptlab_look_like", language)}
-                           </b>
-                        </h3>
+                     <figure className="text-center pt-4 pb-4 text-light">
+                        <blockquote className="blockquote">
+                           <p className="display-4"> Prompt Lab</p>
+                        </blockquote>
+                        <figcaption className="blockquote-footer">
+                           <h6> {translate("home.description", language)} </h6>
+                        </figcaption>
+
+                        <Link href="/subscription">
+                           <button className={`${styles.btn} mt-3`}>JOIN NOW</button>
+                        </Link>
                      </figure>
-
-                     <div className="d-flex justify-content-center pb-4 mb-4">
-                        <TikTokEmbed
-                           url="https://www.tiktok.com/@coderbizz/video/7218015296366431514"
-                           width={325}
-                        />
-                     </div>
-
                      <div className={`row mb-2`}>
                         <div className={`col-sm-4 mb-3 col-lg-5 ${styles.marginleft}`}>
                            <img

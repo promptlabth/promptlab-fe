@@ -77,9 +77,6 @@ const Footer = () => {
                     <hr className={styles.footer_divider} />
                     <div className="row d-flex justify-content-sm-evenly">
                         <div className="col-lg-4">
-                            <h5 className={styles.footer_header}>{translate("footer.sponsors", language)}</h5>
-                            <hr className={styles.footer_header_div} />
-                            <SponsorCarousel />
                             <div className="p-2 justify-content-center d-flex">
                                 <button className={styles.footer_contact_us_btn} onClick={handleClickConnect} >
                                     <AiOutlineMessage className="fs-5" />
