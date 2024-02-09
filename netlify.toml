@@ -3,3 +3,8 @@
   to = "https://promptlabai.com/:splat"
   status = 301
   force = true
+[[redirects]]
+  from = "https://promptlab.sutmeme.com/*"
+  to = "https://promptlabai.com/:splat"
+  status = 301
+  force = true
