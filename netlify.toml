@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://prompt.sutmeme.com/*"
+  to = "https://promptlabai.com/:splat"
+  status = 301
+  force = true
