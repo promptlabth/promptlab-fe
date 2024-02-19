@@ -83,6 +83,22 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <meta name="facebook-domain-verification" content="d4husgwxjchsi7s2b1ib9p64xavzn6" />
             <link rel='icon' href='/images/prompt_lab_logo.png' />
+            {/* Google Tag Manager - Global site tag (gtag.js) */}
+            <script
+               async
+               src="https://www.googletagmanager.com/gtag/js?id=AW-16465071173"
+            ></script>
+            <script
+               dangerouslySetInnerHTML={{
+                  __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'AW-16465071173');
+              `,
+               }}
+            />
          </Head>
 
          <LanguageProvider>
