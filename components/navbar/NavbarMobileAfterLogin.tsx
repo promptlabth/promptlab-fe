@@ -286,7 +286,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
             </Link>
           </a>
         </li>
-        <li className=" py-1 ">{history()}</li>
+        {/* <li className=" py-1 ">{history()}</li> */}
         <li className="py-1 ">{logoutDesktopScreen()}</li>
       </ul>
     </li>
@@ -484,7 +484,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         </li>
         <li className="nav-item">
                 <div className="nav-link">
-              {historyMobile()}
+              {/* {historyMobile()} */}
            </div>
            </li>
       <li>
