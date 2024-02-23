@@ -24,6 +24,7 @@ import { IoMdInformationCircle } from 'react-icons/io'
 import { FaInfoCircle } from "react-icons/fa";
 import Link from "next/link";
 import { GenerateMessage, Prompt } from "@/models/promptMessages";
+import { TFunction } from "i18next";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 
@@ -37,6 +38,7 @@ type pageConfig = {
    titlePage: string;
    titleDescription: string;
    prompt: (input: string, type: string) => string;
+   translate: TFunction;
 }
 
 
@@ -239,6 +241,7 @@ const GenerateComponent = (config: pageConfig) => {
 
    const handleGenerateMessage = async (index: number) => {
       const prompt = prompts[index];
+      console.log("Prompt", prompt)
       try {
          if (userContext?.remainingMessage == 0) {
             return
@@ -456,5 +459,6 @@ const GenerateComponent = (config: pageConfig) => {
       </div>
    );
 };
+
 
 export default GenerateComponent

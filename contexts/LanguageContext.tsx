@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { Tones } from '@/models/tones';
 import { ListTones } from '@/api/ToneAPI';
 import { getLocation } from '@/api/GetGeoLocaltion';
-
+import { useTranslation } from 'next-i18next';
 // Define the available language options
 export type Language = 'eng' | 'th' | 'id';
 

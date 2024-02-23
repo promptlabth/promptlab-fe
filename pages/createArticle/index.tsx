@@ -2,9 +2,11 @@ import { translate } from "@/languages/language";
 import TableComponents from "@/components/GenerateComponent";
 import { Language, useLanguage } from "@/contexts/LanguageContext";
 import Head from "next/head";
-
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
 const CreateArticle = () => {
     const { language } = useLanguage();
+    const { t, i18n } = useTranslation()
     return (
         <div>
             <Head>
@@ -15,6 +17,7 @@ const CreateArticle = () => {
                 titlePage="createArticle.title"
                 titleDescription="createArticle.description"
                 prompt={(input: string, type: string) => getPrompt(input, type, language)}
+                translate={t}
             />
         </div>
     );
@@ -41,4 +44,12 @@ const getPrompt = (input: string, type: string, language: Language): string => {
             emotion of message: ${type}`;
     }
 };
+
+export const getServerSideProps = async ({ locale }: any) => ({
+    props: {
+        ...(await serverSideTranslations(locale, ['common']))
+    }
+ });
+
+ 
 export default CreateArticle

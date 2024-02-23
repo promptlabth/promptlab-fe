@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { Language, useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
 import Link from "next/link";
@@ -21,12 +21,20 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import { useUserContext } from "@/contexts/UserContext";
 import { MdWorkspacePremium } from "react-icons/md";
 import { Spinner } from "react-bootstrap";
-
+import { useRouter } from "next/router";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 export const NavbarMobileAfterLogin: React.FC = () => {
   const { language, setLanguage } = useLanguage();
   const userContext = useUserContext();
+  const router = useRouter();
+  const { t, i18n } = useTranslation();
   // const rank: string = "Free"
   const [windowWidth, setWindowWidth] = useState(0);
+
+  const changeLocale = (locale: string) => {
+    router.push(router.pathname, router.asPath, { locale });
+  };
 
   // Add key to rankColor
   const rankColor: { [key: string]: string } = {
@@ -46,6 +54,12 @@ export const NavbarMobileAfterLogin: React.FC = () => {
   };
 
   useEffect(() => {
+    if (i18n.language === "en") {
+      setLanguage("eng");
+    } else {
+      setLanguage(i18n.language as Language);
+    }
+
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
@@ -64,6 +78,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       <a
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
+          changeLocale("en");
           setLanguage("eng");
         }}
       >
@@ -72,6 +87,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       <a
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
+          changeLocale("th");
           setLanguage("th");
         }}
       >
@@ -80,6 +96,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       <a
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
+          changeLocale("id")
           setLanguage("id");
         }}
       >
@@ -141,7 +158,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
     <button className={styles.navbar_help_button}>
       <BiHelpCircle className={`${styles.navbar_help_icon}`} />
       <Link href={"/help"} className={`${styles.remove_underline}`}>
-        {translate("footer.help", language)}
+        {t("footer.help")}
       </Link>
     </button>
   );
@@ -186,7 +203,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
               className={`${styles.subscription_manage_btn}`}
             >
               {" "}
-              {translate("profile.title", language)}{" "}
+              {t("profile.title")}{" "}
             </Link>
           </li>
         </>
@@ -267,7 +284,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         <li className="pt-2 d-flex justify-content-center">
           <Link href="/profile" className={`${styles.subscription_manage_btn}`}>
             {" "}
-            {translate("profile.title", language)}{" "}
+            {t("profile.title")}{" "}
           </Link>
         </li>
         <li>
@@ -281,7 +298,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
             >
               <AiFillHome className="m-1 ms-2" size={22} />
               <div className="ps-2 pt-1">
-                {translate("home.title", language)}
+                {t("home.title")}
               </div>
             </Link>
           </a>
@@ -301,7 +318,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
             className={`${styles.remove_underline} d-flex`}
             style={{ fontSize: 18 }}
           >
-            {translate("subscription", language)}
+            {t("subscription")}
             <div style={{ marginTop: "-0.5rem" }}>
               <MdNewReleases color="orange" />
             </div>
@@ -320,7 +337,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
             href={"/subscription"}
             className={`${styles.remove_underline} ms-2`}
           >
-            {translate("subscription", language)}
+            {t("subscription")}
           </Link>
         </button>
       </div>
@@ -332,27 +349,27 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       <CreateNavItem
         icon={<MdSell />}
         href="/createSellingPost"
-        title={translate("createSellingPost.title", language)}
+        title={t("createSellingPost.title")}
       />
       <CreateNavItem
         icon={<HiOutlineLightBulb />}
         href="/createIdeaContent"
-        title={translate("createContents.title", language)}
+        title={t("createContents.title")}
       />
       <CreateNavItem
         icon={<MdOutlineArticle />}
         href="/createArticle"
-        title={translate("createArticle.title", language)}
+        title={t("createArticle.title")}
       />
       <CreateNavItem
         icon={<AiFillVideoCamera />}
         href="/createShortVideoScripts"
-        title={translate("createScripts.title", language)}
+        title={t("createScripts.title")}
       />
       <CreateNavItem
         icon={<FaClosedCaptioning />}
         href="/createClickBaitWord"
-        title={translate("createClickBait.title", language)}
+        title={t("createClickBait.title")}
       />
     </div>
   );
@@ -398,7 +415,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       }}
     >
       <BiLogOut className="m-1 ms-2" size={20} />
-      <div className="ps-2 pt-1"> {translate("logout", language)}</div>
+      <div className="ps-2 pt-1"> {t("logout")}</div>
     </Link>
   );
 
@@ -409,7 +426,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         userContext?.handleLogout();
       }}
     >
-      {translate("logout", language)}
+      {t("logout")}
     </button>
   );
 
@@ -420,7 +437,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         className={`${styles.remove_underline} d-flex align-items-center`}
       >
         <AiOutlineHistory className="m-1 ms-2" size={22} />
-        <div className="ps-2 pt-1"> {translate("history", language)}</div>
+        <div className="ps-2 pt-1"> {t("history")}</div>
       </Link>
     </a>
   );
@@ -428,7 +445,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
     <button className={styles.navbar_help_button}>
       <AiOutlineHistory />
       <Link href={"/history"} className={`${styles.remove_underline} ms-2`}>
-        {translate("history", language)}
+        {t("history")}
       </Link>
     </button>
   );
@@ -473,7 +490,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
           <button className={styles.navbar_help_button}>
             <AiFillHome />
             <Link href={"/"} className={`${styles.remove_underline} ms-2`}>
-              {translate("home.title", language)}
+              {t("home.title")}
             </Link>
           </button>
         </div>
