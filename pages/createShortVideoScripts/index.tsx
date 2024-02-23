@@ -1,6 +1,6 @@
 import { translate } from "@/languages/language";
 import TableComponents from "@/components/GenerateComponent";
-import {  Language, useLanguage } from "@/contexts/LanguageContext";
+import { Language, useLanguage } from "@/contexts/LanguageContext";
 import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
@@ -41,7 +41,7 @@ export const getServerSideProps = async ({ locale }: any) => ({
     props: {
         ...(await serverSideTranslations(locale, ['common']))
     }
- });
- 
+});
+
 
 export default CreateShortVideoScripts

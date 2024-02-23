@@ -3,19 +3,19 @@ import styles from './styles.module.css'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Noto_Sans_Thai } from 'next/font/google';
 import Head from 'next/head';
-import { translate } from '@/languages/language';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { useUserContext } from '@/contexts/UserContext';
 import { BsCheckCircle } from 'react-icons/bs';
 import { FaInfoCircle } from "react-icons/fa";
 import { useRouter } from 'next/router';
 import { cancelUserSubscribe } from '@/api/Payments';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 
 const Profile = () => {
    const userContext = useUserContext();
    const router = useRouter();
-   const { language } = useLanguage();
+   const { t, i18n } = useTranslation();
 
    const handleCancelSubscription = async () => {
       const result = await cancelUserSubscribe()
@@ -27,7 +27,7 @@ const Profile = () => {
    return (
       <div>
          <Head>
-            <title>{translate("profile.title", language)}</title>
+            <title>{t("profile.title")}</title>
             <meta name="description" content="A generated messages history" />
          </Head>
          <div
@@ -54,10 +54,10 @@ const Profile = () => {
                            className="mb-3"
                            style={{ color: "red" }} />
                         <h4 className="mb-4">
-                           <b>{translate("subscription.canclesubscription", language)}</b>
+                           <b>{t("subscription.canclesubscription")}</b>
                         </h4>
                         <p className="mb-3">
-                           {translate("subscription.canclesubscription.ask", language)}
+                           {t("subscription.canclesubscription.ask")}
                         </p>
                         <button
                            type="button"
@@ -65,14 +65,14 @@ const Profile = () => {
                            className={`btn btn-danger mb-2 ${styles.cancle_btn}`}
                            data-bs-dismiss="modal"
                         >
-                           {translate("subscription.canclesubscription", language)}
+                           {t("subscription.canclesubscription")}
                         </button>
                         <br />
                         <button
                            data-bs-dismiss="canclepage"
                            style={{ color: "red", textDecoration: "underline" }}
                         >
-                           <small> {translate("subscription.canclesubscription.cancel", language)} </small>
+                           <small> {t("subscription.canclesubscription.cancel")} </small>
                         </button>
                      </div>
                   </div>
@@ -84,7 +84,7 @@ const Profile = () => {
                <Container className={styles.page_container}>
                   <figure className="text-center pb-1 pt-3 text-light">
                      <h2>
-                        <b>{translate("profile.title", language)}</b>
+                        <b>{t("profile.title")}</b>
                      </h2>
                   </figure>
 
@@ -114,11 +114,11 @@ const Profile = () => {
                         </Row>
                      </Row >
                      <hr className="text-white"></hr>
-                     <h4 className="fw-bold text-white"> {translate("profile.subscription.title", language)} </h4>
+                     <h4 className="fw-bold text-white"> {t("profile.subscription.title")} </h4>
                      <Row className={`${styles.profile_text}`}>
                         <Col md={7} className="ps-3 text-white">
                            <div className="d-flex align-items-center">
-                              <div className="pe-2"> {translate("profile.subscription.planTitle", language)}: </div>
+                              <div className="pe-2"> {t("profile.subscription.planTitle")}: </div>
                               <svg className="mb-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 28 28" fill="none">
                                  {userContext?.user?.planType! === "Gold" && <circle cx="14" cy="14" r="14" fill="#FFB800" />}
                                  {userContext?.user?.planType! === "Silver" && <circle cx="14" cy="14" r="14" fill="#A3A3A3" />}
@@ -134,36 +134,36 @@ const Profile = () => {
                         </Col>
                         <Col md={5} className='ps-3 text-white'>
                            <Col className="d-flex justify-content-between">
-                              <div> {translate("subscription.detail.startDate", language)} </div>
+                              <div> {t("subscription.detail.startDate")} </div>
                               {userContext?.user?.planType! === "Free" ? "-" : userContext?.user?.start_date?.toString()}
                               {/* {dayjs(starDate).format("DD MMMM YYYY HH:mm:ss")} */}
                            </Col>
                            <Col className="d-flex justify-content-between">
-                              <div> {translate("subscription.detail.endDate", language)} </div>
+                              <div> {t("subscription.detail.endDate")} </div>
                               {userContext?.user?.planType! === "Free" ? "-" : userContext?.user?.end_date?.toString()}
                               {/* {dayjs(endDate).format("DD MMMM YYYY HH:mm:ss")} */}
                            </Col>
                         </Col>
                      </Row>
-                     <h4 className="pt-3 fw-bold text-white"> {translate("profile.subsciption.planDetail", language)} </h4>
+                     <h4 className="pt-3 fw-bold text-white"> {t("profile.subsciption.planDetail")} </h4>
                      <Row className={`text-white ${styles.profile_text} ps-2`}>
                         <div className="text-start">
                            <Row>
                               <div>
                                  <BsCheckCircle size={16} className="me-3" />
-                                 {userContext?.user?.maxMessages} {translate("subscription.message", language)}
+                                 {userContext?.user?.maxMessages} {t("subscription.message")}
                               </div>
                            </Row>
                            <Row>
                               <div>
                                  <BsCheckCircle size={16} className="me-3" />
-                                 {translate("subscription.chat", language)} &#40;Coming Soon&#41;
+                                 {t("subscription.chat")} &#40;Coming Soon&#41;
                               </div>
                            </Row>
                            <Row>
                               <div>
                                  <BsCheckCircle size={16} className="me-3" />
-                                 {translate("subscription.support", language)}
+                                 {t("subscription.support")}
                               </div>
                            </Row>
                         </div>
@@ -175,7 +175,7 @@ const Profile = () => {
                               data-bs-toggle="modal"
                               data-bs-target="#canclepage"
                            >
-                              {translate("subscription.canclesubscription", language)}
+                              {t("subscription.canclesubscription")}
                            </button>
                         </div>
                      }
@@ -186,5 +186,12 @@ const Profile = () => {
       </div >
    )
 }
+
+export const getServerSideProps = async ({ locale }: any) => ({
+   props: {
+       ...(await serverSideTranslations(locale, ['common']))
+   }
+});
+
 
 export default Profile

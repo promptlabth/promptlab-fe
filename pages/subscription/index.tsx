@@ -1,12 +1,10 @@
 import { getCheckoutSessionUrl } from "@/api/Payments";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { Container, Modal } from "react-bootstrap";
+import { Container, } from "react-bootstrap";
 import { Noto_Sans_Thai } from "next/font/google";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 import styles from "./styles.module.css";
-import { translate } from "@/languages/language";
-import { useLanguage } from "@/contexts/LanguageContext";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { BsCheckCircle } from "react-icons/bs";
@@ -18,13 +16,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import Head from "next/head";
 import SubscriptionFailedModal from "@/components/modals/SubscriptionFailed";
 import { MdOutlineRecommend } from "react-icons/md";
-
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function Subscription() {
   const [showFailedSubscribeModal, setShowFailedSubscribeModal] = React.useState(false);
   const userContext = useUserContext();
   const router = useRouter();
-  const { language } = useLanguage();
+  const { t, i18n } = useTranslation();
 
   // const subscriptionPriorityMap: { [key: string]: number } = {
   //   "Free": 1,
@@ -55,7 +54,7 @@ export default function Subscription() {
   return (
     <>
       <Head>
-        <title>{translate("subscription", language)}</title>
+        <title>{t("subscription")}</title>
         <meta name="description" content="A generated messages history" />
       </Head>
       <div className={noto_sans_thai.className}>
@@ -66,14 +65,14 @@ export default function Subscription() {
             <figure className="text-center  text-light">
               <blockquote className="blockquote">
                 <p className="display-4 fw-bold">
-                  {translate("subscription", language)}
+                  {t("subscription")}
                 </p>
               </blockquote>
               <figcaption className="blockquote-footer"></figcaption>
             </figure>
             {userContext?.user?.planType !== "Free" &&
               <div className="text-white text-center">
-                <div className="fs-5"> {translate("subscription.whatIsYourPlan", language)}{" "}
+                <div className="fs-5"> {t("subscription.whatIsYourPlan")}{" "}
                   <div style={{
                     color: subscriptionPlanColorMap[userContext?.user?.planType!],
                     display: "inline",
@@ -82,7 +81,7 @@ export default function Subscription() {
                     {userContext?.user?.planType}
                   </div>
                 </div>
-                <div className="fs-5"> {translate("subscription.wantToChangePlan", language)}{" "}<u>isaman@promptlabai.com</u></div>
+                <div className="fs-5"> {t("subscription.wantToChangePlan")}{" "}<u>isaman@promptlabai.com</u></div>
               </div>
             }
 
@@ -112,7 +111,7 @@ export default function Subscription() {
                             size={16}
                             className="me-2"
                           ></BsCheckCircle>
-                          60 {translate("subscription.message", language)}
+                          60 {t("subscription.message")}
                         </small>
                       </Row>
                       <Row>
@@ -121,7 +120,7 @@ export default function Subscription() {
                             size={16}
                             className="me-2"
                           ></BsCheckCircle>
-                          {translate("subscription.community", language)}
+                          {t("subscription.community")}
                         </small>
                       </Row>
                     </div>
@@ -163,7 +162,7 @@ export default function Subscription() {
                             size={16}
                             className="me-2"
                           ></BsCheckCircle>
-                          300 {translate("subscription.message", language)}
+                          300 {t("subscription.message")}
                         </small>
                       </Row>
                       <Row>
@@ -172,7 +171,7 @@ export default function Subscription() {
                             size={16}
                             className="me-2"
                           ></BsCheckCircle>
-                          {translate("subscription.chat", language)} &#40;Coming Soon&#41;
+                          {t("subscription.chat")} &#40;Coming Soon&#41;
                         </small>
                       </Row>
                       <Row>
@@ -181,7 +180,7 @@ export default function Subscription() {
                             size={16}
                             className="me-2"
                           ></BsCheckCircle>
-                          {translate("subscription.support", language)}
+                          {t("subscription.support")}
                         </small>
                       </Row>
                     </div>
@@ -195,7 +194,7 @@ export default function Subscription() {
                         handleCheckoutSession(prizeIdBronze, 2)
                       }
                     >
-                      {translate("subscription.buy", language)}
+                      {t("subscription.buy")}
                     </button>
                   </Col>
                   <Col
@@ -230,7 +229,7 @@ export default function Subscription() {
                             size={16}
                             className="me-2"
                           ></BsCheckCircle>
-                          1500 {translate("subscription.message", language)}
+                          1500 {t("subscription.message")}
                         </small>
                       </Row>
                       <Row>
@@ -239,7 +238,7 @@ export default function Subscription() {
                             size={16}
                             className="me-2"
                           ></BsCheckCircle>
-                          {translate("subscription.chat", language)} &#40;Coming Soon&#41;
+                          {t("subscription.chat")} &#40;Coming Soon&#41;
                         </small>
                       </Row>
                       <Row>
@@ -248,7 +247,7 @@ export default function Subscription() {
                             size={16}
                             className="me-2"
                           ></BsCheckCircle>
-                          {translate("subscription.support", language)}
+                          {t("subscription.support")}
                         </small>
                       </Row>
                     </div>
@@ -263,7 +262,7 @@ export default function Subscription() {
                         handleCheckoutSession(prizeIdSilver, 3)
                       }
                     >
-                      {translate("subscription.buy", language)}
+                      {t("subscription.buy")}
                     </button>
                   </Col>
                   <Col
@@ -290,7 +289,7 @@ export default function Subscription() {
                             size={16}
                             className="me-2"
                           ></BsCheckCircle>
-                          3000 {translate("subscription.message", language)}
+                          3000 {t("subscription.message")}
                         </small>
                       </Row>
                       <Row>
@@ -299,7 +298,7 @@ export default function Subscription() {
                             size={16}
                             className="me-2"
                           ></BsCheckCircle>
-                          {translate("subscription.chat", language)} &#40;Coming Soon&#41;
+                          {t("subscription.chat")} &#40;Coming Soon&#41;
                         </small>
                       </Row>
                       <Row>
@@ -308,7 +307,7 @@ export default function Subscription() {
                             size={16}
                             className="me-2"
                           ></BsCheckCircle>
-                          {translate("subscription.support", language)}
+                          {t("subscription.support")}
                         </small>
                       </Row>
                     </div>
@@ -323,11 +322,11 @@ export default function Subscription() {
                         handleCheckoutSession(prizeIdGold, 4)
                       }
                     >
-                      {translate("subscription.buy", language)}
+                      {t("subscription.buy")}
                     </button>
                   </Col>
                   <p className={`${styles.select}`}>
-                    {translate("subscription.selectSub", language)}
+                    {t("subscription.selectSub")}
                   </p>
                 </Row>
               </div>
@@ -338,3 +337,9 @@ export default function Subscription() {
     </>
   );
 }
+
+export const getServerSideProps = async ({ locale }: any) => ({
+  props: {
+      ...(await serverSideTranslations(locale, ['common']))
+  }
+});
