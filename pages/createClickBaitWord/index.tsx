@@ -1,24 +1,20 @@
-import { translate } from "@/languages/language";
-import TableComponents from "@/components/GenerateComponent";
-import {  Language, useLanguage } from "@/contexts/LanguageContext";
+import GenerateComponent from "@/components/GenerateComponent";
 import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
 
 const CreateClickBaitWord = () => {
-    const { language } = useLanguage();
     const { t, i18n } = useTranslation()
     return (
         <div>
             <Head>
-                <title>{translate('createClickBait.title', language)}</title>
+                <title>{t('createClickBait.title')}</title>
                 <meta name="description" content="Meta description for the Home page" />
             </Head>
-            <TableComponents
+            <GenerateComponent
                 titlePage="createClickBait.title"
                 titleDescription="createClickBait.description"
-                prompt={(input: string, type: string) => getPrompt(input, type, language)}
-                translate={t}
+                prompt={(input: string, type: string) => getPrompt(input, type, i18n.language)}
             />
         </div>
     );
@@ -26,9 +22,9 @@ const CreateClickBaitWord = () => {
 }
 
 
-const getPrompt = (input: string, type: string, language: Language): string => {
+const getPrompt = (input: string, type: string, language: string): string => {
     switch (language) {
-        case 'eng':
+        case 'en':
             return `Compose a Captivating CClickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [${input}] And Look [${type}] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience:`;
         case 'th':
             return `"Compose a Captivating Clickbait Sentence but not incloud 'Click' in Sentence for Openning a Short Video To Talk About [${input}] And Look [${type}] That Instantly Grabs the Viewer's Attention and Sets the Stage for an Unforgettable Experience [เป็นภาษาไทยเท่านั้น]`;

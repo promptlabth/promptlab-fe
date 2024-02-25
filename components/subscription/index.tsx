@@ -2,8 +2,6 @@ import React, { use, useEffect, useState } from 'react'
 import { Col, Modal, Row } from 'react-bootstrap'
 import styles from './styles.module.css'
 import Link from 'next/link';
-import { translate } from '@/languages/language';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { Noto_Sans_Thai } from 'next/font/google'
 import { MdWorkspacePremium } from 'react-icons/md';
 import { IoMdClose } from 'react-icons/io';

@@ -1,11 +1,8 @@
-import { translate } from "@/languages/language";
-import TableComponents from "@/components/GenerateComponent";
-import {  Language, useLanguage } from "@/contexts/LanguageContext";
+import GenerateComponent from "@/components/GenerateComponent";
 import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
 const CreateSellingPost = () => {
-   const { language } = useLanguage();
    const { t, i18n } = useTranslation()
    return (
       <div>
@@ -13,20 +10,19 @@ const CreateSellingPost = () => {
             <title>{t('createSellingPost.title')}</title>
             <meta name="description" content="Meta description for the Home page" />
          </Head>
-         <TableComponents
+         <GenerateComponent
             titlePage="createSellingPost.title"
             titleDescription="createSellingPost.description"
-            prompt={(input: string, type: string) => getPrompt(input, type, language)}
-            translate={t}
+            prompt={(input: string, type: string) => getPrompt(input, type, i18n.language)}
          />
       </div>
    );
 
 }
 
-const getPrompt = (input: string, type: string, language: Language): string => {
+const getPrompt = (input: string, type: string, language: string): string => {
    switch (language) {
-      case 'eng':
+      case 'en':
          return `Write a social media announcement about [${input}] and the feeling of message is [${type}]:`;
       case 'th':
          return `Write a social media announcement about [${input}] and the feeling of message is [${type}] [เป็นภาษาไทยเท่านั้น]:`;

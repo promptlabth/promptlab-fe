@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
 import Link from "next/link";
 import styles from "./styles.module.css";
 import { RiMenu4Fill } from "react-icons/ri";
 import Flag from "react-flagkit";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
-import { AiFillHome, AiFillFacebook } from "react-icons/ai";
+import { AiFillHome } from "react-icons/ai";
 import { AiFillVideoCamera } from "react-icons/ai";
 import { MdSell, MdOutlineArticle } from "react-icons/md";
 import { HiOutlineLightBulb } from "react-icons/hi";
@@ -19,7 +17,6 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 export const NavbarMobile: React.FC = () => {
   const userContext = useUserContext();
-  const { language, setLanguage } = useLanguage();
   const [windowWidth, setWindowWidth] = useState(0);
   const router = useRouter();
   const { t, i18n } = useTranslation();
@@ -51,7 +48,6 @@ export const NavbarMobile: React.FC = () => {
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
           changeLocale("en");
-          setLanguage("eng");
         }}
       >
         <Flag country="US" className={`${styles.flag_size} me-2`} /> English
@@ -60,7 +56,6 @@ export const NavbarMobile: React.FC = () => {
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
           changeLocale("th");
-          setLanguage("th");
         }}
       >
         <Flag country="TH" className={`${styles.flag_size} me-2`} /> Thai
@@ -69,7 +64,6 @@ export const NavbarMobile: React.FC = () => {
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
           changeLocale("id");
-          setLanguage("id");
         }}
       >
         <Flag country="ID" className={`${styles.flag_size} me-2`} /> Indonesia
@@ -87,13 +81,13 @@ export const NavbarMobile: React.FC = () => {
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        {language === "th" && (
+        {i18n.language === "th" && (
           <Flag country="TH" className={`${styles.flag_size}`} />
         )}
-        {language === "eng" && (
+        {i18n.language === "en" && (
           <Flag country="US" className={`${styles.flag_size}`} />
         )}
-        {language === "id" && (
+        {i18n.language === "id" && (
           <Flag country="ID" className={`${styles.flag_size}`} />
         )}
       </a>

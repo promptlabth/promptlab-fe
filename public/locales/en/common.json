@@ -140,6 +140,6 @@
     "help.howto.select.title": "Select type of message",
     "help.howto.select.description": "Select the type of message you want Prompt Lab to generate. e.g. funny, luxury, professional, educational, confident, luxury and retro",
     "help.howto.generate.title": "Click Generate and have fun!!",
-    "button.genarate": "Generate"
-    
+    "button.genarate": "Generate",
+    "modal.pleaseLoginBeforeGenerate": "Please login before generate message"
 }

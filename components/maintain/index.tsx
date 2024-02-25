@@ -1,10 +1,7 @@
-import { translate } from "@/languages/language";
 import styles from "./styles.module.css";
-import { useLanguage } from "@/contexts/LanguageContext";
 import { IoMdConstruct } from "react-icons/io"
 import { useTranslation } from "next-i18next";
 export const MaintainPage = () => {
-   const { language } = useLanguage();
    const { t } = useTranslation();
 
    return (

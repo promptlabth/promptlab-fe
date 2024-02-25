@@ -140,5 +140,6 @@
     "help.howto.select.title": "เลือกสไตล์ของข้อความ",
     "help.howto.select.description": "เลือกสไสล์ของข้อความที่ต้องการให้ Prompt Lab สร้าง ได้แก่ สนุกสนาน, หรูหรา, มืออาชีพ, มีการศึกษา, มั่นใจ, หรูหรา และย้อนยุค",
     "help.howto.generate.title": "กด Generate และสนุกได้เลย!!",
-    "button.genarate": "สร้างข้อความ"
+    "button.genarate": "สร้างข้อความ",
+    "modal.pleaseLoginBeforeGenerate": "กรุณาเข้าสู่ระบบก่อนทำการสร้างข้อความ"
 }

@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Language, useLanguage } from "@/contexts/LanguageContext";
-import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
 import Link from "next/link";
 import styles from "./styles.module.css";
@@ -25,7 +23,6 @@ import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 export const NavbarMobileAfterLogin: React.FC = () => {
-  const { language, setLanguage } = useLanguage();
   const userContext = useUserContext();
   const router = useRouter();
   const { t, i18n } = useTranslation();
@@ -54,12 +51,6 @@ export const NavbarMobileAfterLogin: React.FC = () => {
   };
 
   useEffect(() => {
-    if (i18n.language === "en") {
-      setLanguage("eng");
-    } else {
-      setLanguage(i18n.language as Language);
-    }
-
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
@@ -79,7 +70,6 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
           changeLocale("en");
-          setLanguage("eng");
         }}
       >
         <Flag country="US" className={`${styles.flag_size} me-2`} /> English
@@ -88,7 +78,6 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
           changeLocale("th");
-          setLanguage("th");
         }}
       >
         <Flag country="TH" className={`${styles.flag_size} me-2`} /> Thai
@@ -97,7 +86,6 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
           changeLocale("id")
-          setLanguage("id");
         }}
       >
         <Flag country="ID" className={`${styles.flag_size} me-2`} /> Indonesia
@@ -115,13 +103,13 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        {language === "th" && (
+        {i18n.language === "th" && (
           <Flag country="TH" className={`${styles.flag_size}`} />
         )}
-        {language === "eng" && (
+        {i18n.language === "en" && (
           <Flag country="US" className={`${styles.flag_size}`} />
         )}
-        {language === "id" && (
+        {i18n.language === "id" && (
           <Flag country="ID" className={`${styles.flag_size}`} />
         )}
       </a>

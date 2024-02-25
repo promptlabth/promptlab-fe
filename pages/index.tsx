@@ -1,12 +1,9 @@
 import { Noto_Sans_Thai } from 'next/font/google'
 import { Container } from 'react-bootstrap'
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translate } from "@/languages/language";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 import Head from "next/head";
 import styles from "./styles.module.css";
 import Link from 'next/link';
-import { TikTokEmbed } from 'react-social-media-embed';
 import 'react-toastify/dist/ReactToastify.css';
 import SubscriptionModal from '@/components/subscription';
 import { useEffect, useState } from 'react';
@@ -16,7 +13,6 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function Home() {
-   const { language } = useLanguage();
    const userContext = useUserContext()
    const [showModal, setShowModal] = useState(false);
    const { t, i18n } = useTranslation()
@@ -34,7 +30,7 @@ export default function Home() {
    return (
       <>
          <Head>
-            <title>{translate("home.title", language)}</title>
+            <title>{t("home.title")}</title>
             <meta
                name="description"
                content="Meta description for the Home page"

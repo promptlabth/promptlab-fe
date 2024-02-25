@@ -1,4 +1,3 @@
-import { LanguageProvider } from '@/contexts/LanguageContext';
 import '@/styles/globals.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NextPage } from 'next';
@@ -102,19 +101,17 @@ function App({ Component, pageProps }: AppProps) {
             />
          </Head>
 
-         <LanguageProvider>
-            <UserContextProvider>
-               {isMaintain && <MaintainPage />}
-               {token ?
-                  <NavbarMobileAfterLogin /> :
-                  <NavbarMobile />
-               }
-               <AppTabbar />
-               <FbPostGeneratedComponent />
-               <Component {...pageProps} />
-               <Footer />
-            </UserContextProvider>
-         </LanguageProvider>
+         <UserContextProvider>
+            {isMaintain && <MaintainPage />}
+            {token ?
+               <NavbarMobileAfterLogin /> :
+               <NavbarMobile />
+            }
+            <AppTabbar />
+            {/* <FbPostGeneratedComponent /> */}
+            <Component {...pageProps} />
+            <Footer />
+         </UserContextProvider>
       </main>
    );
 }

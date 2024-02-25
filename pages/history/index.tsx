@@ -4,7 +4,6 @@ import { BsFillClipboardFill, BsFillClipboardCheckFill } from "react-icons/bs";
 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import { useLanguage } from "@/contexts/LanguageContext";
 import { translate } from "@/languages/language";
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./styles.module.css";
@@ -25,9 +24,9 @@ const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 const History = () => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [prompts, setPrompts] = useState<PromptMessage[]>([]);
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const promptsPerPage = 5; // Number of prompts to display per page
-  const { language } = useLanguage();
   const router = useRouter();
   const userContext = useUserContext();
 
@@ -236,7 +235,7 @@ const History = () => {
   return (
     <div className={noto_sans_thai.className}>
       <Head>
-        <title>{translate("history", language)}</title>
+        <title>{t("history")}</title>
         <meta name="description" content="A generated messages history" />
       </Head>
       <div className={noto_sans_thai.className}>
@@ -244,7 +243,7 @@ const History = () => {
           <Container className={styles.page_container}>
             <figure className="text-center pb-1 pt-3 text-light">
               <h2>
-                <b>{translate("history", language)}</b>
+                <b>{t("history")}</b>
               </h2>
             </figure>
 
@@ -263,7 +262,7 @@ const History = () => {
                       </Col>
                       <Col xs={12} md={2} lg={2} className="pb-2 ">
                         <Col className="fs-5 text-light" xs={12} md={12}>
-                          <b> {translate("table.input.title", language)}</b>
+                          <b> {t("table.input.title")}</b>
                         </Col>
                         <div className={styles.page_prompt_area_textfield}>
                           {input_message}
@@ -271,7 +270,7 @@ const History = () => {
                       </Col>
                       <Col xs={12} md={2} lg={2} className="pb-2 ">
                         <Col className="fs-5 text-light" xs={12} md={6} lg={12}>
-                          <b> {translate("table.type.title", language)}</b>
+                          <b> {t("table.type.title")}</b>
                         </Col>
                         <Col sm className="pt-2">
                           <div className={styles.page_prompt_area_combobox}> {tone}</div>
@@ -279,7 +278,7 @@ const History = () => {
                       </Col>
                       <Col xs={12} md={4} lg={5} xl={5} className="pb-2">
                         <Col className="fs-5 text-light" xs={12} md={6} lg={12}>
-                          <b> {translate("table.massage.title", language)}</b>
+                          <b> {t("table.massage.title")}</b>
                         </Col>
                         <div className="pt-1 text-light">
                           <Container fluid={true} className="">
@@ -302,7 +301,7 @@ const History = () => {
                       </Col>
                       <Col xs={12} md={3} lg={2} xl={2} className="pb-2">
                         <Col className="fs-5 text-light d-flex justify-content-between align-items-center">
-                          <b> {translate("createAt", language)}</b>
+                          <b> {t("createAt")}</b>
                         </Col>
                         {/* <div className="text-light"> {date_time.toString()}</div> */}
                       </Col>

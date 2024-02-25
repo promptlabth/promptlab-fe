@@ -7,7 +7,6 @@ import { Noto_Sans_Thai } from "next/font/google";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 import styles from "./styles.module.css";
 import { translate } from "@/languages/language";
-import { useLanguage } from "@/contexts/LanguageContext";
 import { BsCoin } from "react-icons/bs";
 import { FaCoins } from "react-icons/fa";
 import { GiCoins } from "react-icons/gi";
@@ -15,6 +14,8 @@ import { GiTwoCoins } from "react-icons/gi";
 import { RiCoinFill } from "react-icons/ri";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 // import { getCheckoutSessionUrl } from '@/api/Payments';
 // loadStripe(
 //   process.env.NEXT_PUBLIC_STRIPE_API_KEY
@@ -22,8 +23,8 @@ import Col from "react-bootstrap/Col";
 
 export default function Payment() {
   const router = useRouter();
+  const { t , i18n } = useTranslation();
   // const [selectedPrize, setSelectedPrize] = useState("");
-  const { language } = useLanguage();
 
   // ! This function is will be deprecated soon
   // const handlePrizeClick = async (prize: string) => {
@@ -76,11 +77,11 @@ export default function Payment() {
               </div>
               <blockquote className="blockquote">
                 <p className="display-4 fw-bold">
-                  {translate("payment", language)}
+                  {t("payment")}
                 </p>
               </blockquote>
               <figcaption className="blockquote-footer">
-                {translate("payment.description_1", language)}
+                {t("payment.description_1")}
               </figcaption>
             </figure>
             <Container fluid={true} className={`${styles.page_payment_area}`}>
@@ -91,7 +92,7 @@ export default function Payment() {
                       className={`d-flex flex-column align-items-center ${styles.custom_border}`}
                     >
                       <h5 className="mb-3">
-                        {translate("payment.coin_1", language)}
+                        {t("payment.coin_1")}
                       </h5>
                       <RiCoinFill fontSize={70} color={"yellow"}></RiCoinFill>
                       <button
@@ -107,7 +108,7 @@ export default function Payment() {
                       className={`d-flex flex-column align-items-center ${styles.custom_border}`}
                     >
                       <h5 className="mb-3">
-                        {translate("payment.coin_2", language)}
+                        {t("payment.coin_2")}
                       </h5>
                       <GiTwoCoins fontSize={70} color={"yellow"}></GiTwoCoins>
                       <button
@@ -123,7 +124,7 @@ export default function Payment() {
                       className={`d-flex flex-column align-items-center ${styles.custom_border}`}
                     >
                       <h5 className="mb-3">
-                        {translate("payment.coin_3", language)}
+                        {t("payment.coin_3")}
                       </h5>
                       <FaCoins fontSize={70} color={"yellow"}></FaCoins>
                       <button
@@ -139,7 +140,7 @@ export default function Payment() {
                       className={`d-flex flex-column align-items-center ${styles.custom_border}`}
                     >
                       <h5 className="mb-3">
-                        {translate("payment.coin_4", language)}
+                        {t("payment.coin_4")}
                       </h5>
                       <GiCoins fontSize={70} color={"yellow"}></GiCoins>
                       <button
@@ -168,7 +169,7 @@ export default function Payment() {
                       </button>
                     </Col>
                     <p className={`${styles.select}`}>
-                      {translate("payment.selectCoin", language)}
+                      {t("payment.selectCoin")}
                     </p>
                   </Row>
                   {/* {selectedPrize && (
@@ -185,3 +186,9 @@ export default function Payment() {
     </>
   );
 }
+
+export const getServerSideProps = async ({ locale }: any) => ({
+  props: {
+      ...(await serverSideTranslations(locale, ['common']))
+  }
+});
