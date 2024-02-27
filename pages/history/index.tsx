@@ -4,7 +4,6 @@ import { BsFillClipboardFill, BsFillClipboardCheckFill } from "react-icons/bs";
 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import { translate } from "@/languages/language";
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./styles.module.css";
 import { Noto_Sans_Thai } from "next/font/google";

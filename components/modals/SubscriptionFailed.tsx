@@ -1,4 +1,3 @@
-import { translate } from '@/languages/language';
 import React from 'react'
 import { Modal } from 'react-bootstrap'
 import { FaInfoCircle } from 'react-icons/fa';

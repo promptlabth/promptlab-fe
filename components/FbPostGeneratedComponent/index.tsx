@@ -10,7 +10,6 @@ import { RxAvatar } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 import { IoIosArrowUp } from "react-icons/io";
 
-import { translate } from '@/languages/language';
 import { Noto_Sans_Thai } from 'next/font/google';
 import { useUserContext } from '@/contexts/UserContext';
 import { generateImproveCaption } from '@/api/GenerateMessageAPI';

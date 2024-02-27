@@ -6,7 +6,6 @@ import { Container } from "react-bootstrap";
 import { Noto_Sans_Thai } from "next/font/google";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 import styles from "./styles.module.css";
-import { translate } from "@/languages/language";
 import { BsCoin } from "react-icons/bs";
 import { FaCoins } from "react-icons/fa";
 import { GiCoins } from "react-icons/gi";

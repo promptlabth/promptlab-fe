@@ -1,4 +1,3 @@
-import { translate } from "@/languages/language";
 import GenerateComponent from "@/components/GenerateComponent";
 import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
