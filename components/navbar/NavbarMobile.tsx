@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
 import Link from "next/link";
 import styles from "./styles.module.css";
 import { RiMenu4Fill } from "react-icons/ri";
 import Flag from "react-flagkit";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
-import { AiFillHome, AiFillFacebook } from "react-icons/ai";
+import { AiFillHome } from "react-icons/ai";
 import { AiFillVideoCamera } from "react-icons/ai";
 import { MdSell, MdOutlineArticle } from "react-icons/md";
 import { HiOutlineLightBulb } from "react-icons/hi";
@@ -15,11 +13,19 @@ import { FaClosedCaptioning } from "react-icons/fa";
 import { useUserContext } from "@/contexts/UserContext";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 export const NavbarMobile: React.FC = () => {
   const userContext = useUserContext();
-  const { language, setLanguage } = useLanguage();
   const [windowWidth, setWindowWidth] = useState(0);
+  const router = useRouter();
+  const { t, i18n } = useTranslation();
+  
+
+  const changeLocale = (locale: string) => {
+    router.push(router.pathname, router.asPath, { locale });
+  };
+
   useEffect(() => {
     const handleResize = () => {
       console.log("Resizing...", window.innerWidth);
@@ -41,7 +47,7 @@ export const NavbarMobile: React.FC = () => {
       <a
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
-          setLanguage("eng");
+          changeLocale("en");
         }}
       >
         <Flag country="US" className={`${styles.flag_size} me-2`} /> English
@@ -49,7 +55,7 @@ export const NavbarMobile: React.FC = () => {
       <a
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
-          setLanguage("th");
+          changeLocale("th");
         }}
       >
         <Flag country="TH" className={`${styles.flag_size} me-2`} /> Thai
@@ -57,7 +63,7 @@ export const NavbarMobile: React.FC = () => {
       <a
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
-          setLanguage("id");
+          changeLocale("id");
         }}
       >
         <Flag country="ID" className={`${styles.flag_size} me-2`} /> Indonesia
@@ -75,13 +81,13 @@ export const NavbarMobile: React.FC = () => {
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        {language === "th" && (
+        {i18n.language === "th" && (
           <Flag country="TH" className={`${styles.flag_size}`} />
         )}
-        {language === "eng" && (
+        {i18n.language === "en" && (
           <Flag country="US" className={`${styles.flag_size}`} />
         )}
-        {language === "id" && (
+        {i18n.language === "id" && (
           <Flag country="ID" className={`${styles.flag_size}`} />
         )}
       </a>
@@ -107,7 +113,7 @@ export const NavbarMobile: React.FC = () => {
             <FaFacebook
               className={`me-2 ${styles.social_media_icon}`}
             />
-            <div>{translate("login", language)}&nbsp;Facebook</div>
+            <div>{t("login")}&nbsp;Facebook</div>
           </button>
         </div>
       </div>
@@ -129,7 +135,7 @@ export const NavbarMobile: React.FC = () => {
           }}
         >
           <FcGoogle className={`me-2 ${styles.social_media_icon}`} />
-          <div className="">{translate("login", language)}&nbsp;Gmail</div>
+          <div className="">{t("login")}&nbsp;Gmail</div>
         </button>
       </div>
     </div>
@@ -155,7 +161,7 @@ export const NavbarMobile: React.FC = () => {
               ></button>
             </div>
             <div className="d-flex justify-content-center mb-3">
-              <h4>{translate("login", language)}</h4>
+              <h4>{t("login")}</h4>
             </div>
             {renderLogin()}
           </div>
@@ -167,7 +173,7 @@ export const NavbarMobile: React.FC = () => {
   const renderLoginMobile = () => (
     <div className={`${styles.login_container} p-3`}>
       <div className="d-flex justify-content-center">
-        <h4 className="text-white">{translate("login", language)}</h4>
+        <h4 className="text-white">{t("login")}</h4>
       </div>
       {renderLogin()}
     </div>
@@ -196,7 +202,7 @@ export const NavbarMobile: React.FC = () => {
   const renderNavbarHelp = () => (
     <button className={styles.navbar_help_button}>
       <Link href={"/help"} className={`${styles.remove_underline}`}>
-        {translate("footer.help", language)}
+        {t("footer.help")}
       </Link>
     </button>
   );
@@ -208,7 +214,7 @@ export const NavbarMobile: React.FC = () => {
       data-bs-target="#exampleModal"
       className={`${styles.navbar_login_button}`}
     >
-      {translate("login", language)}
+      {t("login")}
     </button>
   );
 
@@ -217,27 +223,27 @@ export const NavbarMobile: React.FC = () => {
       <CreateNavItem
         icon={<MdSell />}
         href="/createSellingPost"
-        title={translate("createSellingPost.title", language)}
+        title={t("createSellingPost.title")}
       />
       <CreateNavItem
         icon={<HiOutlineLightBulb />}
         href="/createIdeaContent"
-        title={translate("createContents.title", language)}
+        title={t("createContents.title")}
       />
       <CreateNavItem
         icon={<MdOutlineArticle />}
         href="/createArticle"
-        title={translate("createArticle.title", language)}
+        title={t("createArticle.title")}
       />
       <CreateNavItem
         icon={<AiFillVideoCamera />}
         href="/createShortVideoScripts"
-        title={translate("createScripts.title", language)}
+        title={t("createScripts.title")}
       />
       <CreateNavItem
         icon={<FaClosedCaptioning />}
         href="/createClickBaitWord"
-        title={translate("createClickBait.title", language)}
+        title={t("createClickBait.title")}
       />
     </div>
   );
@@ -285,7 +291,7 @@ export const NavbarMobile: React.FC = () => {
           <button className={styles.navbar_help_button}>
             <AiFillHome />
             <Link href={"/"} className={`${styles.remove_underline} ms-2`}>
-              {translate("home.title", language)}
+              {t("home.title")}
             </Link>
           </button>
         </div>
@@ -331,5 +337,6 @@ export const NavbarMobile: React.FC = () => {
     </>
   );
 };
+
 
 export default NavbarMobile;

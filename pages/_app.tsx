@@ -1,4 +1,3 @@
-import { LanguageProvider } from '@/contexts/LanguageContext';
 import '@/styles/globals.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NextPage } from 'next';
@@ -15,6 +14,7 @@ import AppTabbar from '@/components/tabbar/tabbar';
 import Footer from '@/components/footer/Footer';
 import { GetAccessToken } from '@/api/auth/auth_get_token';
 import FbPostGeneratedComponent from '@/components/FbPostGeneratedComponent';
+import { appWithTranslation } from 'next-i18next'
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
@@ -26,9 +26,9 @@ type AppPropsWithLayout = AppProps & {
    Component: NextPageWithLayout
 }
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
+function App({ Component, pageProps }: AppProps) {
    const isMaintain: boolean = false
-   const getLayout = Component.getLayout ?? ((page) => page)
+   // const getLayout = Component.getLayout ?? ((page) => page)
    const [token, setToken] = useState<string>("")
 
    const checkToken = async () => {
@@ -40,7 +40,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
    useEffect(() => {
       checkToken()
    }, [])
-   return getLayout(
+   return (
       <main className={noto_sans_thai.className}>
          <Script
             id="gtag-id"
@@ -101,19 +101,19 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             />
          </Head>
 
-         <LanguageProvider>
-            <UserContextProvider>
-               {isMaintain && <MaintainPage />}
-               {token ?
-                  <NavbarMobileAfterLogin /> :
-                  <NavbarMobile />
-               }
-               <AppTabbar />
-               <FbPostGeneratedComponent />
-               <Component {...pageProps} />
-               <Footer />
-            </UserContextProvider>
-         </LanguageProvider>
+         <UserContextProvider>
+            {isMaintain && <MaintainPage />}
+            {token ?
+               <NavbarMobileAfterLogin /> :
+               <NavbarMobile />
+            }
+            <AppTabbar />
+            {/* <FbPostGeneratedComponent /> */}
+            <Component {...pageProps} />
+            <Footer />
+         </UserContextProvider>
       </main>
    );
 }
+
+export default appWithTranslation(App)

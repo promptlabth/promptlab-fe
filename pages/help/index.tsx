@@ -1,7 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
 import Head from "next/head";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translate } from "@/languages/language";
 import { Noto_Sans_Thai } from "next/font/google";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["latin"] });
 import styles from "./styles.module.css";
@@ -9,14 +7,15 @@ import { MdEmail } from "react-icons/md";
 import { FaLine } from "react-icons/fa";
 import { AiOutlineMessage } from "react-icons/ai";
 import { useRouter } from "next/router";
-
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 const Help = () => {
-   const { language } = useLanguage();
+   const { t, i18n } = useTranslation();
    const router = useRouter()
    return (
       <div className={noto_sans_thai.className}>
          <Head>
-            <title>{translate("home.title", language)}</title>
+            <title>{t("home.title")}</title>
             <meta
                name="description"
                content="Meta description for the Home page"
@@ -26,7 +25,7 @@ const Help = () => {
             <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">
                <figure className="text-center pb-1 pt-3 text-light">
                   <h2>
-                     <b>{translate("help.title", language)}</b>
+                     <b>{t("help.title")}</b>
                   </h2>
                </figure>
                <Container className={`bg-dark ${styles.container}`}>
@@ -35,13 +34,13 @@ const Help = () => {
                         <figure className="text-start text-light">
                            <h4 className="mb-2">
                               <b>
-                                 {language === "th" && "สนใจติดต่อเรา"}
+                                 {/* {language === "th" && "สนใจติดต่อเรา"}
                                  {language === "eng" && "Contact Us"}
-                                 {language === "id" && "Hubungi kami"}
+                                 {language === "id" && "Hubungi kami"} */}
                               </b>
                            </h4>
                            <Row className="px-3 pb-4">
-                              <div> {translate("help.contact.description", language)} </div>
+                              <div> {t("help.contact.description")} </div>
                               <Col sm className="pt-3 d-flex justify-content-center">
                                  <div className="">
                                     <div className="d-flex justify-content-center">
@@ -53,9 +52,7 @@ const Help = () => {
                                     }}>
                                        <AiOutlineMessage className="fs-5" />
                                        <text className="ps-2">
-                                          {language === "th" && "สนใจติดต่อเรา"}
-                                          {language === "eng" && "Contact us"}
-                                          {language === "id" && "Hubungi kami"}
+                                          {t("footer.contact_us")}
                                        </text>
                                     </button>
                                  </div>
@@ -74,33 +71,33 @@ const Help = () => {
                         </figure>
                         <figure className="text-start text-light">
                            <h4 className="mb-4">
-                              <b>{translate("help.howto.title", language)}</b>
+                              <b>{t("help.howto.title")}</b>
                            </h4>
                            <ol className={`${styles.ol}`}>
                               <li>
                                  <h5 className="mt-3">
-                                    <b>{translate("help.howto.input.title", language)}</b>
+                                    <b>{t("help.howto.input.title")}</b>
                                  </h5>
                                  <div>
-                                    {translate("help.howto.input.description", language)}
+                                    {t("help.howto.input.description")}
                                     <ul>
-                                       <li>{translate("help.howto.input.example1", language)}</li>
-                                       <li>{translate("help.howto.input.example2", language)}</li>
-                                       <li>{translate("help.howto.input.example3", language)}</li>
+                                       <li>{t("help.howto.input.example1")}</li>
+                                       <li>{t("help.howto.input.example2")}</li>
+                                       <li>{t("help.howto.input.example3")}</li>
                                     </ul>
                                  </div>
                               </li>
                               <li>
                                  <h5 className="mt-4">
-                                    <b>{translate("help.howto.select.title",language)}</b>
+                                    <b>{t("help.howto.select.title")}</b>
                                  </h5>
                                  <p>
-                                    {translate("help.howto.select.description",language)}
+                                    {t("help.howto.select.description")}
                                  </p>
                               </li>
                               <li>
                                  <h5 className="mt-4">
-                                    <b>{translate("help.howto.generate.title", language)}</b>
+                                    <b>{t("help.howto.generate.title")}</b>
                                  </h5>
                                  <div style={{ width: "100%" }}>
                                     <video className="active w-100 mt-3" loop controls>
@@ -123,5 +120,13 @@ const Help = () => {
       </div>
    );
 }
+
+export const getServerSideProps = async ({ locale }: any) => ({
+   props: {
+      ...(await serverSideTranslations(locale, ['common']))
+   }
+});
+
+
 
 export default Help; 

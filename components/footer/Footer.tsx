@@ -1,7 +1,5 @@
 import Link from "next/link";
 import Container from 'react-bootstrap/Container';
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translate } from "../../languages/language";
 import { useEffect, useState } from "react";
 import { urlLinks } from "../../constant";
 import { useRouter } from 'next/router';
@@ -9,12 +7,13 @@ import { Carousel} from "react-bootstrap";
 import { AiOutlineMessage } from 'react-icons/ai';
 import styles from "../footer/styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
+import { useTranslation } from "next-i18next";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 const Footer = () => {
-    const { language } = useLanguage();
+    const { t, i18n } = useTranslation();
     const [titles, setTitles] = useState(
-        urlLinks.map(({ titleKey }) => translate(titleKey, language))
+        urlLinks.map(({ titleKey }) => t(titleKey))
     );
     const router = useRouter()
 
@@ -68,8 +67,8 @@ const Footer = () => {
     }
 
     useEffect(() => {
-        setTitles(urlLinks.map(({ titleKey }) => translate(titleKey, language)));
-    }, [language]);
+        setTitles(urlLinks.map(({ titleKey }) => t(titleKey)));
+    }, [i18n.language]);
     return (
         <footer className={noto_sans_thai.className}>
             <Container fluid={true} className={styles.footer}>
@@ -81,16 +80,14 @@ const Footer = () => {
                                 <button className={styles.footer_contact_us_btn} onClick={handleClickConnect} >
                                     <AiOutlineMessage className="fs-5" />
                                     <text className="ps-2">
-                                        {language === "th" && "สนใจติดต่อเรา"}
-                                        {language === "eng" && "Contact us"}
-                                        {language === "id" && "Hubungi kami"}
+                                        {t("footer.contact_us")}
                                     </text>
                                 </button>
                             </div>
                         </div>
 
                         <div className="col-lg-4 pb-3">
-                            <h5 className={styles.footer_header}>{translate("footer.links", language)}</h5>
+                            <h5 className={styles.footer_header}>{t("footer.links")}</h5>
                             <hr className={styles.footer_header_div} />
                             <ul className="list-group">
                                 {urlLinks.map(({ href }, index) => (
@@ -112,24 +109,24 @@ const Footer = () => {
                     </div>
                     <Container fluid={true} className="p-3 d-flex justify-content-center">
                         <div className={styles.footer_link_disable}>
-                            {translate("footer.aboutUs", language)}
+                            {t("footer.aboutUs")}
                         </div>
                         <div className={styles.footer_vertical_div} />
                         <div className={styles.footer_link_disable}>
-                            {translate("footer.joinUs", language)}
+                            {t("footer.joinUs")}
                         </div>
                         <div className={styles.footer_vertical_div} />
 
                         <Link href={"/privacy-policy"} className="nav-link text-dark">
                             <div className={styles.footer_link}>
-                                {translate("footer.privacy_policy", language)}
+                                {t("footer.privacy_policy")}
                             </div>
                         </Link>
 
                         <div className={styles.footer_vertical_div} />
                         <Link href={"/help"} className="nav-link">
                             <div className={styles.footer_link}>
-                                {translate("footer.help", language)}
+                                {t("footer.help")}
                             </div>
                         </Link>
                         <div className={styles.footer_vertical_div} />

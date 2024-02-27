@@ -1,20 +1,19 @@
-import { translate } from "@/languages/language";
-import TableComponents from "@/components/GenerateComponent";
-import { Language, useLanguage } from "@/contexts/LanguageContext";
+import GenerateComponent from "@/components/GenerateComponent";
 import Head from "next/head";
-
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
 const CreateArticle = () => {
-    const { language } = useLanguage();
+    const { t, i18n } = useTranslation()
     return (
         <div>
             <Head>
-                <title>{translate("createArticle.title", language)}</title>
+                <title>{t("createArticle.title")}</title>
                 <meta name="description" content="Meta description for the Home page" />
             </Head>
-            <TableComponents
+            <GenerateComponent
                 titlePage="createArticle.title"
                 titleDescription="createArticle.description"
-                prompt={(input: string, type: string) => getPrompt(input, type, language)}
+                prompt={(input: string, type: string) => getPrompt(input, type, i18n.language)}
             />
         </div>
     );
@@ -22,9 +21,9 @@ const CreateArticle = () => {
 }
 
 
-const getPrompt = (input: string, type: string, language: Language): string => {
+const getPrompt = (input: string, type: string, language: string): string => {
     switch (language) {
-        case 'eng':
+        case 'en':
             return `Write a blog post with high demand SED keyword that talks about [${input}] that article should feel like [${type}]:`;
         case 'th':
             return `
@@ -41,4 +40,12 @@ const getPrompt = (input: string, type: string, language: Language): string => {
             emotion of message: ${type}`;
     }
 };
+
+export const getServerSideProps = async ({ locale }: any) => ({
+    props: {
+        ...(await serverSideTranslations(locale, ['common']))
+    }
+ });
+
+ 
 export default CreateArticle

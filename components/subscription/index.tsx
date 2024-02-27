@@ -2,16 +2,15 @@ import React, { use, useEffect, useState } from 'react'
 import { Col, Modal, Row } from 'react-bootstrap'
 import styles from './styles.module.css'
 import Link from 'next/link';
-import { translate } from '@/languages/language';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { Noto_Sans_Thai } from 'next/font/google'
 import { MdWorkspacePremium } from 'react-icons/md';
 import { IoMdClose } from 'react-icons/io';
 import Cookies from 'js-cookie';
+import { useTranslation } from 'next-i18next';
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 const SubscriptionModal = ({show} : any) => {
-   const { language } = useLanguage();
+   const { t } = useTranslation();
 
    const [showModal, setShowModal] = useState(false);
 
@@ -53,15 +52,15 @@ const SubscriptionModal = ({show} : any) => {
                      <h4 className="fw-bold text-center"> Prompt Lab Subscription  </h4>
                      <div className="py-2 text-center">
                         <div className="">
-                           {translate("modal.subsciption.description", language)}
+                           {t("modal.subsciption.description")}
                         </div>
                         <h5 className="pt-3">
-                           <b> {translate("modal.subscription.price", language)} </b>
+                           <b> {t("modal.subscription.price")} </b>
                         </h5>
                      </div>
                      <div className="d-flex justify-content-center">
                         <Link href={"/subscription"} onClick={handleClose} className={styles.subscription_modal_btn}>
-                           {translate("subscription", language)}
+                           {t("subscription")}
                         </Link>
                      </div>
                   </div>

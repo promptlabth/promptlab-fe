@@ -1,24 +1,24 @@
 import { Noto_Sans_Thai } from 'next/font/google'
 import { Container } from 'react-bootstrap'
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translate } from "@/languages/language";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 import Head from "next/head";
 import styles from "./styles.module.css";
 import Link from 'next/link';
-import { TikTokEmbed } from 'react-social-media-embed';
 import 'react-toastify/dist/ReactToastify.css';
 import SubscriptionModal from '@/components/subscription';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useUserContext } from '@/contexts/UserContext';
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function Home() {
-   const { language } = useLanguage();
    const userContext = useUserContext()
    const [showModal, setShowModal] = useState(false);
+   const { t, i18n } = useTranslation()
 
    useEffect(() => {
+      console.log("i18n", i18n.language)
       // Check if the user has already seen the modal
       const modalShown = Cookies.get('modalShown');
       if (modalShown === undefined) {
@@ -30,7 +30,7 @@ export default function Home() {
    return (
       <>
          <Head>
-            <title>{translate("home.title", language)}</title>
+            <title>{t("home.title")}</title>
             <meta
                name="description"
                content="Meta description for the Home page"
@@ -46,7 +46,7 @@ export default function Home() {
                            <p className="display-4"> Prompt Lab</p>
                         </blockquote>
                         <figcaption className="blockquote-footer">
-                           <h6> {translate("home.description", language)} </h6>
+                           <h6> {t("home.description")} </h6>
                         </figcaption>
 
                         <Link href="/subscription">
@@ -69,15 +69,12 @@ export default function Home() {
                               <h4 className="mb-4">
                                  <b>
                                     {" "}
-                                    {translate("home.what_is_promptlab.title", language)}
+                                    {t("home.what_is_promptlab.title")}
                                  </b>
                               </h4>
                               <p>
                                  {" "}
-                                 {translate(
-                                    "home.what_is_promptlab.description",
-                                    language
-                                 )}{" "}
+                                 {t("home.what_is_promptlab.description")}{" "}
                               </p>
                            </figure>
                         </div>
@@ -97,18 +94,12 @@ export default function Home() {
                               <h4 className="mb-4">
                                  <b>
                                     {" "}
-                                    {translate(
-                                       "home.unlock_your_cretivity.title",
-                                       language
-                                    )}{" "}
+                                    {t("home.unlock_your_cretivity.title")}{" "}
                                  </b>
                               </h4>
                               <p>
                                  {" "}
-                                 {translate(
-                                    "home.unlock_your_cretivity.description",
-                                    language
-                                 )}
+                                 {t("home.unlock_your_cretivity.description")}
                               </p>
                            </figure>
                         </div>
@@ -120,3 +111,9 @@ export default function Home() {
       </>
    );
 }
+
+export const getServerSideProps = async ({ locale }: any) => ({
+   props: {
+       ...(await serverSideTranslations(locale, ['common']))
+   }
+});

@@ -10,14 +10,13 @@ import { RxAvatar } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 import { IoIosArrowUp } from "react-icons/io";
 
-import { translate } from '@/languages/language';
-import { Language, useLanguage } from '@/contexts/LanguageContext';
 import { Noto_Sans_Thai } from 'next/font/google';
 import { useUserContext } from '@/contexts/UserContext';
 import { generateImproveCaption } from '@/api/GenerateMessageAPI';
 import { FcGoogle } from 'react-icons/fc';
 import Link from 'next/link';
 import { BsFacebook } from 'react-icons/bs';
+import { i18n, useTranslation } from 'next-i18next';
 
 interface MockPageData {
    pageName: string;
@@ -83,7 +82,7 @@ const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 const GenerateButton = ({ prompt, setPrompt }: { prompt: Prompt, setPrompt: any }) => {
    const userContext = useUserContext();
-   const { language } = useLanguage();
+   const { t, i18n } = useTranslation();
    const handleGenerateMessage = async () => {
       try {
          if (userContext?.remainingMessage == 0 || userContext?.user === null) {
@@ -95,9 +94,9 @@ const GenerateButton = ({ prompt, setPrompt }: { prompt: Prompt, setPrompt: any 
          const data: ImproveCaptionsRequest = {
             input_message: input,
             language_id:
-               language === "th" ? 1 :
-                  language === "eng" ? 2 :
-                     language === "id" ? 3 : 2
+               i18n.language === "th" ? 1 :
+               i18n.language === "en" ? 2 :
+               i18n.language === "id" ? 3 : 2
          }
          const result = await generateImproveCaption(data)
          if (result) {
@@ -139,7 +138,7 @@ const GenerateButton = ({ prompt, setPrompt }: { prompt: Prompt, setPrompt: any 
                   <div className="pe-2">
                      <AiOutlineSend size={20} />
                   </div>
-                  <div> {translate("button.genarate", language)} </div>
+                  <div> {t("button.genarate")} </div>
                </div>
             </button>
          }
@@ -148,8 +147,9 @@ const GenerateButton = ({ prompt, setPrompt }: { prompt: Prompt, setPrompt: any 
    )
 }
 
-const GenerateCountBox = ({ language }: { language: Language }) => {
+const GenerateCountBox = () => {
    const userContext = useUserContext();
+   const {t} = useTranslation()
 
    return (
       <div className={`${styles.generate_count_layout} text-white`}>
@@ -161,7 +161,7 @@ const GenerateCountBox = ({ language }: { language: Language }) => {
             trigger={['hover', 'focus']}
             overlay={
                <Tooltip className={`${noto_sans_thai.className}`} id="generate-count-tooltip" >
-                  {translate("table.messageInMonth1", language)} 4999 {translate("table.messageInMonthUnit", language)}!
+                  {t("table.messageInMonth1")} 4999 {t("table.messageInMonthUnit")}!
                </Tooltip>
             }
          >
@@ -174,14 +174,11 @@ const GenerateCountBox = ({ language }: { language: Language }) => {
 }
 
 const FbPostGeneratedComponent = () => {
-   const { language } = useLanguage();
+   const { t } = useTranslation();
    const userContext = useUserContext();
    const [prompt, setPrompt] = useState<Prompt>();
    const [showDrawer, setShowDrawer] = useState(false);
    const [windowWidth, setWindowWidth] = useState(0);
-   const mockMessage = `
-   คลิปล่าสุดของ พี่จอง-คัลแลน ได้ปล่อยออกมาเมื่อ 2 วันก่อน โดยคลิปนี้เป็นทริปที่ทั้งสองไปเที่ยว จ.ตาก ในคลิปทั้งสองต้องนั่งรถสองแถวจากตัวเมืองตากไป อ.อุ้มผาง และก็มีเพื่อนร่วมทางด้วยอีกคนหนึ่งเป็นหญิงสาวที่ชื่อจีด้วยการที่การไปอุ้มผางกินเวลาถึง 4 ชั่วโมง แล้วถนนก็เป็นบนเขามีโค้งเยอะ ทําพี่จองเมารถจนหน้าซีดเลย ก่อนที่สาวจีจะยื่นยาแก้เมารถให้พี่จอง ทําพี่จอง-คัลแลน ขอบคุณกันยกใหญ่หลังคลิปปล่อยออกมา แฟนคลับ คัลแลน-พี่จอง ได้รู้สึกถึงความมีน้ําใจ ความน่ารัก ความอ่อนโยนมีมารยาทของจี จนออกมาชื่นชมกันอย่างล้นหลามเลยและล่าสุดทางแฟนคลับก็ได้เจอบัญชีติ๊กต็อกของจีมาชื่อว่า jiranan.06 พบว่าจีเป็นสาวเชื้อสายม้งที่บ้านอยู่ อ.อุ้มผาง ทําให้ตอนนี้บัญชีติ๊กต็อกของเจ้าตัวไวรัลขึ้นมาอย่างแรงนอกจากนี้เจ้าตัวยังบอกว่า ก่อนหน้านี้ไม่รู้จักกับ พี่จอง-คัลแลน แต่ตอนที่ได้นั่งรถด้วยกัน 4 ชั่วโมงก็รู้สึกว่าเป็นคนที่ตล#เหมียวเฟนเดอร์จนกระทั่งคลิปออกมาแล้วเพื่อนส่งมาให้ดูถึงรู้ว่าเป็น คัลแลน-พี่จอง ที่กําลังดังตอนนี้
-   `
 
    const toggleDrawer = () => {
       setShowDrawer(!showDrawer);
@@ -233,7 +230,7 @@ const FbPostGeneratedComponent = () => {
                   </div>
                   {userContext?.user &&
                      <div className='d-flex justify-content-end'>
-                        <GenerateCountBox language={language} />
+                        <GenerateCountBox />
                      </div>
                   }
                   <div className={styles.prompt_result_area}>
@@ -247,7 +244,7 @@ const FbPostGeneratedComponent = () => {
                      </div>
                      <div className='text-white p-3'>
                         {prompt?.message.length === 0 ?
-                           <span className="text-white-50">{translate("table.no_message", language)}</span>
+                           <span className="text-white-50">{t("table.no_message")}</span>
                            :
                            <span>{prompt?.message}</span>
                         }
@@ -321,7 +318,7 @@ const FbPostGeneratedComponent = () => {
                   </div>
                   {userContext?.user &&
                      <div className='pt-3 d-flex justify-content-end'>
-                        <GenerateCountBox language={language} />
+                        <GenerateCountBox/>
                      </div>
                   }
                   <div className={styles.prompt_result_area}>
@@ -335,7 +332,7 @@ const FbPostGeneratedComponent = () => {
                      </div>
                      <div className='text-white p-3'>
                         {prompt?.message.length === 0 ?
-                           <span className="text-white-50">{translate("table.no_message", language)}</span>
+                           <span className="text-white-50">{t("table.no_message")}</span>
                            :
                            <span>{prompt?.message}</span>
                         }

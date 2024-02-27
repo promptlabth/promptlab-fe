@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import styles from "./privacy.module.css"
 import { Noto_Sans_Thai } from "next/font/google";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 
 const PrivacyPolicy = () => {
@@ -310,6 +311,13 @@ const PrivacyPolicy = () => {
 
    );
 }
+
+
+export const getServerSideProps = async ({ locale }: any) => ({
+   props: {
+       ...(await serverSideTranslations(locale, ['common']))
+   }
+});
 
 
 

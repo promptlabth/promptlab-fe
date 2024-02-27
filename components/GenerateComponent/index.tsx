@@ -8,8 +8,6 @@ import { HiOutlineLightBulb } from 'react-icons/hi';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { FaClosedCaptioning } from 'react-icons/fa';
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translate } from "../../languages/language";
 import { Col, Container, Row } from "react-bootstrap";
 import { generateMessageWithUser } from "@/api/GenerateMessageAPI";
 import { ImCross } from 'react-icons/im';
@@ -24,8 +22,9 @@ import { IoMdInformationCircle } from 'react-icons/io'
 import { FaInfoCircle } from "react-icons/fa";
 import Link from "next/link";
 import { GenerateMessage, Prompt } from "@/models/promptMessages";
+import { ListTones } from "@/api/ToneAPI";
+import { useTranslation } from "next-i18next";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
-
 
 // Define a Page configuration data type
 // @Attribute
@@ -39,9 +38,6 @@ type pageConfig = {
    prompt: (input: string, type: string) => string;
 }
 
-
-
-
 const CopyToClipboardButton = ({ message }: { message: string }) => {
    const [isCopied, setIsCopied] = useState(false);
 
@@ -50,7 +46,6 @@ const CopyToClipboardButton = ({ message }: { message: string }) => {
          {isCopied ? <span className="fs-6"> Copied </span> : <span className="fs-6"> Copy to Clipboard </span>}
       </Tooltip>
    );
-
 
    return (
       <OverlayTrigger
@@ -83,11 +78,11 @@ const CopyToClipboardButton = ({ message }: { message: string }) => {
 
 const GenerateComponent = (config: pageConfig) => {
    const [prompts, setPrompts] = useState<Prompt[]>([]);
+   const [tones, setTones] = useState<Tones[]>([]);
    const userContext = useUserContext()
-   const { language, tones } = useLanguage();
    const pathname = usePathname()
    const featureName = `${pathname.slice(1)}`
-
+   const {t, i18n} = useTranslation()
    // Define an object mapping paths to icons
    // @Attribute
    // icons: An object where each key represents a path and its corresponding value is a JSX.Element representing an icon component.
@@ -139,7 +134,7 @@ const GenerateComponent = (config: pageConfig) => {
                         </div>
                         {userContext?.user == null &&
                            <>
-                              <h4 className="mb-4">กรุณาเข้าสู่ระบบก่อนกด Generate</h4>
+                              <h4 className="mb-4">{t("modal.pleaseLoginBeforeGenerate")}</h4>
                               <Row className="row">
                                  <Col className="d-flex flex-column align-items-center">
                                     <button className={` mb-3 ${styles.btn}`} onClick={() => { userContext?.handleLogin("facebook") }}>
@@ -147,12 +142,12 @@ const GenerateComponent = (config: pageConfig) => {
                                           className="me-3 align-items-start"
                                           fontSize={20}
                                        ></BsFacebook>
-                                       Sign in with facebook
+                                       {t("login")}&nbsp;Facebook
                                     </button>
                                     <p style={{ color: "#c2c2c2" }}>- or -</p>
                                     <button className={`${styles.btn_google}`} onClick={() => { userContext?.handleLogin("gmail") }}>
                                        <FcGoogle className="me-3" fontSize={20}></FcGoogle>
-                                       Sign in with google
+                                       {t("login")}&nbsp;Google
                                     </button>
                                  </Col>
                               </Row>
@@ -163,10 +158,10 @@ const GenerateComponent = (config: pageConfig) => {
                               <div className="p-2 pb-4">
                                  <FaInfoCircle size={110} />
                               </div>
-                              <h4 className="mb-4 fw-bold"> {translate("modal.noRemainingMessage.title", language)} </h4>
+                              <h4 className="mb-4 fw-bold"> {t("modal.noRemainingMessage.title")} </h4>
                               <Row className="row">
-                                 <h5 className="text-black-50"> {translate("modal.noRemainingMessage.description", language)} </h5>
-                                 <h5 className="text-black-50"> {translate("modal.noRemainingMessage.subscription", language)} </h5>
+                                 <h5 className="text-black-50"> {t("modal.noRemainingMessage.description")} </h5>
+                                 <h5 className="text-black-50"> {t("modal.noRemainingMessage.subscription")} </h5>
 
                                  <div className="ps-4 pe-4">
                                     <Row>
@@ -177,7 +172,7 @@ const GenerateComponent = (config: pageConfig) => {
                                              aria-label="Close"
                                           >
                                              <Link href="/subscription" style={{ textDecoration: "none", color: "black" }}>
-                                                {translate("modal.noRemainingMessage.subscriptionButton", language)}
+                                                {t("modal.noRemainingMessage.subscriptionButton")}
                                              </Link>
                                           </button>
                                        </Col>
@@ -228,14 +223,13 @@ const GenerateComponent = (config: pageConfig) => {
                      <div className="pe-2">
                         <AiOutlineSend size={20} />
                      </div>
-                     <div className=""> {translate("button.genarate", language)} </div>
+                     <div className=""> {t("button.genarate")} </div>
                   </div>
                </button>
             }
          </>
       );
    };
-
 
    const handleGenerateMessage = async (index: number) => {
       const prompt = prompts[index];
@@ -244,6 +238,7 @@ const GenerateComponent = (config: pageConfig) => {
             return
          }
          const { input, tone_id } = prompt;
+         console.log(input, tone_id)
          const data: GenerateMessage = {
             input_message: input,
             tone_id: tone_id,
@@ -287,12 +282,18 @@ const GenerateComponent = (config: pageConfig) => {
          };
          return updatedPrompts;
       });
+      console.log(prompts);
    };
 
    const handleAddNewRow = () => {
+      const toneId = 
+         i18n.language == "th" ? 1 :
+         i18n.language == "en" ? 9 :
+         i18n.language == "id" ? 17 : 9
+
       const newPrompt: Prompt = {
          input: "",
-         tone_id: language === "th" ? 1 : 9,
+         tone_id: toneId,
          message: "",
          isGenerating: false
       }
@@ -306,12 +307,27 @@ const GenerateComponent = (config: pageConfig) => {
       ]);
    }
 
+   const getTones = async () => {
+      let language = i18n.language
+      if (language == "en") {
+         language = "eng"
+      }
+      const result = await ListTones(language);
+      if (result) {
+         setTones(result)
+         console.log("tones",result)
+      }
+   }
+
    useEffect(() => {
       if (prompts.length === 0) {
          handleAddNewRow();
       }
    }, [prompts]);
 
+   useEffect(()=>{
+      getTones() 
+   },[i18n.language])
 
    return (
       <div className={noto_sans_thai.className}>
@@ -321,10 +337,10 @@ const GenerateComponent = (config: pageConfig) => {
                <figure className="text-center pt-4 pb-4 text-light">
                   <div className="pb-2"> {icons[pathname]} </div>
                   <blockquote className="blockquote">
-                     <p className="display-4 fw-bold">{translate(config.titlePage, language)}</p>
+                     <p className="display-4 fw-bold">{t(config.titlePage)}</p>
                   </blockquote>
                   <figcaption className="blockquote-footer">
-                     {translate(config.titleDescription, language)}
+                     {t(config.titleDescription)}
                   </figcaption>
                </figure>
 
@@ -344,7 +360,7 @@ const GenerateComponent = (config: pageConfig) => {
                               trigger={['hover', 'focus']}
                               overlay={
                                  <Tooltip className={`${noto_sans_thai.className}`} id="generate-count-tooltip" >
-                                    {translate("table.messageInMonth1", language)} {userContext?.user?.maxMessages} {translate("table.messageInMonthUnit", language)}!
+                                    {t("table.messageInMonth1")} {userContext?.user?.maxMessages} {t("table.messageInMonthUnit")}!
                                  </Tooltip>
                               }
                            >
@@ -374,10 +390,10 @@ const GenerateComponent = (config: pageConfig) => {
 
                         {/* Input Textfield */}
                         <Col xs={12} md={3} className="pb-2">
-                           <Col className="fs-5 text-light" xs={12} md={12}>{translate('table.input.title', language)}</Col>
+                           <Col className="fs-5 text-light" xs={12} md={12}>{t('table.input.title')}</Col>
                            <div className="pt-2">
                               <textarea
-                                 placeholder={translate(`placeholder.${featureName}`, language)}
+                                 placeholder={t(`placeholder.${featureName}`)}
                                  className={styles.page_prompt_area_textfield}
                                  value={input}
                                  onChange={(event) => handleInputTextChange(index, event)}
@@ -387,7 +403,7 @@ const GenerateComponent = (config: pageConfig) => {
                         </Col>
                         {/* Type Dropdown */}
                         <Col className="pb-2">
-                           <Col className="fs-5 text-light" xs={12} md={9}>{translate('table.type.title', language)}</Col>
+                           <Col className="fs-5 text-light" xs={12} md={9}>{t('table.type.title')}</Col>
                            <Col sm className="pt-2">
                               <select
                                  className={styles.page_prompt_area_combobox}
@@ -407,11 +423,11 @@ const GenerateComponent = (config: pageConfig) => {
                         </Col>
                         {/* Message */}
                         <Col xs={12} md={3} lg={4} xl={5} className="pb-2">
-                           <Col className="fs-5 text-light" xs={12} md={6}>{translate('table.massage.title', language)}</Col>
+                           <Col className="fs-5 text-light" xs={12} md={6}>{t('table.massage.title')}</Col>
                            <div className="pt-1">
                               {/* If message length is 0, show "No generated message..." */}
                               {message.length === 0 && (
-                                 <span className="text-white-50">{translate("table.no_message", language)}</span>
+                                 <span className="text-white-50">{t("table.no_message")}</span>
                               )}
 
                               {/* If there is a message */}
@@ -442,7 +458,7 @@ const GenerateComponent = (config: pageConfig) => {
                   <Container className={styles.page_prompt_area_addrow}>
                      <button className={styles.page_prompt_add_new_row_button} onClick={handleAddNewRow}>
                         <div className="d-flex pe-0">
-                           <div className=""> {translate("button.newRow", language)} </div>
+                           <div className=""> {t("button.newRow")} </div>
                            <div className="ps-2">
                               <IoMdAddCircleOutline size={25} />
                            </div>
@@ -456,5 +472,6 @@ const GenerateComponent = (config: pageConfig) => {
       </div>
    );
 };
+
 
 export default GenerateComponent

@@ -1,28 +1,28 @@
-import { translate } from "@/languages/language";
-import TableComponents from "@/components/GenerateComponent";
-import {  Language, useLanguage } from "@/contexts/LanguageContext";
+import GenerateComponent from "@/components/GenerateComponent";
 import Head from "next/head";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
 const CreateShortVideoScripts = () => {
-    const { language } = useLanguage();
+    const { t, i18n } = useTranslation()
     return (
         <div>
             <Head>
-                <title>{translate("createScripts.title", language)}</title>
+                <title>{t("createScripts.title")}</title>
                 <meta name="description" content="Meta description for the Home page" />
             </Head>
-            <TableComponents
+            <GenerateComponent
                 titlePage="createScripts.title"
                 titleDescription="createScripts.description"
-                prompt={(input: string, type: string) => getPrompt(input, type, language)}
+                prompt={(input: string, type: string) => getPrompt(input, type, i18n.language)}
             />
         </div>
     );
 
 }
 
-const getPrompt = (input: string, type: string, language: Language): string => {
+const getPrompt = (input: string, type: string, language: string): string => {
     switch (language) {
-        case 'eng':
+        case 'en':
             return `write full scripts for short video that talk about [${input}] and the feeling of scripts is [${type}]:`;
         case 'th':
             return `write full scripts for short video that talk about [${input}] and the feeling of scripts is [${type}] [เป็นภาษาไทยเท่านั้น]:`;
@@ -32,6 +32,12 @@ const getPrompt = (input: string, type: string, language: Language): string => {
             return `write full scripts for short video that talk about [${input}] and the feeling of scripts is [${type}]:`;
     }
 };
- 
+
+export const getServerSideProps = async ({ locale }: any) => ({
+    props: {
+        ...(await serverSideTranslations(locale, ['common']))
+    }
+});
+
 
 export default CreateShortVideoScripts
