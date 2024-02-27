@@ -10,6 +10,6 @@
   force = true
 [[redirects]]
   from = "https://promptlabai.com/"
-  to = "https://promptlabai.com/th/:splat"
+  to = "https://promptlabai.com/th/"
   status = 301
   force = true
