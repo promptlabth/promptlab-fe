@@ -1,10 +1,15 @@
 [[redirects]]
   from = "https://prompt.sutmeme.com/*"
-  to = "https://promptlabai.com/:splat"
+  to = "https://promptlabai.com/th/:splat"
   status = 301
   force = true
 [[redirects]]
   from = "https://promptlab.sutmeme.com/*"
-  to = "https://promptlabai.com/:splat"
+  to = "https://promptlabai.com/th/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://promptlabai.com/"
+  to = "https://promptlabai.com/th/:splat"
   status = 301
   force = true
