@@ -108,7 +108,7 @@ function App({ Component, pageProps }: AppProps) {
                <NavbarMobile />
             }
             <AppTabbar />
-            {/* <FbPostGeneratedComponent /> */}
+            <FbPostGeneratedComponent />
             <Component {...pageProps} />
             <Footer />
          </UserContextProvider>
