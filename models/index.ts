@@ -10,6 +10,7 @@ export type LoginUser = {
    maxMessages?: number;
    start_date?: Date;
    end_date?: Date;
+   access_token?: string;
 }
 
 
