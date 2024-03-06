@@ -238,7 +238,6 @@ const GenerateComponent = (config: pageConfig) => {
             return
          }
          const { input, tone_id } = prompt;
-         console.log(input, tone_id)
          const data: GenerateMessage = {
             input_message: input,
             tone_id: tone_id,
@@ -315,7 +314,6 @@ const GenerateComponent = (config: pageConfig) => {
       const result = await ListTones(language);
       if (result) {
          setTones(result)
-         console.log("tones",result)
       }
    }
 

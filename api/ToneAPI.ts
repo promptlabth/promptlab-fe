@@ -2,7 +2,7 @@ import axios from "axios";
 import { serverApiUrl } from "@/constant";
 
 export async function ListTones(language : string) {
-   const apiUrl = `${serverApiUrl}/tones/${language}`
+   const apiUrl = `${serverApiUrl}/tone/${language}`
    
    try {
       const requestOption = { headers: { "Content-Type": "application/json" },}

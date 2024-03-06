@@ -4,14 +4,13 @@ import { serverApiUrl } from '@/constant';
 import { GetAccessToken } from './auth/auth_get_token';
 
 async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage) {
-    const apiUrl = `${serverApiUrl}/generate-random`
+    const apiUrl = `${serverApiUrl}/generate/messages`
     try {
 
         const accessToken = await GetAccessToken()
         const requestOption = {
             headers: {
                 "Authorization": `Bearer ${accessToken}`,
-                "RefreshToken": `Bearer ${localStorage.getItem("rt")}`
             },
         }
         const response = await axios.post(
@@ -68,7 +67,8 @@ async function getCountMessages() {
 }
 
 async function getRemainingMessage() {
-    const apiUrl = `${serverApiUrl}/remaining-message`
+    const apiUrl = `https://dev---prompt-lab-be-uu4qhhj35a-as.a.run.app/remaining-message`
+    // const apiUrl = `${serverApiUrl}/remaining-message`
     try {
         const accessToken = await GetAccessToken()
 

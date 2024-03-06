@@ -211,7 +211,7 @@ const FbPostGeneratedComponent = () => {
       if (!page) {
         return
       }
-      
+
       const result = await facebookGetPagePost(id, page.access_token!)
 
       setSelectedFacebookPage(page)
@@ -268,12 +268,20 @@ const FbPostGeneratedComponent = () => {
           background: "rgba(255, 255, 255, 0.85)"
         }}>
           {userContext?.user === null &&
-
             <div
               className='d-flex align-items-center justify-content-center'
               style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, pointerEvents: "auto", background: "rgba(0, 0, 0, 0.8)" }}> /
               <h2 className='text-white fw-bold'>
                 กรุณาเข้าสู่ระบบก่อนใช้ Feature นี้
+              </h2>
+            </div>
+          }
+          {userContext?.user?.platform !== "facebook" &&
+            <div
+              className='d-flex align-items-center justify-content-center'
+              style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, pointerEvents: "auto", background: "rgba(0, 0, 0, 0.8)" }}> /
+              <h2 className='text-white fw-bold'>
+                กรุณาเข้าสู่ระบบผ่าน Facebook
               </h2>
             </div>
           }
@@ -351,8 +359,6 @@ const FbPostGeneratedComponent = () => {
         }
 
         <Modal style={{ paddingTop: "3rem" }} className="" size='lg' contentClassName={styles.fb_post_generated_modal} show={showDrawer} onHide={toggleDrawer}>
-
-
           <div>
             <button
               className={`${styles.modal_toggle_btn_active}`}
@@ -365,7 +371,6 @@ const FbPostGeneratedComponent = () => {
           </div>
           <Modal.Body className={noto_sans_thai.className}  >
             {userContext?.user === null &&
-
               <div
                 className='d-flex align-items-center justify-content-center'
                 style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, pointerEvents: "auto", background: "rgba(0, 0, 0, 0.8)" }}> /
@@ -374,17 +379,34 @@ const FbPostGeneratedComponent = () => {
                 </h2>
               </div>
             }
+            {userContext?.user?.platform !== "facebook" &&
+              <div
+                className='d-flex align-items-center justify-content-center'
+                style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, pointerEvents: "auto", background: "rgba(0, 0, 0, 0.8)" }}> /
+                <h2 className='text-white fw-bold'>
+                  กรุณาเข้าสู่ระบบผ่าน Facebook
+                </h2>
+              </div>
+            }
             <div className="d-flex justify-content-end">
               <IoClose onClick={toggleDrawer} size={30} />
             </div>
+            <div className='border'>
+              <select className="form-select" aria-label="Default select example" onChange={handlePageFacebookChange}>
+                <option value="test_id" selected>สุ่มหน้า Facebook</option>
+                {facebookPages.map((page, index) => (
+                  <option key={index} value={page.id}>{page.name}</option>
+                ))}
+              </select>
+            </div>
             <div className={styles.facebook_post_container} style={{ marginTop: "20px" }}>
+
               <div className='d-flex px-3'>
-                <img src={randomPageData.imageUrl} className="rounded-circle" style={{ width: "50px" }}></img>
-                <div className='text-white fw-bold ps-2' style={{ paddingTop: "0.4rem", }}>{randomPageData.pageName}</div>
+                <img src={`https://graph.facebook.com/v19.0/${selectedFacebookPage?.id}/picture?access_token=${selectedFacebookPage?.access_token}`} className="rounded-circle" style={{ width: "50px" }}></img>
+                <div className='text-white fw-bold ps-2' style={{ paddingTop: "0.4rem", }}>{selectedFacebookPage?.name}</div>
               </div>
               <div className='text-white p-3'>
-                {randomPageData.postMessage}
-
+                {latestFacebookPagePost?.message}
               </div>
             </div>
             <div className='d-flex justify-content-center'>

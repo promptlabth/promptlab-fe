@@ -2,8 +2,7 @@ import { serverApiUrl } from "@/constant";
 import axios from "axios";
 
 export async function Login(accessToken : string, platform : string, platformToken : string) {
-   const apiUrl = `${serverApiUrl}/users/login`
-   // const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}users/login`
+   const apiUrl = `${serverApiUrl}/login`
    
    try {
       const requestOption = { headers: { "Authorization": `Bearer ${accessToken}` },}
