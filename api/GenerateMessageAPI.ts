@@ -25,24 +25,6 @@ async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage)
     }
 }
 
-async function getMaxMessage() {
-    const apiUrl = `${serverApiUrl}/max-message`
-    try {
-        const accessToken = await GetAccessToken()
-        const requestOption = {
-            headers: {
-                "Authorization": `Bearer ${accessToken}`,
-            },
-        }
-        const response = await axios.get(
-            apiUrl,
-            requestOption
-        );
-    } catch (error) {
-        console.error(error);
-        return { reply: 'Error Please try again' }
-    }
-}
 
 async function getCountMessages() {
     const apiUrl = `${serverApiUrl}/get-count-message`
@@ -68,7 +50,6 @@ async function getCountMessages() {
 
 async function getRemainingMessage() {
     const apiUrl = `https://dev---prompt-lab-be-uu4qhhj35a-as.a.run.app/remaining-message`
-    // const apiUrl = `${serverApiUrl}/remaining-message`
     try {
         const accessToken = await GetAccessToken()
 
@@ -116,4 +97,4 @@ async function generateImproveCaption(improveCaptionsRequest: ImproveCaptionsReq
     }
 
 }
-export { generateMessageWithUser, getMaxMessage, getCountMessages, getRemainingMessage, generateImproveCaption }
+export { generateMessageWithUser, getCountMessages, getRemainingMessage, generateImproveCaption }
