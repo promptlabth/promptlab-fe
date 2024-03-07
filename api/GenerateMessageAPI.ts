@@ -74,7 +74,7 @@ async function getRemainingMessage() {
 
 async function generateImproveCaption(improveCaptionsRequest: ImproveCaptionsRequest) {
 
-    const apiUrl = `${serverApiUrl}/generate-improve-caption`
+    const apiUrl = `https://dev---prompt-lab-be-uu4qhhj35a-as.a.run.app/generate-improve-caption`
     try {
         const accessToken = await GetAccessToken()
 
