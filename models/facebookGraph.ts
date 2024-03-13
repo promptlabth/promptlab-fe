@@ -7,7 +7,7 @@ export type FacebookPage = {
 }
 
 export type FacebookPost = {
-    id: string
+    id: number
     message: string
     created_time: string
 }

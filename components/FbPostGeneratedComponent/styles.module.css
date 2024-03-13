@@ -103,6 +103,28 @@
     color: white
 }
 
+/* --------+ Search box css class +-------- */
+.fb_page_search_box{
+    padding: 0.5rem;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.fb_page_datalist{
+    margin-left: 0.2rem;
+    width: 83.5%;
+    position: absolute;
+    background-color: white;
+}
+
+.fb_page_option{
+    padding: 0.5rem;
+}
+
+.fb_page_option:hover{
+    background-color: #00FFAB;
+}
+
 .page_prompt_generate_btn {
     background-color: #00FFAB;
     border: none;

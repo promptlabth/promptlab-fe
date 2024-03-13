@@ -20,11 +20,22 @@ import { i18n, useTranslation } from 'next-i18next';
 import { GetAccessToken } from '@/api/auth/auth_get_token';
 import { facebookGetPagePost, facebookGetPublicPages } from '@/api/FacebookGraphAPI';
 import { FacebookPage, FacebookPost } from '@/models/facebookGraph';
+import mockFacebookPages from "@/pages.json"
 
 interface MockPageData {
   pageName: string;
   imageUrl: string;
   postMessage: string;
+}
+
+interface DataItem {
+  page: string;
+  id: number;
+  posts: {
+    id: number;
+    message: string;
+    created_time: string;
+  }[];
 }
 
 const mockPagedate: MockPageData[] = [
@@ -180,6 +191,12 @@ const FbPostGeneratedComponent = () => {
   const [facebookPages, setFacebookPages] = useState<FacebookPage[]>([])
   const [selectedFacebookPage, setSelectedFacebookPage] = useState<FacebookPage | null>(null)
   const [latestFacebookPagePost, setLatestFacebookPagePost] = useState<FacebookPost>()
+  const [searchedFacebookPageName, setSearchedFacebookPageName] = useState<string>("")
+  const [filteredFacebookPages, setFilteredFacebookPages] = useState<DataItem[]>([])
+
+  // TODO page posts data
+  const [allFacebookPagePosts, setAllFacebookPagePosts] = useState<FacebookPost[]>([])
+
   const { t } = useTranslation();
   const userContext = useUserContext();
   const [prompt, setPrompt] = useState<Prompt>({
@@ -190,11 +207,13 @@ const FbPostGeneratedComponent = () => {
   });
   const [showDrawer, setShowDrawer] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
+  const [showPageDatalist, setShowPageDatalist] = useState(false);
 
   const toggleDrawer = () => {
     setShowDrawer(!showDrawer);
   };
 
+  // ! Temporarily not use this function
   const getFacebookPages = async () => {
     try {
       const result = await facebookGetPublicPages(userContext?.user?.access_token!)
@@ -204,6 +223,7 @@ const FbPostGeneratedComponent = () => {
     }
   }
 
+  // ! Temporarily not use this function
   const getLatestFacebookPagePost = async (id: string) => {
     try {
       // Find facebook pages data with id
@@ -225,14 +245,40 @@ const FbPostGeneratedComponent = () => {
     }
   }
 
+  // ! Temporarily not use this function
   const handlePageFacebookChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     getLatestFacebookPagePost(event.target.value)
   }
 
+  // ? Mock function
+  const handleSearchFacebookPage = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setSearchedFacebookPageName(event.target.value)
+    if (event.target.value === "") {
+      setFilteredFacebookPages(mockFacebookPages)
+    } else {
+      const resultPage = mockFacebookPages.filter(data =>
+        data.page.toLowerCase().includes(event.target.value.toLowerCase())
+      )
+      setFilteredFacebookPages(resultPage)
+    }
+  }
+
+  // ? Mock function
+  const mockGetFacebookPagePosts = async (posts: FacebookPost[]) => {
+    setAllFacebookPagePosts(posts)
+  }
+
+  // ? Mock function
+  const handleFacebookPostChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    const post = allFacebookPagePosts.find((data) => data.id === parseInt(event.target.value))
+    setLatestFacebookPagePost(post)
+  }
+
 
   useEffect(() => {
+    setFilteredFacebookPages(mockFacebookPages)
     if (userContext?.user) {
-      getFacebookPages()
+      // getFacebookPages()
     }
   }, [userContext?.user])
 
@@ -276,7 +322,7 @@ const FbPostGeneratedComponent = () => {
               </h2>
             </div>
           }
-          {userContext?.user?.platform !== "facebook" &&
+          {userContext?.user && userContext?.user?.platform !== "facebook" &&
             <div
               className='d-flex align-items-center justify-content-center'
               style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, pointerEvents: "auto", background: "rgba(0, 0, 0, 0.8)" }}> /
@@ -286,18 +332,61 @@ const FbPostGeneratedComponent = () => {
             </div>
           }
           <Offcanvas.Body className={`pt-1 px-5 ${noto_sans_thai.className}`}>
-            <div className='border pt-5'>
-              <select className="form-select" aria-label="Default select example" onChange={handlePageFacebookChange}>
-                <option value="test_id" selected>สุ่มหน้า Facebook</option>
-                {facebookPages.map((page, index) => (
-                  <option key={index} value={page.id}>{page.name}</option>
-                ))}
-              </select>
+            <div className='pt-5'>
+              <div className=''>
+                <input
+                  placeholder={'ใส่ชื่อเพจที่ต้องการค้นหา'}
+                  className={styles.fb_page_search_box}
+                  value={searchedFacebookPageName}
+                  onChange={(event) => handleSearchFacebookPage(event)}
+                  required
+                  onFocus={() => { setShowPageDatalist(true) }}
+                  onBlur={() => { setShowPageDatalist(false) }}
+                />
+                {showPageDatalist &&
+                  <div className={styles.fb_page_datalist}>
+                    {filteredFacebookPages.map((page, index) => (
+                      <div
+                        key={index}
+                        className={styles.fb_page_option}
+                        onMouseDown={() => {
+                          const pageData: FacebookPage = {
+                            id: `${page.id}`,
+                            name: page.page,
+                            image: "",
+                            category: ""
+                          }
+                          setSelectedFacebookPage(pageData)
+                          handleSearchFacebookPage({ target: { value: page.page } } as React.ChangeEvent<HTMLInputElement>)
+                          mockGetFacebookPagePosts(page.posts)
+                          setLatestFacebookPagePost(page.posts[0])
+                        }}
+                      >
+                        {page.page}
+                      </div>
+                    ))}
+                  </div>
+                }
+              </div>
+              {searchedFacebookPageName !== "" &&
+                <select
+                  className="mt-2 form-select"
+                  aria-label="Default select example"
+                  onChange={(event) => handleFacebookPostChange(event)}
+                >
+                  {allFacebookPagePosts.map((post, index) => (
+                    <option
+                      key={index}
+                      value={post.id}
+                    >{post.message}</option>
+                  ))}
+                </select>
+              }
             </div>
             <div className={styles.facebook_post_container}>
-              <div className='d-flex px-3 pt-2'>
-                <img src={`https://graph.facebook.com/v19.0/${selectedFacebookPage?.id}/picture?access_token=${selectedFacebookPage?.access_token}`} className="rounded-circle" style={{ width: "50px" }}></img>
-                <div className='text-white fw-bold ps-2' style={{ paddingTop: "0.4rem", }}>{selectedFacebookPage?.name}</div>
+              <div className='d-flex px-3 pt-2 align-items-center'>
+                <img src={`https://graph.facebook.com/v19.0/${selectedFacebookPage?.id}/picture`} className="rounded-circle" style={{ width: "50px" }}></img>
+                <div className='ms-2 text-white fw-bold ps-2' style={{ paddingTop: "0.4rem", }}>{selectedFacebookPage?.name}</div>
               </div>
               <div className='text-white p-3'>
                 {/* {randomPageData.postMessage} */}
@@ -332,10 +421,6 @@ const FbPostGeneratedComponent = () => {
                 }
               </div>
             </div>
-            {/* 
-                   
-                  */}
-
           </Offcanvas.Body>
         </Offcanvas>
       </div>
@@ -379,7 +464,7 @@ const FbPostGeneratedComponent = () => {
                 </h2>
               </div>
             }
-            {userContext?.user?.platform !== "facebook" &&
+            {userContext?.user && userContext?.user?.platform !== "facebook" &&
               <div
                 className='d-flex align-items-center justify-content-center'
                 style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, pointerEvents: "auto", background: "rgba(0, 0, 0, 0.8)" }}> /
@@ -392,18 +477,67 @@ const FbPostGeneratedComponent = () => {
               <IoClose onClick={toggleDrawer} size={30} />
             </div>
             <div className='border'>
-              <select className="form-select" aria-label="Default select example" onChange={handlePageFacebookChange}>
+              <div>
+                <input
+                  placeholder={'ใส่ชื่อเพจที่ต้องการค้นหา'}
+                  className={styles.fb_page_search_box}
+                  value={searchedFacebookPageName}
+                  onChange={(event) => handleSearchFacebookPage(event)}
+                  required
+                  onFocus={() => { setShowPageDatalist(true) }}
+                  onBlur={() => { setShowPageDatalist(false) }}
+                />
+                {showPageDatalist &&
+                  <div className={styles.fb_page_datalist}>
+                    {filteredFacebookPages.map((page, index) => (
+                      <div
+                        key={index}
+                        className={styles.fb_page_option}
+                        onMouseDown={() => {
+                          const pageData: FacebookPage = {
+                            id: `${page.id}`,
+                            name: page.page,
+                            image: "",
+                            category: ""
+                          }
+                          setSelectedFacebookPage(pageData)
+                          handleSearchFacebookPage({ target: { value: page.page } } as React.ChangeEvent<HTMLInputElement>)
+                          mockGetFacebookPagePosts(page.posts)
+                          setLatestFacebookPagePost(page.posts[0])
+                        }}
+                      >
+                        {page.page}
+                      </div>
+                    ))}
+                  </div>
+                }
+              </div>
+              {searchedFacebookPageName !== "" &&
+                <select
+                  className="mt-2 form-select"
+                  aria-label="Default select example"
+                  onChange={(event) => handleFacebookPostChange(event)}
+                >
+                  {allFacebookPagePosts.map((post, index) => (
+                    <option
+                      key={index}
+                      value={post.id}
+                    >{post.message}</option>
+                  ))}
+                </select>
+              }
+              {/* <select className="form-select" aria-label="Default select example" onChange={handlePageFacebookChange}>
                 <option value="test_id" selected>สุ่มหน้า Facebook</option>
                 {facebookPages.map((page, index) => (
                   <option key={index} value={page.id}>{page.name}</option>
                 ))}
-              </select>
+              </select> */}
             </div>
             <div className={styles.facebook_post_container} style={{ marginTop: "20px" }}>
 
-              <div className='d-flex px-3'>
-                <img src={`https://graph.facebook.com/v19.0/${selectedFacebookPage?.id}/picture?access_token=${selectedFacebookPage?.access_token}`} className="rounded-circle" style={{ width: "50px" }}></img>
-                <div className='text-white fw-bold ps-2' style={{ paddingTop: "0.4rem", }}>{selectedFacebookPage?.name}</div>
+              <div className='d-flex px-3 align-items-center'>
+                <img src={`https://graph.facebook.com/v19.0/${selectedFacebookPage?.id}/picture`} className="rounded-circle" style={{ width: "50px" }}></img>
+                <div className='ms-2 text-white fw-bold ps-2' style={{ paddingTop: "0.4rem", }}>{selectedFacebookPage?.name}</div>
               </div>
               <div className='text-white p-3'>
                 {latestFacebookPagePost?.message}
