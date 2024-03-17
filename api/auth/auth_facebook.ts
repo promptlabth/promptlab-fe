@@ -36,6 +36,7 @@ async function signInWithFacebook(): Promise<FacebookUserCredential | null> {
     try {
       const auth: Auth = authFirebase;
       const provider = new FacebookAuthProvider();
+      provider.addScope("email")
       const result: UserCredential = await signInWithPopup(auth, provider);
       const accessToken: string | undefined = FacebookAuthProvider.credentialFromResult(result)?.accessToken
       console.log("Result is", result)

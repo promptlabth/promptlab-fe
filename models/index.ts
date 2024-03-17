@@ -10,12 +10,9 @@ export type LoginUser = {
    maxMessages?: number;
    start_date?: Date;
    end_date?: Date;
+   access_token?: string;
+   platform?: string
 }
-
-
-
-
-
 
 export type PromptMessage = {
    id : number;

@@ -10,6 +10,7 @@ async function signInWithGmail(): Promise<GoogleUserCredential | null> {
     try {
         const auth: Auth = authFirebase;
         const googleProvider = new GoogleAuthProvider();
+        googleProvider.addScope("email")
         const result: UserCredential = await signInWithPopup(auth, googleProvider);
         const accessToken: string | undefined = GoogleAuthProvider.credentialFromResult(result)?.accessToken
         return { ...result, accessToken };

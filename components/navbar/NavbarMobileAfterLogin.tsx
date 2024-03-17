@@ -170,10 +170,10 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                 userContext?.user?.planType! === "Gold"
                   ? "3.25px solid #FFB800"
                   : userContext?.user?.planType! === "Silver"
-                  ? "3.25px solid #A8A8A8"
-                  : userContext?.user?.planType! === "Bronze"
-                  ? "3.25px solid #CD7F32"
-                  : "none",
+                    ? "3.25px solid #A8A8A8"
+                    : userContext?.user?.planType! === "Bronze"
+                      ? "3.25px solid #CD7F32"
+                      : "none",
               borderRadius: "50%",
               width: "60px",
               height: "60px",
@@ -216,10 +216,10 @@ export const NavbarMobileAfterLogin: React.FC = () => {
               userContext?.user?.planType! === "Gold"
                 ? "3.25px solid #FFB800"
                 : userContext?.user?.planType! === "Silver"
-                ? "3.25px solid #A8A8A8"
-                : userContext?.user?.planType! === "Bronze"
-                ? "3.25px solid #CD7F32"
-                : "none",
+                  ? "3.25px solid #A8A8A8"
+                  : userContext?.user?.planType! === "Bronze"
+                    ? "3.25px solid #CD7F32"
+                    : "none",
             borderRadius: "50%",
             width: "42px",
             height: "42px",
@@ -291,7 +291,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
             </Link>
           </a>
         </li>
-        {/* <li className=" py-1 ">{history()}</li> */}
+        <li className=" py-1 ">{history()}</li>
         <li className="py-1 ">{logoutDesktopScreen()}</li>
       </ul>
     </li>
@@ -486,12 +486,12 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       {userContext?.user?.planType === "Free" && planTypeScreen()}
       <li className="nav-item">
         <div className="nav-link">{renderNavbarHelp()}</div>
-        </li>
-        <li className="nav-item">
-                <div className="nav-link">
-              {/* {historyMobile()} */}
-           </div>
-           </li>
+      </li>
+      <li className="nav-item">
+        <div className="nav-link">
+          {historyMobile()}
+        </div>
+      </li>
       <li>
         <hr style={{ color: "white" }}></hr>
       </li>

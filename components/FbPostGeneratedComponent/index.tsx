@@ -17,23 +17,37 @@ import { FcGoogle } from 'react-icons/fc';
 import Link from 'next/link';
 import { BsFacebook } from 'react-icons/bs';
 import { i18n, useTranslation } from 'next-i18next';
+import { GetAccessToken } from '@/api/auth/auth_get_token';
+import { facebookGetPagePost, facebookGetPublicPages } from '@/api/FacebookGraphAPI';
+import { FacebookPage, FacebookPost } from '@/models/facebookGraph';
+import mockFacebookPages from "@/pages.json"
 
 interface MockPageData {
-   pageName: string;
-   imageUrl: string;
-   postMessage: string;
+  pageName: string;
+  imageUrl: string;
+  postMessage: string;
+}
+
+interface DataItem {
+  page: string;
+  id: number;
+  posts: {
+    id: number;
+    message: string;
+    created_time: string;
+  }[];
 }
 
 const mockPagedate: MockPageData[] = [
-   {
-      pageName: "Prompt Lab",
-      imageUrl: "images/facebook_temp/prompt_lab_logo.png",
-      "postMessage": "เป็นเว็บไซต์ที่พัฒนาขึ้นโดยคนไทย ทำขึ้นมาเพื่อช่วยคิดแคปชันขายของ ออกไอเดียทำคอนเทนต์ คิดบทพูดเปิดคลิป ช่วยเขียนร่างบทความ หรือเขียนร่างสคริปต์สั้น ๆ"
-   },
-   {
-      pageName: "Metanet Corporation",
-      imageUrl: "images/facebook_temp/metanet_logo.jpg",
-      postMessage: `สวัสดีค่ะทุกท่าน👋 วันนี้มีข้อมูลดีๆ ที่อยากจะแชร์ให้ทุกคนรู้กันค่ะ นั่นคือ Consensus AI ซึ่งเป็นแพลตฟอร์มการวิจัย AI ที่จะช่วยทุกคนค้นหาและเข้าใจงานวิจัยได้อย่างง่ายดาย ด้วยเทคโนโลยี AI ที่สามารถวิเคราะห์งานวิจัยจำนวนมากและสรุปผลลัพธ์ที่เป็นประโยชน์ ให้ทุกคนได้รับรู้ค่ะ🧠📚
+  {
+    pageName: "Prompt Lab",
+    imageUrl: "images/facebook_temp/prompt_lab_logo.png",
+    "postMessage": "เป็นเว็บไซต์ที่พัฒนาขึ้นโดยคนไทย ทำขึ้นมาเพื่อช่วยคิดแคปชันขายของ ออกไอเดียทำคอนเทนต์ คิดบทพูดเปิดคลิป ช่วยเขียนร่างบทความ หรือเขียนร่างสคริปต์สั้น ๆ"
+  },
+  {
+    pageName: "Metanet Corporation",
+    imageUrl: "images/facebook_temp/metanet_logo.jpg",
+    postMessage: `สวัสดีค่ะทุกท่าน👋 วันนี้มีข้อมูลดีๆ ที่อยากจะแชร์ให้ทุกคนรู้กันค่ะ นั่นคือ Consensus AI ซึ่งเป็นแพลตฟอร์มการวิจัย AI ที่จะช่วยทุกคนค้นหาและเข้าใจงานวิจัยได้อย่างง่ายดาย ด้วยเทคโนโลยี AI ที่สามารถวิเคราะห์งานวิจัยจำนวนมากและสรุปผลลัพธ์ที่เป็นประโยชน์ ให้ทุกคนได้รับรู้ค่ะ🧠📚
       Consensus AI มีฟีเจอร์อะไรบ้างนะคะ? มาดูกันค่ะ🔍
       📍การค้นหาที่มีประสิทธิภาพ: ทำให้คุณค้นหางานวิจัยได้อย่างรวดเร็วและง่ายดาย
       📍การสรุปงานวิจัย: ทำให้คุณเข้าใจงานวิจัยทางวิทยาศาสตร์ได้ง่ายขึ้น
@@ -42,20 +56,20 @@ const mockPagedate: MockPageData[] = [
       แล้วคุณคิดว่า Consensus AI จะช่วยคุณได้อย่างไรบ้างคะ? แชร์ความคิดเห็นของคุณมาดูกันค่ะ😊👇
       #METANET #TechRevolution #MetaverseExploration #WebsiteInnovation #UXUIEvolution #TechTrends
       #DigitalTransformation #TechSavvy #MetaverseExperience #WebsiteDesign #UXUIEnhancement`
-   },
-   {
-      pageName: "Hoshimura Himawari CH",
-      imageUrl: "images/facebook_temp/Hoshimura_logo.jpg",
-      postMessage: `ไปแอบแก้บัคมาทั้งบ่าย ในที่สุดก็ได้เวลา Deploy แล้ววว
+  },
+  {
+    pageName: "Hoshimura Himawari CH",
+    imageUrl: "images/facebook_temp/Hoshimura_logo.jpg",
+    postMessage: `ไปแอบแก้บัคมาทั้งบ่าย ในที่สุดก็ได้เวลา Deploy แล้ววว
       อันนี้น่าจะบรรเทิงกว่า Coding แน่ๆเลยค่า
       น่าจะต้องทำ Pipeline เผื่อไว้ด้วยสินะ
       ปล.ยังขาดส่วน Upload ฝั่ง FrontEnd อีกนิดนึง
       #VtuberTH #VtuberTH #VtuberOwl #himawariwhiteowllive`
-   },
-   {
-      pageName: "FMTH Community",
-      imageUrl: "images/facebook_temp/FM_TH_logo.jpg",
-      postMessage: `📝 [Tactics] #JoshDaly Mourinho's INSANE 4-3-3 Wins The QUADRUPLE! #FM24 [24.2.1] แผน 433 สุดเทพของจ่ามู 💙🇵🇹
+  },
+  {
+    pageName: "FMTH Community",
+    imageUrl: "images/facebook_temp/FM_TH_logo.jpg",
+    postMessage: `📝 [Tactics] #JoshDaly Mourinho's INSANE 4-3-3 Wins The QUADRUPLE! #FM24 [24.2.1] แผน 433 สุดเทพของจ่ามู 💙🇵🇹
       .
       ดาวน์โหลด 📤 : https://www.fmscout.com/c-fm24-tactics.html?id=10733
       .
@@ -64,16 +78,16 @@ const mockPagedate: MockPageData[] = [
       ตัวอย่างแผน 📺 : https://www.youtube.com/watch?v=2G_1hhA5YFs
       เครดิต🙏 : JoshDaly
       🕹⚽️[Ad] : สนใจลงไฟล์เสริมกราฟฟิกต่างๆ ทักinbox ของเพจ  หรือแอดไลน์มาที่ @711yyzwl (กรณีทักมาแอดไม่ตอบพิมสนไว้ในโพสต์นี้ได้เลย) 📩🗳 #FMTH`
-   },
-   {
-      pageName: "THE STANDARD",
-      imageUrl: "images/facebook_temp/THE_STANDARD_logo.jpg",
-      postMessage: `เดวิด เบ็คแฮม เยือนเมืองไทย!
+  },
+  {
+    pageName: "THE STANDARD",
+    imageUrl: "images/facebook_temp/THE_STANDARD_logo.jpg",
+    postMessage: `เดวิด เบ็คแฮม เยือนเมืองไทย!
       .
       วันนี้ (30 มกราคม) เดวิด เบ็คแฮม ตำนานนักฟุตบอลชื่อดัง และประธานสโมสรอินเตอร์ ไมอามี ในศึกเมเจอร์ลีกซอกเกอร์ สหรัฐอเมริกา เดินทางมายังประเทศไทย เพื่อร่วมงาน THE LEGEND OF PREDATOR ณ อาดิดาสแบรนด์เซ็นเตอร์ ชั้น 3 เซ็นทรัลเวิลด์ ท่ามกลางแฟนๆ ชาวไทยที่มารอให้การต้อนรับอย่างเนืองแน่น
       .
       #TheStandardNews`
-   }
+  }
 ]
 // random data from mockPagedate
 const randomPageData: MockPageData = mockPagedate[Math.floor(Math.random() * mockPagedate.length)];
@@ -81,303 +95,501 @@ const randomPageData: MockPageData = mockPagedate[Math.floor(Math.random() * moc
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 const GenerateButton = ({ prompt, setPrompt }: { prompt: Prompt, setPrompt: any }) => {
-   const userContext = useUserContext();
-   const { t, i18n } = useTranslation();
-   const handleGenerateMessage = async () => {
-      try {
-         if (userContext?.remainingMessage == 0 || userContext?.user === null) {
-            return
-         }
-
-         setPrompt({ ...prompt, isGenerating: true })
-         const { input, } = prompt;
-         const data: ImproveCaptionsRequest = {
-            input_message: input,
-            language_id:
-               i18n.language === "th" ? 1 :
-               i18n.language === "en" ? 2 :
-               i18n.language === "id" ? 3 : 2
-         }
-         const result = await generateImproveCaption(data)
-         if (result) {
-            const message = result.reply
-            userContext?.updateRemainingMessage();
-            setPrompt({ ...prompt, message: message, isGenerating: false })
-         }
-      } catch {
-         setPrompt({ ...prompt, message: "Error. Please try again", isGenerating: false })
+  const userContext = useUserContext();
+  const { t, i18n } = useTranslation();
+  const handleGenerateMessage = async () => {
+    try {
+      if (userContext?.remainingMessage == 0 || userContext?.user === null) {
+        return
       }
-   }
 
-   return (
-      <>
-         {prompt.isGenerating ?
-            <button
-               data-bs-toggle={`${userContext?.user == null || userContext.remainingMessage <= 0 ? "modal" : ""}`}
-               data-bs-target={`${userContext?.user == null || userContext.remainingMessage <= 0 ? "#Modal" : ""}`}
-               className={styles.page_prompt_loading_generate_btn}
-               type="button"
-               disabled={true}
-               style={{ padding: 3, paddingBottom: 8, paddingTop: 8 }}
-            >
-               <div className="d-flex">
-                  <div className="pe-2 ps-2">
-                     <div className="spinner-border spinner-border-sm"></div>
-                  </div>
-                  <div className="pe-2"> กำลังสร้างข้อความ </div>
-               </div>
-            </button>
-            :
-            <button
-               className={styles.page_prompt_generate_btn}
-               type="button"
-               onClick={handleGenerateMessage}
-               style={{ padding: 3, paddingBottom: 8, paddingTop: 8 }}
-            >
-               <div className="d-flex pe-2 ps-2">
-                  <div className="pe-2">
-                     <AiOutlineSend size={20} />
-                  </div>
-                  <div> {t("button.genarate")} </div>
-               </div>
-            </button>
-         }
-      </>
+      setPrompt({ ...prompt, isGenerating: true })
+      const { input, } = prompt;
+      const data: ImproveCaptionsRequest = {
+        input_message: input,
+        language_id:
+          i18n.language === "th" ? 1 :
+            i18n.language === "en" ? 2 :
+              i18n.language === "id" ? 3 : 2
+      }
+      const result = await generateImproveCaption(data)
+      if (result) {
+        const message = result.reply
+        userContext?.updateRemainingMessage();
+        setPrompt({ ...prompt, message: message, isGenerating: false })
+      }
+    } catch {
+      setPrompt({ ...prompt, message: "Error. Please try again", isGenerating: false })
+    }
+  }
 
-   )
+  return (
+    <>
+      {prompt.isGenerating ?
+        <button
+          data-bs-toggle={`${userContext?.user == null || userContext.remainingMessage <= 0 ? "modal" : ""}`}
+          data-bs-target={`${userContext?.user == null || userContext.remainingMessage <= 0 ? "#Modal" : ""}`}
+          className={styles.page_prompt_loading_generate_btn}
+          type="button"
+          disabled={true}
+          style={{ padding: 3, paddingBottom: 8, paddingTop: 8 }}
+        >
+          <div className="d-flex">
+            <div className="pe-2 ps-2">
+              <div className="spinner-border spinner-border-sm"></div>
+            </div>
+            <div className="pe-2"> กำลังสร้างข้อความ </div>
+          </div>
+        </button>
+        :
+        <button
+          className={styles.page_prompt_generate_btn}
+          type="button"
+          onClick={handleGenerateMessage}
+          style={{ padding: 3, paddingBottom: 8, paddingTop: 8 }}
+        >
+          <div className="d-flex pe-2 ps-2">
+            <div className="pe-2">
+              <AiOutlineSend size={20} />
+            </div>
+            <div> {t("button.genarate")} </div>
+          </div>
+        </button>
+      }
+    </>
+
+  )
 }
 
 const GenerateCountBox = () => {
-   const userContext = useUserContext();
-   const {t} = useTranslation()
+  const userContext = useUserContext();
+  const { t } = useTranslation()
 
-   return (
-      <div className={`${styles.generate_count_layout} text-white`}>
-         <AiOutlineSend className="text-white me-2" size={20} />
-         {userContext?.remainingMessage! < 0 ? 0 : userContext?.remainingMessage}&#47;{userContext?.user?.maxMessages}
-         <OverlayTrigger
-            placement={'top'}
-            delay={{ show: 150, hide: 250 }}
-            trigger={['hover', 'focus']}
-            overlay={
-               <Tooltip className={`${noto_sans_thai.className}`} id="generate-count-tooltip" >
-                  {t("table.messageInMonth1")} 4999 {t("table.messageInMonthUnit")}!
-               </Tooltip>
-            }
-         >
-            <a href="" onClick={(e) => e.preventDefault()}>
-               <IoMdInformationCircle className="text-white ms-2" size={22} />
-            </a>
-         </OverlayTrigger>
-      </div>
-   )
+  return (
+    <div className={`${styles.generate_count_layout} text-white`}>
+      <AiOutlineSend className="text-white me-2" size={20} />
+      {userContext?.remainingMessage! < 0 ? 0 : userContext?.remainingMessage}&#47;{userContext?.user?.maxMessages}
+      <OverlayTrigger
+        placement={'top'}
+        delay={{ show: 150, hide: 250 }}
+        trigger={['hover', 'focus']}
+        overlay={
+          <Tooltip className={`${noto_sans_thai.className}`} id="generate-count-tooltip" >
+            {t("table.messageInMonth1")} 4999 {t("table.messageInMonthUnit")}!
+          </Tooltip>
+        }
+      >
+        <a href="" onClick={(e) => e.preventDefault()}>
+          <IoMdInformationCircle className="text-white ms-2" size={22} />
+        </a>
+      </OverlayTrigger>
+    </div>
+  )
 }
 
 const FbPostGeneratedComponent = () => {
-   const { t } = useTranslation();
-   const userContext = useUserContext();
-   const [prompt, setPrompt] = useState<Prompt>();
-   const [showDrawer, setShowDrawer] = useState(false);
-   const [windowWidth, setWindowWidth] = useState(0);
+  const [facebookPages, setFacebookPages] = useState<FacebookPage[]>([])
+  const [selectedFacebookPage, setSelectedFacebookPage] = useState<FacebookPage | null>(null)
+  const [latestFacebookPagePost, setLatestFacebookPagePost] = useState<FacebookPost>()
+  const [searchedFacebookPageName, setSearchedFacebookPageName] = useState<string>("")
+  const [filteredFacebookPages, setFilteredFacebookPages] = useState<DataItem[]>([])
 
-   const toggleDrawer = () => {
-      setShowDrawer(!showDrawer);
-   };
+  // TODO page posts data
+  const [allFacebookPagePosts, setAllFacebookPagePosts] = useState<FacebookPost[]>([])
 
-   const FbPostGeneratedDrawer = () => {
+  const { t } = useTranslation();
+  const userContext = useUserContext();
+  const [prompt, setPrompt] = useState<Prompt>({
+    input: "",
+    tone_id: 1,
+    message: "",
+    isGenerating: false
+  });
+  const [showDrawer, setShowDrawer] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [showPageDatalist, setShowPageDatalist] = useState(false);
 
-      return (
-         <div className={`${noto_sans_thai.className} d-flex  justify-content-end position-relative`}>
-            <button
-               className={showDrawer ? styles.offcanvas_btn_box_active : styles.offcanvas_btn_box}
-               onClick={toggleDrawer}
-            >
-               {showDrawer ? <IoIosArrowBack className='mb-2 mt-2  text-white' /> : <IoIosArrowForward className='mb-2 mt-2 text-white' />}
-               <b className='text-white'>  สร้างข้อความจากโพส </b>
-               <FaFacebookF size={30} style={{ rotate: "-90deg" }} />
-            </button>
+  const toggleDrawer = () => {
+    setShowDrawer(!showDrawer);
+  };
 
-            <Offcanvas show={showDrawer} placement={"end"} onHide={toggleDrawer} style={{
-               width: "700px",
-               background: "rgba(255, 255, 255, 0.85)"
-            }}>
-               {userContext?.user === null &&
+  // ! Temporarily not use this function
+  const getFacebookPages = async () => {
+    try {
+      const result = await facebookGetPublicPages(userContext?.user?.access_token!)
+      setFacebookPages(result.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
-                  <div
-                     className='d-flex align-items-center justify-content-center'
-                     style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, pointerEvents: "auto", background: "rgba(0, 0, 0, 0.8)" }}> /
-                     <h2 className='text-white fw-bold'>
-                        กรุณาเข้าสู่ระบบก่อนใช้ Feature นี้
-                     </h2>
-                  </div>
-               }
-               <Offcanvas.Body className={`pt-1 px-5 ${noto_sans_thai.className}`}>
-                  <div className={styles.facebook_post_container}>
-                     <div className='d-flex px-3 pt-2'>
-                        <img src={randomPageData.imageUrl} className="rounded-circle" style={{width: "50px"}}></img>
-                        <div className='text-white fw-bold ps-2' style={{ paddingTop: "0.4rem", }}>{randomPageData.pageName}</div>
-                     </div>
-                     <div className='text-white p-3'>
-                        {randomPageData.postMessage}
-
-                     </div>
-                  </div>
-                  <div className='d-flex justify-content-center'>
-                     <GenerateButton
-                        prompt={prompt!}
-                        setPrompt={setPrompt}
-                     />
-                  </div>
-                  {userContext?.user &&
-                     <div className='d-flex justify-content-end'>
-                        <GenerateCountBox />
-                     </div>
-                  }
-                  <div className={styles.prompt_result_area}>
-                     <div className='d-flex px-3 pt-2'>
-                        <img
-                           className={styles.avatar_icon}
-                           src="/images/prompt_lab_logo.png"
-                           alt="PromptLabLogo"
-                        />
-                        <div className='text-white fw-bold ps-2' style={{ paddingTop: "0.4rem", }}>Prompt lab</div>
-                     </div>
-                     <div className='text-white p-3'>
-                        {prompt?.message.length === 0 ?
-                           <span className="text-white-50">{t("table.no_message")}</span>
-                           :
-                           <span>{prompt?.message}</span>
-                        }
-                     </div>
-                  </div>
-
-               </Offcanvas.Body>
-            </Offcanvas>
-         </div>
-      )
-   }
-
-   const FbPostGeneratedModal = () => {
-      return (
-         <>
-            {!showDrawer &&
-               <div className={`${noto_sans_thai.className}  d-flex justify-content-end position-relative`}>
-                  <button
-                     className={styles.modal_toggle_btn}
-                     onClick={toggleDrawer}
-                  >
-                     <IoIosArrowForward className='mb-2 mt-2 text-white' />
-                     <b className='text-white'>  สร้างข้อความจากโพส </b>
-                     <FaFacebookF size={30} style={{ rotate: "-90deg" }} />
-                  </button>
-               </div>
-            }
-
-            <Modal style={{ paddingTop: "3rem" }} className="" size='lg' contentClassName={styles.fb_post_generated_modal} show={showDrawer} onHide={toggleDrawer}>
-
-
-               <div>
-                  <button
-                     className={`${styles.modal_toggle_btn_active}`}
-                     onClick={toggleDrawer}
-                  >
-                     <FaFacebookF />
-                     <b className='text-white'>  สร้างข้อความจากโพส </b>
-                     <IoIosArrowUp className='mb-2 mt-2 text-white' />
-                  </button>
-               </div>
-               <Modal.Body className={noto_sans_thai.className}  >
-                  {userContext?.user === null &&
-
-                     <div
-                        className='d-flex align-items-center justify-content-center'
-                        style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, pointerEvents: "auto", background: "rgba(0, 0, 0, 0.8)" }}> /
-                        <h2 className='text-white fw-bold'>
-                           กรุณาเข้าสู่ระบบก่อนใช้ Feature นี้
-                        </h2>
-                     </div>
-                  }
-                  <div className="d-flex justify-content-end">
-                     <IoClose onClick={toggleDrawer} size={30} />
-                  </div>
-                  <div className={styles.facebook_post_container} style={{ marginTop: "20px" }}>
-                     <div className='d-flex px-3'>
-                     <img src={randomPageData.imageUrl} className="rounded-circle" style={{width: "50px"}}></img>
-                        <div className='text-white fw-bold ps-2' style={{ paddingTop: "0.4rem", }}>{randomPageData.pageName}</div>
-                     </div>
-                     <div className='text-white p-3'>
-                        {randomPageData.postMessage}
-
-                     </div>
-                  </div>
-                  <div className='d-flex justify-content-center'>
-                     <GenerateButton
-                        prompt={prompt!}
-                        setPrompt={setPrompt}
-                     />
-                  </div>
-                  {userContext?.user &&
-                     <div className='pt-3 d-flex justify-content-end'>
-                        <GenerateCountBox/>
-                     </div>
-                  }
-                  <div className={styles.prompt_result_area}>
-                     <div className='d-flex px-3 pt-2'>
-                        <img
-                           className={styles.avatar_icon}
-                           src="/images/prompt_lab_logo.png"
-                           alt="PromptLabLogo"
-                        />
-                        <div className='text-white fw-bold ps-2' style={{ paddingTop: "0.4rem", }}>Prompt lab</div>
-                     </div>
-                     <div className='text-white p-3'>
-                        {prompt?.message.length === 0 ?
-                           <span className="text-white-50">{t("table.no_message")}</span>
-                           :
-                           <span>{prompt?.message}</span>
-                        }
-                     </div>
-                  </div>
-
-               </Modal.Body>
-            </Modal>
-         </>
-      )
-   }
-
-   useEffect(() => {
-      setPrompt({
-         input: randomPageData.postMessage,
-         tone_id: 1,
-         message: "",
-         isGenerating: false
-      })
-
-      const handleResize = () => {
-         setWindowWidth(window.innerWidth);
-      };
-
-      if (typeof window !== "undefined") {
-         handleResize();
-         window.addEventListener("resize", handleResize);
-
-         return () => {
-            window.removeEventListener("resize", handleResize);
-         };
+  // ! Temporarily not use this function
+  const getLatestFacebookPagePost = async (id: string) => {
+    try {
+      // Find facebook pages data with id
+      const page = facebookPages.find((page) => page.id === id)
+      if (!page) {
+        return
       }
-   }, [])
+
+      const result = await facebookGetPagePost(id, page.access_token!)
+
+      setSelectedFacebookPage(page)
+      setLatestFacebookPagePost(result.data[0])
+      setPrompt({
+        ...prompt,
+        input: result.data[0].message,
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  // ! Temporarily not use this function
+  const handlePageFacebookChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    getLatestFacebookPagePost(event.target.value)
+  }
+
+  // ? Mock function
+  const handleSearchFacebookPage = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setSearchedFacebookPageName(event.target.value)
+    if (event.target.value === "") {
+      setFilteredFacebookPages(mockFacebookPages)
+    } else {
+      const resultPage = mockFacebookPages.filter(data =>
+        data.page.toLowerCase().includes(event.target.value.toLowerCase())
+      )
+      setFilteredFacebookPages(resultPage)
+    }
+  }
+
+  // ? Mock function
+  const mockGetFacebookPagePosts = async (posts: FacebookPost[]) => {
+    setAllFacebookPagePosts(posts)
+  }
+
+  // ? Mock function
+  const handleFacebookPostChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    const post = allFacebookPagePosts.find((data) => data.id === parseInt(event.target.value))
+    setLatestFacebookPagePost(post)
+  }
 
 
-   return (
+  useEffect(() => {
+    setFilteredFacebookPages(mockFacebookPages)
+    if (userContext?.user) {
+      // getFacebookPages()
+    }
+  }, [userContext?.user])
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    if (typeof window !== "undefined") {
+      handleResize();
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
+  }, [])
+
+  const FbPostGeneratedDrawer = () => {
+    return (
+      <div className={`${noto_sans_thai.className} d-flex  justify-content-end position-relative`}>
+        <button
+          className={showDrawer ? styles.offcanvas_btn_box_active : styles.offcanvas_btn_box}
+          onClick={toggleDrawer}
+        >
+          {showDrawer ? <IoIosArrowBack className='mb-2 mt-2  text-white' /> : <IoIosArrowForward className='mb-2 mt-2 text-white' />}
+          <b className='text-white'>  สร้างข้อความจากโพส </b>
+          <FaFacebookF size={30} style={{ rotate: "-90deg" }} />
+        </button>
+
+        <Offcanvas show={showDrawer} placement={"end"} onHide={toggleDrawer} style={{
+          width: "700px",
+          background: "rgba(255, 255, 255, 0.85)"
+        }}>
+          {userContext?.user === null &&
+            <div
+              className='d-flex align-items-center justify-content-center'
+              style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, pointerEvents: "auto", background: "rgba(0, 0, 0, 0.8)" }}> /
+              <h2 className='text-white fw-bold'>
+                กรุณาเข้าสู่ระบบก่อนใช้ Feature นี้
+              </h2>
+            </div>
+          }
+          {userContext?.user && userContext?.user?.platform !== "facebook" &&
+            <div
+              className='d-flex align-items-center justify-content-center'
+              style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, pointerEvents: "auto", background: "rgba(0, 0, 0, 0.8)" }}> /
+              <h2 className='text-white fw-bold'>
+                กรุณาเข้าสู่ระบบผ่าน Facebook
+              </h2>
+            </div>
+          }
+          <Offcanvas.Body className={`pt-1 px-5 ${noto_sans_thai.className}`}>
+            <div className='pt-5'>
+              <div className=''>
+                <input
+                  placeholder={'ใส่ชื่อเพจที่ต้องการค้นหา'}
+                  className={styles.fb_page_search_box}
+                  value={searchedFacebookPageName}
+                  onChange={(event) => handleSearchFacebookPage(event)}
+                  required
+                  onFocus={() => { setShowPageDatalist(true) }}
+                  onBlur={() => { setShowPageDatalist(false) }}
+                />
+                {showPageDatalist &&
+                  <div className={styles.fb_page_datalist}>
+                    {filteredFacebookPages.map((page, index) => (
+                      <div
+                        key={index}
+                        className={styles.fb_page_option}
+                        onMouseDown={() => {
+                          const pageData: FacebookPage = {
+                            id: `${page.id}`,
+                            name: page.page,
+                            image: "",
+                            category: ""
+                          }
+                          setSelectedFacebookPage(pageData)
+                          handleSearchFacebookPage({ target: { value: page.page } } as React.ChangeEvent<HTMLInputElement>)
+                          mockGetFacebookPagePosts(page.posts)
+                          setLatestFacebookPagePost(page.posts[0])
+                        }}
+                      >
+                        {page.page}
+                      </div>
+                    ))}
+                  </div>
+                }
+              </div>
+              {searchedFacebookPageName !== "" &&
+                <select
+                  className="mt-2 form-select"
+                  aria-label="Default select example"
+                  onChange={(event) => handleFacebookPostChange(event)}
+                >
+                  {allFacebookPagePosts.map((post, index) => (
+                    <option
+                      key={index}
+                      value={post.id}
+                    >{post.message}</option>
+                  ))}
+                </select>
+              }
+            </div>
+            <div className={styles.facebook_post_container}>
+              <div className='d-flex px-3 pt-2 align-items-center'>
+                <img src={`https://graph.facebook.com/v19.0/${selectedFacebookPage?.id}/picture`} className="rounded-circle" style={{ width: "50px" }}></img>
+                <div className='ms-2 text-white fw-bold ps-2' style={{ paddingTop: "0.4rem", }}>{selectedFacebookPage?.name}</div>
+              </div>
+              <div className='text-white p-3'>
+                {/* {randomPageData.postMessage} */}
+                {latestFacebookPagePost?.message}
+              </div>
+            </div>
+            <div className='d-flex justify-content-center'>
+              <GenerateButton
+                prompt={prompt!}
+                setPrompt={setPrompt}
+              />
+            </div>
+            {userContext?.user &&
+              <div className='d-flex justify-content-end'>
+                <GenerateCountBox />
+              </div>
+            }
+            <div className={styles.prompt_result_area}>
+              <div className='d-flex px-3 pt-2'>
+                <img
+                  className={styles.avatar_icon}
+                  src="/images/prompt_lab_logo.png"
+                  alt="PromptLabLogo"
+                />
+                <div className='text-white fw-bold ps-2' style={{ paddingTop: "0.4rem", }}>Prompt lab</div>
+              </div>
+              <div className='text-white p-3'>
+                {prompt?.message.length === 0 ?
+                  <span className="text-white-50">{t("table.no_message")}</span>
+                  :
+                  <span>{prompt?.message}</span>
+                }
+              </div>
+            </div>
+          </Offcanvas.Body>
+        </Offcanvas>
+      </div>
+    )
+  }
+
+  const FbPostGeneratedModal = () => {
+    return (
       <>
-         {windowWidth >= 830 ?
-            FbPostGeneratedDrawer()
-            :
-            FbPostGeneratedModal()
-         }
+        {!showDrawer &&
+          <div className={`${noto_sans_thai.className}  d-flex justify-content-end position-relative`}>
+            <button
+              className={styles.modal_toggle_btn}
+              onClick={toggleDrawer}
+            >
+              <IoIosArrowForward className='mb-2 mt-2 text-white' />
+              <b className='text-white'>  สร้างข้อความจากโพส </b>
+              <FaFacebookF size={30} style={{ rotate: "-90deg" }} />
+            </button>
+          </div>
+        }
+
+        <Modal style={{ paddingTop: "3rem" }} className="" size='lg' contentClassName={styles.fb_post_generated_modal} show={showDrawer} onHide={toggleDrawer}>
+          <div>
+            <button
+              className={`${styles.modal_toggle_btn_active}`}
+              onClick={toggleDrawer}
+            >
+              <FaFacebookF />
+              <b className='text-white'>  สร้างข้อความจากโพส </b>
+              <IoIosArrowUp className='mb-2 mt-2 text-white' />
+            </button>
+          </div>
+          <Modal.Body className={noto_sans_thai.className}  >
+            {userContext?.user === null &&
+              <div
+                className='d-flex align-items-center justify-content-center'
+                style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, pointerEvents: "auto", background: "rgba(0, 0, 0, 0.8)" }}> /
+                <h2 className='text-white fw-bold'>
+                  กรุณาเข้าสู่ระบบก่อนใช้ Feature นี้
+                </h2>
+              </div>
+            }
+            {userContext?.user && userContext?.user?.platform !== "facebook" &&
+              <div
+                className='d-flex align-items-center justify-content-center'
+                style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, pointerEvents: "auto", background: "rgba(0, 0, 0, 0.8)" }}> /
+                <h2 className='text-white fw-bold'>
+                  กรุณาเข้าสู่ระบบผ่าน Facebook
+                </h2>
+              </div>
+            }
+            <div className="d-flex justify-content-end">
+              <IoClose onClick={toggleDrawer} size={30} />
+            </div>
+            <div className='border'>
+              <div>
+                <input
+                  placeholder={'ใส่ชื่อเพจที่ต้องการค้นหา'}
+                  className={styles.fb_page_search_box}
+                  value={searchedFacebookPageName}
+                  onChange={(event) => handleSearchFacebookPage(event)}
+                  required
+                  onFocus={() => { setShowPageDatalist(true) }}
+                  onBlur={() => { setShowPageDatalist(false) }}
+                />
+                {showPageDatalist &&
+                  <div className={styles.fb_page_datalist}>
+                    {filteredFacebookPages.map((page, index) => (
+                      <div
+                        key={index}
+                        className={styles.fb_page_option}
+                        onMouseDown={() => {
+                          const pageData: FacebookPage = {
+                            id: `${page.id}`,
+                            name: page.page,
+                            image: "",
+                            category: ""
+                          }
+                          setSelectedFacebookPage(pageData)
+                          handleSearchFacebookPage({ target: { value: page.page } } as React.ChangeEvent<HTMLInputElement>)
+                          mockGetFacebookPagePosts(page.posts)
+                          setLatestFacebookPagePost(page.posts[0])
+                        }}
+                      >
+                        {page.page}
+                      </div>
+                    ))}
+                  </div>
+                }
+              </div>
+              {searchedFacebookPageName !== "" &&
+                <select
+                  className="mt-2 form-select"
+                  aria-label="Default select example"
+                  onChange={(event) => handleFacebookPostChange(event)}
+                >
+                  {allFacebookPagePosts.map((post, index) => (
+                    <option
+                      key={index}
+                      value={post.id}
+                    >{post.message}</option>
+                  ))}
+                </select>
+              }
+              {/* <select className="form-select" aria-label="Default select example" onChange={handlePageFacebookChange}>
+                <option value="test_id" selected>สุ่มหน้า Facebook</option>
+                {facebookPages.map((page, index) => (
+                  <option key={index} value={page.id}>{page.name}</option>
+                ))}
+              </select> */}
+            </div>
+            <div className={styles.facebook_post_container} style={{ marginTop: "20px" }}>
+
+              <div className='d-flex px-3 align-items-center'>
+                <img src={`https://graph.facebook.com/v19.0/${selectedFacebookPage?.id}/picture`} className="rounded-circle" style={{ width: "50px" }}></img>
+                <div className='ms-2 text-white fw-bold ps-2' style={{ paddingTop: "0.4rem", }}>{selectedFacebookPage?.name}</div>
+              </div>
+              <div className='text-white p-3'>
+                {latestFacebookPagePost?.message}
+              </div>
+            </div>
+            <div className='d-flex justify-content-center'>
+              <GenerateButton
+                prompt={prompt!}
+                setPrompt={setPrompt}
+              />
+            </div>
+            {userContext?.user &&
+              <div className='pt-3 d-flex justify-content-end'>
+                <GenerateCountBox />
+              </div>
+            }
+            <div className={styles.prompt_result_area}>
+              <div className='d-flex px-3 pt-2'>
+                <img
+                  className={styles.avatar_icon}
+                  src="/images/prompt_lab_logo.png"
+                  alt="PromptLabLogo"
+                />
+                <div className='text-white fw-bold ps-2' style={{ paddingTop: "0.4rem", }}>Prompt lab</div>
+              </div>
+              <div className='text-white p-3'>
+                {prompt?.message.length === 0 ?
+                  <span className="text-white-50">{t("table.no_message")}</span>
+                  :
+                  <span>{prompt?.message}</span>
+                }
+              </div>
+            </div>
+
+          </Modal.Body>
+        </Modal>
       </>
+    )
+  }
 
 
-   )
+
+  return (
+    <>
+      {windowWidth >= 830 ?
+        FbPostGeneratedDrawer()
+        :
+        FbPostGeneratedModal()
+      }
+    </>
+
+
+  )
 }
 export default FbPostGeneratedComponent

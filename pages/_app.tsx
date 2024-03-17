@@ -100,7 +100,6 @@ function App({ Component, pageProps }: AppProps) {
                }}
             />
          </Head>
-
          <UserContextProvider>
             {isMaintain && <MaintainPage />}
             {token ?
@@ -108,7 +107,7 @@ function App({ Component, pageProps }: AppProps) {
                <NavbarMobile />
             }
             <AppTabbar />
-            {/* <FbPostGeneratedComponent /> */}
+            <FbPostGeneratedComponent />
             <Component {...pageProps} />
             <Footer />
          </UserContextProvider>
