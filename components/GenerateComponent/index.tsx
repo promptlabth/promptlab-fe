@@ -343,11 +343,15 @@ const GenerateComponent = (config: pageConfig) => {
       return updatedPrompts;
     });
 
+    const textArea = textAreaRef.current;
     // Adjust textarea height
-    if (textAreaRef.current) {
-      textAreaRef.current.style.height = 'auto'; // Reset height to recalculate
-      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+    if (textArea) {
+      textArea.style.height = 'auto'; // Reset height to recalculate
+      textArea.style.height = `${textArea.scrollHeight}px`;
+      textArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+
+
    }, [text]);
 
    return (
