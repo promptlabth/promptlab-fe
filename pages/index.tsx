@@ -29,11 +29,30 @@ export default function Home() {
    return (
       <>
          <Head>
-            <title>{t("home.title")}</title>
+            <title> Prompt Lab AI</title>
             <meta
                name="description"
-               content="Meta description for the Home page"
+               content="Promptlab ai ตัวช่วยสำหรับ Content Creator สำหรับงานสร้างสรรค์คอนเท้นต์"
             />
+
+            {/* <!-- HTML Meta Tags --> */}
+
+            {/* <!-- Google / Search Engine Tags --> */}
+             <meta itemProp="image" content="https://promptlabai.com/images/prompt_lab_logo.png" />
+
+            {/* <!-- Facebook Meta Tags --/> */}
+            <meta property="og:url" content="https://develop.promptlabai.com" />
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content="Prompt Lab AI" />
+            <meta property="og:description" content="Promptlab ai ตัวช่วยสำหรับ Content Creator สำหรับงานสร้างสรรค์คอนเท้นต์" />
+            <meta property="og:image" content="https://promptlabai.com/images/prompt_lab_logo.png" />
+
+            {/* <!-- Twitter Meta Tags --/> */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content="Prompt Lab AI" />
+            <meta name="twitter:description" content="Promptlab ai ตัวช่วยสำหรับ Content Creator สำหรับงานสร้างสรรค์คอนเท้นต์" />
+            <meta name="twitter:image" content="https://promptlabai.com/images/prompt_lab_logo.png" />
+
          </Head>
          <div className={noto_sans_thai.className}>
             {userContext?.user?.planType === "Free" && showModal && <SubscriptionModal show={showModal} />}
@@ -113,6 +132,6 @@ export default function Home() {
 
 export const getServerSideProps = async ({ locale }: any) => ({
    props: {
-       ...(await serverSideTranslations(locale, ['common']))
+      ...(await serverSideTranslations(locale, ['common']))
    }
 });
