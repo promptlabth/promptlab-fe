@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill, BsFacebook } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from "react-icons/io";
@@ -83,7 +83,7 @@ const GenerateComponent = (config: pageConfig) => {
    const userContext = useUserContext()
    const pathname = usePathname()
    const featureName = `${pathname.slice(1)}`
-   const {t, i18n} = useTranslation()
+   const { t, i18n } = useTranslation()
    // Define an object mapping paths to icons
    // @Attribute
    // icons: An object where each key represents a path and its corresponding value is a JSX.Element representing an icon component.
@@ -260,6 +260,8 @@ const GenerateComponent = (config: pageConfig) => {
       }
    }
 
+   const [textAreaHeight, setTextAreaHeight] = useState('auto');
+
    const handleInputTextChange = (index: number, event: React.ChangeEvent<HTMLTextAreaElement>): void => {
       const newInput = event.target.value;
       setPrompts((prevPrompts) => {
@@ -272,7 +274,8 @@ const GenerateComponent = (config: pageConfig) => {
       });
    };
 
-  
+
+
 
    const handleTypeChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>): void => {
       const newTypeValue = parseInt(event.target.value, 10);
@@ -287,10 +290,10 @@ const GenerateComponent = (config: pageConfig) => {
    };
 
    const handleAddNewRow = () => {
-      const toneId = 
+      const toneId =
          i18n.language == "th" ? 1 :
-         i18n.language == "en" ? 9 :
-         i18n.language == "id" ? 17 : 9
+            i18n.language == "en" ? 9 :
+               i18n.language == "id" ? 17 : 9
 
       const newPrompt: Prompt = {
          input: "",
@@ -325,26 +328,27 @@ const GenerateComponent = (config: pageConfig) => {
       }
    }, [prompts]);
 
-   useEffect(()=>{
-      getTones() 
-   },[i18n.language])
+   useEffect(() => {
+      getTones()
+   }, [i18n.language])
 
    const { text } = useText();
+   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
    useEffect(() => {
-      // Update local state if the global text changes and is not empty
-      
-      if (text) {
-         setPrompts((prevPrompts) => {
-            const updatedPrompts = [...prevPrompts];
-            updatedPrompts[0] = {
-               ...updatedPrompts[0],
-               input: text,
-            };
-            return updatedPrompts;
-         });
-      }
-    }, [text]);
+    // Set the first prompt's input to the text value
+    setPrompts((prevPrompts) => {
+      const updatedPrompts = [...prevPrompts];
+      updatedPrompts[0] = { ...updatedPrompts[0], input: text };
+      return updatedPrompts;
+    });
+
+    // Adjust textarea height
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = 'auto'; // Reset height to recalculate
+      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+    }
+   }, [text]);
 
    return (
       <div className={noto_sans_thai.className}>
@@ -410,10 +414,12 @@ const GenerateComponent = (config: pageConfig) => {
                            <Col className="fs-5 text-light" xs={12} md={12}>{t('table.input.title')}</Col>
                            <div className="pt-2">
                               <textarea
+                                 ref={textAreaRef}
                                  placeholder={t(`placeholder.${featureName}`)}
                                  className={styles.page_prompt_area_textfield}
                                  value={input}
                                  onChange={(event) => handleInputTextChange(index, event)}
+                                 style={{ height: textAreaHeight }}
                                  required
                               />
                            </div>
