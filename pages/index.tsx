@@ -18,7 +18,6 @@ export default function Home() {
    const { t, i18n } = useTranslation()
 
    useEffect(() => {
-      console.log("i18n", i18n.language)
       // Check if the user has already seen the modal
       const modalShown = Cookies.get('modalShown');
       if (modalShown === undefined) {

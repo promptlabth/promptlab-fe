@@ -70,7 +70,6 @@ export function UserContextProvider({ children }: Props) {
          if (loginResult?.status != 200) {
             console.error("Login failed, try again!")
          } else {
-            console.log("Login success!")
             setUserData(loginResult)
          }
 

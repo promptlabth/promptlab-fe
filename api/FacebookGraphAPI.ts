@@ -9,7 +9,6 @@ export async function facebookGetPublicPages(access_token: string) {
         }
 
         const response = await axios.get(apiUrl);
-        console.log(response)
         return response.data
 
     } catch (error) {

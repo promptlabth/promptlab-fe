@@ -36,7 +36,6 @@ export default function SubscriptionSuccessPage() {
          };
 
          const result = await userPremiumSubscribe(data)
-         console.log("Result from payment is",result)
          await userContext?.updateRemainingMessage()
 
          // Now you can use the 'data' object as needed

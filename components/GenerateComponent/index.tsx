@@ -24,6 +24,7 @@ import Link from "next/link";
 import { GenerateMessage, Prompt } from "@/models/promptMessages";
 import { ListTones } from "@/api/ToneAPI";
 import { useTranslation } from "next-i18next";
+import { useText } from "@/contexts/WiseSightContext";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 // Define a Page configuration data type
@@ -271,6 +272,8 @@ const GenerateComponent = (config: pageConfig) => {
       });
    };
 
+  
+
    const handleTypeChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>): void => {
       const newTypeValue = parseInt(event.target.value, 10);
       setPrompts((prevPrompts) => {
@@ -281,7 +284,6 @@ const GenerateComponent = (config: pageConfig) => {
          };
          return updatedPrompts;
       });
-      console.log(prompts);
    };
 
    const handleAddNewRow = () => {
@@ -326,6 +328,23 @@ const GenerateComponent = (config: pageConfig) => {
    useEffect(()=>{
       getTones() 
    },[i18n.language])
+
+   const { text } = useText();
+
+   useEffect(() => {
+      // Update local state if the global text changes and is not empty
+      
+      if (text) {
+         setPrompts((prevPrompts) => {
+            const updatedPrompts = [...prevPrompts];
+            updatedPrompts[0] = {
+               ...updatedPrompts[0],
+               input: text,
+            };
+            return updatedPrompts;
+         });
+      }
+    }, [text]);
 
    return (
       <div className={noto_sans_thai.className}>

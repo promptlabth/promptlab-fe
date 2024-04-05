@@ -1,0 +1,64 @@
+.container {
+    border-radius: 20px;
+}
+
+@media (min-width: 1024px) {
+    .container {
+        border-radius: 20px;
+        padding-left: 90px;
+        padding-right: 90px;
+        padding-bottom: 30px;
+    }
+    .marginright {
+        margin-right: auto;
+    }
+
+    .marginleft {
+        margin-right: 100px;
+    }
+}
+
+.gray {
+    background-color: #33393F;
+}
+
+.btn {
+    margin-left: 10px;
+    border-radius: 20px;
+    border-color: transparent;
+    background-color: #00FFAB;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-decoration: none;
+    color: black;
+    transition: all 0.1s ease-in-out;
+}
+
+.btn:hover,
+.btn:active,
+.btn.active {
+    margin-left: 10px;
+    border-radius: 20px;
+    color: white;
+    background-color: transparent;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+
+.rounded {
+    border-radius: 30px;
+}
+
+.rounded:hover {
+    border-radius: 30px;
+    transform: scale(1.003);
+}
+
+.tiktok_section {
+    background-color: #33393F;
+}
