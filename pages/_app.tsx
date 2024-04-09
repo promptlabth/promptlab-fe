@@ -15,6 +15,7 @@ import Footer from '@/components/footer/Footer';
 import { GetAccessToken } from '@/api/auth/auth_get_token';
 import FbPostGeneratedComponent from '@/components/FbPostGeneratedComponent';
 import { appWithTranslation } from 'next-i18next'
+import { TextProvider } from '@/contexts/WiseSightContext';
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
@@ -100,7 +101,6 @@ function App({ Component, pageProps }: AppProps) {
                }}
             />
          </Head>
-
          <UserContextProvider>
             {isMaintain && <MaintainPage />}
             {token ?
@@ -109,8 +109,10 @@ function App({ Component, pageProps }: AppProps) {
             }
             <AppTabbar />
             {/* <FbPostGeneratedComponent /> */}
+            <TextProvider>
             <Component {...pageProps} />
             <Footer />
+            </TextProvider>
          </UserContextProvider>
       </main>
    );

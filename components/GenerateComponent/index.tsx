@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsFillClipboardFill, BsFillClipboardCheckFill, BsFacebook } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from "react-icons/io";
@@ -24,6 +24,7 @@ import Link from "next/link";
 import { GenerateMessage, Prompt } from "@/models/promptMessages";
 import { ListTones } from "@/api/ToneAPI";
 import { useTranslation } from "next-i18next";
+import { useText } from "@/contexts/WiseSightContext";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 // Define a Page configuration data type
@@ -82,7 +83,7 @@ const GenerateComponent = (config: pageConfig) => {
    const userContext = useUserContext()
    const pathname = usePathname()
    const featureName = `${pathname.slice(1)}`
-   const {t, i18n} = useTranslation()
+   const { t, i18n } = useTranslation()
    // Define an object mapping paths to icons
    // @Attribute
    // icons: An object where each key represents a path and its corresponding value is a JSX.Element representing an icon component.
@@ -238,7 +239,6 @@ const GenerateComponent = (config: pageConfig) => {
             return
          }
          const { input, tone_id } = prompt;
-         console.log(input, tone_id)
          const data: GenerateMessage = {
             input_message: input,
             tone_id: tone_id,
@@ -260,6 +260,8 @@ const GenerateComponent = (config: pageConfig) => {
       }
    }
 
+   const [textAreaHeight, setTextAreaHeight] = useState('auto');
+
    const handleInputTextChange = (index: number, event: React.ChangeEvent<HTMLTextAreaElement>): void => {
       const newInput = event.target.value;
       setPrompts((prevPrompts) => {
@@ -272,6 +274,9 @@ const GenerateComponent = (config: pageConfig) => {
       });
    };
 
+
+
+
    const handleTypeChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>): void => {
       const newTypeValue = parseInt(event.target.value, 10);
       setPrompts((prevPrompts) => {
@@ -282,14 +287,13 @@ const GenerateComponent = (config: pageConfig) => {
          };
          return updatedPrompts;
       });
-      console.log(prompts);
    };
 
    const handleAddNewRow = () => {
-      const toneId = 
+      const toneId =
          i18n.language == "th" ? 1 :
-         i18n.language == "en" ? 9 :
-         i18n.language == "id" ? 17 : 9
+            i18n.language == "en" ? 9 :
+               i18n.language == "id" ? 17 : 9
 
       const newPrompt: Prompt = {
          input: "",
@@ -315,7 +319,6 @@ const GenerateComponent = (config: pageConfig) => {
       const result = await ListTones(language);
       if (result) {
          setTones(result)
-         console.log("tones",result)
       }
    }
 
@@ -325,9 +328,31 @@ const GenerateComponent = (config: pageConfig) => {
       }
    }, [prompts]);
 
-   useEffect(()=>{
-      getTones() 
-   },[i18n.language])
+   useEffect(() => {
+      getTones()
+   }, [i18n.language])
+
+   const { text } = useText();
+   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+
+   useEffect(() => {
+    // Set the first prompt's input to the text value
+    setPrompts((prevPrompts) => {
+      const updatedPrompts = [...prevPrompts];
+      updatedPrompts[0] = { ...updatedPrompts[0], input: text };
+      return updatedPrompts;
+    });
+
+    const textArea = textAreaRef.current;
+    // Adjust textarea height
+    if (textArea) {
+      textArea.style.height = 'auto'; // Reset height to recalculate
+      textArea.style.height = `${textArea.scrollHeight}px`;
+      textArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+
+   }, [text]);
 
    return (
       <div className={noto_sans_thai.className}>
@@ -393,10 +418,12 @@ const GenerateComponent = (config: pageConfig) => {
                            <Col className="fs-5 text-light" xs={12} md={12}>{t('table.input.title')}</Col>
                            <div className="pt-2">
                               <textarea
+                                 ref={textAreaRef}
                                  placeholder={t(`placeholder.${featureName}`)}
                                  className={styles.page_prompt_area_textfield}
                                  value={input}
                                  onChange={(event) => handleInputTextChange(index, event)}
+                                 style={{ height: textAreaHeight }}
                                  required
                               />
                            </div>

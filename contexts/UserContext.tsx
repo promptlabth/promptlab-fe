@@ -46,9 +46,6 @@ export function UserContextProvider({ children }: Props) {
       let userData: LoginUser;
       const remainingMessage = await getRemainingMessage();
 
-      console.log("Login result is", loginResult)
-      console.log("Remaining message is", remainingMessage)
-
       if (!loginResult?.data.plan) {
          userData = { ...loginResult?.data.user,}
       } else {
@@ -68,13 +65,11 @@ export function UserContextProvider({ children }: Props) {
    const UserLogin = async (token: string, loginFunction: () => any, platform: string, platformToken: string) => {
       try {
          const loginResult = await Login(token, platform, platformToken);
-         console.log("loginResult", loginResult)
 
          // If login failed, try to login again
          if (loginResult?.status != 200) {
             console.error("Login failed, try again!")
          } else {
-            console.log("Login success!")
             setUserData(loginResult)
          }
 

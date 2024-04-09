@@ -28,7 +28,6 @@ export const NavbarMobile: React.FC = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      console.log("Resizing...", window.innerWidth);
       setWindowWidth(window.innerWidth);
     };
 

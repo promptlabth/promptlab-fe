@@ -64,7 +64,6 @@ export async function userPremiumSubscribe(userPremiumSubscribeRequest: UserPrem
          // return response.data.cancel_url;
       }
 
-      console.log("Response of subscription is", response)
       return response.data
 
    } catch (error) {
@@ -95,7 +94,6 @@ export async function cancelUserSubscribe() {
          return null
       }
 
-      console.log("Response of cancel subscription is", response.data)
       return response.data
 
    } catch (error) {

@@ -8,6 +8,7 @@ import { AiOutlineMessage } from 'react-icons/ai';
 import styles from "../footer/styles.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
 import { useTranslation } from "next-i18next";
+import { Wisesight } from "../wisesigntComponent";
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
 const Footer = () => {
@@ -71,6 +72,7 @@ const Footer = () => {
     }, [i18n.language]);
     return (
         <footer className={noto_sans_thai.className}>
+            <Wisesight />
             <Container fluid={true} className={styles.footer}>
                 <Container className={styles.footer_container}>
                     <hr className={styles.footer_divider} />

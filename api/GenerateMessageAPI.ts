@@ -4,14 +4,13 @@ import { serverApiUrl } from '@/constant';
 import { GetAccessToken } from './auth/auth_get_token';
 
 async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage) {
-    const apiUrl = `${serverApiUrl}/generate-random`
+    const apiUrl = `${serverApiUrl}/generate/messages`
     try {
 
         const accessToken = await GetAccessToken()
         const requestOption = {
             headers: {
                 "Authorization": `Bearer ${accessToken}`,
-                "RefreshToken": `Bearer ${localStorage.getItem("rt")}`
             },
         }
         const response = await axios.post(
@@ -26,24 +25,6 @@ async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage)
     }
 }
 
-async function getMaxMessage() {
-    const apiUrl = `${serverApiUrl}/max-message`
-    try {
-        const accessToken = await GetAccessToken()
-        const requestOption = {
-            headers: {
-                "Authorization": `Bearer ${accessToken}`,
-            },
-        }
-        const response = await axios.get(
-            apiUrl,
-            requestOption
-        );
-    } catch (error) {
-        console.error(error);
-        return { reply: 'Error Please try again' }
-    }
-}
 
 async function getCountMessages() {
     const apiUrl = `${serverApiUrl}/get-count-message`
@@ -93,8 +74,7 @@ async function getRemainingMessage() {
 
 async function generateImproveCaption(improveCaptionsRequest: ImproveCaptionsRequest) {
 
-    // const apiUrl = `${serverApiUrl}/generate-improve-caption`
-    const apiUrl = "https://staging---prompt-lab-be-uu4qhhj35a-as.a.run.app/generate-improve-caption"
+    const apiUrl = `${serverApiUrl}/remaining-message`
     try {
         const accessToken = await GetAccessToken()
 
@@ -117,4 +97,4 @@ async function generateImproveCaption(improveCaptionsRequest: ImproveCaptionsReq
     }
 
 }
-export { generateMessageWithUser, getMaxMessage, getCountMessages, getRemainingMessage, generateImproveCaption }
+export { generateMessageWithUser, getCountMessages, getRemainingMessage, generateImproveCaption }
