@@ -3,8 +3,8 @@ import axios from 'axios';
 import { GetAccessToken } from './auth/auth_get_token';
 
 async function getMessageHistoryWithUserId() {
-    const apiUrl = `https://dev---prompt-lab-be-uu4qhhj35a-as.a.run.app/get-caption`
-    // const apiUrl = `${serverApiUrl}/get-caption`
+    // const apiUrl = `https://dev---prompt-lab-be-uu4qhhj35a-as.a.run.app/get-caption`
+    const apiUrl = `${serverApiUrl}/get-caption`
     try {
 
         const accessToken = await GetAccessToken()
