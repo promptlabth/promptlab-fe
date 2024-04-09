@@ -16,6 +16,7 @@ export const features: { [key: string]: number } = {
 }
 
 export const serverApiUrl = "https://prompt-lab-be-uu4qhhj35a-as.a.run.app/v1"
+export const oldServerApiUrl = "https://dev---prompt-lab-be-uu4qhhj35a-as.a.run.app"
 export const paymentApiUrl = "https://ms-payment-uu4qhhj35a-as.a.run.app/"
 
 export const subscriptionPlanColorMap: { [key: string]: string } = {

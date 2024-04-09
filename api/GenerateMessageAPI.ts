@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ImproveCaptionsRequest, UserGenerateMessage } from '@/models/promptMessages';
-import { serverApiUrl } from '@/constant';
+import { oldServerApiUrl, serverApiUrl } from '@/constant';
 import { GetAccessToken } from './auth/auth_get_token';
 
 async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage) {
@@ -49,7 +49,7 @@ async function getCountMessages() {
 }
 
 async function getRemainingMessage() {
-    const apiUrl = `${serverApiUrl}/remaining-message`
+    const apiUrl = `${oldServerApiUrl}/remaining-message`
     try {
         const accessToken = await GetAccessToken()
 
@@ -74,7 +74,7 @@ async function getRemainingMessage() {
 
 async function generateImproveCaption(improveCaptionsRequest: ImproveCaptionsRequest) {
 
-    const apiUrl = `${serverApiUrl}/remaining-message`
+    const apiUrl = `${oldServerApiUrl}/remaining-message`
     try {
         const accessToken = await GetAccessToken()
 
