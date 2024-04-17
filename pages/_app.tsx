@@ -16,6 +16,7 @@ import { GetAccessToken } from '@/api/auth/auth_get_token';
 import FbPostGeneratedComponent from '@/components/FbPostGeneratedComponent';
 import { appWithTranslation } from 'next-i18next'
 import { TextProvider } from '@/contexts/WiseSightContext';
+import CharityComponent from '@/components/CharityComponent';
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
@@ -61,13 +62,7 @@ function App({ Component, pageProps }: AppProps) {
             });
          `}
          </Script>
-         <Script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "lxsllpw7xs");
-</Script>
+
          <Script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
             integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
@@ -107,6 +102,7 @@ function App({ Component, pageProps }: AppProps) {
               `,
                }}
             />
+            <CharityComponent />
          </Head>
          <UserContextProvider>
             {isMaintain && <MaintainPage />}
