@@ -23,6 +23,17 @@ class MyDocument extends Document {
                     <meta property="twitter:domain" content="promptlabai.com" />
                     <meta property="twitter:url" content="https://promptlabai.com/" />
                     <meta property="twitter:image" content="/images/prompt_lab_logo.png" />
+                    <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(c,l,a,r,i,t,y){
+                    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                })(window, document, "clarity", "script", "lxsllpw7xs");
+              `,
+            }}
+          />
                 </Head>
                 <body>
                     <Main />
