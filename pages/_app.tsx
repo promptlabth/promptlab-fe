@@ -16,6 +16,7 @@ import { GetAccessToken } from '@/api/auth/auth_get_token';
 import FbPostGeneratedComponent from '@/components/FbPostGeneratedComponent';
 import { appWithTranslation } from 'next-i18next'
 import { TextProvider } from '@/contexts/WiseSightContext';
+import CharityComponent from '@/components/CharityComponent';
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
@@ -61,6 +62,7 @@ function App({ Component, pageProps }: AppProps) {
             });
          `}
          </Script>
+
          <Script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
             integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
@@ -100,6 +102,7 @@ function App({ Component, pageProps }: AppProps) {
               `,
                }}
             />
+            <CharityComponent />
          </Head>
          <UserContextProvider>
             {isMaintain && <MaintainPage />}
