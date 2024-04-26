@@ -49,7 +49,7 @@ async function getCountMessages() {
 }
 
 async function getRemainingMessage() {
-    const apiUrl = `${serverApiUrl}/v1/user/remaining-message`
+    const apiUrl = `${serverApiUrl}/user/remaining-message`
     try {
         const accessToken = await GetAccessToken()
 
