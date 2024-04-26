@@ -34,7 +34,7 @@ export default function CancelSubscriptionSuccess() {
             </h4> */}
             <div className="mt-3 mb-1" style={{ color: "#AAAAAA" }}>
               <div>
-                {t("subscription.canclesubscription.description")}{" "}{userContext?.user?.end_date?.toString()}
+                {t("subscription.canclesubscription.description")}{" "}{new Date(userContext?.user?.end_date!).toLocaleString()}
               </div>
               {/* {translate("subscription.errorText3", language)} <br />
               {translate("subscription.errorText4", language)}{" "}

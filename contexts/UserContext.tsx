@@ -1,6 +1,6 @@
 
 import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
-import { LoginUser } from '@/models';
+import { LoginUser } from '@/models/types/loginUser.type';
 import { Login } from '@/api/LoginAPI';
 import { useRouter } from 'next/router';
 import signInWithFacebook from '@/api/auth/auth_facebook';
