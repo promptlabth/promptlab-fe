@@ -235,8 +235,9 @@ const GenerateComponent = (config: pageConfig) => {
 
    const handleGenerateMessage = async (index: number) => {
       const prompt = prompts[index];
+      const maxMessage = userContext?.user?.maxMessages ? userContext?.user?.maxMessages : 60;
       try {
-         if (userContext?.remainingMessage == 0) {
+         if (userContext?.remainingMessage == maxMessage) {
             return
          }
          const { input, tone_id } = prompt;
