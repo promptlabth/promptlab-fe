@@ -155,7 +155,7 @@ const GenerateComponent = (config: pageConfig) => {
                               </Row>
                            </>
                         }
-                        {userContext?.remainingMessage! <= 0 && userContext?.user &&
+                        {userContext?.remainingMessage! == maxMessage && userContext?.user &&
                            <>
                               <div className="p-2 pb-4">
                                  <FaInfoCircle size={110} />
