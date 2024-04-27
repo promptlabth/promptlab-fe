@@ -26,27 +26,6 @@ async function generateMessageWithUser(UserGenerateMessage: UserGenerateMessage)
 }
 
 
-async function getCountMessages() {
-    const apiUrl = `${serverApiUrl}/get-count-message`
-    try {
-        const accessToken = await GetAccessToken()
-
-        const requestOption = {
-            headers: {
-                "Authorization": `Bearer ${accessToken}`,
-            },
-        }
-        const response = await axios.get(
-            apiUrl,
-            requestOption
-        );
-
-    } catch (error) {
-        console.error(error);
-        return { reply: 'Error Please try again' }
-    }
-
-}
 
 async function getRemainingMessage() {
     const apiUrl = `${serverApiUrl}/user/remaining-message`
@@ -97,4 +76,4 @@ async function generateImproveCaption(improveCaptionsRequest: ImproveCaptionsReq
     }
 
 }
-export { generateMessageWithUser, getCountMessages, getRemainingMessage, generateImproveCaption }
+export { generateMessageWithUser, getRemainingMessage, generateImproveCaption }
