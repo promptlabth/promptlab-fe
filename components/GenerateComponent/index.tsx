@@ -98,8 +98,9 @@ const GenerateComponent = (config: pageConfig) => {
    };
 
    const GenerateButton = ({ index, isGenerating }: { index: number, isGenerating: boolean }) => {
+      const maxMessage = userContext?.user?.maxMessages ? userContext?.user?.maxMessages : 60;
       const handleClick = () => {
-         if (userContext?.user != null && userContext?.remainingMessage > 0) {
+         if (userContext?.user != null && userContext?.remainingMessage <= maxMessage) {
             setPrompts((prevPrompts) => {
                const updatedPrompts = [...prevPrompts];
                updatedPrompts[index] = {
