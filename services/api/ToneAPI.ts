@@ -1,5 +1,5 @@
 import axios from "axios";
-import { serverApiUrl } from "@/constant";
+import { serverApiUrl } from "@/constants/link.constant";
 
 export async function apiGetTones(language: string) {
   const apiUrl = `${serverApiUrl}/tone/${language}`;

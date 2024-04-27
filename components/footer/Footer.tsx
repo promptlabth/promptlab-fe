@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Container from 'react-bootstrap/Container';
 import { useEffect, useState } from "react";
-import { urlLinks } from "../../constant";
+import { urlLinks } from "@/constants/link.constant";
 import { useRouter } from 'next/router';
 import { Carousel} from "react-bootstrap";
 import { AiOutlineMessage } from 'react-icons/ai';

@@ -10,7 +10,7 @@ import { GeneratedComponentHeader } from "./Header";
 import { GeneratedComponentList } from "./GeneratedComponentList";
 import { apiGetTones } from "@/services/api/ToneAPI";
 import { GenerateMessageRequest } from "@/models/types/dto/requests/GeneratedMessageRequest.type";
-import { generateMessage } from "@/services/api/GenerateMessageAPI";
+import { apiGenerateMessage } from "@/services/api/GenerateMessageAPI";
 import { featureTitleIdMap } from "@/constants/value.constant";
 import styles from "./GeneratedComponent.module.css";
 
@@ -101,7 +101,7 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
         tone_id: tone_id,
         feature_id: featureTitleIdMap[titlePage],
       };
-      const result = await generateMessage(data)
+      const result = await apiGenerateMessage(data)
       if (result) {
         const message = result.reply
         const updatedPrompts = [...prompts];

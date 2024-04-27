@@ -2,7 +2,7 @@ import axios from "axios";
 import { serverApiUrl } from "@/constants/link.constant";
 import { getAccessToken } from "../firebase/auth/GetTokenAuth";
 import { GenerateMessageRequest } from "@/models/types/dto/requests/GeneratedMessageRequest.type";
-export async function generateMessage(
+export async function apiGenerateMessage(
   generateMessageRequest: GenerateMessageRequest,
 ) {
   const apiUrl = `${serverApiUrl}/generate/messages`;

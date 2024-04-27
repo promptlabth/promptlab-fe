@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { Noto_Sans_Thai as NotoSanThai } from "next/font/google";
 import Head from "next/head";
 import { useTranslation } from "react-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const notoSanThai = NotoSanThai({ weight: "400", subsets: ["thai"] });
 interface LayoutProps {
@@ -13,11 +12,12 @@ interface LayoutProps {
 
 const Layout = (props: LayoutProps) => {
   const { t } = useTranslation();
+  const translate = t;
   const { pageTitle, pageContent, children } = props;
   return (
     <div className={notoSanThai.className}>
       <Head>
-        <title>{t(pageTitle)}</title>
+        <title>{translate(pageTitle)}</title>
         <meta name="description" content={pageContent} />
       </Head>
       {children}

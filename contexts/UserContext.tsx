@@ -1,13 +1,14 @@
 
 import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
 import { LoginUser } from '@/models/types/loginUser.type';
-import { Login } from '@/api/LoginAPI';
+import { Login } from '@/services/api/UserAPI';
 import { useRouter } from 'next/router';
 import signInWithFacebook from '@/services/firebase/auth/AuthFacebook';
 import signInWithGmail from '@/services/firebase/auth/AuthGmail';
 import { authFirebase } from '@/services/firebase/AuthFirebase';
 import { signOut } from 'firebase/auth';
 import { getAccessToken } from '@/services/firebase/auth/GetTokenAuth';
+import { apiGetGeneratedMessageCount } from '@/services/api/MessageAPI';
 // import { getRemainingMessage } from '@/api/GenerateMessageAPI';
 interface UserContextInterface {
    user: LoginUser | null;
@@ -44,8 +45,8 @@ export function UserContextProvider({ children }: Props) {
 
    const setUserData = async (loginResult : any) => {
       let userData: LoginUser;
-      // const remainingMessage = await getRemainingMessage();
-
+      const remainingMessage = await apiGetGeneratedMessageCount();
+      console.log("Remaining message", remainingMessage)
       if (!loginResult?.data.plan) {
          userData = { ...loginResult?.data.user,}
       } else {
