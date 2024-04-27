@@ -29,7 +29,7 @@ type AppPropsWithLayout = AppProps & {
 }
 
 function App({ Component, pageProps }: AppProps) {
-   const isMaintain: boolean = false
+   const isMaintain: boolean = true
    // const getLayout = Component.getLayout ?? ((page) => page)
    const [token, setToken] = useState<string>("")
 
