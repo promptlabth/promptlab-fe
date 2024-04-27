@@ -1,0 +1,96 @@
+.page_prompt_area {
+  padding: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-radius: 15px;
+  background-color: #33393f;
+}
+
+.page_prompt_area_row {
+  border-radius: 15px;
+  background-color: #212529;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.page_prompt_area_textfield {
+  background-color: #3d434a;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 10px;
+  width: 100%;
+  min-height: 60px;
+}
+
+.page_prompt_area_combobox {
+  background-color: #3d434a;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.page_prompt_area_addrow {
+  padding-top: 1rem;
+  padding-left: 0;
+}
+
+.page_prompt_add_new_row_button {
+  background-color: #00ffab;
+  border: none;
+  border-radius: 28px;
+  display: inline-block;
+  cursor: pointer;
+  color: black;
+  font-size: 17px;
+  padding: 5px 15px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.page_prompt_add_new_row_button:hover {
+  transform: scale(1.05);
+}
+
+.page_prompt_add_new_row_button:active {
+  position: relative;
+  top: 1px;
+}
+
+.page_prompt_generate_btn {
+  background-color: #00ffab;
+  border: none;
+  color: black;
+  font-weight: bold;
+  border-radius: 28px;
+  transition: all 0.2s;
+}
+
+.page_prompt_loading_generate_btn {
+  background-color: #00ffab;
+  border: none;
+  color: black;
+  font-weight: bold;
+  border-radius: 28px;
+  opacity: 0.2;
+}
+
+.page_prompt_generate_btn:hover {
+  transform: scale(1.05);
+}
+
+.delete_row_btn {
+    color: white;
+    transition: 0.3s;
+
+}
+
+.disable_delete_row_btn {
+    color: white;
+    opacity: 0.4;
+}
+
+.delete_row_btn:hover {
+    transform: scale(1.1);
+
+}
