@@ -1,0 +1,24 @@
+.container {
+  background-color: #212529;
+}
+
+@media (min-width: 1024px) {
+  .container {
+      padding-left: 90px;
+      padding-right: 90px;
+  }
+}
+
+.page_payment_row {
+  border-radius: 15px;
+  padding: 0.5rem;
+  background-color: #212529;
+  min-height: 50vh;
+  color: #fff;
+}
+
+.select {
+  color: #00ffab;
+  margin-top: 50px;
+  transform: scale(0.95);
+}

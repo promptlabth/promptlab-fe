@@ -1,70 +1,8 @@
-.container {
-    border-radius: 20px;
-}
-
-@media (min-width: 1024px) {
-    .container {
-        border-radius: 20px;
-        padding-left: 90px;
-        padding-right: 90px;
-        padding-top: 30px;
-        padding-bottom: 30px;
-    }
-
-    .margintop {
-        margin-top: 50px;
-    }
-
-    .marginright {
-        margin-right: auto;
-    }
-
-    .marginleft {
-        margin-right: 100px;
-    }
-}
 
 .gray {
     background-color: #33393F;
 }
 
-.btn {
-    border-radius: 15px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    width: 100px;
-    line-height: 20px;
-    z-index: 1;
-}
-
-.btn:hover,
-.btn:active,
-.btn.active {
-    color:white !important;
-}
-.free:hover,
-.free:active,
-.free.active {
-    background: linear-gradient(0deg, #00bf7f 0%, #016a5e 100%) !important;
-}
-.bronze:hover,
-.bronze:active,
-.bronze.active {
-    background:linear-gradient(180deg, #7f3f00 -18.83%, #8d5933 100%)!important;
-}
-
-.silver:hover,
-.silver:active,
-.silver.active {
-    background: linear-gradient(0deg, #626262 0%, #353535 100%) !important;
-}
-
-.gold:hover,
-.gold:active,
-.gold.active {
-    background: linear-gradient(0deg, rgb(213, 181, 1) 0%, #b77700 100%) !important;
-}
 
 .rounded {
     border-radius: 30px;
@@ -83,28 +21,8 @@
     background-color: #33393F;
 }
 
-.page_payment_row {
-    border-radius: 15px;
-    background-color: #212529;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-    background-color: #212529;
-    min-height: 50vh;
-    color: #FFF;
-}
 
-.custom_border {
-    background-color: #f2f2f2;
-    color: #000000;
-    border-radius: 15px;
-    margin: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border: 10px solid transparent;
-    transition: transform 0.3s;
-    position: relative;
-    z-index: 1;
-}
+
 
 .recommended_plan_border {
     background-color: #f2f2f2;
@@ -147,60 +65,7 @@
     border-color: #676767;
 }
 
-.circle_background {
-    background-color: #000;
-    color: #fff;
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    text-align: center;
-    line-height: 120px;
-}
-.custom_border h1{
-    font-weight: bolder;
-}
-.custom_border h5{
-    background-color: #f2f2f2;
-    color: #000000;
-    font-size: 16px;
-    letter-spacing: 4px;
-}
-
-.custom_border::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    border: 10px solid transparent;
-    border-radius: 15px;
-    transition: border-width 0.3s;
-}
 
 
 
-.custom_border:hover::before {
-    border-width: 5px;
-}
 
-.freeBorder:hover::before {
-    border-color: #00FFAB;
-}
-.broneBorder:hover::before {
-    border-color: #C06B16;
-}
-.silverBorder:hover::before {
-    border-color: #676767;
-}
-.goldBorder:hover::before {
-    border-color: #FFCA43;
-}
-.recommendedPlan:hover::before {
-    border-color: #FF0000;
-}
-.select {
-    color: #00FFAB;
-    margin-top: 50px;
-    transform: scale(0.95);
-}

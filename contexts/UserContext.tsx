@@ -58,6 +58,7 @@ export function UserContextProvider({ children }: Props) {
             end_date: loginResult?.data.plan.end_date,
          }
       }
+      console.log("userData", userData)
       setRemainingMessage(remainingMessage);
       setUser(userData)
    }

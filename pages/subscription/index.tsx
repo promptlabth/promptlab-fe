@@ -1,47 +1,35 @@
 import { getCheckoutSessionUrl } from "@/api/Payments";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { Container, } from "react-bootstrap";
 import { Noto_Sans_Thai } from "next/font/google";
-const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 import styles from "./styles.module.css";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { BsCheckCircle } from "react-icons/bs";
 import { CheckoutSessionRequest } from "@/models/dto/requests/PaymentRequest";
 import { useUserContext } from "@/contexts/UserContext";
-import { subscriptionPlanColorMap } from "@/constant";
-import { prizeIdBronze, prizeIdSilver, prizeIdGold } from "@/constant";
 import 'react-toastify/dist/ReactToastify.css';
 import Head from "next/head";
 import SubscriptionFailedModal from "@/components/modals/SubscriptionFailed";
-import { MdOutlineRecommend } from "react-icons/md";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { Header } from "@/featureComponents/subscription/Header";
+import { SubscriptionList } from "@/featureComponents/subscription/SubscriptionList";
+import { Layout } from "@/common/Layout";
 
+const notoSansThai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 export default function Subscription() {
-  const [showFailedSubscribeModal, setShowFailedSubscribeModal] = React.useState(false);
+  const [showFailedSubscribeModal, setShowFailedSubscribeModal] = useState(false);
   const userContext = useUserContext();
+  const user = userContext?.user;
   const router = useRouter();
-  const { t, i18n } = useTranslation();
-
-  // const subscriptionPriorityMap: { [key: string]: number } = {
-  //   "Free": 1,
-  //   "Bronze": 2,
-  //   "Silver": 3,
-  //   "Gold": 4,
-  // };
+  const { t } = useTranslation();
 
   // This function is soonly used to handle the checkout session 
   const handleCheckoutSession = async (prizeId: string, planId: number) => {
-
     const data: CheckoutSessionRequest = {
       PrizeID: prizeId,
       WebUrl: window.location.origin,
       PlanID: planId
     }
-
-    // Calling the checkout function and awaiting the returned Stripe checkout session URL
     const checkoutSessionUrl = await getCheckoutSessionUrl(data);
     if (!checkoutSessionUrl) {
       setShowFailedSubscribeModal(true);
@@ -50,296 +38,44 @@ export default function Subscription() {
     router.push(checkoutSessionUrl);
   }
 
-
-  return (
-    <>
+  /* 
+  <div className={notoSansThai.className}>
       <Head>
         <title>{t("subscription")}</title>
         <meta name="description" content="A generated messages history" />
       </Head>
-      <div className={noto_sans_thai.className}>
+      <div>
         <SubscriptionFailedModal show={showFailedSubscribeModal} hideModal={setShowFailedSubscribeModal} />
         <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">
-          <Container className={`${styles.container}`}>
-
-            <figure className="text-center  text-light">
-              <blockquote className="blockquote">
-                <p className="display-4 fw-bold">
-                  {t("subscription")}
-                </p>
-              </blockquote>
-              <figcaption className="blockquote-footer"></figcaption>
-            </figure>
-            {userContext?.user?.planType !== "Free" &&
-              <div className="text-white text-center">
-                <div className="fs-5"> {t("subscription.whatIsYourPlan")}{" "}
-                  <div style={{
-                    color: subscriptionPlanColorMap[userContext?.user?.planType!],
-                    display: "inline",
-                    fontWeight: "bold"
-                  }}>
-                    {userContext?.user?.planType}
-                  </div>
-                </div>
-                <div className="fs-5"> {t("subscription.wantToChangePlan")}{" "}<u>isaman@promptlabai.com</u></div>
-              </div>
-            }
-
-            <div className={`row ${styles.page_payment_row}`}>
-              <div className="container text-center">
-                <Row className="">
-                  <Col
-                    className={`d-flex flex-column align-items-center position-relative ${styles.custom_border} ${styles.freeBorder}`}
-                  >
-                    <h5 className="mb-3">FREE</h5>
-                    <h1
-                      className={`${styles.circle_background}`}
-                      style={{
-                        background:
-                          "linear-gradient(0deg, #00FFAB 0%, #00AA95 100%)",
-                      }}
-                    >
-                      0
-                      <span style={{ fontWeight: "normal", fontSize: "26px" }}>
-                        ฿
-                      </span>
-                    </h1>
-                    <div className="mt-4 mb-4 text-start">
-                      <Row>
-                        <small>
-                          <BsCheckCircle
-                            size={16}
-                            className="me-2"
-                          ></BsCheckCircle>
-                          60 {t("subscription.message")}
-                        </small>
-                      </Row>
-                      <Row>
-                        <small>
-                          <BsCheckCircle
-                            size={16}
-                            className="me-2"
-                          ></BsCheckCircle>
-                          {t("subscription.community")}
-                        </small>
-                      </Row>
-                    </div>
-                    {/* <button
-                      className={`${styles.btn} ${styles.free} btn position-absolute`}
-                      style={{
-                        background:
-                          "linear-gradient(0deg, #00FFAB 0%, #00AA95 100%)",
-                        bottom: -30,
-                      }}
-                      onClick={() =>
-                        handlePrizeClick("price_1NdUDIAom1IgIvKKmDRjzFiC")
-                      }
-                    >
-                      {translate("subscription.buy", language)}
-                    </button> */}
-                  </Col>
-                  <Col
-                    className={`d-flex flex-column align-items-center position-relative ${styles.custom_border} ${styles.broneBorder}`}
-                  >
-                    <h5 className="mb-3">BRONZE</h5>
-                    <h1
-                      className={`${styles.circle_background}`}
-                      style={{
-                        background:
-                          "linear-gradient(180deg, #C06B16 -18.83%, #D99C71 100%)",
-                      }}
-                    >
-                      59
-                      <span style={{ fontWeight: "normal", fontSize: "26px" }}>
-                        ฿
-                      </span>
-                    </h1>
-                    <div className="mt-4 mb-4 text-start">
-                      <Row>
-                        <s className="text-end fs-5 text-danger" style={{ marginTop: "-2rem", }}> 99฿</s>
-                        <small>
-                          <BsCheckCircle
-                            size={16}
-                            className="me-2"
-                          ></BsCheckCircle>
-                          300 {t("subscription.message")}
-                        </small>
-                      </Row>
-                      <Row>
-                        <small>
-                          <BsCheckCircle
-                            size={16}
-                            className="me-2"
-                          ></BsCheckCircle>
-                          {t("subscription.chat")} &#40;Coming Soon&#41;
-                        </small>
-                      </Row>
-                      <Row>
-                        <small>
-                          <BsCheckCircle
-                            size={16}
-                            className="me-2"
-                          ></BsCheckCircle>
-                          {t("subscription.support")}
-                        </small>
-                      </Row>
-                    </div>
-                    <button
-                      className={`${styles.btn} ${styles.bronze} btn position-absolute`}
-                      style={{
-                        background: "linear-gradient(180deg, #C06B16 -18.83%, #D99C71 100%)",
-                        bottom: -30,
-                      }}
-                      onClick={() =>
-                        handleCheckoutSession(prizeIdBronze, 2)
-                      }
-                    >
-                      {t("subscription.buy")}
-                    </button>
-                  </Col>
-                  <Col
-                    className={`d-flex flex-column align-items-center position-relative ${styles.recommended_plan_border} ${styles.recommendedPlan}`}
-                  >
-                    <div className="w-100 d-flex justify-content-end" >
-                      <div className="user-select-none text-white fs-5 ps-2 pe-2" style={{ position: "absolute", right: "-1.25rem", top: "-1.25rem", backgroundColor: "red", borderRadius: "8px" }}>
-                        <MdOutlineRecommend size={25} /> Recommend
-                      </div>
-                      {/* <MdOutlineRecommend color="red" size={50} style={{position:"absolute",right:"-1.75rem", top:"-1.3rem"}}  /> */}
-                    </div>
-
-                    <h5 className="mb-3">SILVER</h5>
-                    <h1
-                      className={`${styles.circle_background}`}
-                      style={{
-                        background:
-                          "linear-gradient(0deg, #CACACA 0%, #676767 100%)",
-                      }}
-                    >
-                      199
-                      <span style={{ fontWeight: "normal", fontSize: "26px" }}>
-                        ฿
-                      </span>
-                    </h1>
-                    <div className="mt-4 mb-4 text-start">
-                      <Row>
-                        <s className="text-end fs-5 text-danger" style={{ marginTop: "-2rem", }}> 259฿</s>
-
-                        <small>
-                          <BsCheckCircle
-                            size={16}
-                            className="me-2"
-                          ></BsCheckCircle>
-                          1500 {t("subscription.message")}
-                        </small>
-                      </Row>
-                      <Row>
-                        <small>
-                          <BsCheckCircle
-                            size={16}
-                            className="me-2"
-                          ></BsCheckCircle>
-                          {t("subscription.chat")} &#40;Coming Soon&#41;
-                        </small>
-                      </Row>
-                      <Row>
-                        <small>
-                          <BsCheckCircle
-                            size={16}
-                            className="me-2"
-                          ></BsCheckCircle>
-                          {t("subscription.support")}
-                        </small>
-                      </Row>
-                    </div>
-                    <button
-                      className={`${styles.btn} ${styles.silver} btn position-absolute`}
-                      style={{
-                        background:
-                          "linear-gradient(0deg, #CACACA 0%, #676767 100%)",
-                        bottom: -30,
-                      }}
-                      onClick={() =>
-                        handleCheckoutSession(prizeIdSilver, 3)
-                      }
-                    >
-                      {t("subscription.buy")}
-                    </button>
-                  </Col>
-                  <Col
-                    className={`d-flex flex-column align-items-center position-relative ${styles.custom_border} ${styles.goldBorder}`}
-                  >
-                    <h5 className="mb-3">GOLD</h5>
-                    <h1
-                      className={`${styles.circle_background}`}
-                      style={{
-                        background:
-                          "linear-gradient(180deg, #EE8F00 0%, #FFCA43 57.92%)",
-                      }}
-                    >
-                      299
-                      <span style={{ fontWeight: "normal", fontSize: "26px" }}>
-                        ฿
-                      </span>
-                    </h1>
-                    <div className="mt-4 mb-4 text-start">
-                      <Row>
-                        <s className="text-end fs-5 text-danger" style={{ marginTop: "-2rem", }}> 399฿</s>
-                        <small>
-                          <BsCheckCircle
-                            size={16}
-                            className="me-2"
-                          ></BsCheckCircle>
-                          3000 {t("subscription.message")}
-                        </small>
-                      </Row>
-                      <Row>
-                        <small>
-                          <BsCheckCircle
-                            size={16}
-                            className="me-2"
-                          ></BsCheckCircle>
-                          {t("subscription.chat")} &#40;Coming Soon&#41;
-                        </small>
-                      </Row>
-                      <Row>
-                        <small>
-                          <BsCheckCircle
-                            size={16}
-                            className="me-2"
-                          ></BsCheckCircle>
-                          {t("subscription.support")}
-                        </small>
-                      </Row>
-                    </div>
-                    <button
-                      className={`${styles.btn} ${styles.gold} btn position-absolute`}
-                      style={{
-                        background:
-                          "linear-gradient(180deg, #EE8F00 0%, #FFCA43 57.92%)",
-                        bottom: -30,
-                      }}
-                      onClick={() =>
-                        handleCheckoutSession(prizeIdGold, 4)
-                      }
-                    >
-                      {t("subscription.buy")}
-                    </button>
-                  </Col>
-                  <p className={`${styles.select}`}>
-                    {t("subscription.selectSub")}
-                  </p>
-                </Row>
-              </div>
-            </div>
-          </Container>
+          <Header translate={t} user={user} />
+        </Container>
+        <Container className={`${styles.container}`}>
+          <SubscriptionList
+            translate={t}
+            user={user}
+            handleCheckoutSession={handleCheckoutSession}
+          />
         </Container>
       </div>
-    </>
+    </div>
+  
+  */
+
+  return (
+    <Layout pageContent="A plan subscription page" pageTitle="subscription">
+      <SubscriptionFailedModal show={showFailedSubscribeModal} hideModal={setShowFailedSubscribeModal} />
+      <Header translate={t} user={user} />
+      <SubscriptionList
+        translate={t}
+        user={user}
+        handleCheckoutSession={handleCheckoutSession}
+      />
+    </Layout>
   );
 }
 
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {
-      ...(await serverSideTranslations(locale, ['common']))
+    ...(await serverSideTranslations(locale, ['common']))
   }
 });
