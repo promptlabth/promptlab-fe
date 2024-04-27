@@ -1,7 +1,6 @@
 
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react'
-import { UserPremiumSubscribeRequest } from '@/models/dto/requests/PaymentRequest';
 import { useUserContext } from '@/contexts/UserContext';
 import { userPremiumSubscribe } from '@/api/Payments';
 import { useRouter } from 'next/router';
@@ -12,6 +11,7 @@ import { FaSmileBeam } from "react-icons/fa";
 import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import { UserPremiumSubscribeRequest } from '@/models/types/dto/requests/PaymentRequest';
 export default function SubscriptionSuccessPage() {
    const userContext = useUserContext();
    const startDate = userContext?.user?.start_date

@@ -309,7 +309,8 @@ export const NavbarMobile: React.FC = () => {
     <>
       {renderLoginDestopModal()}
       <nav
-        className={`${noto_sans_thai.className} navbar navbar-expand-lg navbar-dark bg-dark fixed-top`}
+        className={`${noto_sans_thai.className} navbar navbar-expand-lg navbar-dark bg-dark`}
+        style={{position: "fixed", top: 0, width: "100%", zIndex: 2}}
       >
         <div className={`container d-flex mt-auto`}>
           {renderNavbarHeader()}

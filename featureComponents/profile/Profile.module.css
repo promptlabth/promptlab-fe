@@ -11,12 +11,19 @@
 }
 
 
-.profile_container_bg {
+.profile_container_bg, .blur_profile_container_bg {
     padding: 1rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     border-radius: 15px;
     background-color: #33393F;
+}
+
+.blur_profile_container_bg {
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    user-select:none;    filter: blur(10px);
+    -webkit-filter: blur(10px);
 }
 
 .user_profile_pic_container {
@@ -81,4 +88,3 @@
         text-align: center;
     }
 }
-

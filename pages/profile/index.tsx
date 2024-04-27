@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Noto_Sans_Thai } from "next/font/google";
+import React, { useEffect, useState } from "react";
+import { Noto_Sans_Thai as NotoSansThai } from "next/font/google";
 import { useUserContext } from "@/contexts/UserContext";
 import { useRouter } from "next/router";
 import { cancelUserSubscribe } from "@/api/Payments";
@@ -8,13 +8,15 @@ import { useTranslation } from "next-i18next";
 import { ProfileDetail } from "@/featureComponents/profile/ProfileDetail";
 import { Header } from "@/featureComponents/profile/Header";
 import { CancelSubscriptionModal } from "@/featureComponents/profile/CancelSubscriptionModal";
-const notoSansThai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
+import { LoadingScreen } from "@/common/LoadingScreen";
+const notoSansThai = NotoSansThai({ weight: "400", subsets: ["thai"] });
 const Profile = () => {
   const userContext = useUserContext();
   const user = userContext?.user;
   const router = useRouter();
   const { t } = useTranslation();
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
@@ -26,8 +28,15 @@ const Profile = () => {
     }
   };
 
+  useEffect(() => {
+    if (user) {
+      setIsLoading(false)
+    }
+  }, [user])
+
   return (
     <div className={notoSansThai.className}>
+      {isLoading && <LoadingScreen />}
       <Header translate={t} />
       <CancelSubscriptionModal
         translate={t}
@@ -35,7 +44,7 @@ const Profile = () => {
         handleCloseModal={handleCloseModal}
         handleCancelSubscription={handleCancelSubscription}
       />
-      <ProfileDetail translate={t} user={user} handleShowModal={handleShowModal}/>
+      <ProfileDetail translate={t} user={user} handleShowModal={handleShowModal} />
     </div>
   );
 };
