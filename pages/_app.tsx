@@ -10,13 +10,13 @@ import { UserContextProvider } from '@/contexts/UserContext';
 import { MaintainPage } from '@/components/maintain';
 import NavbarMobileAfterLogin from '@/components/navbar/NavbarMobileAfterLogin';
 import NavbarMobile from '@/components/navbar/NavbarMobile';
-import AppTabbar from '@/components/tabbar/tabbar';
 import Footer from '@/components/footer/Footer';
 import { GetAccessToken } from '@/api/auth/auth_get_token';
 import FbPostGeneratedComponent from '@/components/FbPostGeneratedComponent';
 import { appWithTranslation } from 'next-i18next'
 import { TextProvider } from '@/contexts/WiseSightContext';
 import CharityComponent from '@/components/CharityComponent';
+import { Tabbar } from '@/common/Tabbar';
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
@@ -121,7 +121,7 @@ function App({ Component, pageProps }: AppProps) {
                <NavbarMobileAfterLogin /> :
                <NavbarMobile />
             }
-            <AppTabbar />
+            <Tabbar />
             {/* <FbPostGeneratedComponent /> */}
             <TextProvider>
                <Component {...pageProps} />
