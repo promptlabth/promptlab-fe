@@ -26,32 +26,32 @@
 // }
 
 
-// async function getCountMessages() {
-//     const apiUrl = `${serverApiUrl}/get-count-message`
-//     try {
-//         const accessToken = await GetAccessToken()
+async function getCountMessages() {
+    const apiUrl = `${serverApiUrl}/get-count-message`
+    try {
+        const accessToken = await GetAccessToken()
 
-//         const requestOption = {
-//             headers: {
-//                 "Authorization": `Bearer ${accessToken}`,
-//             },
-//         }
-//         const response = await axios.get(
-//             apiUrl,
-//             requestOption
-//         );
+        const requestOption = {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
+            },
+        }
+        const response = await axios.get(
+            apiUrl,
+            requestOption
+        );
 
-//     } catch (error) {
-//         console.error(error);
-//         return { reply: 'Error Please try again' }
-//     }
+    } catch (error) {
+        console.error(error);
+        return { reply: 'Error Please try again' }
+    }
 
-// }
+}
 
-// async function getRemainingMessage() {
-//     const apiUrl = `${oldServerApiUrl}/remaining-message`
-//     try {
-//         const accessToken = await GetAccessToken()
+async function getRemainingMessage() {
+    const apiUrl = `${oldServerApiUrl}/remaining-message`
+    try {
+        const accessToken = await GetAccessToken()
 
 //         const requestOption = {
 //             headers: {
@@ -74,9 +74,9 @@
 
 // async function generateImproveCaption(improveCaptionsRequest: ImproveCaptionsRequest) {
 
-//     const apiUrl = `${oldServerApiUrl}/remaining-message`
-//     try {
-//         const accessToken = await GetAccessToken()
+    const apiUrl = `${oldServerApiUrl}/remaining-message`
+    try {
+        const accessToken = await GetAccessToken()
 
 //         const requestOption = {
 //             headers: {
@@ -96,5 +96,5 @@
 //         return { reply: 'Error Please try again' }
 //     }
 
-// }
-// export { generateMessageWithUser, getCountMessages, getRemainingMessage, generateImproveCaption }
+}
+export { generateMessageWithUser, getCountMessages, getRemainingMessage, generateImproveCaption }
