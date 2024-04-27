@@ -54,27 +54,6 @@
     background-color: #dd4b39;
 }
 
-.generate_count_layout {
-    padding: 0.5rem;
-    border-radius: 20px;
-    background: #212529;
-}
-
-.generate_count_tooltip {
-    background-color: white !important;
-    /* Set your desired background color */
-    color: black;
-    /* Change text color for better visibility */
-}
-
-/* Customize the arrow tail */
-.generate_count_tooltip::before,
-.generate_count_tooltip::after {
-    border-bottom-color: #FF5733 !important;
-    /* Set your desired arrow color */
-    border-top-color: #FF5733 !important;
-    /* Set your desired arrow color */
-}
 
 .no_remaining_message_close_button{
     background-color: #c7c7c7;

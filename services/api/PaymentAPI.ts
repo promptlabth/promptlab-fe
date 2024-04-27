@@ -1,4 +1,4 @@
-import { CheckoutSessionRequest } from "@/models/types/dto/requests/PaymentRequest";
+import { CheckoutSessionRequest } from "@/models/types/dto/requests/PaymentRequest.type";
 import axios from "axios";
 import { paymentApiUrl } from "@/constants/link.constant";
 import { getAccessToken } from "../firebase/auth/GetTokenAuth";

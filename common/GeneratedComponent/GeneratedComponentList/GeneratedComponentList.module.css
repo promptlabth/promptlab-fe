@@ -57,28 +57,6 @@
   top: 1px;
 }
 
-.page_prompt_generate_btn {
-  background-color: #00ffab;
-  border: none;
-  color: black;
-  font-weight: bold;
-  border-radius: 28px;
-  transition: all 0.2s;
-}
-
-.page_prompt_loading_generate_btn {
-  background-color: #00ffab;
-  border: none;
-  color: black;
-  font-weight: bold;
-  border-radius: 28px;
-  opacity: 0.2;
-}
-
-.page_prompt_generate_btn:hover {
-  transform: scale(1.05);
-}
-
 .delete_row_btn {
     color: white;
     transition: 0.3s;
@@ -93,4 +71,26 @@
 .delete_row_btn:hover {
     transform: scale(1.1);
 
+}
+
+.generate_count_layout {
+  padding: 0.5rem;
+  border-radius: 20px;
+  background: #212529;
+}
+
+.generate_count_tooltip {
+  background-color: white !important;
+  /* Set your desired background color */
+  color: black;
+  /* Change text color for better visibility */
+}
+
+/* Customize the arrow tail */
+.generate_count_tooltip::before,
+.generate_count_tooltip::after {
+  border-bottom-color: #FF5733 !important;
+  /* Set your desired arrow color */
+  border-top-color: #FF5733 !important;
+  /* Set your desired arrow color */
 }

@@ -1,7 +1,7 @@
 import { getCheckoutSessionUrl } from "@/api/Payments";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { CheckoutSessionRequest } from "@/models/types/dto/requests/PaymentRequest";
+import { CheckoutSessionRequest } from "@/models/types/dto/requests/PaymentRequest.type";
 import { useUserContext } from "@/contexts/UserContext";
 import { SubscribeFailedModal } from "@/featureComponents/subscription/SubscribeFailedModal";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";

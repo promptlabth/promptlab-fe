@@ -11,7 +11,7 @@ import { MaintainPage } from '@/components/maintain';
 import NavbarMobileAfterLogin from '@/components/navbar/NavbarMobileAfterLogin';
 import NavbarMobile from '@/components/navbar/NavbarMobile';
 import Footer from '@/components/footer/Footer';
-import { GetAccessToken } from '@/api/auth/auth_get_token';
+import { getAccessToken } from '@/services/firebase/auth/GetTokenAuth';
 import FbPostGeneratedComponent from '@/components/FbPostGeneratedComponent';
 import { appWithTranslation } from 'next-i18next'
 import { TextProvider } from '@/contexts/WiseSightContext';
@@ -34,7 +34,7 @@ function App({ Component, pageProps }: AppProps) {
    const [token, setToken] = useState<string>("")
 
    const checkToken = async () => {
-      const token = await GetAccessToken();
+      const token = await getAccessToken();
       if (token) {
          setToken(token);
       }

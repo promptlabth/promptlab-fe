@@ -16,6 +16,7 @@ export const Tabbar: React.FC = () => {
   const { events } = useDraggable(ref); // Now we pass the reference to the useDraggable hook:
   const [titles, setTitles] = useState(urlLinks.map(({ titleKey }) => translate(titleKey)));
 
+  
   useEffect(() => {
     setTitles(urlLinks.map(({ titleKey }) => t(titleKey)));
   }, [i18n.language]);

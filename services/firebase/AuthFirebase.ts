@@ -18,7 +18,7 @@ const firebaseConfig = {
     measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
   };
 
-// // Initialize Firebase
-// const appFirebase = initializeApp(firebaseConfig);
-// export const authFirebase = getAuth(appFirebase);
+// Initialize Firebase
+const appFirebase = initializeApp(firebaseConfig);
+export const authFirebase = getAuth(appFirebase);
 // const analytics = getAnalytics(appFirebase);

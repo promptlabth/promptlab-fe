@@ -11,6 +11,11 @@ interface GeneratedComponentHeader {
   titleDescription: string
 }
 
+// Define an object mapping paths to icons
+// @Attribute
+// icons: An object where each key represents a path and its corresponding value is a JSX.Element representing an icon component.
+// The keys are strings representing different paths related to specific functionalities.
+// The values are JSX elements, each rendering a different icon component with a specific size (fontSize).
 const icons: { [key: string]: JSX.Element } = {
   "/createSellingPost": <MdSell fontSize={96} />,
   "/createIdeaContent": <HiOutlineLightBulb fontSize={96} />,
