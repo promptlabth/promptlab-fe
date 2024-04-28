@@ -1,4 +1,4 @@
-import styles from "./styles.module.css";
+import styles from "./Maintain.module.css";
 import { IoMdConstruct } from "react-icons/io"
 import { useTranslation } from "next-i18next";
 export const MaintainPage = () => {

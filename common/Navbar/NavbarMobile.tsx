@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Noto_Sans_Thai } from "next/font/google";
 import Link from "next/link";
-import styles from "./styles.module.css";
+import styles from "./Navbar.module.css";
 import { RiMenu4Fill } from "react-icons/ri";
 import Flag from "react-flagkit";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
@@ -15,13 +15,13 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+
 export const NavbarMobile: React.FC = () => {
   const userContext = useUserContext();
   const [windowWidth, setWindowWidth] = useState(0);
   const router = useRouter();
   const { t, i18n } = useTranslation();
   
-
   const changeLocale = (locale: string) => {
     router.push(router.pathname, router.asPath, { locale });
   };
