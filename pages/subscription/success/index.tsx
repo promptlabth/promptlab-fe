@@ -3,7 +3,7 @@ import { useUserContext } from "@/contexts/UserContext";
 import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-import { userPremiumSubscribe } from "@/api/Payments";
+import { apiUserPremiumSubscribe } from "@/services/api/PaymentAPI";
 import { UserPremiumSubscribeRequest } from "@/models/types/dto/requests/PaymentRequest.type";
 import { SubscriptionSuccessPresentation } from "@/featureComponents/subscription/SubscriptionAlert/success/index";
 
@@ -25,7 +25,7 @@ export default function SubscriptionSuccessContainer({
         CheckoutSessionId: session_id,
       };
 
-      await userPremiumSubscribe(data);
+      await apiUserPremiumSubscribe(data);
       await userContext?.updateRemainingMessage();
     } else {
       console.error("Invalid session_id");
