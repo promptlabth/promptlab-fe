@@ -1,4 +1,3 @@
-import { useText } from "@/contexts/WiseSightContext";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Container } from "react-bootstrap";
