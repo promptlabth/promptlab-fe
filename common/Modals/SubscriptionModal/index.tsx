@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Col, Modal, Row } from "react-bootstrap";
 import styles from "./SubscriptionModal.module.css";
 import Link from "next/link";

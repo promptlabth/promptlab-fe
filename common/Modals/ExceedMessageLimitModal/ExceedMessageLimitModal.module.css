@@ -1,0 +1,40 @@
+.no_remaining_message_subscription_button {
+  background-color: #00ffab;
+  border: none;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 28px;
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  color: black;
+  font-size: 17px;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.no_remaining_message_subscription_button:hover {
+  transform: scale(1.02);
+}
+
+.no_remaining_message_close_button{
+    background-color: #c7c7c7;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 28px;
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    color: black;
+    font-size: 17px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+
+.no_remaining_message_close_button:hover {
+    transform: scale(1.05);
+}
