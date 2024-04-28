@@ -131,5 +131,6 @@
     "help.howto.select.description": "Pilih jenis pesan yang Anda inginkan Prompt Lab untuk menghasilkan. mis. lucu, mewah, profesional, edukatif, percaya diri, mewah, dan retro",
     "help.howto.generate.title": "Klik Hasilkan dan bersenang-senang!!",
     "button.genarate": "Hasilkan",
-    "modal.pleaseLoginBeforeGenerate": "Silakan login terlebih dahulu sebelum generate pesan"
+    "modal.pleaseLoginBeforeGenerate": "Silakan login terlebih dahulu sebelum generate pesan",
+    "privacyPolicy": "Kebijakan Privasi"
 }

@@ -13,7 +13,7 @@ import NavbarMobile from "@/common/Navbar/NavbarMobile";
 import Footer from "@/common/Footer";
 import { getAccessToken } from "@/services/firebase/auth/GetTokenAuth";
 import { appWithTranslation } from "next-i18next";
-import CharityComponent from "@/components/CharityComponent";
+import ClarityAnalytics from "@/common/CharityComponent";
 import { Tabbar } from "@/common/Tabbar";
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
@@ -114,7 +114,7 @@ function App({ Component, pageProps }: AppProps) {
               `,
           }}
         />
-        <CharityComponent />
+        <ClarityAnalytics />
       </Head>
       <UserContextProvider>
         {isMaintain && <MaintainPage />}

@@ -2,10 +2,10 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
-import SubscriptionModal from "@/components/subscription";
 import styles from "./home.module.css";
 import { Noto_Sans_Thai } from "next/font/google";
 import Head from "next/head";
+import SubscriptionModal from "@/common/Modals/SubscriptionModal";
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 

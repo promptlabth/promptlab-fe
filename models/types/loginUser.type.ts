@@ -4,7 +4,6 @@ export type LoginUser = {
   name?: string;
   email: string;
   profilepic: string;
-  subscriptionId?: number;
   plan_id?: number;
   planType: string;
   maxMessages?: number;
@@ -12,4 +11,5 @@ export type LoginUser = {
   end_date?: Date;
   access_token?: string;
   platform?: string;
+  stripe_id?: string;
 };
