@@ -29,25 +29,9 @@ const SubscriptionFailedModal = ({ show, hideModal }: any) => {
                   {t("subscription.failed")}
                </p>
                <p className="mb-1" style={{ color: "red" }}>
-                  {/* {translate("subscription.cancle.sure_contact", language)} {" "} */}
                   <b><u>isaman@promptlabai.com</u></b>
                </p>
-               {/* <button
-                           type="button"
-                           className={`btn btn-danger mb-2 ${styles.cancle_btn}`}
-                        >
-                           ยกเลิกสมาชิก
-                        </button>
-                        <br />
-                        <a
-                           href="#"
-                           data-bs-dismiss="modal"
-                           style={{ color: "red", textDecoration: "underline" }}
-                        >
-                           <small>ไม่ ฉันเปลี่ยนใจแล้ว</small>
-                        </a> */}
             </div>
-
          </Modal.Body>
       </Modal>
    )

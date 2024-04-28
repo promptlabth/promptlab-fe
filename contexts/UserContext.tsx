@@ -1,14 +1,15 @@
 
 import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
-import { LoginUser } from '@/models';
-import { Login } from '@/api/LoginAPI';
+import { LoginUser } from '@/models/types/loginUser.type';
+import { Login } from '@/services/api/UserAPI';
 import { useRouter } from 'next/router';
-import signInWithFacebook from '@/api/auth/auth_facebook';
-import signInWithGmail from '@/api/auth/auth_gmail';
-import { authFirebase } from '@/api/auth';
+import signInWithFacebook from '@/services/firebase/auth/AuthFacebook';
+import signInWithGmail from '@/services/firebase/auth/AuthGmail';
+import { authFirebase } from '@/services/firebase/AuthFirebase';
 import { signOut } from 'firebase/auth';
-import { GetAccessToken } from '@/api/auth/auth_get_token';
-import { getRemainingMessage } from '@/api/GenerateMessageAPI';
+import { getAccessToken } from '@/services/firebase/auth/GetTokenAuth';
+import { apiGetGeneratedMessageCount } from '@/services/api/MessageAPI';
+// import { getRemainingMessage } from '@/api/GenerateMessageAPI';
 interface UserContextInterface {
    user: LoginUser | null;
    remainingMessage: number;
@@ -38,14 +39,14 @@ export function UserContextProvider({ children }: Props) {
    const [remainingMessage, setRemainingMessage] = useState<number>(0);
 
    const updateRemainingMessage = async () => {
-      const remainingMessage = await getRemainingMessage();
+      // const remainingMessage = await getRemainingMessage();
       setRemainingMessage(remainingMessage);
    }
 
    const setUserData = async (loginResult : any) => {
       let userData: LoginUser;
-      const remainingMessage = await getRemainingMessage();
-
+      const remainingMessage = await apiGetGeneratedMessageCount();
+      console.log("Remaining message", remainingMessage)
       if (!loginResult?.data.plan) {
          userData = { ...loginResult?.data.user,}
       } else {
@@ -58,6 +59,7 @@ export function UserContextProvider({ children }: Props) {
             end_date: loginResult?.data.plan.end_date,
          }
       }
+      console.log("userData", userData)
       setRemainingMessage(remainingMessage);
       setUser(userData)
    }
@@ -147,7 +149,7 @@ export function UserContextProvider({ children }: Props) {
                console.error("type login is undefined")
                return;
          }
-         const accessToken = await GetAccessToken();
+         const accessToken = await getAccessToken();
          const platformToken = localStorage.getItem("pat") ?? '';
          UserLogin(accessToken, loginFunction, typeLogin, platformToken)
       } catch (error) {

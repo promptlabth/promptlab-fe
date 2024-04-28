@@ -1,0 +1,90 @@
+.page_container {
+    background-color: #212529;
+    padding-bottom: 2rem;
+}
+
+@media (min-width: 1000px) {
+    .page_container {
+        padding-left: 5rem;
+        padding-right: 5rem;
+    }
+}
+
+
+.profile_container_bg, .blur_profile_container_bg {
+    padding: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    border-radius: 15px;
+    background-color: #33393F;
+}
+
+.blur_profile_container_bg {
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    user-select:none;    filter: blur(10px);
+    -webkit-filter: blur(10px);
+}
+
+.user_profile_pic_container {
+    display: flex;
+}
+
+.user_profile_pic_container .user_profile_pic {
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+}
+
+.user_profile_detail_container {
+    padding-left: 1rem;
+}
+
+.profile_text {
+    font-size: 17.5px;
+}
+.cancle_subscription_button_container{
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1rem;
+}
+.cancle_subscription_button_container .cancle_subscription_button {
+    background-color: #FF0000;
+    border: none;
+    border-radius: 20px;
+    color: #FFFFFF;
+    padding: 0.5rem;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+}
+
+.cancle_subscription_button:hover {
+    color: #FFFFFF;
+    transform: scale(1.05);
+    background-color: #fa3636;
+}
+
+
+@media (max-width: 768px) {
+    .profile_text {
+        font-size: 16px;
+    }
+    .user_profile_pic_container {
+        padding: 0.5rem;
+        padding-left: 1.5rem;
+        display: flex;
+        justify-content: center;
+    }
+    .user_profile_pic_container .user_profile_pic {
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+    }
+    .user_profile_detail_container, .cancle_subscription_button_container {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+}

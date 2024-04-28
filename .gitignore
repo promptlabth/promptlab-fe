@@ -39,3 +39,6 @@ next-env.d.ts
 
 # macos .DS_Store
 *.DS_Store
+
+# Secret
+./firebase-credential.json
