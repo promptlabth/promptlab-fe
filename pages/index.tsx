@@ -4,6 +4,7 @@ import { useUserContext } from "@/contexts/UserContext";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HomePresentation from "@/featureComponents/home/HomePresentation";
 
+
 const HomeContainer = () => {
   const userContext = useUserContext();
   const [showModal, setShowModal] = useState(false);
