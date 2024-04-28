@@ -10,39 +10,73 @@ import { Header } from "@/featureComponents/subscription/Header";
 import { SubscriptionList } from "@/featureComponents/subscription/SubscriptionList";
 import Layout from "@/common/Layout";
 import { LoadingScreen } from "@/common/LoadingScreen";
+import { LoginModal } from "@/common/Modals/LoginModal";
+import { ErrorModal } from "@/common/Modals/ErrorModal";
 
 const Subscription = () => {
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showSubscribeFailModal, setShowSubscribeFailModal] = useState<boolean>(false);
+  const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+  const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const userContext = useUserContext();
   const user = userContext?.user;
   const router = useRouter();
   const { t } = useTranslation();
 
-  const handleOpenModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+  const handleOpenSubscribeFailModal = () => setShowSubscribeFailModal(true);
+  const handleCloseSubscribeFailModal = () => setShowSubscribeFailModal(false);
+
+  const handleShowLoginModal = () => setShowLoginModal(true);
+  const handleCloseLoginModal = () => setShowLoginModal(false);
+
+  const handleShowErrorModal = () => setShowErrorModal(true);
+  const handleCloseErrorModal = () => setShowErrorModal(false);
 
   // This function is soonly used to handle the checkout session 
   const handleCheckoutSession = async (prizeId: string, planId: number) => {
-    const checkoutSessionRequest: CheckoutSessionRequest = {
-      PrizeID: prizeId,
-      WebUrl: window.location.origin,
-      PlanID: planId
+    try {
+      if (!user) {
+        handleShowLoginModal()
+        return;
+      }
+  
+      const checkoutSessionRequest: CheckoutSessionRequest = {
+        PrizeID: prizeId,
+        WebUrl: window.location.origin,
+        PlanID: planId
+      }
+      setIsLoading(true)
+      const checkoutSessionUrl = await apiGetCheckoutSessionUrl(checkoutSessionRequest);
+      if (!checkoutSessionUrl) {
+        setIsLoading(false)
+        handleOpenSubscribeFailModal()
+        return
+      }
+      router.push(checkoutSessionUrl);
+    } catch(error) {
+      console.error(error)
+      handleShowErrorModal()
     }
-    setIsLoading(true)
-    const checkoutSessionUrl = await apiGetCheckoutSessionUrl(checkoutSessionRequest);
-    if (!checkoutSessionUrl) {
-      setIsLoading(false)
-      handleOpenModal()
-      return
-    }
-    router.push(checkoutSessionUrl);
   }
 
   return (
     <Layout pageContent="A plan subscription page" pageTitle="subscription">
       {isLoading && <LoadingScreen />}
-      <SubscribeFailedModal translate={t} show={showModal} handleCloseModal={handleCloseModal} />
+      <ErrorModal
+        title="modal.error"
+        description="modal.error.description"
+        translate={t}
+        showModal={showErrorModal}
+        handleCloseModal={handleCloseErrorModal}
+      />
+      <LoginModal 
+        title="modal.pleaseLoginBeforeSubscribe" 
+        translate={t}
+        showModal={showLoginModal}
+        handleCloseModal={handleCloseLoginModal}
+        handleLogin={userContext?.handleLogin!}
+      />
+      <SubscribeFailedModal translate={t} show={showSubscribeFailModal} handleCloseModal={handleCloseSubscribeFailModal} />
       <Header translate={t} user={user} />
       <SubscriptionList
         translate={t}

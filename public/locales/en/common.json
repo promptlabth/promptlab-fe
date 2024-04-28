@@ -142,6 +142,9 @@
     "help.howto.generate.title": "Click Generate and have fun!!",
     "button.genarate": "Generate",
     "modal.pleaseLoginBeforeGenerate": "Please login before generate message",
-    "privacyPolicy": "Privacy Policy"
+    "modal.pleaseLoginBeforeSubscribe": "Please login before subscribe",
+    "privacyPolicy": "Privacy Policy",
+    "modal.error": "Error",
+    "modal.error.description":"Something went wrong. Please try again later."
 
 }

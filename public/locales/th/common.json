@@ -142,5 +142,8 @@
     "help.howto.generate.title": "กด Generate และสนุกได้เลย!!",
     "button.genarate": "สร้างข้อความ",
     "modal.pleaseLoginBeforeGenerate": "กรุณาเข้าสู่ระบบก่อนทำการสร้างข้อความ",
-    "privacyPolicy": "นโยบายความเป็นส่วนตัว"
+    "modal.pleaseLoginBeforeSubscribe": "กรุณาเข้าสู่ระบบก่อนทำการสมัครสมาขิก",
+    "privacyPolicy": "นโยบายความเป็นส่วนตัว",
+    "modal.error": "เกิดข้อผิดพลาด",
+    "modal.error.description":"มีข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง"
 }

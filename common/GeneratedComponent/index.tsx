@@ -110,46 +110,46 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
       handleShowLoginModal();
       return;
     }
-    // if (user) {
-    //   setPrompts((prevPrompts) => {
-    //     const updatedPrompts = [...prevPrompts];
-    //     updatedPrompts[index] = {
-    //       ...updatedPrompts[index],
-    //       isGenerating: true,
-    //     };
-    //     return updatedPrompts;
-    //   });
-    // }
+    if (user) {
+      setPrompts((prevPrompts) => {
+        const updatedPrompts = [...prevPrompts];
+        updatedPrompts[index] = {
+          ...updatedPrompts[index],
+          isGenerating: true,
+        };
+        return updatedPrompts;
+      });
+    }
 
-    // const prompt = prompts[index];
-    // try {
-    //   const { input, tone_id } = prompt;
-    //   const data: GenerateMessageRequest = {
-    //     input_message: input,
-    //     tone_id: tone_id,
-    //     feature_id: featureTitleIdMap[titlePage],
-    //   };
-    //   const result = await apiGenerateMessage(data);
-    //   if (result) {
-    //     const message = result.reply;
-    //     const updatedPrompts = [...prompts];
-    //     updatedPrompts[index] = {
-    //       ...prompt,
-    //       message: message,
-    //       isGenerating: false,
-    //     };
-    //     setPrompts(updatedPrompts);
-    //     userContext?.updateGeneratedMessageCount();
-    //   }
-    // } catch {
-    //   const updatedPrompts = [...prompts];
-    //   updatedPrompts[index] = {
-    //     ...prompts[index],
-    //     message: "Error. Please try again",
-    //     isGenerating: false,
-    //   };
-    //   setPrompts(updatedPrompts);
-    // }
+    const prompt = prompts[index];
+    try {
+      const { input, tone_id } = prompt;
+      const data: GenerateMessageRequest = {
+        input_message: input,
+        tone_id: tone_id,
+        feature_id: featureTitleIdMap[titlePage],
+      };
+      const result = await apiGenerateMessage(data);
+      if (result) {
+        const message = result.reply;
+        const updatedPrompts = [...prompts];
+        updatedPrompts[index] = {
+          ...prompt,
+          message: message,
+          isGenerating: false,
+        };
+        setPrompts(updatedPrompts);
+        userContext?.updateGeneratedMessageCount();
+      }
+    } catch {
+      const updatedPrompts = [...prompts];
+      updatedPrompts[index] = {
+        ...prompts[index],
+        message: "Error. Please try again",
+        isGenerating: false,
+      };
+      setPrompts(updatedPrompts);
+    }
   };
 
   const fetchTones = async () => {
@@ -196,6 +196,7 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
     <Container fluid={true} className="p-0 bg-dark bg-lighten-xs pt-5">
       <Container className={styles.page_container}>
         <LoginModal 
+          title="modal.pleaseLoginBeforeGenerate"
           translate={translate}
           showModal={showLoginModal}
           handleCloseModal={handleCloseLoginModal}

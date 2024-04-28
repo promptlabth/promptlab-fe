@@ -132,5 +132,8 @@
     "help.howto.generate.title": "Klik Hasilkan dan bersenang-senang!!",
     "button.genarate": "Hasilkan",
     "modal.pleaseLoginBeforeGenerate": "Silakan login terlebih dahulu sebelum generate pesan",
-    "privacyPolicy": "Kebijakan Privasi"
+    "modal.pleaseLoginBeforeSubscribe": "Silakan login terlebih dahulu sebelum berlangganan",
+    "privacyPolicy": "Kebijakan Privasi",
+    "modal.error": "Terjadi kesalahan",
+    "modal.error.description":"Terjadi kesalahan. Silakan coba lagi."
 }

@@ -7,6 +7,7 @@ import styles from "./LoginModal.module.css";
 
 const notoSanThai = NotoSansThai({ weight: "400", subsets: ["thai"] });
 export interface LoginModalProps {
+  title: string
   translate: TFunction<"translation", undefined>;
   showModal: boolean;
   handleCloseModal?: () => void;
@@ -14,7 +15,7 @@ export interface LoginModalProps {
 }
 
 export const LoginModal = (props: LoginModalProps) => {
-  const { translate, showModal, handleCloseModal, handleLogin } = props;
+  const { title, translate, showModal, handleCloseModal, handleLogin } = props;
   return (
     <Modal
       className={notoSanThai.className}
@@ -23,7 +24,7 @@ export const LoginModal = (props: LoginModalProps) => {
       onHide={handleCloseModal}
     >
       <Modal.Body className="text-center">
-        <h4 className="mb-4">{translate("modal.pleaseLoginBeforeGenerate")}</h4>
+        <h4 className="mb-4">{translate(title)}</h4>
         <Row className="row">
           <Col className="d-flex flex-column align-items-center">
             <button
