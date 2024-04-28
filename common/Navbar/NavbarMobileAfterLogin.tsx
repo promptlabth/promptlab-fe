@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Noto_Sans_Thai } from "next/font/google";
 import Link from "next/link";
-import styles from "./styles.module.css";
+import styles from "./Navbar.module.css";
 import { RiMenu4Fill } from "react-icons/ri";
 import Flag from "react-flagkit";
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
@@ -22,6 +22,7 @@ import { Spinner } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+
 export const NavbarMobileAfterLogin: React.FC = () => {
   const userContext = useUserContext();
   const router = useRouter();
