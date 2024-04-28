@@ -341,7 +341,7 @@ const GenerateComponent = (config: pageConfig) => {
     // Set the first prompt's input to the text value
     setPrompts((prevPrompts) => {
       const updatedPrompts = [...prevPrompts];
-      updatedPrompts[0] = { ...updatedPrompts[0], input: text };
+      updatedPrompts[prompts.length - 1] = { ...updatedPrompts[prompts.length - 1], input: text };
       return updatedPrompts;
     });
 
