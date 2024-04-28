@@ -1,4 +1,4 @@
-import { getCheckoutSessionUrl } from "@/api/Payments";
+import { apiGetCheckoutSessionUrl } from "@/services/api/PaymentAPI";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { CheckoutSessionRequest } from "@/models/types/dto/requests/PaymentRequest.type";
@@ -30,7 +30,7 @@ const Subscription = () => {
       PlanID: planId
     }
     setIsLoading(true)
-    const checkoutSessionUrl = await getCheckoutSessionUrl(checkoutSessionRequest);
+    const checkoutSessionUrl = await apiGetCheckoutSessionUrl(checkoutSessionRequest);
     if (!checkoutSessionUrl) {
       setIsLoading(false)
       handleOpenModal()
