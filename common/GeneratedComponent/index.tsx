@@ -13,17 +13,22 @@ import { GenerateMessageRequest } from "@/models/types/dto/requests/GeneratedMes
 import { apiGenerateMessage } from "@/services/api/GenerateMessageAPI";
 import { featureTitleIdMap } from "@/constants/value.constant";
 import styles from "./GeneratedComponent.module.css";
+import { Wisesight } from "../WisesightComponent";
 
 export const GeneratedComponent = (props: GeneratedComponentProps) => {
-  const { titlePage, titleDescription, prompt } = props;
+  const { titlePage, titleDescription } = props;
   const pathname = usePathname();
   const { t, i18n } = useTranslation();
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [tones, setTones] = useState<Tones[]>([]);
+  const [wisesightText, setWisesightText] = useState<string>("");
   const userContext = useUserContext();
   const user = userContext?.user;
   const featureName = `${pathname.slice(1)}`;
   const translate = t;
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const handleCopyTextFromWiseSight = (text: string) => setWisesightText(text);
 
   const handleInputTextChange = (
     index: number,
@@ -101,11 +106,15 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
         tone_id: tone_id,
         feature_id: featureTitleIdMap[titlePage],
       };
-      const result = await apiGenerateMessage(data)
+      const result = await apiGenerateMessage(data);
       if (result) {
-        const message = result.reply
+        const message = result.reply;
         const updatedPrompts = [...prompts];
-        updatedPrompts[index] = { ...prompt, message: message, isGenerating: false };
+        updatedPrompts[index] = {
+          ...prompt,
+          message: message,
+          isGenerating: false,
+        };
         setPrompts(updatedPrompts);
         userContext?.updateRemainingMessage();
       }
@@ -140,6 +149,23 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
     fetchTones();
   }, [i18n.language]);
 
+  useEffect(() => {
+    // Set the first prompt's input to the text value
+    setPrompts((prevPrompts) => {
+      const updatedPrompts = [...prevPrompts];
+      updatedPrompts[prompts.length - 1] = { ...updatedPrompts[prompts.length - 1], input: wisesightText };
+      return updatedPrompts;
+    });
+
+    const textArea = textAreaRef.current;
+    // Adjust textarea height
+    if (textArea) {
+      textArea.style.height = "auto"; // Reset height to recalculate
+      textArea.style.height = `${textArea.scrollHeight}px`;
+      textArea.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [wisesightText]);
+
   return (
     <Container fluid={true} className="p-0 bg-dark bg-lighten-xs pt-5">
       <Container className={styles.page_container}>
@@ -160,7 +186,9 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
           handleAddNewRow={handleAddNewRow}
           handleDeleteRow={handleDeleteRow}
           handleGenerateMessage={handleGenerateMessage}
+          textAreaRef={textAreaRef}
         />
+        <Wisesight handleCopyTextFromWiseSight={handleCopyTextFromWiseSight} />
       </Container>
     </Container>
   );

@@ -9,6 +9,7 @@ import { IoMdAddCircleOutline, IoMdInformationCircle } from "react-icons/io";
 import { ImCross } from "react-icons/im";
 import { GeneratedButton } from "../GeneratedButton";
 import { AiOutlineSend } from "react-icons/ai";
+import { MutableRefObject } from "react";
 
 interface GeneratedComponentListProps {
   user?: LoginUser | null;
@@ -27,6 +28,7 @@ interface GeneratedComponentListProps {
   handleAddNewRow: () => void;
   handleDeleteRow: (index: number) => void;
   handleGenerateMessage: (index: number) => void;
+  textAreaRef: MutableRefObject<HTMLTextAreaElement | null>;
 }
 
 export const GeneratedComponentList = (props: GeneratedComponentListProps) => {
@@ -41,6 +43,7 @@ export const GeneratedComponentList = (props: GeneratedComponentListProps) => {
     handleAddNewRow,
     handleDeleteRow,
     handleGenerateMessage,
+    textAreaRef
   } = props;
   return (
     <Container fluid={true} className={styles.page_prompt_area}>
@@ -101,7 +104,7 @@ export const GeneratedComponentList = (props: GeneratedComponentListProps) => {
             </Col>
             <div className="pt-2">
               <textarea
-                // ref={textAreaRef}
+                ref={textAreaRef}
                 placeholder={translate(`placeholder.${featureName}`)}
                 className={styles.page_prompt_area_textfield}
                 value={input}

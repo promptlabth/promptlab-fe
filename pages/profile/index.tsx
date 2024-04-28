@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Noto_Sans_Thai as NotoSansThai } from "next/font/google";
 import { useUserContext } from "@/contexts/UserContext";
 import { useRouter } from "next/router";
-import { cancelUserSubscribe } from "@/api/Payments";
+import { apiCancelUserSubscribe } from "@/services/api/PaymentAPI";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { ProfileDetail } from "@/featureComponents/profile/ProfileDetail";
@@ -22,7 +22,7 @@ const Profile = () => {
   const handleShowModal = () => setShowModal(true);
 
   const handleCancelSubscription = async () => {
-    const result = await cancelUserSubscribe();
+    const result = await apiCancelUserSubscribe();
     if (result) {
       router.push("/subscription/cancle_success");
     }

@@ -72,7 +72,7 @@ const Footer = () => {
     }, [i18n.language]);
     return (
         <footer className={noto_sans_thai.className}>
-            <Wisesight />
+            {/* <Wisesight /> */}
             <Container fluid={true} className={styles.footer}>
                 <Container className={styles.footer_container}>
                     <hr className={styles.footer_divider} />
