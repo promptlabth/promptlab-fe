@@ -1,7 +1,7 @@
 import axios from "axios";
 import { serverApiUrl } from "@/constants/link.constant";
 import { getAccessToken } from "../firebase/auth/GetTokenAuth";
-async function apiGetGeneratedMessageCount() {
+async function apiGetGeneratedMessageCount() : Promise<number | null> {
   const apiUrl = `${serverApiUrl}/user/remaining-message`;
   try {
     const accessToken = await getAccessToken();
@@ -15,10 +15,10 @@ async function apiGetGeneratedMessageCount() {
     if (response.status === 200) {
       return response.data;
     }
-    return { reply: "Error Please try again" };
+    return null
   } catch (error) {
     console.error(error);
-    return { reply: "Error Please try again" };
+    return null
   }
 }
 

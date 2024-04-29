@@ -1,0 +1,36 @@
+.btn {
+  width: 80%;
+  font-size: 16px;
+  background-color: #0f8ff2;
+  text-align: center;
+  transition: 0.15s ease;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+}
+
+.btn:hover {
+  width: 80%;
+  font-size: 16px;
+  color: #fff;
+  background-color: #0d61a1;
+}
+
+.btn_google {
+  width: 80%;
+  font-size: 16px;
+  background-color: #ffffff;
+  text-align: center;
+  border: 1px solid #000;
+  transition: 0.15s ease;
+  border-radius: 10px;
+  height: 40px;
+}
+
+.btn_google:hover {
+  width: 80%;
+  font-size: 16px;
+  text-align: center;
+  color: #fff;
+  background-color: #dd4b39;
+}

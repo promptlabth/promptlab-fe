@@ -1,7 +1,7 @@
 
 import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
 import { LoginUser } from '@/models/types/loginUser.type';
-import { Login } from '@/services/api/UserAPI';
+import { apiUserLogin } from '@/services/api/UserAPI';
 import { useRouter } from 'next/router';
 import signInWithFacebook from '@/services/firebase/auth/AuthFacebook';
 import signInWithGmail from '@/services/firebase/auth/AuthGmail';
@@ -9,13 +9,15 @@ import { authFirebase } from '@/services/firebase/AuthFirebase';
 import { signOut } from 'firebase/auth';
 import { getAccessToken } from '@/services/firebase/auth/GetTokenAuth';
 import { apiGetGeneratedMessageCount } from '@/services/api/MessageAPI';
-// import { getRemainingMessage } from '@/api/GenerateMessageAPI';
+import { SignInUserCredential } from '@/models/types/dto/auth/userCredential.type';
+import { LoginResponse } from '@/models/types/dto/responses/loginResponse.type';
+
 interface UserContextInterface {
    user: LoginUser | null;
-   remainingMessage: number;
+   generatedMessageCount: number;
    handleLogin: (typeLogin: string) => Promise<void>;
    handleLogout: () => Promise<void>;
-   updateRemainingMessage: () => Promise<void>;
+   updateGeneratedMessageCount: () => Promise<void>;
 }
 
 // Create user context
@@ -36,63 +38,56 @@ const delay = (ms : number) => new Promise(
 export function UserContextProvider({ children }: Props) {
    const [User, setUser] = useState<LoginUser>();
    const router = useRouter()
-   const [remainingMessage, setRemainingMessage] = useState<number>(0);
+   const [generatedMessageCount, setGeneratedMessageCount] = useState<number>(0);
 
-   const updateRemainingMessage = async () => {
-      // const remainingMessage = await getRemainingMessage();
-      setRemainingMessage(remainingMessage);
+   const updateGeneratedMessageCount = async () => {
+      const remainingMessage = await apiGetGeneratedMessageCount();
+      setGeneratedMessageCount(remainingMessage ? remainingMessage : 0);
    }
 
-   const setUserData = async (loginResult : any) => {
+   const setUserData = async (loginResult : LoginResponse) => {
       let userData: LoginUser;
-      const remainingMessage = await apiGetGeneratedMessageCount();
-      console.log("Remaining message", remainingMessage)
-      if (!loginResult?.data.plan) {
-         userData = { ...loginResult?.data.user,}
+      const messageCount = await apiGetGeneratedMessageCount();
+      if (!loginResult?.plan) {
+         userData = { ...loginResult?.user,}
       } else {
          userData = {
-            ...loginResult?.data.user,
-            plan_id: loginResult?.data.plan.product.id,
-            planType: loginResult?.data.plan.product.planType,
-            maxMessages: loginResult?.data.plan.product.maxMessages,
-            start_date: loginResult?.data.plan.start_date,
-            end_date: loginResult?.data.plan.end_date,
+            ...loginResult?.user,
+            plan_id: loginResult?.plan.product.id,
+            planType: loginResult?.plan.product.planType,
+            maxMessages: loginResult?.plan.product.maxMessages,
+            start_date: loginResult?.plan.start_date,
+            end_date: loginResult?.plan.end_date,
          }
       }
-      console.log("userData", userData)
-      setRemainingMessage(remainingMessage);
+      setGeneratedMessageCount(messageCount ? messageCount : 0);
       setUser(userData)
    }
 
-   const UserLogin = async (token: string, loginFunction: () => any, platform: string, platformToken: string) => {
+   const userLogin = async (token: string, platform: string, platformToken: string) => {
       try {
-         const loginResult = await Login(token, platform, platformToken);
-
-         // If login failed, try to login again
-         if (loginResult?.status != 200) {
-            console.error("Login failed, try again!")
-         } else {
+         const loginResult = await apiUserLogin(token, platform, platformToken);
+         if (loginResult) {
             setUserData(loginResult)
+            return
          }
-
+         console.error("Login failed, try again!")
+         return
       } catch (error) {
          console.error("Error login:", error);
       }
    }
 
    const handleLogin = async (typeLogin: string) => {
-      let result;
-      let loginFunction;
+      let result: SignInUserCredential | null;
 
       switch (typeLogin) {
          case "facebook":
-            loginFunction = signInWithFacebook
-            result = await loginFunction();
+            result = await signInWithFacebook();
             localStorage.setItem("typeLogin", "facebook");
             break;
          case "gmail":
-            loginFunction = signInWithGmail;
-            result = await loginFunction();
+            result = await signInWithGmail();
             localStorage.setItem("typeLogin", "gmail");
             break;
          default:
@@ -111,11 +106,10 @@ export function UserContextProvider({ children }: Props) {
          localStorage.setItem("rt", refreshToken);
          localStorage.setItem("pat", platformToken);
 
-         UserLogin(accessToken, loginFunction, typeLogin, platformToken)
+         userLogin(accessToken, typeLogin, platformToken)
          
          await delay(200);
          router.reload()
-
       }
 
    }
@@ -135,43 +129,27 @@ export function UserContextProvider({ children }: Props) {
    const getUserData = async () => {
       try {
          const typeLogin = localStorage.getItem("typeLogin") ?? '';
-
-         let loginFunction;
-
-         switch (typeLogin) {
-            case "facebook":
-               loginFunction = signInWithFacebook
-               break;
-            case "gmail":
-               loginFunction = signInWithGmail;
-               break;
-            default:
-               console.error("type login is undefined")
-               return;
-         }
          const accessToken = await getAccessToken();
          const platformToken = localStorage.getItem("pat") ?? '';
-         UserLogin(accessToken, loginFunction, typeLogin, platformToken)
+         userLogin(accessToken, typeLogin, platformToken)
       } catch (error) {
          console.error("Error get user data:", error);
       }
    }
 
-   
 
    useEffect(() => {
-      // todo get user data
       getUserData();
    }, []);
 
-   const current_context: UserContextInterface = {
+   const contextValue: UserContextInterface = {
       user: User || null,
-      remainingMessage: remainingMessage,
+      generatedMessageCount: generatedMessageCount,
       handleLogin: handleLogin,
       handleLogout: handleLogout,
-      updateRemainingMessage: updateRemainingMessage,
+      updateGeneratedMessageCount: updateGeneratedMessageCount,
    }
    return (
-      <UserContext.Provider value={current_context}> {children} </UserContext.Provider>
+      <UserContext.Provider value={contextValue}> {children} </UserContext.Provider>
    )
 }

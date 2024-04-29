@@ -5,12 +5,8 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { authFirebase } from "../AuthFirebase";
-
-interface GoogleUserCredential extends UserCredential {
-  accessToken: string | undefined;
-}
-
-async function signInWithGmail(): Promise<GoogleUserCredential | null> {
+import { SignInUserCredential } from "@/models/types/dto/auth/userCredential.type";
+async function signInWithGmail(): Promise<SignInUserCredential | null> {
   try {
     const auth: Auth = authFirebase;
     const googleProvider = new GoogleAuthProvider();

@@ -14,6 +14,8 @@ import { apiGenerateMessage } from "@/services/api/GenerateMessageAPI";
 import { featureTitleIdMap } from "@/constants/value.constant";
 import styles from "./GeneratedComponent.module.css";
 import { Wisesight } from "../WisesightComponent";
+import { ExceedMessageLimitModal } from "../Modals/ExceedMessageLimitModal";
+import { LoginModal } from "../Modals/LoginModal";
 
 export const GeneratedComponent = (props: GeneratedComponentProps) => {
   const { titlePage, titleDescription } = props;
@@ -22,11 +24,23 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [tones, setTones] = useState<Tones[]>([]);
   const [wisesightText, setWisesightText] = useState<string>("");
+  const [showExceedLimitMessageModal, setShowExceedLimitMessageModal] =
+    useState<boolean>(false);
+  const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const userContext = useUserContext();
   const user = userContext?.user;
+  const generatedMessageCount = userContext?.generatedMessageCount;
   const featureName = `${pathname.slice(1)}`;
   const translate = t;
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const handleShowExceedLimitMessageModal = () =>
+    setShowExceedLimitMessageModal(true);
+  const handleCloseExceedLimitMessageModal = () =>
+    setShowExceedLimitMessageModal(false);
+
+  const handleShowLoginModal = () => setShowLoginModal(true);
+  const handleCloseLoginModal = () => setShowLoginModal(false);
 
   const handleCopyTextFromWiseSight = (text: string) => setWisesightText(text);
 
@@ -87,6 +101,15 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
   };
 
   const handleGenerateMessage = async (index: number) => {
+    if (generatedMessageCount === user?.maxMessages) {
+      handleShowExceedLimitMessageModal();
+      return;
+    }
+
+    if (!user) {
+      handleShowLoginModal();
+      return;
+    }
     if (user) {
       setPrompts((prevPrompts) => {
         const updatedPrompts = [...prevPrompts];
@@ -116,7 +139,7 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
           isGenerating: false,
         };
         setPrompts(updatedPrompts);
-        userContext?.updateRemainingMessage();
+        userContext?.updateGeneratedMessageCount();
       }
     } catch {
       const updatedPrompts = [...prompts];
@@ -153,7 +176,10 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
     // Set the first prompt's input to the text value
     setPrompts((prevPrompts) => {
       const updatedPrompts = [...prevPrompts];
-      updatedPrompts[prompts.length - 1] = { ...updatedPrompts[prompts.length - 1], input: wisesightText };
+      updatedPrompts[prompts.length - 1] = {
+        ...updatedPrompts[prompts.length - 1],
+        input: wisesightText,
+      };
       return updatedPrompts;
     });
 
@@ -169,6 +195,18 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
   return (
     <Container fluid={true} className="p-0 bg-dark bg-lighten-xs pt-5">
       <Container className={styles.page_container}>
+        <LoginModal 
+          title="modal.pleaseLoginBeforeGenerate"
+          translate={translate}
+          showModal={showLoginModal}
+          handleCloseModal={handleCloseLoginModal}
+          handleLogin={userContext?.handleLogin!}
+        />
+        <ExceedMessageLimitModal
+          translate={translate}
+          showModal={showExceedLimitMessageModal}
+          handleCloseModal={handleCloseExceedLimitMessageModal}
+        />
         <GeneratedComponentHeader
           translate={translate}
           pathname={pathname}
