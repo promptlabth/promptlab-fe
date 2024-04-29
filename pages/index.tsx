@@ -4,19 +4,6 @@ import { useUserContext } from "@/contexts/UserContext";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HomePresentation from "@/featureComponents/home/HomePresentation";
 
-<<<<<<< HEAD
-const HomeContainer = () => {
-  const userContext = useUserContext();
-  const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    const modalShown = Cookies.get("modalShown");
-    if (modalShown === undefined) {
-      setShowModal(true);
-    }
-  }, []);
-
-=======
 
 const HomeContainer = () => {
   const userContext = useUserContext();
@@ -29,7 +16,6 @@ const HomeContainer = () => {
     }
   }, []);
 
->>>>>>> refactor/restructure
   return (
     <HomePresentation
       userContext={userContext}

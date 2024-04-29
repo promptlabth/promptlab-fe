@@ -40,6 +40,7 @@
     "table.type.retro": "Retro",
     "table.no_message": "No generated message...",
     "table.messageInMonth1": "This month you can generate",
+    "from": "From",
     "table.messageInMonthUnit": "messages",
     "button.newRow": "Add New Row",
     "button.learnMore": "Learn More",

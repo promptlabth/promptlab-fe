@@ -292,7 +292,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
             </Link>
           </a>
         </li>
-        <li className=" py-1 ">{history()}</li>
+        {/* <li className=" py-1 ">{history()}</li> */}
         <li className="py-1 ">{logoutDesktopScreen()}</li>
       </ul>
     </li>
@@ -440,7 +440,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
   );
   const renderLargeScreenItems = () => (
     <div className="d-flex align-items-center">
-      <li className="nav-item">{coinScreen()}</li>
+      {/* <li className="nav-item">{coinScreen()}</li> */}
       {renderLanguageDropdown()}
       {userContext?.user?.plan_id === 4 && planDestopScrren()}
       <li className="nav-item">
@@ -463,10 +463,9 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       <li
         className={`${styles.profile} nav-item text-center`}
         style={{
-          // backgroundColor: "#33393F",
-          backgroundColor: !userContext?.user?.planType
-            ? "#33393F"
-            : rankColorForMobile[userContext?.user?.planType!],
+          background: rankColorForMobile[userContext?.user?.planType!],
+          //   ? "#33393F"
+          //   : rankColorForMobile[userContext?.user?.planType!],
         }}
       >
         {renderProfileButton()}
@@ -488,11 +487,11 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       <li className="nav-item">
         <div className="nav-link">{renderNavbarHelp()}</div>
       </li>
-      <li className="nav-item">
+      {/* <li className="nav-item">
         <div className="nav-link">
           {historyMobile()}
         </div>
-      </li>
+      </li> */}
       <li>
         <hr style={{ color: "white" }}></hr>
       </li>

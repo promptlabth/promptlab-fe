@@ -10,11 +10,6 @@ import { Header } from "@/featureComponents/subscription/Header";
 import { SubscriptionList } from "@/featureComponents/subscription/SubscriptionList";
 import Layout from "@/common/Layout";
 import { LoadingScreen } from "@/common/LoadingScreen";
-<<<<<<< HEAD
-
-const Subscription = () => {
-  const [showModal, setShowModal] = useState<boolean>(false);
-=======
 import { LoginModal } from "@/common/Modals/LoginModal";
 import { ErrorModal } from "@/common/Modals/ErrorModal";
 
@@ -22,33 +17,12 @@ const Subscription = () => {
   const [showSubscribeFailModal, setShowSubscribeFailModal] = useState<boolean>(false);
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
->>>>>>> refactor/restructure
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const userContext = useUserContext();
   const user = userContext?.user;
   const router = useRouter();
   const { t } = useTranslation();
 
-<<<<<<< HEAD
-  const handleOpenModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
-
-  // This function is soonly used to handle the checkout session 
-  const handleCheckoutSession = async (prizeId: string, planId: number) => {
-    const checkoutSessionRequest: CheckoutSessionRequest = {
-      PrizeID: prizeId,
-      WebUrl: window.location.origin,
-      PlanID: planId
-    }
-    setIsLoading(true)
-    const checkoutSessionUrl = await apiGetCheckoutSessionUrl(checkoutSessionRequest);
-    if (!checkoutSessionUrl) {
-      setIsLoading(false)
-      handleOpenModal()
-      return
-    }
-    router.push(checkoutSessionUrl);
-=======
   const handleOpenSubscribeFailModal = () => setShowSubscribeFailModal(true);
   const handleCloseSubscribeFailModal = () => setShowSubscribeFailModal(false);
 
@@ -83,15 +57,11 @@ const Subscription = () => {
       console.error(error)
       handleShowErrorModal()
     }
->>>>>>> refactor/restructure
   }
 
   return (
     <Layout pageContent="A plan subscription page" pageTitle="subscription">
       {isLoading && <LoadingScreen />}
-<<<<<<< HEAD
-      <SubscribeFailedModal translate={t} show={showModal} handleCloseModal={handleCloseModal} />
-=======
       <ErrorModal
         title="modal.error"
         description="modal.error.description"
@@ -107,7 +77,6 @@ const Subscription = () => {
         handleLogin={userContext?.handleLogin!}
       />
       <SubscribeFailedModal translate={t} show={showSubscribeFailModal} handleCloseModal={handleCloseSubscribeFailModal} />
->>>>>>> refactor/restructure
       <Header translate={t} user={user} />
       <SubscriptionList
         translate={t}

@@ -225,6 +225,7 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
           handleDeleteRow={handleDeleteRow}
           handleGenerateMessage={handleGenerateMessage}
           textAreaRef={textAreaRef}
+          generatedMessageCount={generatedMessageCount!}
         />
         <Wisesight handleCopyTextFromWiseSight={handleCopyTextFromWiseSight} />
       </Container>

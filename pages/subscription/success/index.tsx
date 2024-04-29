@@ -26,7 +26,7 @@ export default function SubscriptionSuccessContainer({
       };
 
       await apiUserPremiumSubscribe(data);
-      await userContext?.updateRemainingMessage();
+      await userContext?.updateGeneratedMessageCount();
     } else {
       console.error("Invalid session_id");
     }

@@ -10,12 +10,13 @@ import { ImCross } from "react-icons/im";
 import { GeneratedButton } from "../GeneratedButton";
 import { AiOutlineSend } from "react-icons/ai";
 import { MutableRefObject } from "react";
-
+import { Noto_Sans_Thai as NotoSansThai } from "next/font/google";
 interface GeneratedComponentListProps {
   user?: LoginUser | null;
   prompts: Prompt[];
   tones: Tones[];
   featureName: string;
+  generatedMessageCount: number;
   translate: TFunction<"translation", undefined>;
   handleInputTextChange: (
     index: number,
@@ -31,6 +32,8 @@ interface GeneratedComponentListProps {
   textAreaRef: MutableRefObject<HTMLTextAreaElement | null>;
 }
 
+const notoSansThai = NotoSansThai({ weight: "400", subsets: ["thai"] });
+
 export const GeneratedComponentList = (props: GeneratedComponentListProps) => {
   const {
     user,
@@ -38,12 +41,13 @@ export const GeneratedComponentList = (props: GeneratedComponentListProps) => {
     tones,
     translate,
     featureName,
+    generatedMessageCount,
     handleInputTextChange,
     handleTypeChange,
     handleAddNewRow,
     handleDeleteRow,
     handleGenerateMessage,
-    textAreaRef
+    textAreaRef,
   } = props;
   return (
     <Container fluid={true} className={styles.page_prompt_area}>
@@ -52,10 +56,7 @@ export const GeneratedComponentList = (props: GeneratedComponentListProps) => {
           <div className={`d-flex ${styles.generate_count_layout}`}>
             <AiOutlineSend className="text-white me-2" size={20} />
             <div className="text-white">
-              {/* {userContext.remainingMessage! < 0
-                ? 0
-                : userContext?.remainingMessage}
-              &#47;{userContext?.user?.maxMessages} */}
+              {generatedMessageCount}&#47;{user?.maxMessages}
             </div>
 
             <OverlayTrigger
@@ -64,10 +65,10 @@ export const GeneratedComponentList = (props: GeneratedComponentListProps) => {
               trigger={["hover", "focus"]}
               overlay={
                 <Tooltip
-                  // className={`${noto_sans_thai.className}`}
+                  className={notoSansThai.className}
                   id="generate-count-tooltip"
                 >
-                  {translate("table.messageInMonth1")} {user?.maxMessages}{" "}
+                  {translate("table.messageInMonth1")} {generatedMessageCount} {translate("from")} {user?.maxMessages}{" "}
                   {translate("table.messageInMonthUnit")}!
                 </Tooltip>
               }
