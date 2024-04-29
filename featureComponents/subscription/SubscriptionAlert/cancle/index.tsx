@@ -4,6 +4,7 @@ import { ImSad2 } from "react-icons/im";
 import Head from "next/head";
 import { useTranslation } from "next-i18next";
 import styles from "./cancle.module.css";
+const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 
 export default function CancelSubscriptionSuccess({
   userEndDate,
@@ -11,7 +12,6 @@ export default function CancelSubscriptionSuccess({
 }: any) {
   const { t } = useTranslation();
 
-  const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 
   return (
     <>
