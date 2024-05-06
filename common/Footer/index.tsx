@@ -5,10 +5,9 @@ import { urlLinks } from "@/constants/link.constant";
 import { useRouter } from 'next/router';
 import { Carousel} from "react-bootstrap";
 import { AiOutlineMessage } from 'react-icons/ai';
-import styles from "../footer/Footer.module.css";
+import styles from "./Footer.module.css";
 import { Noto_Sans_Thai } from 'next/font/google'
 import { useTranslation } from "next-i18next";
-import { Wisesight } from "../WisesightComponent";
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
