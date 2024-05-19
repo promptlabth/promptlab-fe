@@ -22,17 +22,12 @@ import { Spinner } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { usePromptyContext } from "@/contexts/PromptyContext";
 
 export const NavbarMobileAfterLogin: React.FC = () => {
-  const userContext = useUserContext();
-  const router = useRouter();
   const { t, i18n } = useTranslation();
-  // const rank: string = "Free"
+  const { changeLanguage, handleLogout, user } = usePromptyContext();
   const [windowWidth, setWindowWidth] = useState(0);
-
-  const changeLocale = (locale: string) => {
-    router.push(router.pathname, router.asPath, { locale });
-  };
 
   // Add key to rankColor
   const rankColor: { [key: string]: string } = {
@@ -70,7 +65,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       <a
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
-          changeLocale("en");
+          changeLanguage("en");
         }}
       >
         <Flag country="US" className={`${styles.flag_size} me-2`} /> English
@@ -78,7 +73,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       <a
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
-          changeLocale("th");
+          changeLanguage("th");
         }}
       >
         <Flag country="TH" className={`${styles.flag_size} me-2`} /> Thai
@@ -86,7 +81,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       <a
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
-          changeLocale("id")
+          changeLanguage("id")
         }}
       >
         <Flag country="ID" className={`${styles.flag_size} me-2`} /> Indonesia
@@ -154,7 +149,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
 
   const renderProfileButton = () => (
     <div className="pt-4 pb-3">
-      {userContext?.user === null ? (
+      {user === null ? (
         <Spinner
           className="text-white m-4"
           animation="border"
@@ -164,15 +159,15 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         <>
           <img
             className={`${styles.user_profile_pic}`}
-            src={userContext?.user?.profilepic!}
+            src={user?.profilepic!}
             alt="profic-pic"
             style={{
               border:
-                userContext?.user?.planType! === "Gold"
+                user?.planType! === "Gold"
                   ? "3.25px solid #FFB800"
-                  : userContext?.user?.planType! === "Silver"
+                  : user?.planType! === "Silver"
                     ? "3.25px solid #A8A8A8"
-                    : userContext?.user?.planType! === "Bronze"
+                    : user?.planType! === "Bronze"
                       ? "3.25px solid #CD7F32"
                       : "none",
               borderRadius: "50%",
@@ -183,7 +178,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
           <div className="pt-2 pb-2">
             <b className="fs-4 fw-bold text-white">
               {" "}
-              {userContext?.user?.name}{" "}
+              {user?.name}{" "}
             </b>
           </div>
           <li className="d-flex justify-content-center">
@@ -210,15 +205,16 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       >
         <img
           className={`${styles.user_profile_pic_desktop}`}
-          src={userContext?.user?.profilepic}
-          alt="profic-pic"
+          // src={user?.profilepic}
+          src={"https://avatar.iran.liara.run/public"}
+          // alt={}
           style={{
             border:
-              userContext?.user?.planType! === "Gold"
+              user?.planType! === "Gold"
                 ? "3.25px solid #FFB800"
-                : userContext?.user?.planType! === "Silver"
+                : user?.planType! === "Silver"
                   ? "3.25px solid #A8A8A8"
-                  : userContext?.user?.planType! === "Bronze"
+                  : user?.planType! === "Bronze"
                     ? "3.25px solid #CD7F32"
                     : "none",
             borderRadius: "50%",
@@ -232,18 +228,18 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         style={{
           marginLeft: "-8rem",
           background:
-            userContext?.user?.plan_id !== 4
-              ? rankColor[userContext?.user?.planType!]
+            user?.plan_id !== 4
+              ? rankColor[user?.planType!]
               : "#33393F",
         }}
       >
         <li>
           <div className="text-white text-center fs-5 fw-semibold text">
-            {userContext?.user?.name}
+            {user?.name}
           </div>
         </li>
 
-        {userContext?.user?.plan_id !== 4 && (
+        {user?.plan_id !== 4 && (
           <>
             <li className="d-flex justify-content-center">
               <svg
@@ -253,19 +249,19 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                 viewBox="0 0 28 28"
                 fill="none"
               >
-                {userContext?.user?.planType! === "Gold" && (
+                {user?.planType! === "Gold" && (
                   <circle cx="14" cy="14" r="14" fill="#FFB800" />
                 )}
-                {userContext?.user?.planType! === "Silver" && (
+                {user?.planType! === "Silver" && (
                   <circle cx="14" cy="14" r="14" fill="#A3A3A3" />
                 )}
-                {userContext?.user?.planType! === "Bronze" && (
+                {user?.planType! === "Bronze" && (
                   <circle cx="14" cy="14" r="14" fill="#CD7F32" />
                 )}
               </svg>
               <div className="ps-2 fw-bold text-white">
                 {" "}
-                {userContext?.user?.planType!}{" "}
+                {user?.planType!}{" "}
               </div>
             </li>
           </>
@@ -400,7 +396,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       href="/"
       className={`${styles.login_dropdown_history_menu} d-flex align-items-center`}
       onClick={() => {
-        userContext?.handleLogout();
+        handleLogout();
       }}
     >
       <BiLogOut className="m-1 ms-2" size={20} />
@@ -412,7 +408,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
     <button
       className={`${styles.navbar_logout_button}`}
       onClick={() => {
-        userContext?.handleLogout();
+        handleLogout();
       }}
     >
       {t("logout")}
@@ -442,11 +438,11 @@ export const NavbarMobileAfterLogin: React.FC = () => {
     <div className="d-flex align-items-center">
       {/* <li className="nav-item">{coinScreen()}</li> */}
       {renderLanguageDropdown()}
-      {userContext?.user?.plan_id === 4 && planDestopScrren()}
+      {user?.plan_id === 4 && planDestopScrren()}
       <li className="nav-item">
         <div className="nav-link">{renderNavbarHelp()}</div>
       </li>
-      {userContext?.user === null ? (
+      {user === null ? (
         <Spinner
           className="text-white ms-2"
           animation="border"
@@ -463,7 +459,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       <li
         className={`${styles.profile} nav-item text-center`}
         style={{
-          background: rankColorForMobile[userContext?.user?.planType!],
+          background: rankColorForMobile[user?.planType!],
           //   ? "#33393F"
           //   : rankColorForMobile[userContext?.user?.planType!],
         }}
@@ -483,7 +479,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
           </button>
         </div>
       </li>
-      {userContext?.user?.planType === "Free" && planTypeScreen()}
+      {user?.planType === "Free" && planTypeScreen()}
       <li className="nav-item">
         <div className="nav-link">{renderNavbarHelp()}</div>
       </li>

@@ -15,6 +15,7 @@ import { getAccessToken } from "@/services/firebase/auth/GetTokenAuth";
 import { appWithTranslation } from "next-i18next";
 import ClarityAnalytics from "@/common/CharityComponent";
 import { Tabbar } from "@/common/Tabbar";
+import { PromptyContextProvider } from "@/contexts/PromptyContext";
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 
@@ -116,13 +117,15 @@ function App({ Component, pageProps }: AppProps) {
         />
         <ClarityAnalytics />
       </Head>
-      <UserContextProvider>
-        {isMaintain && <MaintainPage />}
-        {token ? <NavbarMobileAfterLogin /> : <NavbarMobile />}
-        <Tabbar />
-        <Component {...pageProps} />
-        <Footer />
-      </UserContextProvider>
+      <PromptyContextProvider >
+        <UserContextProvider>
+          {isMaintain && <MaintainPage />}
+          {token ? <NavbarMobileAfterLogin /> : <NavbarMobile />}
+          <Tabbar />
+          <Component {...pageProps} />
+          <Footer />
+        </UserContextProvider>
+      </PromptyContextProvider>
     </main>
   );
 }

@@ -15,17 +15,14 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import { usePromptyContext } from "@/contexts/PromptyContext";
 
 export const NavbarMobile: React.FC = () => {
-  const userContext = useUserContext();
   const [windowWidth, setWindowWidth] = useState(0);
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  
-  const changeLocale = (locale: string) => {
-    router.push(router.pathname, router.asPath, { locale });
-  };
-
+  const { changeLanguage, handleLogin } = usePromptyContext();  
+ 
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -46,7 +43,7 @@ export const NavbarMobile: React.FC = () => {
       <a
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
-          changeLocale("en");
+          changeLanguage("en");
         }}
       >
         <Flag country="US" className={`${styles.flag_size} me-2`} /> English
@@ -54,7 +51,7 @@ export const NavbarMobile: React.FC = () => {
       <a
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
-          changeLocale("th");
+          changeLanguage("th");
         }}
       >
         <Flag country="TH" className={`${styles.flag_size} me-2`} /> Thai
@@ -62,7 +59,7 @@ export const NavbarMobile: React.FC = () => {
       <a
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
-          changeLocale("id");
+          changeLanguage("id");
         }}
       >
         <Flag country="ID" className={`${styles.flag_size} me-2`} /> Indonesia
@@ -106,7 +103,7 @@ export const NavbarMobile: React.FC = () => {
           <button
             className={`${styles.facebook_login_button} d-flex justify-content-center align-items-center`}
             onClick={() => {
-              userContext?.handleLogin("facebook");
+              handleLogin("facebook");
             }}
           >
             <FaFacebook
@@ -130,7 +127,7 @@ export const NavbarMobile: React.FC = () => {
         <button
           className={`${styles.gmail_login_button} d-flex justify-content-center align-items-center`}
           onClick={() => {
-            userContext?.handleLogin("gmail");
+            handleLogin("gmail");
           }}
         >
           <FcGoogle className={`me-2 ${styles.social_media_icon}`} />

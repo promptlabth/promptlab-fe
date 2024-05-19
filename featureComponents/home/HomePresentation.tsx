@@ -6,10 +6,17 @@ import styles from "./home.module.css";
 import { Noto_Sans_Thai } from "next/font/google";
 import Head from "next/head";
 import SubscriptionModal from "@/common/Modals/SubscriptionModal";
+import { LoginUser } from "@/models/types/loginUser.type";
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
 
-const HomePresentation = ({ userContext, showModal }: any) => {
+interface HomePresentationProps {
+  user: LoginUser | null;
+  showModal: boolean;
+}
+
+const HomePresentation = ( props : HomePresentationProps) => {
+  const { user, showModal } = props;
   const { t } = useTranslation();
 
   return (
@@ -55,7 +62,7 @@ const HomePresentation = ({ userContext, showModal }: any) => {
         />
       </Head>
       <div className={noto_sans_thai.className}>
-        {userContext?.user?.planType === "Free" && showModal && (
+        {user?.planType === "Free" && showModal && (
           <SubscriptionModal show={showModal} />
         )}
         <Container fluid={true} className="p-0 bg-dark pt-5 pb-5">

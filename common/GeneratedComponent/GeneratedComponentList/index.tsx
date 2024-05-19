@@ -1,7 +1,7 @@
 import { Col, Container, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { LoginUser } from "@/models/types/loginUser.type";
 import { Prompt } from "@/models/types/prompt.type";
-import { Tones } from "@/models/types/tone.type";
+import { Tone } from "@/models/types/config.types";
 import { TFunction } from "i18next";
 import { CopyToClipboardButton } from "@/common/CopyToClipboardButton";
 import styles from "./GeneratedComponentList.module.css";
@@ -14,7 +14,7 @@ import { Noto_Sans_Thai as NotoSansThai } from "next/font/google";
 interface GeneratedComponentListProps {
   user?: LoginUser | null;
   prompts: Prompt[];
-  tones: Tones[];
+  tones: Tone[];
   featureName: string;
   generatedMessageCount: number;
   translate: TFunction<"translation", undefined>;
@@ -126,9 +126,9 @@ export const GeneratedComponentList = (props: GeneratedComponentListProps) => {
                 onChange={(event) => handleTypeChange(index, event)}
                 required
               >
-                {tones.map((item: Tones) => (
+                {tones.map((item: Tone) => (
                   <option key={item.id} value={item.id}>
-                    {item.tone_name}
+                    {item.toneName}
                   </option>
                 ))}
               </select>

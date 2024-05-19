@@ -1,14 +1,12 @@
 import { useUserContext } from "@/contexts/UserContext";
 import { GeneratedComponentProps } from "@/models/interfaces/GeneratedComponent.interface";
 import { Prompt } from "@/models/types/prompt.type";
-import { Tones } from "@/models/types/tone.type";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { Container } from "react-bootstrap";
 import { GeneratedComponentHeader } from "./Header";
 import { GeneratedComponentList } from "./GeneratedComponentList";
-import { apiGetTones } from "@/services/api/ToneAPI";
 import { GenerateMessageRequest } from "@/models/types/dto/requests/GeneratedMessageRequest.type";
 import { apiGenerateMessage } from "@/services/api/GenerateMessageAPI";
 import { featureTitleIdMap } from "@/constants/value.constant";
@@ -16,24 +14,24 @@ import styles from "./GeneratedComponent.module.css";
 import { Wisesight } from "../WisesightComponent";
 import { ExceedMessageLimitModal } from "../Modals/ExceedMessageLimitModal";
 import { LoginModal } from "../Modals/LoginModal";
+import { usePromptyContext } from "@/contexts/PromptyContext";
 
 export const GeneratedComponent = (props: GeneratedComponentProps) => {
   const { titlePage, titleDescription } = props;
   const pathname = usePathname();
   const { t, i18n } = useTranslation();
   const [prompts, setPrompts] = useState<Prompt[]>([]);
-  const [tones, setTones] = useState<Tones[]>([]);
   const [wisesightText, setWisesightText] = useState<string>("");
   const [showExceedLimitMessageModal, setShowExceedLimitMessageModal] =
     useState<boolean>(false);
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const userContext = useUserContext();
   const user = userContext?.user;
-  const generatedMessageCount = userContext?.generatedMessageCount;
   const featureName = `${pathname.slice(1)}`;
   const translate = t;
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-
+  const { tones, generatedMessageCount, updateGeneratedMessageCount } = usePromptyContext();
+ 
   const handleShowExceedLimitMessageModal = () =>
     setShowExceedLimitMessageModal(true);
   const handleCloseExceedLimitMessageModal = () =>
@@ -139,7 +137,7 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
           isGenerating: false,
         };
         setPrompts(updatedPrompts);
-        userContext?.updateGeneratedMessageCount();
+        updateGeneratedMessageCount()
       }
     } catch {
       const updatedPrompts = [...prompts];
@@ -152,25 +150,12 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
     }
   };
 
-  const fetchTones = async () => {
-    try {
-      const language = i18n.language === "en" ? "eng" : i18n.language;
-      const data = await apiGetTones(language);
-      setTones(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+  
   useEffect(() => {
     if (prompts.length === 0) {
       handleAddNewRow();
     }
   }, [prompts]);
-
-  useEffect(() => {
-    fetchTones();
-  }, [i18n.language]);
 
   useEffect(() => {
     // Set the first prompt's input to the text value
