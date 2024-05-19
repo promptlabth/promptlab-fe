@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Noto_Sans_Thai as NotoSansThai } from "next/font/google";
-import { useUserContext } from "@/contexts/UserContext";
 import { useRouter } from "next/router";
 import { apiCancelUserSubscribe } from "@/services/api/PaymentAPI";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { ProfileDetail } from "@/featureComponents/profile/ProfileDetail";
-import { Header } from "@/featureComponents/profile/Header";
 import { CancelSubscriptionModal } from "@/featureComponents/profile/CancelSubscriptionModal";
 import { LoadingScreen } from "@/common/LoadingScreen";
-const notoSansThai = NotoSansThai({ weight: "400", subsets: ["thai"] });
+import { usePromptyContext } from "@/contexts/PromptyContext";
+import Layout from "@/common/Layout";
 const Profile = () => {
-  const userContext = useUserContext();
-  const user = userContext?.user;
+  const { user } = usePromptyContext();
   const router = useRouter();
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -24,7 +21,7 @@ const Profile = () => {
   const handleCancelSubscription = async () => {
     const result = await apiCancelUserSubscribe();
     if (result) {
-      router.push("/subscription/cancle_success");
+      router.push("/subscription/cancle");
     }
   };
 
@@ -35,9 +32,8 @@ const Profile = () => {
   }, [user])
 
   return (
-    <div className={notoSansThai.className}>
+    <Layout pageContent="A profile page" pageTitle="profile.title">
       {isLoading && <LoadingScreen />}
-      <Header translate={t} />
       <CancelSubscriptionModal
         translate={t}
         showModal={showModal}
@@ -45,7 +41,7 @@ const Profile = () => {
         handleCancelSubscription={handleCancelSubscription}
       />
       <ProfileDetail translate={t} user={user} handleShowModal={handleShowModal} />
-    </div>
+    </Layout>
   );
 };
 

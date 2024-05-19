@@ -1,17 +1,16 @@
 import { useEffect } from "react";
-import { useUserContext } from "@/contexts/UserContext";
 import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { apiUserPremiumSubscribe } from "@/services/api/PaymentAPI";
 import { UserPremiumSubscribeRequest } from "@/models/types/dto/requests/PaymentRequest.type";
 import { SubscriptionSuccessPresentation } from "@/featureComponents/subscription/SubscriptionAlert/success/index";
-
+import { usePromptyContext } from "@/contexts/PromptyContext";
 export default function SubscriptionSuccessContainer({
   session_id,
   planType,
 }: any) {
-  const userContext = useUserContext();
+  const {user, updateGeneratedMessageCount } = usePromptyContext();
   const router = useRouter();
   const { t } = useTranslation();
 
@@ -26,7 +25,7 @@ export default function SubscriptionSuccessContainer({
       };
 
       await apiUserPremiumSubscribe(data);
-      await userContext?.updateGeneratedMessageCount();
+      await updateGeneratedMessageCount();
     } else {
       console.error("Invalid session_id");
     }
@@ -41,8 +40,8 @@ export default function SubscriptionSuccessContainer({
       planType={planType}
       t={t}
       handleBack={handleBack}
-      userContext={userContext}
-    />
+      user={user}
+      />
   );
 }
 

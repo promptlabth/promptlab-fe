@@ -10,19 +10,18 @@ import { AiFillVideoCamera } from "react-icons/ai";
 import { MdSell, MdOutlineArticle } from "react-icons/md";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaClosedCaptioning } from "react-icons/fa";
-import { useUserContext } from "@/contexts/UserContext";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { usePromptyContext } from "@/contexts/PromptyContext";
-
+import { languageMap } from "@/constants/language.constant";
 export const NavbarMobile: React.FC = () => {
   const [windowWidth, setWindowWidth] = useState(0);
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { changeLanguage, handleLogin } = usePromptyContext();  
- 
+  const { changeLanguage, handleLogin, languages } = usePromptyContext();
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -40,30 +39,23 @@ export const NavbarMobile: React.FC = () => {
 
   const renderLanguageOptions = () => (
     <li>
-      <a
-        className={`dropdown-item ${styles.language_list}`}
-        onClick={() => {
-          changeLanguage("en");
-        }}
-      >
-        <Flag country="US" className={`${styles.flag_size} me-2`} /> English
-      </a>
-      <a
-        className={`dropdown-item ${styles.language_list}`}
-        onClick={() => {
-          changeLanguage("th");
-        }}
-      >
-        <Flag country="TH" className={`${styles.flag_size} me-2`} /> Thai
-      </a>
-      <a
-        className={`dropdown-item ${styles.language_list}`}
-        onClick={() => {
-          changeLanguage("id");
-        }}
-      >
-        <Flag country="ID" className={`${styles.flag_size} me-2`} /> Indonesia
-      </a>
+      {languages.map((language) => (
+        <a
+          key={language.id}
+          className={`dropdown-item ${styles.language_list}`}
+          onClick={() => {
+            changeLanguage(language.languageName);
+          }}
+        >
+          <Flag
+            country={
+              language.languageName === "en" ? "US" : language.languageName.toUpperCase()
+            }
+            className={`${styles.flag_size} me-2`}
+          />{" "}
+          {languageMap[language.languageName]}
+        </a>
+      ))}
     </li>
   );
 
@@ -77,15 +69,10 @@ export const NavbarMobile: React.FC = () => {
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        {i18n.language === "th" && (
-          <Flag country="TH" className={`${styles.flag_size}`} />
-        )}
-        {i18n.language === "en" && (
-          <Flag country="US" className={`${styles.flag_size}`} />
-        )}
-        {i18n.language === "id" && (
-          <Flag country="ID" className={`${styles.flag_size}`} />
-        )}
+        <Flag
+          country={i18n.language === "en" ? "US" : i18n.language.toUpperCase()}
+          className={`${styles.flag_size}`}
+        />
       </a>
       <ul
         className={`dropdown-menu dropdown-menu-dark`}
@@ -106,9 +93,7 @@ export const NavbarMobile: React.FC = () => {
               handleLogin("facebook");
             }}
           >
-            <FaFacebook
-              className={`me-2 ${styles.social_media_icon}`}
-            />
+            <FaFacebook className={`me-2 ${styles.social_media_icon}`} />
             <div>{t("login")}&nbsp;Facebook</div>
           </button>
         </div>
@@ -307,7 +292,7 @@ export const NavbarMobile: React.FC = () => {
       {renderLoginDestopModal()}
       <nav
         className={`${noto_sans_thai.className} navbar navbar-expand-lg navbar-dark bg-dark`}
-        style={{position: "fixed", top: 0, width: "100%", zIndex: 2}}
+        style={{ position: "fixed", top: 0, width: "100%", zIndex: 2 }}
       >
         <div className={`container d-flex mt-auto`}>
           {renderNavbarHeader()}
@@ -334,6 +319,5 @@ export const NavbarMobile: React.FC = () => {
     </>
   );
 };
-
 
 export default NavbarMobile;

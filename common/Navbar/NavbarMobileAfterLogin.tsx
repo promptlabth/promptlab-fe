@@ -16,17 +16,16 @@ import { MdNewReleases } from "react-icons/md";
 import { BsFillCircleFill } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import { AiFillPlusCircle } from "react-icons/ai";
-import { useUserContext } from "@/contexts/UserContext";
 import { MdWorkspacePremium } from "react-icons/md";
 import { Spinner } from "react-bootstrap";
 import { useRouter } from "next/router";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { usePromptyContext } from "@/contexts/PromptyContext";
+import { languageMap } from "@/constants/language.constant";
 
 export const NavbarMobileAfterLogin: React.FC = () => {
   const { t, i18n } = useTranslation();
-  const { changeLanguage, handleLogout, user } = usePromptyContext();
+  const { changeLanguage, handleLogout, user, languages } = usePromptyContext();
   const [windowWidth, setWindowWidth] = useState(0);
 
   // Add key to rankColor
@@ -62,30 +61,23 @@ export const NavbarMobileAfterLogin: React.FC = () => {
 
   const renderLanguageOptions = () => (
     <li>
-      <a
-        className={`dropdown-item ${styles.language_list}`}
-        onClick={() => {
-          changeLanguage("en");
-        }}
-      >
-        <Flag country="US" className={`${styles.flag_size} me-2`} /> English
-      </a>
-      <a
-        className={`dropdown-item ${styles.language_list}`}
-        onClick={() => {
-          changeLanguage("th");
-        }}
-      >
-        <Flag country="TH" className={`${styles.flag_size} me-2`} /> Thai
-      </a>
-      <a
-        className={`dropdown-item ${styles.language_list}`}
-        onClick={() => {
-          changeLanguage("id")
-        }}
-      >
-        <Flag country="ID" className={`${styles.flag_size} me-2`} /> Indonesia
-      </a>
+      {languages.map((language) => (
+        <a
+          key={language.id}
+          className={`dropdown-item ${styles.language_list}`}
+          onClick={() => {
+            changeLanguage(language.languageName);
+          }}
+        >
+          <Flag
+            country={
+              language.languageName === "en" ? "US" : language.languageName.toUpperCase()
+            }
+            className={`${styles.flag_size} me-2`}
+          />{" "}
+          {languageMap[language.languageName]}
+        </a>
+      ))}
     </li>
   );
 
@@ -99,15 +91,10 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        {i18n.language === "th" && (
-          <Flag country="TH" className={`${styles.flag_size}`} />
-        )}
-        {i18n.language === "en" && (
-          <Flag country="US" className={`${styles.flag_size}`} />
-        )}
-        {i18n.language === "id" && (
-          <Flag country="ID" className={`${styles.flag_size}`} />
-        )}
+        <Flag
+          country={i18n.language === "en" ? "US" : i18n.language.toUpperCase()}
+          className={`${styles.flag_size}`}
+        />
       </a>
       <ul
         className={`dropdown-menu dropdown-menu-dark`}

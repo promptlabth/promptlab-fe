@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import { useUserContext } from "@/contexts/UserContext";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HomePresentation from "@/featureComponents/home/HomePresentation";
 import { apiGetAllConfigs } from "@/services/api/ConfigAPI";
 import { usePromptyContext } from "@/contexts/PromptyContext";
 
 const HomeContainer = () => {
-  // const userContext = useUserContext();
   const { user } = usePromptyContext()
 
   const [showModal, setShowModal] = useState(false);

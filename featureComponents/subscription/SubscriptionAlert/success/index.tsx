@@ -8,10 +8,10 @@ export function SubscriptionSuccessPresentation({
   planType,
   t,
   handleBack,
-  userContext,
+  user,
 }: any) {
-  const startDate = userContext?.user?.start_date;
-  const endDate = userContext?.user?.end_date;
+  const startDate = user?.start_date;
+  const endDate = user?.end_date;
 
   return (
     <>
@@ -85,7 +85,7 @@ export function SubscriptionSuccessPresentation({
               <Row>
                 <small>
                   <BsCheckCircle size={16} className="me-3"></BsCheckCircle>
-                  {userContext?.user?.maxMessages} {t("subscription.message")}
+                  {user?.maxMessages} {t("subscription.message")}
                 </small>
               </Row>
               <Row>

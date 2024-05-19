@@ -6,20 +6,10 @@ import {
   useEffect,
 } from "react";
 import { LoginUser } from "@/models/types/loginUser.type";
-import { apiUserLogin } from "@/services/api/UserAPI";
 import { useRouter } from "next/router";
-import signInWithFacebook from "@/services/firebase/auth/AuthFacebook";
-import signInWithGmail from "@/services/firebase/auth/AuthGmail";
-import { authFirebase } from "@/services/firebase/AuthFirebase";
-import { signOut } from "firebase/auth";
-import { getAccessToken } from "@/services/firebase/auth/GetTokenAuth";
 import { apiGetGeneratedMessageCount } from "@/services/api/MessageAPI";
 import { apiGetAllConfigs } from "@/services/api/ConfigAPI";
-import { SignInUserCredential } from "@/models/types/dto/auth/userCredential.type";
-import { LoginResponse } from "@/models/types/dto/responses/loginResponse.type";
-import { apiGetGeoLocation } from "@/services/api/GeoLocationAPI";
 import { Feature, Language, Tone } from "@/models/types/config.types";
-import { delay } from "@/utils/time";
 import { UseUser } from "./_User";
 interface PromptyContextInterface {
   user: LoginUser | null;
@@ -32,13 +22,6 @@ interface PromptyContextInterface {
   handleLogin: (typeLogin: string) => Promise<void>;
   handleLogout: () => Promise<void>;
   getUserData: () => Promise<void>;
-  // user: LoginUser;
-  // languages: Language[];
-  // tones: Tone[];
-  // features: Feature[];
-  // handleLogin: (typeLogin: string) => Promise<void>;
-  // handleLogout: () => Promise<void>;
-  // updateGeneratedMessageCount: () => Promise<void>;
 }
 
 const PromptyContext = createContext<PromptyContextInterface>({

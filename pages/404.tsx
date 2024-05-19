@@ -5,6 +5,7 @@ import { FaQuestion } from "react-icons/fa";
 
 const notoSansThai = NotoSansThai({ weight: "400", subsets: ["thai"] });
 
+
 const Error404Page = () => {
   return (
     <div className={notoSansThai.className}>
@@ -23,12 +24,6 @@ const Error404Page = () => {
           <h3 className="fw-bold">Error, this page is not found....</h3>
         </div>
       </div>
-      {/* <div
-        className="text-center bg-dark text-white d-flex align-items-center justify-content-center"
-        style={{ minHeight: "70vh" }}
-      >
-        <h3 className="fw-bold">Error, this page is not found....</h3>
-      </div> */}
     </div>
   );
 };

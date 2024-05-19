@@ -1,11 +1,11 @@
-import { useUserContext } from "@/contexts/UserContext";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import CancelSubscriptionSuccess from "@/featureComponents/subscription/SubscriptionAlert/cancle/index";
+import { usePromptyContext } from "@/contexts/PromptyContext";
 
 export default function CancelSubscriptionContainer() {
   const router = useRouter();
-  const userContext = useUserContext();
+  const {user} = usePromptyContext();
 
   const goBackToHome = () => {
     router.push("/");
@@ -13,7 +13,7 @@ export default function CancelSubscriptionContainer() {
 
   return (
     <CancelSubscriptionSuccess
-      userEndDate={userContext?.user?.end_date}
+      userEndDate={user?.end_date}
       goBackToHome={goBackToHome}
     />
   );

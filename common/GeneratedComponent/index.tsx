@@ -1,4 +1,3 @@
-import { useUserContext } from "@/contexts/UserContext";
 import { GeneratedComponentProps } from "@/models/interfaces/GeneratedComponent.interface";
 import { Prompt } from "@/models/types/prompt.type";
 import { usePathname } from "next/navigation";
@@ -25,13 +24,12 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
   const [showExceedLimitMessageModal, setShowExceedLimitMessageModal] =
     useState<boolean>(false);
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
-  const userContext = useUserContext();
-  const user = userContext?.user;
   const featureName = `${pathname.slice(1)}`;
   const translate = t;
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-  const { tones, generatedMessageCount, updateGeneratedMessageCount } = usePromptyContext();
- 
+  const { tones, generatedMessageCount, user, handleLogin, updateGeneratedMessageCount } = usePromptyContext();
+
+
   const handleShowExceedLimitMessageModal = () =>
     setShowExceedLimitMessageModal(true);
   const handleCloseExceedLimitMessageModal = () =>
@@ -185,7 +183,7 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
           translate={translate}
           showModal={showLoginModal}
           handleCloseModal={handleCloseLoginModal}
-          handleLogin={userContext?.handleLogin!}
+          handleLogin={handleLogin}
         />
         <ExceedMessageLimitModal
           translate={translate}
