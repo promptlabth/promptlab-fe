@@ -12,13 +12,14 @@ import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaClosedCaptioning } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { usePromptyContext } from "@/contexts/PromptyContext";
 import { languageMap } from "@/constants/language.constant";
+import { IoMdHelp } from "react-icons/io";
+import { BiHelpCircle } from "react-icons/bi";
+
 export const NavbarMobile: React.FC = () => {
   const [windowWidth, setWindowWidth] = useState(0);
-  const router = useRouter();
   const { t, i18n } = useTranslation();
   const { changeLanguage, handleLogin, languages } = usePromptyContext();
 
@@ -49,7 +50,9 @@ export const NavbarMobile: React.FC = () => {
         >
           <Flag
             country={
-              language.languageName === "en" ? "US" : language.languageName.toUpperCase()
+              language.languageName === "en"
+                ? "US"
+                : language.languageName.toUpperCase()
             }
             className={`${styles.flag_size} me-2`}
           />{" "}
@@ -94,7 +97,7 @@ export const NavbarMobile: React.FC = () => {
             }}
           >
             <FaFacebook className={`me-2 ${styles.social_media_icon}`} />
-            <div>{t("login")}&nbsp;Facebook</div>
+            <div>{t("loginWith")}&nbsp;Facebook</div>
           </button>
         </div>
       </div>
@@ -116,7 +119,7 @@ export const NavbarMobile: React.FC = () => {
           }}
         >
           <FcGoogle className={`me-2 ${styles.social_media_icon}`} />
-          <div className="">{t("login")}&nbsp;Gmail</div>
+          <div className="">{t("loginWith")}&nbsp;Gmail</div>
         </button>
       </div>
     </div>
@@ -267,19 +270,9 @@ export const NavbarMobile: React.FC = () => {
   const renderSmallScreenItems = () => (
     <div>
       {renderLoginMobile()}
-      <li className="nav-item">
-        <div className="nav-link">
-          <button className={styles.navbar_help_button}>
-            <AiFillHome />
-            <Link href={"/"} className={`${styles.remove_underline} ms-2`}>
-              {t("home.title")}
-            </Link>
-          </button>
-        </div>
-      </li>
-      <li className="nav-item">
-        <div className="nav-link">{renderNavbarHelp()}</div>
-      </li>
+
+      <CreateNavItem icon={<AiFillHome />} href="/" title={t("home.title")} />
+      <CreateNavItem icon={<BiHelpCircle />} href="/help" title={t("footer.help")} />
       <li>
         <hr style={{ color: "white" }}></hr>
       </li>
