@@ -7,11 +7,11 @@ import { GetStaticProps } from 'next'
 const notoSansThai = NotoSansThai({ weight: "400", subsets: ["thai"] });
 
 
-const Error404Page = () => {
+const Error500Page = () => {
   return (
     <div className={notoSansThai.className}>
       <Head>
-        <title> 404 - Page Not Found</title>
+        <title> 500 - Website has issue</title>
         <meta name="description" content="404 - Page Not Found" />
       </Head>
       <div
@@ -22,7 +22,7 @@ const Error404Page = () => {
           <div>
             <FaQuestion size={100} className="mb-5" />
           </div>
-          <h3 className="fw-bold">Error, this page is not found....</h3>
+          <h3 className="fw-bold">Error, this website is having issue....</h3>
         </div>
       </div>
     </div>
@@ -38,4 +38,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 }
 
 
-export default Error404Page;
+export default Error500Page;
