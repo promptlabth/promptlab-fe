@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import styles from './your-styles.module.css'; // Make sure to import your styles
+import styles from "./UserProfilePic.module.css"
 import { LoginUser } from '@/models/types/loginUser.type';
 
-const UserProfilePic = ({ user }: {user : LoginUser}) => {
+export const UserProfilePic = ({ user }: {user : LoginUser}) => {
   const [imgSrc, setImgSrc] = useState(user?.profilepic || "https://avatar.iran.liara.run/public");
 
-  const handleError = () => {
-    setImgSrc("https://avatar.iran.liara.run/public");
-  };
+  const handleError = () => setImgSrc("https://avatar.iran.liara.run/public");
 
   return (
     <img
@@ -32,4 +30,3 @@ const UserProfilePic = ({ user }: {user : LoginUser}) => {
   );
 };
 
-export default UserProfilePic;

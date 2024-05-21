@@ -14,6 +14,7 @@ import { UseUser } from "./_User";
 interface PromptyContextInterface {
   user: LoginUser | null;
   languages: Language[];
+  currentLanguage: Language;
   tones: Tone[];
   features: Feature[];
   generatedMessageCount: number;
@@ -27,6 +28,7 @@ interface PromptyContextInterface {
 const PromptyContext = createContext<PromptyContextInterface>({
   user: {} as LoginUser,
   languages: [],
+  currentLanguage: {} as Language,
   tones: [],
   features: [],
   generatedMessageCount: 0,
@@ -48,20 +50,22 @@ export function usePromptyContext() {
 export function PromptyContextProvider({ children }: Props) {
   const [languages, setLanguages] = useState<Language[]>([]);
   const [allTones, setAllTones] = useState<Tone[]>([]);
-  const [currentLanguage, setCurrentLanguage] = useState<string>("");
+  const [currentLanguage, setCurrentLanguage] = useState<Language>();
   const [tones, setTones] = useState<Tone[]>([]);
   const [features, setFeatures] = useState<Feature[]>([]);
   const [messageCount, setMessageCount] = useState<number>(0);
   const router = useRouter();
   const { user, handleLogin, handleLogout, getUserData } = UseUser();
   const changeLanguage = (locale: string) => {
-    setCurrentLanguage(locale);
+    setCurrentLanguage(
+      languages.find((language) => language.languageName === locale),
+    );
     router.push(router.pathname, router.asPath, { locale });
   };
 
   const getTonesByLanguage = () => {
     const language = languages.find(
-      (language) => language.languageName === currentLanguage,
+      (language) => language.languageName === currentLanguage?.languageName,
     );
     const tonesByLanguage = allTones.filter(
       (tone) => tone.languageId === language?.id,
@@ -80,9 +84,13 @@ export function PromptyContextProvider({ children }: Props) {
       setLanguages(response.data?.languages!);
       setAllTones(response.data?.tones!);
       setFeatures(response.data?.features!);
-      setCurrentLanguage(router.locale ? router.locale : "th");
-
       const messageCount = await apiGetGeneratedMessageCount();
+
+      const localLanguage = response.data?.languages.find(
+        (language) => language.languageName === router.locale,
+      );
+      setCurrentLanguage(localLanguage ? localLanguage : response.data?.languages[0]);
+
       setMessageCount(messageCount ? messageCount : 0);
     } catch (error) {
       console.error(error);
@@ -100,6 +108,7 @@ export function PromptyContextProvider({ children }: Props) {
   const value: PromptyContextInterface = {
     user: user,
     languages: languages,
+    currentLanguage: currentLanguage!,
     tones: tones,
     features: features,
     generatedMessageCount: messageCount,
@@ -107,7 +116,7 @@ export function PromptyContextProvider({ children }: Props) {
     updateGeneratedMessageCount: updateGeneratedMessageCount,
     handleLogin: handleLogin,
     handleLogout: handleLogout,
-    getUserData: getUserData
+    getUserData: getUserData,
   };
   return (
     <PromptyContext.Provider value={value}>{children}</PromptyContext.Provider>

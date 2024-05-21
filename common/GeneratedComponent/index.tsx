@@ -27,8 +27,13 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
   const featureName = `${pathname.slice(1)}`;
   const translate = t;
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-  const { tones, generatedMessageCount, user, handleLogin, updateGeneratedMessageCount } = usePromptyContext();
-
+  const {
+    tones,
+    generatedMessageCount,
+    user,
+    handleLogin,
+    updateGeneratedMessageCount,
+  } = usePromptyContext();
 
   const handleShowExceedLimitMessageModal = () =>
     setShowExceedLimitMessageModal(true);
@@ -71,14 +76,7 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
   };
 
   const handleAddNewRow = () => {
-    const toneId =
-      i18n.language == "th"
-        ? 1
-        : i18n.language == "en"
-        ? 9
-        : i18n.language == "id"
-        ? 17
-        : 9;
+    const toneId = tones[0]?.id;
 
     const newPrompt: Prompt = {
       input: "",
@@ -125,6 +123,7 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
         tone_id: tone_id,
         feature_id: featureTitleIdMap[titlePage],
       };
+      console.log(data);
       const result = await apiGenerateMessage(data);
       if (result) {
         const message = result.reply;
@@ -135,7 +134,7 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
           isGenerating: false,
         };
         setPrompts(updatedPrompts);
-        updateGeneratedMessageCount()
+        updateGeneratedMessageCount();
       }
     } catch {
       const updatedPrompts = [...prompts];
@@ -148,7 +147,6 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
     }
   };
 
-  
   useEffect(() => {
     if (prompts.length === 0) {
       handleAddNewRow();
@@ -175,10 +173,17 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
     }
   }, [wisesightText]);
 
+  useEffect(() => {
+    setPrompts((prevPrompts) => {
+      // const updatedPrompts = [...prevPrompts];
+      return prevPrompts;
+    });
+  }, [i18n.language]);
+
   return (
     <Container fluid={true} className="p-0 bg-dark bg-lighten-xs pt-5">
       <Container className={styles.page_container}>
-        <LoginModal 
+        <LoginModal
           title="modal.pleaseLoginBeforeGenerate"
           translate={translate}
           showModal={showLoginModal}

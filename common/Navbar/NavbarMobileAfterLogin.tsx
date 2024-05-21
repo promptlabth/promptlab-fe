@@ -18,11 +18,10 @@ import { BiLogOut } from "react-icons/bi";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { MdWorkspacePremium } from "react-icons/md";
 import { Spinner } from "react-bootstrap";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { usePromptyContext } from "@/contexts/PromptyContext";
 import { languageMap } from "@/constants/language.constant";
-
+import { UserProfilePic } from "@/common/UserProfilePicture";
 export const NavbarMobileAfterLogin: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { changeLanguage, handleLogout, user, languages } = usePromptyContext();
@@ -71,7 +70,9 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         >
           <Flag
             country={
-              language.languageName === "en" ? "US" : language.languageName.toUpperCase()
+              language.languageName === "en"
+                ? "US"
+                : language.languageName.toUpperCase()
             }
             className={`${styles.flag_size} me-2`}
           />{" "}
@@ -144,29 +145,9 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         />
       ) : (
         <>
-          <img
-            className={`${styles.user_profile_pic}`}
-            src={user?.profilepic!}
-            alt="profic-pic"
-            style={{
-              border:
-                user?.planType! === "Gold"
-                  ? "3.25px solid #FFB800"
-                  : user?.planType! === "Silver"
-                    ? "3.25px solid #A8A8A8"
-                    : user?.planType! === "Bronze"
-                      ? "3.25px solid #CD7F32"
-                      : "none",
-              borderRadius: "50%",
-              width: "60px",
-              height: "60px",
-            }}
-          />
+          <UserProfilePic user={user} />
           <div className="pt-2 pb-2">
-            <b className="fs-4 fw-bold text-white">
-              {" "}
-              {user?.name}{" "}
-            </b>
+            <b className="fs-4 fw-bold text-white"> {user?.name} </b>
           </div>
           <li className="d-flex justify-content-center">
             <Link
@@ -190,34 +171,14 @@ export const NavbarMobileAfterLogin: React.FC = () => {
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        <img
-          className={`${styles.user_profile_pic_desktop}`}
-          // src={user?.profilepic}
-          src={"https://avatar.iran.liara.run/public"}
-          // alt={}
-          style={{
-            border:
-              user?.planType! === "Gold"
-                ? "3.25px solid #FFB800"
-                : user?.planType! === "Silver"
-                  ? "3.25px solid #A8A8A8"
-                  : user?.planType! === "Bronze"
-                    ? "3.25px solid #CD7F32"
-                    : "none",
-            borderRadius: "50%",
-            width: "42px",
-            height: "42px",
-          }}
-        />
+        <UserProfilePic user={user!} />
       </a>
       <ul
         className={`${styles.login_dropdown_menu} border dropdown-menu px-1`}
         style={{
           marginLeft: "-8rem",
           background:
-            user?.plan_id !== 4
-              ? rankColor[user?.planType!]
-              : "#33393F",
+            user?.plan_id !== 4 ? rankColor[user?.planType!] : "#33393F",
         }}
       >
         <li>
@@ -246,10 +207,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
                   <circle cx="14" cy="14" r="14" fill="#CD7F32" />
                 )}
               </svg>
-              <div className="ps-2 fw-bold text-white">
-                {" "}
-                {user?.planType!}{" "}
-              </div>
+              <div className="ps-2 fw-bold text-white"> {user?.planType!} </div>
             </li>
           </>
         )}
@@ -269,9 +227,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
               className={`${styles.remove_underline} d-flex align-items-center`}
             >
               <AiFillHome className="m-1 ms-2" size={22} />
-              <div className="ps-2 pt-1">
-                {t("home.title")}
-              </div>
+              <div className="ps-2 pt-1">{t("home.title")}</div>
             </Link>
           </a>
         </li>
@@ -487,7 +443,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
     <>
       <nav
         className={`${noto_sans_thai.className} navbar navbar-expand-lg navbar-dark bg-dark`}
-        style={{position: "fixed", top: 0, width: "100%", zIndex: 2}}
+        style={{ position: "fixed", top: 0, width: "100%", zIndex: 2 }}
       >
         <div className={`container d-flex mt-auto`}>
           {renderNavbarHeader()}

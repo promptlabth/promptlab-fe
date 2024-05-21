@@ -3,7 +3,7 @@ import { ProfilShowProps } from "@/models/interfaces/ProfileShow.interface";
 import { BsCheckCircle } from "react-icons/bs";
 import Spinner from 'react-bootstrap/Spinner';
 import styles from "./Profile.module.css";
-
+import { UserProfilePic } from "@/common/UserProfilePicture";
 export const ProfileDetail = (props: ProfilShowProps) => {
   const { translate, user, handleShowModal } = props;
   const borderColor =
@@ -27,14 +27,7 @@ export const ProfileDetail = (props: ProfilShowProps) => {
             <Row className="text-white d-flex align-items-center">
               <div className="col-md-1">
                 <div className={`${styles.user_profile_pic_container}`}>
-                  <img
-                    className={`${styles.user_profile_pic}`}
-                    src={user?.profilepic}
-                    alt="profic-pic"
-                    style={{
-                      border: borderColor
-                    }}
-                  />
+                  <UserProfilePic user={user!} />
                 </div>
               </div>
               <div className="col-md-11 text-white">

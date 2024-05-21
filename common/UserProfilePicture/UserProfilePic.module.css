@@ -1,0 +1,14 @@
+.user_profile_pic,
+.user_profile_pic_desktop {
+    border-radius: 50%;
+}
+
+
+.user_profile_pic_desktop {
+    width: 40px;
+}
+
+.user_profile_pic {
+    width: 70px;
+
+}
