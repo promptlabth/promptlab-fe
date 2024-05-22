@@ -2,11 +2,10 @@ import "@/styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NextPage } from "next";
 import type { AppProps } from "next/app";
-import { Noto_Sans_Thai } from "next/font/google";
+import { Noto_Sans_Thai as NotoSansThai } from "next/font/google";
 import Head from "next/head";
 import Script from "next/script";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
-import { UserContextProvider } from "@/contexts/UserContext";
 import { MaintainPage } from "@/common/Maintain";
 import NavbarMobileAfterLogin from "@/common/Navbar/NavbarMobileAfterLogin";
 import NavbarMobile from "@/common/Navbar/NavbarMobile";
@@ -15,8 +14,9 @@ import { getAccessToken } from "@/services/firebase/auth/GetTokenAuth";
 import { appWithTranslation } from "next-i18next";
 import ClarityAnalytics from "@/common/CharityComponent";
 import { Tabbar } from "@/common/Tabbar";
+import { PromptyContextProvider } from "@/contexts/PromptyContext";
 
-const noto_sans_thai = Noto_Sans_Thai({ weight: "400", subsets: ["thai"] });
+const notoSansThai = NotoSansThai({ weight: "400", subsets: ["thai"] });
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -41,7 +41,7 @@ function App({ Component, pageProps }: AppProps) {
     checkToken();
   }, []);
   return (
-    <main className={noto_sans_thai.className}>
+    <main className={notoSansThai.className}>
       <Script
         id="gtag-id"
         strategy="lazyOnload"
@@ -116,13 +116,13 @@ function App({ Component, pageProps }: AppProps) {
         />
         <ClarityAnalytics />
       </Head>
-      <UserContextProvider>
+      <PromptyContextProvider>
         {isMaintain && <MaintainPage />}
         {token ? <NavbarMobileAfterLogin /> : <NavbarMobile />}
         <Tabbar />
         <Component {...pageProps} />
         <Footer />
-      </UserContextProvider>
+      </PromptyContextProvider>
     </main>
   );
 }

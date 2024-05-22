@@ -2,7 +2,6 @@ import { apiGetCheckoutSessionUrl } from "@/services/api/PaymentAPI";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { CheckoutSessionRequest } from "@/models/types/dto/requests/PaymentRequest.type";
-import { useUserContext } from "@/contexts/UserContext";
 import { SubscribeFailedModal } from "@/featureComponents/subscription/SubscribeFailedModal";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
@@ -12,14 +11,14 @@ import Layout from "@/common/Layout";
 import { LoadingScreen } from "@/common/LoadingScreen";
 import { LoginModal } from "@/common/Modals/LoginModal";
 import { ErrorModal } from "@/common/Modals/ErrorModal";
+import { usePromptyContext } from "@/contexts/PromptyContext";
 
 const Subscription = () => {
   const [showSubscribeFailModal, setShowSubscribeFailModal] = useState<boolean>(false);
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const userContext = useUserContext();
-  const user = userContext?.user;
+  const { user, handleLogin } = usePromptyContext();
   const router = useRouter();
   const { t } = useTranslation();
 
@@ -74,7 +73,7 @@ const Subscription = () => {
         translate={t}
         showModal={showLoginModal}
         handleCloseModal={handleCloseLoginModal}
-        handleLogin={userContext?.handleLogin!}
+        handleLogin={handleLogin}
       />
       <SubscribeFailedModal translate={t} show={showSubscribeFailModal} handleCloseModal={handleCloseSubscribeFailModal} />
       <Header translate={t} user={user} />

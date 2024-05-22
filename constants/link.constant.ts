@@ -8,6 +8,7 @@ export const urlLinks = [
 ];
 
 
-export const serverApiUrl = "https://prompt-lab-be-uu4qhhj35a-as.a.run.app/v1"
-export const oldServerApiUrl = "https://dev---prompt-lab-be-uu4qhhj35a-as.a.run.app"
+// export const serverApiUrl = "https://prompt-lab-be-uu4qhhj35a-as.a.run.app/v1"
+export const serverApiUrl = "https://dev---prompt-lab-be-uu4qhhj35a-as.a.run.app/v1"
+export const oldServerApiUrl = "https://dev---prompt-lab-be-uu4qhhj35a-as.a.run.app/1"
 export const paymentApiUrl = "https://ms-payment-uu4qhhj35a-as.a.run.app/"

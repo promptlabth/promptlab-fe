@@ -10,21 +10,18 @@ import { AiFillVideoCamera } from "react-icons/ai";
 import { MdSell, MdOutlineArticle } from "react-icons/md";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaClosedCaptioning } from "react-icons/fa";
-import { useUserContext } from "@/contexts/UserContext";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import { usePromptyContext } from "@/contexts/PromptyContext";
+import { languageMap } from "@/constants/language.constant";
+import { IoMdHelp } from "react-icons/io";
+import { BiHelpCircle } from "react-icons/bi";
 
 export const NavbarMobile: React.FC = () => {
-  const userContext = useUserContext();
   const [windowWidth, setWindowWidth] = useState(0);
-  const router = useRouter();
   const { t, i18n } = useTranslation();
-  
-  const changeLocale = (locale: string) => {
-    router.push(router.pathname, router.asPath, { locale });
-  };
+  const { changeLanguage, handleLogin, languages } = usePromptyContext();
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,30 +40,25 @@ export const NavbarMobile: React.FC = () => {
 
   const renderLanguageOptions = () => (
     <li>
-      <a
-        className={`dropdown-item ${styles.language_list}`}
-        onClick={() => {
-          changeLocale("en");
-        }}
-      >
-        <Flag country="US" className={`${styles.flag_size} me-2`} /> English
-      </a>
-      <a
-        className={`dropdown-item ${styles.language_list}`}
-        onClick={() => {
-          changeLocale("th");
-        }}
-      >
-        <Flag country="TH" className={`${styles.flag_size} me-2`} /> Thai
-      </a>
-      <a
-        className={`dropdown-item ${styles.language_list}`}
-        onClick={() => {
-          changeLocale("id");
-        }}
-      >
-        <Flag country="ID" className={`${styles.flag_size} me-2`} /> Indonesia
-      </a>
+      {languages.map((language) => (
+        <a
+          key={language.id}
+          className={`dropdown-item ${styles.language_list}`}
+          onClick={() => {
+            changeLanguage(language.languageName);
+          }}
+        >
+          <Flag
+            country={
+              language.languageName === "en"
+                ? "US"
+                : language.languageName.toUpperCase()
+            }
+            className={`${styles.flag_size} me-2`}
+          />{" "}
+          {languageMap[language.languageName]}
+        </a>
+      ))}
     </li>
   );
 
@@ -80,15 +72,10 @@ export const NavbarMobile: React.FC = () => {
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        {i18n.language === "th" && (
-          <Flag country="TH" className={`${styles.flag_size}`} />
-        )}
-        {i18n.language === "en" && (
-          <Flag country="US" className={`${styles.flag_size}`} />
-        )}
-        {i18n.language === "id" && (
-          <Flag country="ID" className={`${styles.flag_size}`} />
-        )}
+        <Flag
+          country={i18n.language === "en" ? "US" : i18n.language.toUpperCase()}
+          className={`${styles.flag_size}`}
+        />
       </a>
       <ul
         className={`dropdown-menu dropdown-menu-dark`}
@@ -106,13 +93,11 @@ export const NavbarMobile: React.FC = () => {
           <button
             className={`${styles.facebook_login_button} d-flex justify-content-center align-items-center`}
             onClick={() => {
-              userContext?.handleLogin("facebook");
+              handleLogin("facebook");
             }}
           >
-            <FaFacebook
-              className={`me-2 ${styles.social_media_icon}`}
-            />
-            <div>{t("login")}&nbsp;Facebook</div>
+            <FaFacebook className={`me-2 ${styles.social_media_icon}`} />
+            <div>{t("loginWith")}&nbsp;Facebook</div>
           </button>
         </div>
       </div>
@@ -130,11 +115,11 @@ export const NavbarMobile: React.FC = () => {
         <button
           className={`${styles.gmail_login_button} d-flex justify-content-center align-items-center`}
           onClick={() => {
-            userContext?.handleLogin("gmail");
+            handleLogin("gmail");
           }}
         >
           <FcGoogle className={`me-2 ${styles.social_media_icon}`} />
-          <div className="">{t("login")}&nbsp;Gmail</div>
+          <div className="">{t("loginWith")}&nbsp;Gmail</div>
         </button>
       </div>
     </div>
@@ -285,19 +270,9 @@ export const NavbarMobile: React.FC = () => {
   const renderSmallScreenItems = () => (
     <div>
       {renderLoginMobile()}
-      <li className="nav-item">
-        <div className="nav-link">
-          <button className={styles.navbar_help_button}>
-            <AiFillHome />
-            <Link href={"/"} className={`${styles.remove_underline} ms-2`}>
-              {t("home.title")}
-            </Link>
-          </button>
-        </div>
-      </li>
-      <li className="nav-item">
-        <div className="nav-link">{renderNavbarHelp()}</div>
-      </li>
+
+      <CreateNavItem icon={<AiFillHome />} href="/" title={t("home.title")} />
+      <CreateNavItem icon={<BiHelpCircle />} href="/help" title={t("footer.help")} />
       <li>
         <hr style={{ color: "white" }}></hr>
       </li>
@@ -310,7 +285,7 @@ export const NavbarMobile: React.FC = () => {
       {renderLoginDestopModal()}
       <nav
         className={`${noto_sans_thai.className} navbar navbar-expand-lg navbar-dark bg-dark`}
-        style={{position: "fixed", top: 0, width: "100%", zIndex: 2}}
+        style={{ position: "fixed", top: 0, width: "100%", zIndex: 2 }}
       >
         <div className={`container d-flex mt-auto`}>
           {renderNavbarHeader()}
@@ -337,6 +312,5 @@ export const NavbarMobile: React.FC = () => {
     </>
   );
 };
-
 
 export default NavbarMobile;

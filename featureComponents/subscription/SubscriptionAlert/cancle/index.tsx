@@ -37,7 +37,7 @@ export default function CancelSubscriptionSuccess({
               </div>
             </div>
             <button onClick={goBackToHome} className="btn btn-primary mt-3">
-              {t("common.goBack")}
+              {t("button.back")}
             </button>
           </Container>
         </Container>

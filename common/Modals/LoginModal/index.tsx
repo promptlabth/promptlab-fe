@@ -37,7 +37,7 @@ export const LoginModal = (props: LoginModalProps) => {
                 className="me-3 align-items-start"
                 fontSize={20}
               ></BsFacebook>
-              {translate("login")}&nbsp;Facebook
+              {translate("loginWith")}&nbsp;Facebook
             </button>
             <p style={{ color: "#c2c2c2" }}>- or -</p>
             <button
@@ -47,7 +47,7 @@ export const LoginModal = (props: LoginModalProps) => {
               }}
             >
               <FcGoogle className="me-3" fontSize={20}></FcGoogle>
-              {translate("login")}&nbsp;Google
+              {translate("loginWith")}&nbsp;Google
             </button>
           </Col>
         </Row>
