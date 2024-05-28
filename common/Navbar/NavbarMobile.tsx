@@ -21,7 +21,7 @@ import { BiHelpCircle } from "react-icons/bi";
 export const NavbarMobile: React.FC = () => {
   const [windowWidth, setWindowWidth] = useState(0);
   const { t, i18n } = useTranslation();
-  const { changeLanguage, handleLogin, languages } = usePromptyContext();
+  const { changeLanguage, handleLogin } = usePromptyContext();
 
   useEffect(() => {
     const handleResize = () => {
@@ -40,26 +40,52 @@ export const NavbarMobile: React.FC = () => {
 
   const renderLanguageOptions = () => (
     <li>
-      {languages.map((language) => (
-        <a
-          key={language.id}
-          className={`dropdown-item ${styles.language_list}`}
-          onClick={() => {
-            changeLanguage(language.languageName);
-          }}
-        >
-          <Flag
-            country={
-              language.languageName === "en"
-                ? "US"
-                : language.languageName.toUpperCase()
-            }
-            className={`${styles.flag_size} me-2`}
-          />{" "}
-          {languageMap[language.languageName]}
-        </a>
-      ))}
+      <a
+        className={`dropdown-item ${styles.language_list}`}
+        onClick={() => {
+          changeLanguage("en");
+        }}
+      >
+        <Flag country="US" className={`${styles.flag_size} me-2`} /> English
+      </a>
+      <a
+        className={`dropdown-item ${styles.language_list}`}
+        onClick={() => {
+          changeLanguage("th");
+        }}
+      >
+        <Flag country="TH" className={`${styles.flag_size} me-2`} /> Thai
+      </a>
+      <a
+        className={`dropdown-item ${styles.language_list}`}
+        onClick={() => {
+          changeLanguage("id");
+        }}
+      >
+        <Flag country="ID" className={`${styles.flag_size} me-2`} /> Indonesia
+      </a>
     </li>
+    // <li>
+    //   {languages.map((language) => (
+    //     <a
+    //       key={language.id}
+    //       className={`dropdown-item ${styles.language_list}`}
+    //       onClick={() => {
+    //         changeLanguage(language.languageName);
+    //       }}
+    //     >
+    //       <Flag
+    //         country={
+    //           language.languageName === "en"
+    //             ? "US"
+    //             : language.languageName.toUpperCase()
+    //         }
+    //         className={`${styles.flag_size} me-2`}
+    //       />{" "}
+    //       {languageMap[language.languageName]}
+    //     </a>
+    //   ))}
+    // </li>
   );
 
   const renderLanguageDropdown = () => (
