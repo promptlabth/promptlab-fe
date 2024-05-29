@@ -9,7 +9,7 @@ import { LoginUser } from "@/models/types/loginUser.type";
 import { useRouter } from "next/router";
 import { apiGetGeneratedMessageCount } from "@/services/api/MessageAPI";
 import { apiGetTones } from "@/services/api/ToneAPI";
-import { apiGetAllConfigs } from "@/services/api/ConfigAPI";
+// import { apiGetAllConfigs } from "@/services/api/ConfigAPI";
 import { Feature, Language } from "@/models/types/config.types";
 import { Tones } from "@/models/types/tone.type";
 import { UseUser } from "./_User";
