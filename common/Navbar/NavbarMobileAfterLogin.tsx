@@ -24,7 +24,11 @@ import { languageMap } from "@/constants/language.constant";
 import { UserProfilePic } from "@/common/UserProfilePicture";
 export const NavbarMobileAfterLogin: React.FC = () => {
   const { t, i18n } = useTranslation();
+<<<<<<< HEAD
   const { changeLanguage, handleLogout, user, languages } = usePromptyContext();
+=======
+  const { changeLanguage, handleLogout, user } = usePromptyContext();
+>>>>>>> main
   const [windowWidth, setWindowWidth] = useState(0);
 
   // Add key to rankColor
@@ -60,6 +64,7 @@ export const NavbarMobileAfterLogin: React.FC = () => {
 
   const renderLanguageOptions = () => (
     <li>
+<<<<<<< HEAD
       {languages.map((language) => (
         <a
           key={language.id}
@@ -79,7 +84,54 @@ export const NavbarMobileAfterLogin: React.FC = () => {
           {languageMap[language.languageName]}
         </a>
       ))}
+=======
+      <a
+        className={`dropdown-item ${styles.language_list}`}
+        onClick={() => {
+          changeLanguage("en");
+        }}
+      >
+        <Flag country="US" className={`${styles.flag_size} me-2`} /> English
+      </a>
+      <a
+        className={`dropdown-item ${styles.language_list}`}
+        onClick={() => {
+          changeLanguage("th");
+        }}
+      >
+        <Flag country="TH" className={`${styles.flag_size} me-2`} /> Thai
+      </a>
+      <a
+        className={`dropdown-item ${styles.language_list}`}
+        onClick={() => {
+          changeLanguage("id");
+        }}
+      >
+        <Flag country="ID" className={`${styles.flag_size} me-2`} /> Indonesia
+      </a>
+>>>>>>> main
     </li>
+    // <li>
+    //   {languages.map((language) => (
+    //     <a
+    //       key={language.id}
+    //       className={`dropdown-item ${styles.language_list}`}
+    //       onClick={() => {
+    //         changeLanguage(language.languageName);
+    //       }}
+    //     >
+    //       <Flag
+    //         country={
+    //           language.languageName === "en"
+    //             ? "US"
+    //             : language.languageName.toUpperCase()
+    //         }
+    //         className={`${styles.flag_size} me-2`}
+    //       />{" "}
+    //       {languageMap[language.languageName]}
+    //     </a>
+    //   ))}
+    // </li>
   );
 
   const renderLanguageDropdown = () => (

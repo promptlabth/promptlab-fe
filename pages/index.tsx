@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HomePresentation from "@/featureComponents/home/HomePresentation";
-import { apiGetAllConfigs } from "@/services/api/ConfigAPI";
 import { usePromptyContext } from "@/contexts/PromptyContext";
 
 const HomeContainer = () => {

@@ -77,7 +77,6 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
 
   const handleAddNewRow = () => {
     const toneId = tones[0]?.id;
-
     const newPrompt: Prompt = {
       input: "",
       tone_id: toneId,
@@ -147,11 +146,11 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
     }
   };
 
-  useEffect(() => {
-    if (prompts.length === 0) {
-      handleAddNewRow();
-    }
-  }, [prompts]);
+  // useEffect(()=> {
+  //   // if (prompts.length === 0) {
+  //     handleAddNewRow();
+  //   // }
+  // }, [tones])
 
   useEffect(() => {
     // Set the first prompt's input to the text value
@@ -179,6 +178,12 @@ export const GeneratedComponent = (props: GeneratedComponentProps) => {
       return prevPrompts;
     });
   }, [i18n.language]);
+
+  useEffect(()=>{
+    if (tones.length > 0 && prompts.length === 0) {
+      handleAddNewRow();
+    }
+  }, [tones])
 
   return (
     <Container fluid={true} className="p-0 bg-dark bg-lighten-xs pt-5">
