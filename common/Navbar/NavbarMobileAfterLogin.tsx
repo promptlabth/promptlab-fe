@@ -24,11 +24,7 @@ import { languageMap } from "@/constants/language.constant";
 import { UserProfilePic } from "@/common/UserProfilePicture";
 export const NavbarMobileAfterLogin: React.FC = () => {
   const { t, i18n } = useTranslation();
-<<<<<<< HEAD
-  const { changeLanguage, handleLogout, user, languages } = usePromptyContext();
-=======
   const { changeLanguage, handleLogout, user } = usePromptyContext();
->>>>>>> main
   const [windowWidth, setWindowWidth] = useState(0);
 
   // Add key to rankColor
@@ -64,27 +60,6 @@ export const NavbarMobileAfterLogin: React.FC = () => {
 
   const renderLanguageOptions = () => (
     <li>
-<<<<<<< HEAD
-      {languages.map((language) => (
-        <a
-          key={language.id}
-          className={`dropdown-item ${styles.language_list}`}
-          onClick={() => {
-            changeLanguage(language.languageName);
-          }}
-        >
-          <Flag
-            country={
-              language.languageName === "en"
-                ? "US"
-                : language.languageName.toUpperCase()
-            }
-            className={`${styles.flag_size} me-2`}
-          />{" "}
-          {languageMap[language.languageName]}
-        </a>
-      ))}
-=======
       <a
         className={`dropdown-item ${styles.language_list}`}
         onClick={() => {
@@ -109,7 +84,6 @@ export const NavbarMobileAfterLogin: React.FC = () => {
       >
         <Flag country="ID" className={`${styles.flag_size} me-2`} /> Indonesia
       </a>
->>>>>>> main
     </li>
     // <li>
     //   {languages.map((language) => (
