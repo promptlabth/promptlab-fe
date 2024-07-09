@@ -6,23 +6,24 @@ import { SubscriptionCardProps } from "@/models/interfaces/SubscriptionCard.inte
 import { subscriptionPlanCardColorMap } from "@/constants/color.constanst";
 import { subscriptionPlanPrizeIdMap } from "@/constants/value.constant";
 import { MdOutlineRecommend } from "react-icons/md";
-
+import { formatNumber } from "@/utils/number";
 export const SubscriptionCard = (props: SubscriptionCardProps) => {
-  const { translate, title, price, messageCount, handleCheckoutSession, isRecommended } = props;
+  const { translate, mapKey, messageCount, handleCheckoutSession, isRecommended } = props;
 
   const borderColor = isRecommended ? styles.recommended_plan_border :
-    title === "FREE" ? styles.freeBorder :
-    title === "BRONZE" ? styles.bronzeBorder :
-    title === "SILVER" ? styles.silverBorder :
-    title === "GOLD" ? styles.goldBorder :
+    mapKey === "FREE" || mapKey === "FREE_ANNUAL" ? styles.freeBorder :
+    mapKey === "BRONZE" || mapKey === "BRONZE_ANNUAL" ? styles.bronzeBorder :
+    mapKey === "SILVER" || mapKey === "SILVER_ANNUAL" ? styles.silverBorder :
+    mapKey === "GOLD" || mapKey === "GOLD_ANNUAL" ? styles.goldBorder :
       styles.freeBorder;
 
-  const buttonClass = title === "FREE" ? styles.free :
-    title === "BRONZE" ? styles.bronze :
-    title === "SILVER" ? styles.silver :
-    title === "GOLD" ? styles.gold :
+  const buttonClass = mapKey === "FREE" || mapKey === "FREE_ANNUAL" ? styles.free :
+    mapKey === "BRONZE" || mapKey === "BRONZE_ANNUAL" ? styles.bronze :
+    mapKey === "SILVER" || mapKey === "SILVER_ANNUAL" ? styles.silver :
+    mapKey === "GOLD" || mapKey === "GOLD_ANNUAL" ? styles.gold :
       styles.free
 
+  const formattedPrice = formatNumber(subscriptionPlanPrizeIdMap[mapKey!].price);
   return (
     <Col className={`d-flex flex-column align-items-center position-relative ${styles.custom_border} ${borderColor}`}>
       {isRecommended &&
@@ -32,12 +33,12 @@ export const SubscriptionCard = (props: SubscriptionCardProps) => {
           </div>
         </div>
       }
-      <h5 className="mb-3">{title}</h5>
+      <h5 className="mb-3">{subscriptionPlanPrizeIdMap[mapKey!].title}</h5>
       <h1
         className={`${styles.circle_background}`}
-        style={{ background: subscriptionPlanCardColorMap[title!], }}
+        style={{ background: subscriptionPlanCardColorMap[mapKey!], }}
       >
-        {price}
+        {formattedPrice}
         <span style={{ fontWeight: "normal", fontSize: "26px" }}>
           ฿
         </span>
@@ -62,14 +63,14 @@ export const SubscriptionCard = (props: SubscriptionCardProps) => {
           </small>
         </Row>
       </div>
-      {title !== "FREE" &&
+      {mapKey !== "FREE" &&
         <button
           className={`${styles.btn} ${buttonClass} btn position-absolute`}
           style={{
-            background: subscriptionPlanCardColorMap[title!],
+            background: subscriptionPlanCardColorMap[mapKey!],
             bottom: -30,
           }}
-          onClick={() => handleCheckoutSession(subscriptionPlanPrizeIdMap[title!].prizeId, subscriptionPlanPrizeIdMap[title!].planId)}
+          onClick={() => handleCheckoutSession(subscriptionPlanPrizeIdMap[mapKey!].prizeId, subscriptionPlanPrizeIdMap[mapKey!].planId)}
         >
           {translate("subscription.buy")}
         </button>

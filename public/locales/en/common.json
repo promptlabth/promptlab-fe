@@ -88,6 +88,7 @@
     "payment.selectCoin": "Please select the amount of coins you want to top up.",
     "maintain": "Sorry, the website is currently under maintenance",
     "subscription": "Subscription",
+    "subscriptionAnnual": "Annual Subscription",
     "subscription.whatIsYourPlan": "Your current subscription plan is",
     "subscription.wantToChangePlan": "If you want to upgrade your plan, please contact us at",
     "subscription.message": "message per month",

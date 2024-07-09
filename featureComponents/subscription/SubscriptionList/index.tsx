@@ -3,53 +3,51 @@ import styles from "./SubscriptionList.module.css";
 import { TFunction } from "i18next";
 import { SubscriptionCard } from "../SubscriptionCard";
 import { Container } from "react-bootstrap";
+import { subscriptionPlanPrizeIdMap } from "@/constants/value.constant";
 interface SubscriptionListProps {
   translate: TFunction<"translation", undefined>;
   handleCheckoutSession: (prizeId: string, planId: number) => Promise<void>;
+  subscriptionPlanTypeIndex : number
 }
 
 export const SubscriptionList = (props: SubscriptionListProps) => {
-  const { translate, handleCheckoutSession } = props;
+  const { translate, handleCheckoutSession, subscriptionPlanTypeIndex } = props;
   return (
     <div className={styles.container}>
-      <Container >
+      <Container>
         <div className={`row ${styles.page_payment_row}`}>
-          <div className="container text-center">
-            <Row>
+          <div className={`container text-center`}>
+            <Row className={`row ${styles.subscription_list_grid}`}>
               <SubscriptionCard
                 translate={translate}
-                title="FREE"
-                price={0}
+                mapKey={"FREE"}
                 messageCount={60}
                 isRecommended={false}
                 handleCheckoutSession={handleCheckoutSession}
               />
               <SubscriptionCard
                 translate={translate}
-                title="BRONZE"
-                price={59}
+                mapKey={subscriptionPlanTypeIndex === 0 ? "BRONZE" : "BRONZE_ANNUAL"}
                 messageCount={300}
                 isRecommended={false}
                 handleCheckoutSession={handleCheckoutSession}
               />
               <SubscriptionCard
                 translate={translate}
-                title="SILVER"
-                price={199}
+                mapKey={subscriptionPlanTypeIndex === 0 ? "SILVER" : "SILVER_ANNUAL"}
                 messageCount={1500}
                 isRecommended={true}
                 handleCheckoutSession={handleCheckoutSession}
               />
               <SubscriptionCard
                 translate={translate}
-                title="GOLD"
-                price={299}
+                mapKey={subscriptionPlanTypeIndex === 0 ? "GOLD" : "GOLD_ANNUAL"}
                 messageCount={3000}
                 isRecommended={false}
                 handleCheckoutSession={handleCheckoutSession}
               />
-            </Row>
-            <p className={`${styles.select}`}>
+              </Row>
+              <p className={`${styles.select} text-center`}>
               {translate("subscription.selectSub")}
             </p>
           </div>

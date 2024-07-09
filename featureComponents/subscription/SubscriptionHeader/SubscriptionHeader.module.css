@@ -1,0 +1,12 @@
+.subscription_selection_button {
+    width: 100px !important;
+    background: none !important;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.subscription_selection_button:hover{
+    color: #00FFAB;
+}

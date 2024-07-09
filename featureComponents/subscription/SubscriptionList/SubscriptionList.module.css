@@ -1,11 +1,19 @@
 .container {
   background-color: #212529;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 @media (min-width: 1024px) {
   .container {
       padding-left: 90px;
       padding-right: 90px;
+  }
+}
+
+@media (max-width: 767px) {
+  .subscription_list_grid {
+    display: inline;
   }
 }
 

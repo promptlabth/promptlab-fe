@@ -88,6 +88,7 @@
     "payment.selectCoin": "กรุณาเลือกจำนวนเหรียญที่ต้องการเติม",
     "maintain": "ขออภัย ตอนนี้เว็บไซต์กำลังปิดปรับปรุง",
     "subscription": "สมัครแพลนสมาชิก",
+    "subscriptionAnnual": "สมัครแพลนสมาชิกรายปี",
     "subscription.whatIsYourPlan": "ตอนนี้แพลนสมาชิกของคุณคือ",
     "subscription.wantToChangePlan": "ถ้าอยากอัพเกรดแพลน กรุณาติดต่อเราที่",
     "subscription.message": "ข้อความต่อเดือน",

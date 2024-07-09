@@ -5,7 +5,7 @@ import { CheckoutSessionRequest } from "@/models/types/dto/requests/PaymentReque
 import { SubscribeFailedModal } from "@/featureComponents/subscription/SubscribeFailedModal";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-import { Header } from "@/featureComponents/subscription/Header";
+import { SubscriptionHeader } from "@/featureComponents/subscription/SubscriptionHeader";
 import { SubscriptionList } from "@/featureComponents/subscription/SubscriptionList";
 import Layout from "@/common/Layout";
 import { LoadingScreen } from "@/common/LoadingScreen";
@@ -18,6 +18,9 @@ const Subscription = () => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // 0 is monthly, 1 is annual
+  const [subscriptionPlanTypeIndex, setSubscriptionPlanTypeIndex] = useState<number>(0);
   const { user, handleLogin } = usePromptyContext();
   const router = useRouter();
   const { t } = useTranslation();
@@ -30,6 +33,8 @@ const Subscription = () => {
 
   const handleShowErrorModal = () => setShowErrorModal(true);
   const handleCloseErrorModal = () => setShowErrorModal(false);
+
+  const handleSubscriptionPlanTypeChange = () => setSubscriptionPlanTypeIndex(subscriptionPlanTypeIndex === 0 ? 1 : 0);
 
   // This function is soonly used to handle the checkout session 
   const handleCheckoutSession = async (prizeId: string, planId: number) => {
@@ -76,8 +81,9 @@ const Subscription = () => {
         handleLogin={handleLogin}
       />
       <SubscribeFailedModal translate={t} show={showSubscribeFailModal} handleCloseModal={handleCloseSubscribeFailModal} />
-      <Header translate={t} user={user} />
+      <SubscriptionHeader translate={t} user={user} handleSubscriptionPlanTypeChange={handleSubscriptionPlanTypeChange} subscriptionPlanTypeIndex={subscriptionPlanTypeIndex} />
       <SubscriptionList
+        subscriptionPlanTypeIndex={subscriptionPlanTypeIndex}
         translate={t}
         handleCheckoutSession={handleCheckoutSession}
       />
