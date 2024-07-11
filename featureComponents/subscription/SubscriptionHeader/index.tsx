@@ -13,27 +13,27 @@ export const SubscriptionHeader = (props: SubscriptionHeaderProps) => {
           onClick={() => handleSubscriptionPlanTypeChange()}
           style={{color: subscriptionPlanTypeIndex === 0 ? "#00FFAB" : "white"}}
         >
-          รายเดือน
+          {translate("subscriptionMonthly")}
         </Button>
         <div className="d-flex">
           <Button
             className={styles.subscription_selection_button}
             onClick={() => handleSubscriptionPlanTypeChange()}
-          style={{color: subscriptionPlanTypeIndex === 1 ? "#00FFAB" : "white"}}
+            style={{color: subscriptionPlanTypeIndex === 1 ? "#00FFAB" : "white"}}
           >
-            รายปี
+            {translate("subscriptionAnnual")}
           </Button>
           <div style={{ marginTop: "-0.5rem", marginLeft: "-1.5rem" }}>
             <MdNewReleases color="orange" />
           </div>
           <div className="ms-1 text-white" style={{ marginTop: "-0.5rem" }}>
-            New
+          {translate("new")}
           </div>
         </div>
       </div>
       <figure className="text-center  text-light">
         <blockquote className="blockquote">
-          <p className="display-4 fw-bold">{subscriptionPlanTypeIndex === 0 ? translate("subscription") : translate("subscriptionAnnual")}</p>
+          <p className="display-4 fw-bold">{subscriptionPlanTypeIndex === 0 ? translate("subscription") : translate("subscription.header.annual")}</p>
         </blockquote>
         <figcaption className="blockquote-footer"></figcaption>
       </figure>

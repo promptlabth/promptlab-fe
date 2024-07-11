@@ -31,6 +31,7 @@ export const SubscriptionList = (props: SubscriptionListProps) => {
                 messageCount={300}
                 isRecommended={false}
                 handleCheckoutSession={handleCheckoutSession}
+                isAnnual={subscriptionPlanTypeIndex === 1}
               />
               <SubscriptionCard
                 translate={translate}
@@ -38,6 +39,7 @@ export const SubscriptionList = (props: SubscriptionListProps) => {
                 messageCount={1500}
                 isRecommended={true}
                 handleCheckoutSession={handleCheckoutSession}
+                isAnnual={subscriptionPlanTypeIndex === 1}
               />
               <SubscriptionCard
                 translate={translate}
@@ -45,6 +47,7 @@ export const SubscriptionList = (props: SubscriptionListProps) => {
                 messageCount={3000}
                 isRecommended={false}
                 handleCheckoutSession={handleCheckoutSession}
+                isAnnual={subscriptionPlanTypeIndex === 1}
               />
               </Row>
               <p className={`${styles.select} text-center`}>

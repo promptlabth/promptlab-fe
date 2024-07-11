@@ -5,4 +5,5 @@ export interface SubscriptionCardProps {
   mapKey: string;
   messageCount?: number;
   isRecommended?: boolean;
+  isAnnual?: boolean;
 }

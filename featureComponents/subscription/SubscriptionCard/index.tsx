@@ -8,7 +8,7 @@ import { subscriptionPlanPrizeIdMap } from "@/constants/value.constant";
 import { MdOutlineRecommend } from "react-icons/md";
 import { formatNumber } from "@/utils/number";
 export const SubscriptionCard = (props: SubscriptionCardProps) => {
-  const { translate, mapKey, messageCount, handleCheckoutSession, isRecommended } = props;
+  const { translate, mapKey, messageCount, handleCheckoutSession, isRecommended, isAnnual } = props;
 
   const borderColor = isRecommended ? styles.recommended_plan_border :
     mapKey === "FREE" || mapKey === "FREE_ANNUAL" ? styles.freeBorder :
@@ -29,7 +29,7 @@ export const SubscriptionCard = (props: SubscriptionCardProps) => {
       {isRecommended &&
         <div className="w-100 d-flex justify-content-end" >
           <div className="user-select-none text-white fs-5 ps-2 pe-2" style={{ position: "absolute", right: "-1.25rem", top: "-1.25rem", backgroundColor: "red", borderRadius: "8px" }}>
-            <MdOutlineRecommend size={25} /> Recommend
+            <MdOutlineRecommend size={25} /> {translate("subscription.recommend")}
           </div>
         </div>
       }
@@ -44,6 +44,17 @@ export const SubscriptionCard = (props: SubscriptionCardProps) => {
         </span>
       </h1>
       <div className="mt-4 mb-4 text-start">
+        {isAnnual &&
+          <Row>
+            <small>
+              <BsCheckCircle
+                size={16}
+                className="me-2"
+              ></BsCheckCircle>
+              {translate("subscription.annualMembership")}
+            </small>
+          </Row>
+        }
         <Row>
           <small>
             <BsCheckCircle
