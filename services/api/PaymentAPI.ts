@@ -1,24 +1,14 @@
-import { CheckoutSessionRequest, UserPremiumSubscribeRequest } from "@/models/types/dto/requests/PaymentRequest.type";
-import axios from "axios";
-import { paymentApiUrl } from "@/constants/link.constant";
-import { getAccessToken } from "../firebase/auth/GetTokenAuth";
+import { CheckoutSessionRequest } from "@/models/types/dto/requests/PaymentRequest.type";
+import { paymentApi, buildAuthRequestOptions } from "./ApiClient";
 
 export async function apiGetCheckoutSessionUrl(
   checkoutSessionRequest: CheckoutSessionRequest,
 ) {
-  const apiUrl = `${paymentApiUrl}/subscription/get-url`;
   try {
-    const accessToken = await getAccessToken();
-    const requestOption = {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
-
-    const response = await axios.post(
-      apiUrl,
+    const response = await paymentApi.post(
+      "/subscription/get-url",
       checkoutSessionRequest,
-      requestOption,
+      await buildAuthRequestOptions(),
     );
 
     if (response.status != 201) {
@@ -29,31 +19,20 @@ export async function apiGetCheckoutSessionUrl(
   } catch (error) {
     // TODO : Handle error
     // TODO return failed payment url
-
-    // Some code..
-    // Some code..
-    // Some code..
-
     console.error(error);
     return "";
   }
 }
 
 export async function apiCancelUserSubscribe() {
-  const apiUrl = `${paymentApiUrl}/subscription/cancle`;
   try {
-    const accessToken = await getAccessToken();
-    const requestOption = {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
-
-    const response = await axios.delete(apiUrl, requestOption);
+    const response = await paymentApi.delete(
+      "/subscription/cancle",
+      await buildAuthRequestOptions(),
+    );
 
     if (response.status != 200) {
       // TODO return failed cancel subscription url
-
       return null;
     }
 
@@ -61,46 +40,17 @@ export async function apiCancelUserSubscribe() {
   } catch (error) {
     // TODO : Handle error
     // TODO return failed cancel subscription url
-    // Some code..
-    // Some code..
-    // Some code..
-
     console.error(error);
     return null;
   }
 }
 
-export async function apiUserPremiumSubscribe(
-  userPremiumSubscribeRequest: UserPremiumSubscribeRequest,
-) {
-  const apiUrl = `${paymentApiUrl}/subscription/success`;
-  try {
-    const accessToken = await getAccessToken();
-    const requestOption = {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
-
-    const response = await axios.post(
-      apiUrl,
-      userPremiumSubscribeRequest,
-      requestOption,
-    );
-
-    if (response.status != 201) {
-      // TODO maybe return cancel subscription url
-      // return response.data.cancel_url;
-    }
-
-    return response.data;
-  } catch (error) {
-    // TODO : Handle error
-    // TODO logic to get new Access Token from Refresh Token
-    // Some code..
-    // Some code..
-    // Some code..
-
-    console.error(error);
-  }
-}
+// NOTE: plan activation after a successful checkout is handled by the payment
+// service's Stripe webhook (ms-payments POST /webhook -> webhook_controller.go,
+// which sets the user's PlanID/Sub_date on customer.subscription.created/updated
+// and payment_intent.succeeded), so the frontend makes no "subscription success"
+// call. The removed apiUserPremiumSubscribe posted to /subscription/success,
+// a route that has never existed in ms-payments (verified against the full git
+// history of promptlabth/ms-payments and its deployed Cloud Run main branch);
+// the call always 404'd, its error was swallowed, and the page never received
+// a session_id prop, so removing it cannot affect activation.

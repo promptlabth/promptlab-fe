@@ -1,23 +1,14 @@
-import axios from "axios";
-import { serverApiUrl } from "@/constants/link.constant";
-import { getAccessToken } from "../firebase/auth/GetTokenAuth";
+import { serverApi, buildAuthRequestOptions } from "./ApiClient";
 import { GenerateMessageRequest } from "@/models/types/dto/requests/GeneratedMessageRequest.type";
+
 export async function apiGenerateMessage(
   generateMessageRequest: GenerateMessageRequest,
 ) {
-  const apiUrl = `${serverApiUrl}/generate/messages`;
   try {
-    const accessToken = await getAccessToken();
-    const requestOption = {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
-
-    const response = await axios.post(
-      apiUrl,
+    const response = await serverApi.post(
+      "/generate/messages",
       generateMessageRequest,
-      requestOption,
+      await buildAuthRequestOptions(),
     );
     return response.data;
   } catch (error) {

@@ -1,26 +1,29 @@
-import { serverApiUrl } from "@/constants/link.constant";
-import axios from "axios";
+import { serverApi, buildAuthRequestOptions } from "./ApiClient";
 import { LoginResponse } from "@/models/types/dto/responses/loginResponse.type";
-export async function apiUserLogin(accessToken: string, platform: string, platformToken: string,): Promise<LoginResponse | null> {
-  const apiUrl = `${serverApiUrl}/login`;
-  try {
-    const requestOption = {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    };
 
+export async function apiUserLogin(
+  accessToken: string,
+  platform: string,
+  platformToken: string,
+): Promise<LoginResponse | null> {
+  try {
     const requestBody = {
       platform,
       access_token: platformToken,
-    }
+    };
 
-    const response = await axios.post(apiUrl, requestBody, requestOption);
+    const response = await serverApi.post(
+      "/login",
+      requestBody,
+      await buildAuthRequestOptions(accessToken),
+    );
     if (response.status === 200) {
       return response.data;
     }
 
-    return null
+    return null;
   } catch (error) {
     console.error(error);
-    return null
+    return null;
   }
 }

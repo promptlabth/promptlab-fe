@@ -1,11 +1,9 @@
-import axios from "axios";
-import { serverApiUrl } from "@/constants/link.constant";
+import { serverApi } from "./ApiClient";
 
 export async function apiGetTones(language: string) {
-  const apiUrl = `${serverApiUrl}/tone/${language}`;
   try {
     const requestOption = { headers: { "Content-Type": "application/json" } };
-    const response = await axios.get(apiUrl, requestOption);
+    const response = await serverApi.get(`/tone/${language}`, requestOption);
     if (response.status === 200) {
       return response.data;
     }

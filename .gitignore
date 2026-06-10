@@ -41,4 +41,5 @@ next-env.d.ts
 *.DS_Store
 
 # Secret
-./firebase-credential.json
+firebase-credential.json
+my_token.json

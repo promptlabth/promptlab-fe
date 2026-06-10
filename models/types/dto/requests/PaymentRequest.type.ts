@@ -3,7 +3,3 @@ export type CheckoutSessionRequest = {
     WebUrl: string;
     PlanID: number
  }
- 
-export type UserPremiumSubscribeRequest = {
-    CheckoutSessionId : string
-}

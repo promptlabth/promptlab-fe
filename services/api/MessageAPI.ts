@@ -1,38 +1,27 @@
-import axios from "axios";
-import { serverApiUrl } from "@/constants/link.constant";
-import { getAccessToken } from "../firebase/auth/GetTokenAuth";
-async function apiGetGeneratedMessageCount() : Promise<number | null> {
-  const apiUrl = `${serverApiUrl}/user/remaining-message`;
-  try {
-    const accessToken = await getAccessToken();
-    const requestOption = {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
+import { serverApi, buildAuthRequestOptions } from "./ApiClient";
 
-    const response = await axios.get(apiUrl, requestOption);
+async function apiGetGeneratedMessageCount(): Promise<number | null> {
+  try {
+    const response = await serverApi.get(
+      "/user/remaining-message",
+      await buildAuthRequestOptions(),
+    );
     if (response.status === 200) {
       return response.data;
     }
-    return null
+    return null;
   } catch (error) {
     console.error(error);
-    return null
+    return null;
   }
 }
 
 async function apiGetMaxMessages() {
-  const apiUrl = `${serverApiUrl}/max-message`;
   try {
-    const accessToken = await getAccessToken();
-
-    const requestOption = {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
-    const response = await axios.get(apiUrl, requestOption);
+    const response = await serverApi.get(
+      "/user/max-message",
+      await buildAuthRequestOptions(),
+    );
     if (response.status === 200) {
       return response.data;
     }
