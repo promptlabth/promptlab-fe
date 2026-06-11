@@ -9,6 +9,16 @@ const nextConfig = {
         includePaths: [path.join(__dirname, 'styles')],
     },
     i18n,
+    experimental: {
+        // next-i18next loads public/locales/*.json from disk at runtime, which
+        // output file tracing cannot see — without this, serverless deploys
+        // (Netlify/Vercel) ship SSR functions with no translation files and
+        // every page renders raw i18n keys.
+        outputFileTracingIncludes: {
+            '/': ['./public/locales/**/*'],
+            '/**': ['./public/locales/**/*'],
+        },
+    },
     webpack(config, { isServer }) {
         if (!isServer) {
             config.resolve.alias = {

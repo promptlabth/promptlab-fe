@@ -1,3 +1,15 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # Next 14 requires Node >= 18.17; pin so Netlify builds are deterministic.
+  NODE_VERSION = "20"
+
+[[plugins]]
+  # Pin the modern Next.js runtime (v5) explicitly — required for Next 14 SSR.
+  package = "@netlify/plugin-nextjs"
+
 [[redirects]]
   from = "https://prompt.sutmeme.com/*"
   to = "https://promptlabai.com/th/:splat"
