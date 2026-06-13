@@ -1,8 +1,22 @@
 // Types mirroring the /v1/admin API contract exactly.
 
+// reason explains a denied result without leaking the allowlist:
+// ok | no_allowlist_configured | no_email_claim | email_not_trusted |
+// email_not_in_allowlist
+export type AdminMeReason =
+  | "ok"
+  | "no_allowlist_configured"
+  | "no_email_claim"
+  | "email_not_trusted"
+  | "email_not_in_allowlist";
+
 export type AdminMeResponse = {
   is_admin: boolean;
   email: string;
+  reason?: AdminMeReason;
+  email_verified?: boolean | null;
+  sign_in_provider?: string | null;
+  allowlist_configured?: boolean | null;
 };
 
 export type AdminOverviewUsers = {

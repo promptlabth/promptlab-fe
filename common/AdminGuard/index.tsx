@@ -4,6 +4,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { authFirebase } from "@/services/firebase/AuthFirebase";
 import signInWithGmail from "@/services/firebase/auth/AuthGmail";
 import { apiAdminGetMe } from "@/services/api/AdminAPI";
+import { AdminMeResponse } from "@/models/types/admin.type";
 import { LoadingScreen } from "@/common/LoadingScreen";
 
 interface AdminGuardProps {
@@ -12,17 +13,33 @@ interface AdminGuardProps {
 
 type GuardState = "checking" | "no-user" | "denied" | "admin";
 
+// Maps the server's machine reason to a Thai explanation. The server is
+// authoritative about WHY admin was denied (it sees the decoded token and the
+// allowlist); the client only knows the Firebase session.
+function explainReason(me: AdminMeResponse | null): string {
+  switch (me?.reason) {
+    case "no_allowlist_configured":
+      return "เซิร์ฟเวอร์ยังไม่ได้ตั้งค่ารายชื่อผู้ดูแลระบบ (ADMIN_EMAILS) — โปรดติดต่อผู้ดูแลระบบ/ฝ่ายเทคนิค";
+    case "email_not_trusted":
+      return "อีเมลของบัญชีนี้ยังไม่ได้รับการยืนยัน — กรุณาเข้าสู่ระบบด้วย Google (การเข้าสู่ระบบด้วย Facebook จะไม่ได้สิทธิ์แอดมิน)";
+    case "no_email_claim":
+      return "บัญชีนี้ไม่มีอีเมล — กรุณาเข้าสู่ระบบด้วย Google ด้วยอีเมลที่เป็นแอดมิน";
+    case "email_not_in_allowlist":
+      return "อีเมลนี้ไม่อยู่ในรายชื่อผู้ดูแลระบบ";
+    default:
+      return "ไม่มีสิทธิ์เข้าถึงหน้าผู้ดูแลระบบ";
+  }
+}
+
 // Wraps admin pages: waits for the Firebase auth state, then verifies the
-// signed-in user against /admin/me. Instead of silently redirecting, failed
-// checks explain WHY (not logged in vs. not an admin) and offer a one-click
-// switch to Google sign-in — a lingering Facebook session carries no verified
-// email claim, so the server correctly 403s it. Real enforcement stays
-// server-side (403 on every /v1/admin route).
+// signed-in user against /admin/me. Failed checks explain WHY (using the
+// server's reason code) and offer a one-click switch to Google sign-in.
+// Real enforcement stays server-side (403 on every data-bearing /v1/admin route).
 export const AdminGuard = ({ children }: AdminGuardProps) => {
   const router = useRouter();
   const [state, setState] = useState<GuardState>("checking");
   const [signedInEmail, setSignedInEmail] = useState<string | null>(null);
-  const [providers, setProviders] = useState<string[]>([]);
+  const [me, setMe] = useState<AdminMeResponse | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -33,18 +50,15 @@ export const AdminGuard = ({ children }: AdminGuardProps) => {
         }
         return;
       }
-      setSignedInEmail(
-        user.email ?? user.providerData?.[0]?.email ?? null,
-      );
-      setProviders(
-        (user.providerData ?? []).map((p) => p?.providerId ?? "unknown"),
-      );
-      // apiAdminGetMe returns null on 401/403/network errors.
-      const me = await apiAdminGetMe();
+      setSignedInEmail(user.email ?? user.providerData?.[0]?.email ?? null);
+      // apiAdminGetMe returns the whoami object on 200 (even for non-admins,
+      // carrying is_admin:false + reason), or null on 401/expired/network.
+      const result = await apiAdminGetMe();
       if (!isMounted) {
         return;
       }
-      setState(me?.is_admin ? "admin" : "denied");
+      setMe(result);
+      setState(result?.is_admin ? "admin" : "denied");
     });
     return () => {
       isMounted = false;
@@ -53,15 +67,14 @@ export const AdminGuard = ({ children }: AdminGuardProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Sign the current (wrong-provider) session out, then open the Google
-  // popup; onAuthStateChanged re-fires with the new user and re-runs the
-  // admin check automatically.
+  // Sign the current session out, then open the Google popup;
+  // onAuthStateChanged re-fires and re-runs the admin check automatically.
   const switchToGoogle = async () => {
     setState("checking");
     try {
       await signOut(authFirebase);
     } catch {
-      // ignore — proceeding to sign-in regardless
+      // ignore — proceed to sign-in regardless
     }
     await signInWithGmail();
   };
@@ -71,6 +84,7 @@ export const AdminGuard = ({ children }: AdminGuardProps) => {
   }
 
   if (state === "no-user" || state === "denied") {
+    const email = me?.email || signedInEmail;
     return (
       <div className="container text-center py-5" style={{ maxWidth: 520 }}>
         <h4 className="mb-3">เข้าหน้าแอดมินไม่ได้</h4>
@@ -81,33 +95,17 @@ export const AdminGuard = ({ children }: AdminGuardProps) => {
           </p>
         ) : (
           <>
-            <p>
-              บัญชีที่เข้าสู่ระบบ
-              {signedInEmail ? (
+            <p>{explainReason(me)}</p>
+            <p className="text-muted" style={{ fontSize: "0.9rem" }}>
+              บัญชีที่เข้าสู่ระบบ:{" "}
+              <strong>{email || "ไม่มีอีเมลในบัญชีนี้"}</strong>
+              {me?.sign_in_provider ? (
                 <>
                   {" "}
-                  (<strong>{signedInEmail}</strong>)
+                  · ผ่าน <strong>{me.sign_in_provider}</strong>
                 </>
-              ) : (
-                <>
-                  {" "}
-                  (<strong>ไม่มีอีเมลในบัญชีนี้</strong>)
-                </>
-              )}{" "}
-              ไม่มีสิทธิ์ผู้ดูแลระบบ
+              ) : null}
             </p>
-            {providers.length > 0 ? (
-              <p className="text-muted" style={{ fontSize: "0.9rem" }}>
-                เข้าสู่ระบบผ่าน: <strong>{providers.join(", ")}</strong>
-                {providers.some((p) => p.includes("facebook")) ? (
-                  <>
-                    {" "}
-                    — การเข้าสู่ระบบด้วย Facebook
-                    จะไม่ได้สิทธิ์แอดมิน
-                  </>
-                ) : null}
-              </p>
-            ) : null}
           </>
         )}
         <div className="d-flex justify-content-center gap-2 mt-3">

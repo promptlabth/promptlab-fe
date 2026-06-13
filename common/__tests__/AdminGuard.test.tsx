@@ -73,13 +73,14 @@ describe("AdminGuard", () => {
     expect(screen.queryByText("secret admin content")).not.toBeInTheDocument();
   });
 
-  it("explains the account lacks admin rights and shows the email when present", async () => {
-    setFirebaseUser({
-      uid: "user-1",
-      email: "user@example.test",
-      providerData: [{ providerId: "google.com" }],
+  it("shows the server reason and provider for an untrusted (Facebook) session", async () => {
+    setFirebaseUser({ uid: "user-1", email: "founder@example.test" });
+    mockApiAdminGetMe.mockResolvedValue({
+      is_admin: false,
+      email: "founder@example.test",
+      reason: "email_not_trusted",
+      sign_in_provider: "facebook.com",
     });
-    mockApiAdminGetMe.mockResolvedValue(null);
 
     render(
       <AdminGuard>
@@ -88,21 +89,36 @@ describe("AdminGuard", () => {
     );
 
     expect(
-      await screen.findByText(/ไม่มีสิทธิ์ผู้ดูแลระบบ/),
+      await screen.findByText(/ยังไม่ได้รับการยืนยัน/),
     ).toBeInTheDocument();
-    // The signed-in email and provider are surfaced for diagnosis.
-    expect(screen.getByText("user@example.test")).toBeInTheDocument();
-    expect(screen.getByText("google.com")).toBeInTheDocument();
+    expect(screen.getByText("founder@example.test")).toBeInTheDocument();
+    expect(screen.getByText("facebook.com")).toBeInTheDocument();
     expect(mockApiAdminGetMe).toHaveBeenCalledTimes(1);
     expect(screen.queryByText("secret admin content")).not.toBeInTheDocument();
   });
 
-  it("flags an email-less Facebook session — the cause of server 403s", async () => {
-    setFirebaseUser({
-      uid: "user-2",
-      email: null,
-      providerData: [{ providerId: "facebook.com", email: null }],
+  it("surfaces the server-misconfiguration reason when the allowlist is empty", async () => {
+    setFirebaseUser({ uid: "admin-1", email: "admin@example.test" });
+    mockApiAdminGetMe.mockResolvedValue({
+      is_admin: false,
+      email: "admin@example.test",
+      reason: "no_allowlist_configured",
+      allowlist_configured: false,
     });
+
+    render(
+      <AdminGuard>
+        <div>secret admin content</div>
+      </AdminGuard>,
+    );
+
+    expect(
+      await screen.findByText(/ADMIN_EMAILS/),
+    ).toBeInTheDocument();
+  });
+
+  it("falls back to a generic message when /admin/me returns null (expired token)", async () => {
+    setFirebaseUser({ uid: "user-1", email: "user@example.test" });
     mockApiAdminGetMe.mockResolvedValue(null);
 
     render(
@@ -112,21 +128,18 @@ describe("AdminGuard", () => {
     );
 
     expect(
-      await screen.findByText("ไม่มีอีเมลในบัญชีนี้"),
+      await screen.findByText(/ไม่มีสิทธิ์เข้าถึงหน้าผู้ดูแลระบบ/),
     ).toBeInTheDocument();
-    expect(screen.getByText("facebook.com")).toBeInTheDocument();
-    expect(
-      screen.getByText(/การเข้าสู่ระบบด้วย Facebook/),
-    ).toBeInTheDocument();
+    expect(screen.queryByText("secret admin content")).not.toBeInTheDocument();
   });
 
   it("signs out and opens the Google popup when switching accounts", async () => {
-    setFirebaseUser({
-      uid: "user-2",
-      email: null,
-      providerData: [{ providerId: "facebook.com" }],
+    setFirebaseUser({ uid: "user-2", email: null });
+    mockApiAdminGetMe.mockResolvedValue({
+      is_admin: false,
+      email: "",
+      reason: "no_email_claim",
     });
-    mockApiAdminGetMe.mockResolvedValue(null);
     mockSignOut.mockResolvedValue(undefined);
     mockSignInWithGmail.mockResolvedValue(null);
 
@@ -176,14 +189,11 @@ describe("AdminGuard", () => {
   });
 
   it("renders children when the user is a confirmed admin", async () => {
-    setFirebaseUser({
-      uid: "admin-1",
-      email: "admin@example.test",
-      providerData: [{ providerId: "google.com" }],
-    });
+    setFirebaseUser({ uid: "admin-1", email: "admin@example.test" });
     mockApiAdminGetMe.mockResolvedValue({
       is_admin: true,
       email: "admin@example.test",
+      reason: "ok",
     });
 
     render(
