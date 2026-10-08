@@ -15,6 +15,7 @@ import { appWithTranslation } from "next-i18next";
 import ClarityAnalytics from "@/common/CharityComponent";
 import { Tabbar } from "@/common/Tabbar";
 import { PromptyContextProvider } from "@/contexts/PromptyContext";
+import { SunsetModal } from "@/common/Modals/SunsetModal";
 
 const notoSansThai = NotoSansThai({ weight: "400", subsets: ["thai"] });
 
@@ -118,6 +119,7 @@ function App({ Component, pageProps }: AppProps) {
       </Head>
       <PromptyContextProvider>
         {isMaintain && <MaintainPage />}
+        <SunsetModal />
         {token ? <NavbarMobileAfterLogin /> : <NavbarMobile />}
         <Tabbar />
         <Component {...pageProps} />

@@ -143,5 +143,19 @@
     "modal.pleaseLoginBeforeSubscribe": "Silakan login terlebih dahulu sebelum berlangganan",
     "privacyPolicy": "Kebijakan Privasi",
     "modal.error": "Terjadi kesalahan",
-    "modal.error.description":"Terjadi kesalahan. Silakan coba lagi."
+    "modal.error.description": "Terjadi kesalahan. Silakan coba lagi.",
+    "sunset.eyebrow": "Pemberitahuan penting",
+    "sunset.title": "Terima kasih untuk 3 tahun bersama",
+    "sunset.subtitle": "PromptLab akan berhenti beroperasi pada akhir tahun ini",
+    "sunset.countdownUnit": "hari sebelum kami tutup",
+    "sunset.step1.date": "8 Oktober 2026 · Hari ini",
+    "sunset.step1.title": "Tidak menerima pengguna baru mulai hari ini",
+    "sunset.step1.description": "Pengguna lama tetap dapat menggunakan PromptLab seperti biasa hingga tanggal penutupan",
+    "sunset.step2.date": "30 Desember 2026",
+    "sunset.step2.title": "PromptLab resmi ditutup",
+    "sunset.step2.description": "Setelah tanggal ini Anda tidak dapat masuk atau membuat konten lagi. Harap simpan riwayat yang ingin Anda simpan sebelum tanggal tersebut.",
+    "sunset.thanks": "Selama tiga tahun PromptLab telah menjadi bagian dari cara Anda membuat konten. Dari lubuk hati kami, terima kasih atas setiap pesan, setiap ide, dan semua dukungan Anda 💚",
+    "sunset.button": "Mengerti",
+    "sunset.footnote": "Ada pertanyaan? Hubungi kami di",
+    "sunset.footnoteLink": "halaman Bantuan"
 }

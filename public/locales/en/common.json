@@ -72,7 +72,7 @@
     "footer.joinUs": "Join Us",
     "footer.privacy_policy": "Privacy Policy",
     "footer.help": "Help",
-    "footer.contact_us":"Contact Us",
+    "footer.contact_us": "Contact Us",
     "login": "Sign in",
     "loginWith": "Sign in with",
     "logout": "Sign Out",
@@ -153,6 +153,19 @@
     "modal.pleaseLoginBeforeSubscribe": "Please login before subscribe",
     "privacyPolicy": "Privacy Policy",
     "modal.error": "Error",
-    "modal.error.description":"Something went wrong. Please try again later."
-
+    "modal.error.description": "Something went wrong. Please try again later.",
+    "sunset.eyebrow": "Important notice",
+    "sunset.title": "Thank you for 3 wonderful years",
+    "sunset.subtitle": "PromptLab will be shutting down at the end of this year",
+    "sunset.countdownUnit": "days until we close",
+    "sunset.step1.date": "8 October 2026 · Today",
+    "sunset.step1.title": "No new sign-ups from today",
+    "sunset.step1.description": "Existing users can keep using PromptLab as usual until the closing date",
+    "sunset.step2.date": "30 December 2026",
+    "sunset.step2.title": "PromptLab closes for good",
+    "sunset.step2.description": "After this date you will no longer be able to sign in or generate content. Please save any history you want to keep before then.",
+    "sunset.thanks": "For three years PromptLab has been part of how you create content. From the bottom of our hearts, thank you for every message, every idea and all the support along the way 💚",
+    "sunset.button": "Got it",
+    "sunset.footnote": "Questions? Reach us on the",
+    "sunset.footnoteLink": "Help page"
 }
